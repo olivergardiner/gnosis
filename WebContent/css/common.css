@@ -1,0 +1,27 @@
+.gnosis-text {
+	font-size: 125%;
+	margin-bottom:12px;
+	width:95%;
+	padding: .4em;
+}
+
+.gnosis-label {
+	font-size: 100%;
+	font-weight: bold;
+}
+
+.gnosis-title {
+	font-size: 120%;
+	font-weight: bold;
+ 	padding-left: 20px;
+ }
+ 
+.gnosis-title>span {
+ 	vertical-align: middle;
+ }
+ 
+.gnosis-middle {
+	position: relative;
+	top: 50%;
+	transform: translateY(-50%);
+}

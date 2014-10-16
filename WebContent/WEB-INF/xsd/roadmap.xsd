@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2010 (http://www.altova.com) by BBC DMI (BBC) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:include schemaLocation="common.xsd"/>
+	<xs:element name="roadmap">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="transitionState" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="dependencyReason"/>
+	<xs:element name="applicationDependency">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="dependencyReason" minOccurs="0"/>
+			</xs:sequence>
+			<xs:attribute name="application" use="required"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="projectDependency">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="dependencyReason" minOccurs="0"/>
+			</xs:sequence>
+			<xs:attribute name="project" use="required"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="capabilityTransition">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="description"/>
+				<xs:element ref="projectDependency" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element ref="applicationDependency" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+			<xs:attribute name="capability" use="required"/>
+			<xs:attribute name="state"/>
+			<xs:attribute ref="name"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="transitionState">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="description"/>
+				<xs:element ref="capabilityTransition" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+			<xs:attribute name="domain" use="required"/>
+			<xs:attribute ref="date" use="required"/>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

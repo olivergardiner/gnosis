@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uml:Profile xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmi:id="_wgxWcDVuEeOSy9CRhdHYxg" name="DataTypes" metamodelReference="_wgxWcTVuEeOSy9CRhdHYxg">
+  <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_GM3PcDVvEeOSy9CRhdHYxg" source="http://www.eclipse.org/uml2/2.0.0/UML">
+    <contents xmi:type="ecore:EPackage" xmi:id="_cj3ZcdzuEeOqDN-UKqzcFw" name="DataTypes" nsURI="http:///schemas/DataTypes/_cj3ZcNzuEeOqDN-UKqzcFw/3" nsPrefix="DataTypes">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_cj4AgNzuEeOqDN-UKqzcFw" source="PapyrusVersion">
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_cj4AgdzuEeOqDN-UKqzcFw" key="Version" value="0.0.4"/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_cj4AgtzuEeOqDN-UKqzcFw" key="Comment" value=""/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_cj4Ag9zuEeOqDN-UKqzcFw" key="Copyright" value=""/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_cj4AhNzuEeOqDN-UKqzcFw" key="Date" value="2014-05-16"/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_cj4AhdzuEeOqDN-UKqzcFw" key="Author" value=""/>
+      </eAnnotations>
+      <eClassifiers xmi:type="ecore:EClass" xmi:id="_cj3ZctzuEeOqDN-UKqzcFw" name="Binary">
+        <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_cj3Zc9zuEeOqDN-UKqzcFw" source="http://www.eclipse.org/uml2/2.0.0/UML" references="U14e813f6-a506-42ac-a167-54b6430ef24f"/>
+      </eClassifiers>
+      <eClassifiers xmi:type="ecore:EClass" xmi:id="_cj3ZdNzuEeOqDN-UKqzcFw" name="Boolean">
+        <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_cj3ZddzuEeOqDN-UKqzcFw" source="http://www.eclipse.org/uml2/2.0.0/UML" references="Ud17b7e0e-554a-4030-bed0-130e476af754"/>
+      </eClassifiers>
+      <eClassifiers xmi:type="ecore:EClass" xmi:id="_cj3ZdtzuEeOqDN-UKqzcFw" name="Date">
+        <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_cj3Zd9zuEeOqDN-UKqzcFw" source="http://www.eclipse.org/uml2/2.0.0/UML" references="U70b5c835-6177-40ac-9341-6e1aa5b48f7f"/>
+      </eClassifiers>
+      <eClassifiers xmi:type="ecore:EClass" xmi:id="_cj3ZeNzuEeOqDN-UKqzcFw" name="DateTime">
+        <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_cj3ZedzuEeOqDN-UKqzcFw" source="http://www.eclipse.org/uml2/2.0.0/UML" references="U5a6b75f0-34e3-430e-9e2a-e62af8b6556c"/>
+      </eClassifiers>
+      <eClassifiers xmi:type="ecore:EClass" xmi:id="_cj3ZetzuEeOqDN-UKqzcFw" name="Decimal">
+        <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_cj3Ze9zuEeOqDN-UKqzcFw" source="http://www.eclipse.org/uml2/2.0.0/UML" references="U6b29f5f0-9f5a-4147-ae9a-cd23a0fe6141"/>
+      </eClassifiers>
+      <eClassifiers xmi:type="ecore:EClass" xmi:id="_cj3ZfNzuEeOqDN-UKqzcFw" name="FormattedString">
+        <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_cj3ZfdzuEeOqDN-UKqzcFw" source="http://www.eclipse.org/uml2/2.0.0/UML" references="Ub53beb52-0b2f-487f-8504-869a7ff04048"/>
+      </eClassifiers>
+      <eClassifiers xmi:type="ecore:EClass" xmi:id="_cj3ZftzuEeOqDN-UKqzcFw" name="LongString">
+        <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_cj3Zf9zuEeOqDN-UKqzcFw" source="http://www.eclipse.org/uml2/2.0.0/UML" references="Ub307800b-1ccf-4946-b413-35d6d2f3b7f0"/>
+      </eClassifiers>
+      <eClassifiers xmi:type="ecore:EClass" xmi:id="_cj3ZgNzuEeOqDN-UKqzcFw" name="Numeric">
+        <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_cj3ZgdzuEeOqDN-UKqzcFw" source="http://www.eclipse.org/uml2/2.0.0/UML" references="U729327eb-f02a-46ec-b0c2-950f3d8e7ed9"/>
+      </eClassifiers>
+      <eClassifiers xmi:type="ecore:EClass" xmi:id="_cj3ZgtzuEeOqDN-UKqzcFw" name="ShortString">
+        <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_cj3Zg9zuEeOqDN-UKqzcFw" source="http://www.eclipse.org/uml2/2.0.0/UML" references="U2974276a-0e63-4ad8-80da-50ff897cff86"/>
+      </eClassifiers>
+      <eClassifiers xmi:type="ecore:EClass" xmi:id="_cj3ZhNzuEeOqDN-UKqzcFw" name="Time">
+        <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_cj3ZhdzuEeOqDN-UKqzcFw" source="http://www.eclipse.org/uml2/2.0.0/UML" references="U8daf815d-5ebf-410d-b9f4-8a585a7ca66a"/>
+      </eClassifiers>
+      <eClassifiers xmi:type="ecore:EClass" xmi:id="_cj3ZhtzuEeOqDN-UKqzcFw" name="Uuid">
+        <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_cj3Zh9zuEeOqDN-UKqzcFw" source="http://www.eclipse.org/uml2/2.0.0/UML" references="U7155e0bf-369f-4c49-a249-0b7ab6b687e1"/>
+      </eClassifiers>
+    </contents>
+    <contents xmi:type="ecore:EPackage" xmi:id="_zK-LgTVxEeOSy9CRhdHYxg" name="DataTypes" nsURI="http:///schemas/DataTypes/_zK-LgDVxEeOSy9CRhdHYxg/2" nsPrefix="DataTypes">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_zK-ykDVxEeOSy9CRhdHYxg" source="PapyrusVersion">
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_zK-ykTVxEeOSy9CRhdHYxg" key="Version" value="0.0.3"/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_zK-ykjVxEeOSy9CRhdHYxg" key="Comment" value=""/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_zK-ykzVxEeOSy9CRhdHYxg" key="Copyright" value=""/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_zK-ylDVxEeOSy9CRhdHYxg" key="Date" value="2013-10-15"/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_zK-ylTVxEeOSy9CRhdHYxg" key="Author" value=""/>
+      </eAnnotations>
+      <eClassifiers xmi:type="ecore:EClass" xmi:id="_zK-LgjVxEeOSy9CRhdHYxg" name="Binary">
+        <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_zK-LgzVxEeOSy9CRhdHYxg" source="http://www.eclipse.org/uml2/2.0.0/UML" references="U14e813f6-a506-42ac-a167-54b6430ef24f"/>
+      </eClassifiers>
+      <eClassifiers xmi:type="ecore:EClass" xmi:id="_zK-LhDVxEeOSy9CRhdHYxg" name="Boolean">
+        <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_zK-LhTVxEeOSy9CRhdHYxg" source="http://www.eclipse.org/uml2/2.0.0/UML" references="Ud17b7e0e-554a-4030-bed0-130e476af754"/>
+      </eClassifiers>
+      <eClassifiers xmi:type="ecore:EClass" xmi:id="_zK-LhjVxEeOSy9CRhdHYxg" name="Date">
+        <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_zK-LhzVxEeOSy9CRhdHYxg" source="http://www.eclipse.org/uml2/2.0.0/UML" references="U70b5c835-6177-40ac-9341-6e1aa5b48f7f"/>
+      </eClassifiers>
+      <eClassifiers xmi:type="ecore:EClass" xmi:id="_zK-LiDVxEeOSy9CRhdHYxg" name="DateTime">
+        <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_zK-LiTVxEeOSy9CRhdHYxg" source="http://www.eclipse.org/uml2/2.0.0/UML" references="U5a6b75f0-34e3-430e-9e2a-e62af8b6556c"/>
+      </eClassifiers>
+      <eClassifiers xmi:type="ecore:EClass" xmi:id="_zK-LijVxEeOSy9CRhdHYxg" name="Decimal">
+        <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_zK-LizVxEeOSy9CRhdHYxg" source="http://www.eclipse.org/uml2/2.0.0/UML" references="U6b29f5f0-9f5a-4147-ae9a-cd23a0fe6141"/>
+      </eClassifiers>
+      <eClassifiers xmi:type="ecore:EClass" xmi:id="_zK-LjDVxEeOSy9CRhdHYxg" name="FormattedString">
+        <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_zK-LjTVxEeOSy9CRhdHYxg" source="http://www.eclipse.org/uml2/2.0.0/UML" references="Ub53beb52-0b2f-487f-8504-869a7ff04048"/>
+      </eClassifiers>
+      <eClassifiers xmi:type="ecore:EClass" xmi:id="_zK-LjjVxEeOSy9CRhdHYxg" name="LongString">
+        <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_zK-LjzVxEeOSy9CRhdHYxg" source="http://www.eclipse.org/uml2/2.0.0/UML" references="Ub307800b-1ccf-4946-b413-35d6d2f3b7f0"/>
+      </eClassifiers>
+      <eClassifiers xmi:type="ecore:EClass" xmi:id="_zK-LkDVxEeOSy9CRhdHYxg" name="Numeric">
+        <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_zK-LkTVxEeOSy9CRhdHYxg" source="http://www.eclipse.org/uml2/2.0.0/UML" references="U729327eb-f02a-46ec-b0c2-950f3d8e7ed9"/>
+      </eClassifiers>
+      <eClassifiers xmi:type="ecore:EClass" xmi:id="_zK-LkjVxEeOSy9CRhdHYxg" name="ShortString">
+        <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_zK-LkzVxEeOSy9CRhdHYxg" source="http://www.eclipse.org/uml2/2.0.0/UML" references="U2974276a-0e63-4ad8-80da-50ff897cff86"/>
+      </eClassifiers>
+      <eClassifiers xmi:type="ecore:EClass" xmi:id="_zK-LlDVxEeOSy9CRhdHYxg" name="Time">
+        <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_zK-LlTVxEeOSy9CRhdHYxg" source="http://www.eclipse.org/uml2/2.0.0/UML" references="U8daf815d-5ebf-410d-b9f4-8a585a7ca66a"/>
+      </eClassifiers>
+      <eClassifiers xmi:type="ecore:EClass" xmi:id="_zK-LljVxEeOSy9CRhdHYxg" name="Uuid">
+        <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_zK-LlzVxEeOSy9CRhdHYxg" source="http://www.eclipse.org/uml2/2.0.0/UML" references="U7155e0bf-369f-4c49-a249-0b7ab6b687e1"/>
+      </eClassifiers>
+    </contents>
+    <contents xmi:type="ecore:EPackage" xmi:id="_-0xLETVvEeOSy9CRhdHYxg" name="Profile" nsURI="http:///schemas/Profile/_-0xLEDVvEeOSy9CRhdHYxg/1" nsPrefix="Profile">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_-0xyIDVvEeOSy9CRhdHYxg" source="PapyrusVersion">
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_-0xyITVvEeOSy9CRhdHYxg" key="Version" value="0.0.2"/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_-0xyIjVvEeOSy9CRhdHYxg" key="Comment" value=""/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_-0xyIzVvEeOSy9CRhdHYxg" key="Copyright" value=""/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_-0xyJDVvEeOSy9CRhdHYxg" key="Date" value="2013-10-15"/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_-0xyJTVvEeOSy9CRhdHYxg" key="Author" value=""/>
+      </eAnnotations>
+      <eClassifiers xmi:type="ecore:EClass" xmi:id="_-0xLEjVvEeOSy9CRhdHYxg" name="Binary">
+        <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_-0xLEzVvEeOSy9CRhdHYxg" source="http://www.eclipse.org/uml2/2.0.0/UML" references="U14e813f6-a506-42ac-a167-54b6430ef24f"/>
+      </eClassifiers>
+      <eClassifiers xmi:type="ecore:EClass" xmi:id="_-0xLFDVvEeOSy9CRhdHYxg" name="Boolean">
+        <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_-0xLFTVvEeOSy9CRhdHYxg" source="http://www.eclipse.org/uml2/2.0.0/UML" references="Ud17b7e0e-554a-4030-bed0-130e476af754"/>
+      </eClassifiers>
+      <eClassifiers xmi:type="ecore:EClass" xmi:id="_-0xLFjVvEeOSy9CRhdHYxg" name="Date">
+        <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_-0xLFzVvEeOSy9CRhdHYxg" source="http://www.eclipse.org/uml2/2.0.0/UML" references="U70b5c835-6177-40ac-9341-6e1aa5b48f7f"/>
+      </eClassifiers>
+      <eClassifiers xmi:type="ecore:EClass" xmi:id="_-0xLGDVvEeOSy9CRhdHYxg" name="DateTime">
+        <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_-0xLGTVvEeOSy9CRhdHYxg" source="http://www.eclipse.org/uml2/2.0.0/UML" references="U5a6b75f0-34e3-430e-9e2a-e62af8b6556c"/>
+      </eClassifiers>
+      <eClassifiers xmi:type="ecore:EClass" xmi:id="_-0xLGjVvEeOSy9CRhdHYxg" name="Decimal">
+        <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_-0xLGzVvEeOSy9CRhdHYxg" source="http://www.eclipse.org/uml2/2.0.0/UML" references="U6b29f5f0-9f5a-4147-ae9a-cd23a0fe6141"/>
+      </eClassifiers>
+      <eClassifiers xmi:type="ecore:EClass" xmi:id="_-0xLHDVvEeOSy9CRhdHYxg" name="FormattedString">
+        <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_-0xLHTVvEeOSy9CRhdHYxg" source="http://www.eclipse.org/uml2/2.0.0/UML" references="Ub53beb52-0b2f-487f-8504-869a7ff04048"/>
+      </eClassifiers>
+      <eClassifiers xmi:type="ecore:EClass" xmi:id="_-0xLHjVvEeOSy9CRhdHYxg" name="LongString">
+        <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_-0xLHzVvEeOSy9CRhdHYxg" source="http://www.eclipse.org/uml2/2.0.0/UML" references="Ub307800b-1ccf-4946-b413-35d6d2f3b7f0"/>
+      </eClassifiers>
+      <eClassifiers xmi:type="ecore:EClass" xmi:id="_-0xLIDVvEeOSy9CRhdHYxg" name="Numeric">
+        <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_-0xLITVvEeOSy9CRhdHYxg" source="http://www.eclipse.org/uml2/2.0.0/UML" references="U729327eb-f02a-46ec-b0c2-950f3d8e7ed9"/>
+      </eClassifiers>
+      <eClassifiers xmi:type="ecore:EClass" xmi:id="_-0xLIjVvEeOSy9CRhdHYxg" name="ShortString">
+        <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_-0xLIzVvEeOSy9CRhdHYxg" source="http://www.eclipse.org/uml2/2.0.0/UML" references="U2974276a-0e63-4ad8-80da-50ff897cff86"/>
+      </eClassifiers>
+      <eClassifiers xmi:type="ecore:EClass" xmi:id="_-0xLJDVvEeOSy9CRhdHYxg" name="Time">
+        <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_-0xLJTVvEeOSy9CRhdHYxg" source="http://www.eclipse.org/uml2/2.0.0/UML" references="U8daf815d-5ebf-410d-b9f4-8a585a7ca66a"/>
+      </eClassifiers>
+      <eClassifiers xmi:type="ecore:EClass" xmi:id="_-0xLJjVvEeOSy9CRhdHYxg" name="Uuid">
+        <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_-0xLJzVvEeOSy9CRhdHYxg" source="http://www.eclipse.org/uml2/2.0.0/UML" references="U7155e0bf-369f-4c49-a249-0b7ab6b687e1"/>
+      </eClassifiers>
+    </contents>
+    <contents xmi:type="ecore:EPackage" xmi:id="_GM3PcTVvEeOSy9CRhdHYxg" name="Profile" nsURI="http:///schemas/Profile/_GMe08DVvEeOSy9CRhdHYxg/0" nsPrefix="Profile">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_GM5EoDVvEeOSy9CRhdHYxg" source="PapyrusVersion">
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_GM5EoTVvEeOSy9CRhdHYxg" key="Version" value="0.0.1"/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_GM5EojVvEeOSy9CRhdHYxg" key="Comment" value=""/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_GM5EozVvEeOSy9CRhdHYxg" key="Copyright" value=""/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_GM5EpDVvEeOSy9CRhdHYxg" key="Date" value="2013-10-15"/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_GM5EpTVvEeOSy9CRhdHYxg" key="Author" value=""/>
+      </eAnnotations>
+      <eClassifiers xmi:type="ecore:EClass" xmi:id="_GM3PcjVvEeOSy9CRhdHYxg" name="DataType1">
+        <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_GM3PczVvEeOSy9CRhdHYxg" source="http://www.eclipse.org/uml2/2.0.0/UML"/>
+      </eClassifiers>
+    </contents>
+  </eAnnotations>
+  <packageImport xmi:type="uml:PackageImport" xmi:id="_wgxWcTVuEeOSy9CRhdHYxg">
+    <importedPackage xmi:type="uml:Model" href="pathmap://UML_METAMODELS/UML.metamodel.uml#_0"/>
+  </packageImport>
+  <packageImport xmi:type="uml:PackageImport" xmi:id="_wgxWcjVuEeOSy9CRhdHYxg">
+    <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#_0"/>
+  </packageImport>
+  <packagedElement xmi:type="uml:DataType" xmi:id="U14e813f6-a506-42ac-a167-54b6430ef24f" name="Binary">
+    <ownedComment xmi:type="uml:Comment" xmi:id="U0f4ef2af-f107-44af-b9d7-9f47b17d026f" annotatedElement="U14e813f6-a506-42ac-a167-54b6430ef24f">
+      <body>Used to capture a collection of binary data stored as a single attribute, which can be used to store for example JPEG Image or Work Document. </body>
+    </ownedComment>
+  </packagedElement>
+  <packagedElement xmi:type="uml:DataType" xmi:id="Ud17b7e0e-554a-4030-bed0-130e476af754" name="Boolean">
+    <ownedComment xmi:type="uml:Comment" xmi:id="Ub752b4fc-0d87-44be-b4f6-df56ed3fa4c0" annotatedElement="Ud17b7e0e-554a-4030-bed0-130e476af754">
+      <body>A variable to specify a value of True or False </body>
+    </ownedComment>
+  </packagedElement>
+  <packagedElement xmi:type="uml:DataType" xmi:id="U70b5c835-6177-40ac-9341-6e1aa5b48f7f" name="Date">
+    <ownedComment xmi:type="uml:Comment" xmi:id="U89566981-f5b4-4874-b53a-ecee8721ca9b" annotatedElement="U70b5c835-6177-40ac-9341-6e1aa5b48f7f">
+      <body>Used to capture a specific instance in time  in the format of YYYY-MM-DD. </body>
+    </ownedComment>
+  </packagedElement>
+  <packagedElement xmi:type="uml:DataType" xmi:id="U5a6b75f0-34e3-430e-9e2a-e62af8b6556c" name="DateTime">
+    <ownedComment xmi:type="uml:Comment" xmi:id="U676a6d53-aac6-4883-be55-f2a8e06dbbf0" annotatedElement="U5a6b75f0-34e3-430e-9e2a-e62af8b6556c">
+      <body>A formated string used to capture a specfic instance in time in UTC (Coordinated Universal Time) format of  YYYY-MM-DDThh:mm:ss.sTZD. </body>
+    </ownedComment>
+  </packagedElement>
+  <packagedElement xmi:type="uml:DataType" xmi:id="U6b29f5f0-9f5a-4147-ae9a-cd23a0fe6141" name="Decimal">
+    <ownedComment xmi:type="uml:Comment" xmi:id="Ubc2ea19e-4a5a-406b-9985-960586af475a" annotatedElement="U6b29f5f0-9f5a-4147-ae9a-cd23a0fe6141">
+      <body>Used to capture decimal values</body>
+    </ownedComment>
+  </packagedElement>
+  <packagedElement xmi:type="uml:DataType" xmi:id="Ub53beb52-0b2f-487f-8504-869a7ff04048" name="FormattedString">
+    <ownedComment xmi:type="uml:Comment" xmi:id="U6e6daa9b-beab-48b3-baa8-227bb5e698f2" annotatedElement="Ub53beb52-0b2f-487f-8504-869a7ff04048">
+      <body>Captures a set of formatted alphanumberic characters that is independent of lanauage that represents a value</body>
+    </ownedComment>
+  </packagedElement>
+  <packagedElement xmi:type="uml:DataType" xmi:id="Ub307800b-1ccf-4946-b413-35d6d2f3b7f0" name="LongString">
+    <ownedComment xmi:type="uml:Comment" xmi:id="U71151041-d9aa-4d2e-9c21-7e27bef5e51f" annotatedElement="Ub307800b-1ccf-4946-b413-35d6d2f3b7f0">
+      <body>Used to capture alphanumeric strings generally in the form of words of a language that has a length greater then 4000 characters.</body>
+    </ownedComment>
+  </packagedElement>
+  <packagedElement xmi:type="uml:DataType" xmi:id="U729327eb-f02a-46ec-b0c2-950f3d8e7ed9" name="Numeric">
+    <ownedComment xmi:type="uml:Comment" xmi:id="Ufa174022-788d-4715-8730-ba60a628983c" annotatedElement="U729327eb-f02a-46ec-b0c2-950f3d8e7ed9">
+      <body>Used to capture a whole numbers for example 1, 300 etc. </body>
+    </ownedComment>
+  </packagedElement>
+  <packagedElement xmi:type="uml:DataType" xmi:id="U2974276a-0e63-4ad8-80da-50ff897cff86" name="ShortString">
+    <ownedComment xmi:type="uml:Comment" xmi:id="U635ccae3-63b5-4f48-954d-5d0ca7c9c565" annotatedElement="U2974276a-0e63-4ad8-80da-50ff897cff86">
+      <body>Used to capture alphanumeric strings generally in the form of words of a language that has a length of less then 4000 characters</body>
+    </ownedComment>
+  </packagedElement>
+  <packagedElement xmi:type="uml:DataType" xmi:id="U8daf815d-5ebf-410d-b9f4-8a585a7ca66a" name="Time">
+    <ownedComment xmi:type="uml:Comment" xmi:id="Ua72cbe04-e89b-41c6-a4d8-d96b1d946025" annotatedElement="U8daf815d-5ebf-410d-b9f4-8a585a7ca66a">
+      <body>Used to capture a specfic instance in time in the following format, HH:MM:SSsTZD. </body>
+    </ownedComment>
+  </packagedElement>
+  <packagedElement xmi:type="uml:DataType" xmi:id="U7155e0bf-369f-4c49-a249-0b7ab6b687e1" name="Uuid">
+    <ownedComment xmi:type="uml:Comment" xmi:id="U15c429f4-e01b-4763-8d09-5ff98d99b18c" annotatedElement="U7155e0bf-369f-4c49-a249-0b7ab6b687e1">
+      <body>A UUID is a 16-octet (128-bit) number. In its canonical form, a UUID is represented by 32 hexadecimal digits, displayed in five groups separated by hyphens, in the form 8-4-4-4-12 for a total of 36 characters (32 alphanumeric characters and four hyphens). For example:      550e8400-e29b-41d4-a716-446655440000  There are 340,282,366,920,938,463,463,374,607,431,768,211,456 possible UUIDs (16 to the 32nd power or 2 to the 128th power), or about 3.4 × 1038.</body>
+    </ownedComment>
+  </packagedElement>
+</uml:Profile>
