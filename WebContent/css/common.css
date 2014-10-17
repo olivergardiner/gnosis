@@ -25,3 +25,19 @@
 	top: 50%;
 	transform: translateY(-50%);
 }
+
+div.gnosis-left {
+	display: table-cell;
+	vertical-align: middle;
+}
+
+div.gnosis-right {
+	display: table-cell;
+	float: right;
+	vertical-align: middle;
+}
+
+div.gnosis-spacer {
+	display: table-cell;
+	width: auto;
+}

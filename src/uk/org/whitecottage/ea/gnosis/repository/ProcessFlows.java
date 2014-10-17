@@ -174,10 +174,10 @@ public class ProcessFlows extends XmldbProcessor {
 			JSONString processJSON = new JSONString("predecessor", predecessor.getProcess());
 			predecessorJSON.put(processJSON);
 			
-			if (predecessor.isContiguous() != null && predecessor.isContiguous()) {
-				predecessorJSON.put(new JSONBoolean("contiguous", true));
-			} else {
+			if (predecessor.isContiguous() != null && !predecessor.isContiguous()) {
 				predecessorJSON.put(new JSONBoolean("contiguous", false));
+			} else {
+				predecessorJSON.put(new JSONBoolean("contiguous", true));
 			}
 		}
 		

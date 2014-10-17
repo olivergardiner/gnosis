@@ -55,7 +55,7 @@ public class ProcessFlowPresentation extends XmldbProcessor {
 	protected Unmarshaller frameworkUnmarshaller = null;
 	protected Marshaller frameworkMarshaller = null;
 
-	@SuppressWarnings("unused")
+	//@SuppressWarnings("unused")
 	private static final Logger log = Logger.getLogger("uk.org.whitecottage.ea.gnosis.repository.framework");
 
 	public ProcessFlowPresentation(String URI, String repositoryRoot, String context) {
@@ -122,6 +122,9 @@ public class ProcessFlowPresentation extends XmldbProcessor {
 	            	flowProcesses.add(new ProcessElement(instance, process));
 	        	}
 	        	
+
+	        	log.info("Laying out " + flow.getName() );
+
 	        	//System.out.println("Started layout");
 	        	layoutProcesses(flowProcesses);
 	        	//System.out.println("Finished layout");
@@ -214,6 +217,8 @@ public class ProcessFlowPresentation extends XmldbProcessor {
         	}
         	layoutCount++;
     	}
+    	
+    	log.info("maxEnd: " + maxEnd);
     	
     	resolution = maxEnd;
 	}

@@ -10,11 +10,11 @@
 
 	$("#pptx-download").button().click(function () {
 		downloadURL(unescapeHTML(pptxURL));
-	}).show();
+	});
 		
 	$("#docx-download").button().click(function () {
 		downloadURL(unescapeHTML(docxURL));
-	}).show();
+	});
 		
 	$.ajax({
         async : true,
@@ -40,6 +40,8 @@
     		maxHeight: 200,
     		onChange: showFlow
     	});
+    	
+    	$("#toolbar").css("display", "table");
 	}
 	
 	function showFlow(element) {
@@ -52,6 +54,8 @@
 				var flow = processes.processFlows[i];
 				for (var j = 0; j < flow.instances.length; j++) {
 					processElements.push({
+						start: 0,
+						end: 0,
 						instance: flow.instances[j],
 						process: findProcess(flow.instances[j].process)
 					});
@@ -64,30 +68,44 @@
 		drawFlow(processElements);
 	}
 	
-	function drawFlow(flow) {
+	function drawFlow(flows) {
 		var unitWidth = PROCESS_FULL_WIDTH / resolution;
+		
+		for (var i = 0; i < flows.length; i++) {
+			var flow = flows[i];
 
-		var $table = $("<div/>", {
-			"class": "flow-table",
-			"style": "width: " + PROCESS_FULL_WIDTH + "px;"
-		});
-		for (var i = 0; i < flow.length; i++) {
-			var process = flow[i];
+			var $table = $("<div/>", {
+				"class": "flow-table",
+				"style": "width: " + PROCESS_FULL_WIDTH + "px;"
+			});
+			
+			$("#flow-diagram").append($table);
+			
 			var $row = $("<div/>", {
 				"class": "flow-row"
 			});
+			
 			$table.append($row);
-			var start = unitWidth * process.start;
-			var width = unitWidth * (process.end - process.start);		
+			
+			var start = unitWidth * flow.start;
+			var width = unitWidth * (flow.end - flow.start);		
 			
 			var $pre = $("<div/>", {
 				"class": "flow-cell",
-				"style": "width: " + start + "px;"
+				"style": "width: " + start.toFixed(0) + "px;"
 			});
+			
 			var $process = $("<div/>", {
 				"class": "flow-cell flow-process",
-				"style": "width: " + width + "px;"
+				"style": "width: " + width.toFixed(0) + "px;"
 			});
+
+			var $processLabel = $("<div/>", {
+				"class": "flow-label"
+			});
+			$processLabel.text(flow.process.name);
+			$process.append($processLabel);
+			
 			var $post = $("<div/>", {
 				"class": "flow-cell",
 				"style": "width: auto;"
@@ -169,16 +187,16 @@
 		var changed = false;
 		for (var i = 0; i < areaProcesses.length; i++) {
 			var childProcess = areaProcesses[i];
-			for (var j = 0; j < parentProcess.instance.parents.length; j++) {
-				var p = parentProcess.instance.parents[j];
-				if (parentProcess.instance.process = p) {
+			for (var j = 0; j < childProcess.instance.parents.length; j++) {
+				var p = childProcess.instance.parents[j];
+				if (parentProcess.instance.process == p) {
 					if (childProcess.start <= parentProcess.start) {
 						changed = true;
-						childProcess.start = parentProcess.start + 1;
+						areaProcesses[i].start = parentProcess.start + 1;
 					}
 					if (childProcess.end - childProcess.start < processDuration2(childProcess, parentProcess)) {
 						changed = true;
-						childProcess.end = childProcess.start + processDuration2(childProcess, parentProcess);
+						areaProcesses[i].end = childProcess.start + processDuration2(childProcess, parentProcess);
 					}
 					if (childProcess.end >= parentProcess.end) {
 						changed = true;

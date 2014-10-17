@@ -26,12 +26,19 @@ var actionURL = "<%= actionURL %>";
 	<div class="portlet-section-header"></div>
 	<br />
 	<div class="portlet-section-body">
-		<select id="process-flow-select">
-			<option value="null">Select a process flow...</option>
-		</select>
+		<div id="toolbar" style="display: none; width: 100%">
+			<div style="display: table-row;">
+				<div class="gnosis-left">
+					<select id="process-flow-select">
+						<option value="null">Select a process flow...</option>
+					</select>
+				</div>
+				<div class="gnosis-spacer">&nbsp;</div>
+				<div class="gnosis-right">Download: <button id="pptx-download">PPTX</button><button id="docx-download">DOCX</button></div>
+			</div>
+		</div>
 		<div id="flow-diagram"></div>
 		<br/>
-		<div>Download: <button id="pptx-download" style="display: none">PPTX</button><button id="docx-download" style="display: none">DOCX</button></div>
 	</div>
 	<br />
 </div>
