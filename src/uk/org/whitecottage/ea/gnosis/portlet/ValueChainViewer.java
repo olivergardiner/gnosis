@@ -20,7 +20,7 @@ import uk.org.whitecottage.ea.gnosis.repository.ValueChain;
 import uk.org.whitecottage.ea.portlet.ProcessResourceAction;
 import uk.org.whitecottage.ea.portlet.ProcessResourceRequest;
 
-public class ValueChainViewer extends Gnosis2Portlet {
+public class ValueChainViewer extends GnosisPortlet {
 	@SuppressWarnings("unused")
 	private static final Logger log = Logger.getLogger("uk.org.whitecottage.ea.gnosis.portlet");
 	

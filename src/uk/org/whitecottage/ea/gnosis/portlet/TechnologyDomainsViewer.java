@@ -21,7 +21,7 @@ import uk.org.whitecottage.ea.gnosis.repository.ValueChain;
 import uk.org.whitecottage.ea.portlet.ProcessResourceAction;
 import uk.org.whitecottage.ea.portlet.ProcessResourceRequest;
 
-public class TechnologyDomainsViewer extends Gnosis2Portlet {
+public class TechnologyDomainsViewer extends GnosisPortlet {
 	@SuppressWarnings("unused")
 	private static final Logger log = Logger.getLogger("uk.org.whitecottage.ea.gnosis.portlet");
 	
@@ -32,9 +32,9 @@ public class TechnologyDomainsViewer extends Gnosis2Portlet {
     
     @ProcessResourceRequest(name = "jsonData")
     public void serveJSON(ResourceRequest request, ResourceResponse response) throws PortletException, java.io.IOException {
-    	Properties gnosis2Properties = getProperties();
-    	String existURI = gnosis2Properties.getProperty("exist.uri");
-    	String existRepositoryRoot = gnosis2Properties.getProperty("exist.repository.root");
+    	Properties gnosisProperties = getProperties();
+    	String existURI = gnosisProperties.getProperty("exist.uri");
+    	String existRepositoryRoot = gnosisProperties.getProperty("exist.repository.root");
         
     	String layer = request.getPreferences().getValue("layer", "BusinessApplications");
     	String context = getPortletContext().getRealPath("");
@@ -46,9 +46,9 @@ public class TechnologyDomainsViewer extends Gnosis2Portlet {
 
     @ProcessResourceRequest(name = "valueChainJsonData")
     public void serveValueChainJSON(ResourceRequest request, ResourceResponse response) throws PortletException, java.io.IOException {
-    	Properties gnosis2Properties = getProperties();
-    	String existURI = gnosis2Properties.getProperty("exist.uri");
-    	String existRepositoryRoot = gnosis2Properties.getProperty("exist.repository.root");
+    	Properties gnosisProperties = getProperties();
+    	String existURI = gnosisProperties.getProperty("exist.uri");
+    	String existRepositoryRoot = gnosisProperties.getProperty("exist.repository.root");
         
     	String context = getPortletContext().getRealPath("");
     	ValueChain valueChain = new ValueChain(existURI, existRepositoryRoot, context);
@@ -76,9 +76,9 @@ public class TechnologyDomainsViewer extends Gnosis2Portlet {
 
     @ProcessResourceAction(name = "updateDomainAction")
     public void updateDomain(ResourceRequest request, ResourceResponse response) {
-    	Properties gnosis2Properties = getProperties();
-    	String existURI = gnosis2Properties.getProperty("exist.uri");
-    	String existRepositoryRoot = gnosis2Properties.getProperty("exist.repository.root");
+    	Properties gnosisProperties = getProperties();
+    	String existURI = gnosisProperties.getProperty("exist.uri");
+    	String existRepositoryRoot = gnosisProperties.getProperty("exist.repository.root");
     	String context = getPortletContext().getRealPath("");
     	TechnologyDomains domains = new TechnologyDomains(existURI, existRepositoryRoot, context);
     	
@@ -92,9 +92,9 @@ public class TechnologyDomainsViewer extends Gnosis2Portlet {
 
     @ProcessResourceAction(name = "updateCapabilityAction")
     public void updateCapability(ResourceRequest request, ResourceResponse response) {
-    	Properties gnosis2Properties = getProperties();
-    	String existURI = gnosis2Properties.getProperty("exist.uri");
-    	String existRepositoryRoot = gnosis2Properties.getProperty("exist.repository.root");
+    	Properties gnosisProperties = getProperties();
+    	String existURI = gnosisProperties.getProperty("exist.uri");
+    	String existRepositoryRoot = gnosisProperties.getProperty("exist.repository.root");
     	String context = getPortletContext().getRealPath("");
     	TechnologyDomains domains = new TechnologyDomains(existURI, existRepositoryRoot, context);
     	
@@ -107,9 +107,9 @@ public class TechnologyDomainsViewer extends Gnosis2Portlet {
 
     @ProcessResourceAction(name = "createDomainAction")
     public void createDomain(ResourceRequest request, ResourceResponse response) {
-    	Properties gnosis2Properties = getProperties();
-    	String existURI = gnosis2Properties.getProperty("exist.uri");
-    	String existRepositoryRoot = gnosis2Properties.getProperty("exist.repository.root");
+    	Properties gnosisProperties = getProperties();
+    	String existURI = gnosisProperties.getProperty("exist.uri");
+    	String existRepositoryRoot = gnosisProperties.getProperty("exist.repository.root");
     	String context = getPortletContext().getRealPath("");
     	TechnologyDomains domains = new TechnologyDomains(existURI, existRepositoryRoot, context);
     	
@@ -128,9 +128,9 @@ public class TechnologyDomainsViewer extends Gnosis2Portlet {
 
     @ProcessResourceAction(name = "createCapabilityAction")
     public void createCapability(ResourceRequest request, ResourceResponse response) {
-    	Properties gnosis2Properties = getProperties();
-    	String existURI = gnosis2Properties.getProperty("exist.uri");
-    	String existRepositoryRoot = gnosis2Properties.getProperty("exist.repository.root");
+    	Properties gnosisProperties = getProperties();
+    	String existURI = gnosisProperties.getProperty("exist.uri");
+    	String existRepositoryRoot = gnosisProperties.getProperty("exist.repository.root");
     	String context = getPortletContext().getRealPath("");
     	TechnologyDomains domains = new TechnologyDomains(existURI, existRepositoryRoot, context);
     	
@@ -148,9 +148,9 @@ public class TechnologyDomainsViewer extends Gnosis2Portlet {
 
     @ProcessResourceAction(name = "moveDomainAction")
     public void deleteDomain(ResourceRequest request, ResourceResponse response) {
-    	Properties gnosis2Properties = getProperties();
-    	String existURI = gnosis2Properties.getProperty("exist.uri");
-    	String existRepositoryRoot = gnosis2Properties.getProperty("exist.repository.root");
+    	Properties gnosisProperties = getProperties();
+    	String existURI = gnosisProperties.getProperty("exist.uri");
+    	String existRepositoryRoot = gnosisProperties.getProperty("exist.repository.root");
     	String context = getPortletContext().getRealPath("");
     	TechnologyDomains domains = new TechnologyDomains(existURI, existRepositoryRoot, context);
     	
@@ -165,9 +165,9 @@ public class TechnologyDomainsViewer extends Gnosis2Portlet {
 
     @ProcessResourceAction(name = "moveCapabilityAction")
     public void deleteCapability(ResourceRequest request, ResourceResponse response) {
-    	Properties gnosis2Properties = getProperties();
-    	String existURI = gnosis2Properties.getProperty("exist.uri");
-    	String existRepositoryRoot = gnosis2Properties.getProperty("exist.repository.root");
+    	Properties gnosisProperties = getProperties();
+    	String existURI = gnosisProperties.getProperty("exist.uri");
+    	String existRepositoryRoot = gnosisProperties.getProperty("exist.repository.root");
     	String context = getPortletContext().getRealPath("");
     	TechnologyDomains domains = new TechnologyDomains(existURI, existRepositoryRoot, context);
     	
@@ -180,9 +180,9 @@ public class TechnologyDomainsViewer extends Gnosis2Portlet {
 
     @ProcessResourceAction(name = "emptyTrashAction")
     public void emptyRecycleBin(ResourceRequest request, ResourceResponse response) {
-    	Properties gnosis2Properties = getProperties();
-    	String existURI = gnosis2Properties.getProperty("exist.uri");
-    	String existRepositoryRoot = gnosis2Properties.getProperty("exist.repository.root");
+    	Properties gnosisProperties = getProperties();
+    	String existURI = gnosisProperties.getProperty("exist.uri");
+    	String existRepositoryRoot = gnosisProperties.getProperty("exist.repository.root");
     	String context = getPortletContext().getRealPath("");
     	TechnologyDomains domains = new TechnologyDomains(existURI, existRepositoryRoot, context);
     	

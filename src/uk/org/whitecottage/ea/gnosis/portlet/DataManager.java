@@ -76,7 +76,7 @@ public class DataManager extends FileUploadPortlet {
 		jResponse.setReturnCode(UPLOAD_SUCCESS);
 
 		List<FileItem> items = getItems(request);
-		String gnosisDataDir = System.getProperty("jboss.server.data.dir") + File.separator + "gnosis2";
+		String gnosisDataDir = System.getProperty("jboss.server.data.dir") + File.separator + "gnosis";
 		String gnosisUMLDir = gnosisDataDir + File.separator + "uml";
 		String cldmFile = gnosisUMLDir + File.separator + "cldm.uml";
 

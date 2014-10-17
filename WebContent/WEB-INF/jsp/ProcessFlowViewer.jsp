@@ -27,6 +27,7 @@ var actionURL = "<%= actionURL %>";
 	<br />
 	<div class="portlet-section-body">
 		<select id="process-flow-select">
+			<option value="null">Select a process flow...</option>
 		</select>
 		<div id="flow-diagram"></div>
 		<br/>

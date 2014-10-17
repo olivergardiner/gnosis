@@ -23,7 +23,7 @@ import uk.org.whitecottage.ea.gnosis.repository.applications.LifecyclePresentati
 import uk.org.whitecottage.ea.portlet.ProcessResourceAction;
 import uk.org.whitecottage.ea.portlet.ProcessResourceRequest;
 
-public class ApplicationsViewer extends Gnosis2Portlet {
+public class ApplicationsViewer extends GnosisPortlet {
 
 	//@SuppressWarnings("unused")
 	private static final Logger log = Logger.getLogger("uk.org.whitecottage.ea.gnosis.portlet");
@@ -35,9 +35,9 @@ public class ApplicationsViewer extends Gnosis2Portlet {
     
     @ProcessResourceRequest(name = "applicationsListJsonData")
     public void serveApplicationsListJSON(ResourceRequest request, ResourceResponse response) throws PortletException, IOException {
-    	Properties gnosis2Properties = getProperties();
-    	String existURI = gnosis2Properties.getProperty("exist.uri");
-    	String existRepositoryRoot = gnosis2Properties.getProperty("exist.repository.root");
+    	Properties gnosisProperties = getProperties();
+    	String existURI = gnosisProperties.getProperty("exist.uri");
+    	String existRepositoryRoot = gnosisProperties.getProperty("exist.repository.root");
     	String context = getPortletContext().getRealPath("");
     	
     	ApplicationsEstate applications = new ApplicationsEstate(existURI, existRepositoryRoot, context);
@@ -49,9 +49,9 @@ public class ApplicationsViewer extends Gnosis2Portlet {
 
     @ProcessResourceRequest(name = "applicationJsonData")
     public void serveApplicationJSON(ResourceRequest request, ResourceResponse response) throws PortletException, IOException {
-    	Properties gnosis2Properties = getProperties();
-    	String existURI = gnosis2Properties.getProperty("exist.uri");
-    	String existRepositoryRoot = gnosis2Properties.getProperty("exist.repository.root");
+    	Properties gnosisProperties = getProperties();
+    	String existURI = gnosisProperties.getProperty("exist.uri");
+    	String existRepositoryRoot = gnosisProperties.getProperty("exist.repository.root");
     	String context = getPortletContext().getRealPath("");
     	
     	ApplicationsEstate applications = new ApplicationsEstate(existURI, existRepositoryRoot, context);
@@ -63,9 +63,9 @@ public class ApplicationsViewer extends Gnosis2Portlet {
 
     @ProcessResourceRequest(name = "classificationJsonData")
     public void serveClassificationJSON(ResourceRequest request, ResourceResponse response) throws PortletException, IOException {
-    	Properties gnosis2Properties = getProperties();
-    	String existURI = gnosis2Properties.getProperty("exist.uri");
-    	String existRepositoryRoot = gnosis2Properties.getProperty("exist.repository.root");
+    	Properties gnosisProperties = getProperties();
+    	String existURI = gnosisProperties.getProperty("exist.uri");
+    	String existRepositoryRoot = gnosisProperties.getProperty("exist.repository.root");
     	String context = getPortletContext().getRealPath("");
     	
     	ApplicationsEstate applications = new ApplicationsEstate(existURI, existRepositoryRoot, context);
@@ -77,9 +77,9 @@ public class ApplicationsViewer extends Gnosis2Portlet {
 
     @ProcessResourceRequest(name = "frameworkJsonData")
     public void serveFrameworkJSON(ResourceRequest request, ResourceResponse response) throws PortletException, IOException {
-    	Properties gnosis2Properties = getProperties();
-    	String existURI = gnosis2Properties.getProperty("exist.uri");
-    	String existRepositoryRoot = gnosis2Properties.getProperty("exist.repository.root");
+    	Properties gnosisProperties = getProperties();
+    	String existURI = gnosisProperties.getProperty("exist.uri");
+    	String existRepositoryRoot = gnosisProperties.getProperty("exist.repository.root");
         
     	String context = getPortletContext().getRealPath("");
     	TechnologyDomains domains = new TechnologyDomains(existURI, existRepositoryRoot, context);
@@ -108,12 +108,12 @@ public class ApplicationsViewer extends Gnosis2Portlet {
 
     @ProcessResourceRequest(name = "pptx")
     public void serveLifecyclePresentation(ResourceRequest request, ResourceResponse response) throws PortletException, IOException {
-    	Properties gnosis2Properties = getProperties();
-    	String existURI = gnosis2Properties.getProperty("exist.uri");
-    	String existRepositoryRoot = gnosis2Properties.getProperty("exist.repository.root");
+    	Properties gnosisProperties = getProperties();
+    	String existURI = gnosisProperties.getProperty("exist.uri");
+    	String existRepositoryRoot = gnosisProperties.getProperty("exist.repository.root");
     	String context = getPortletContext().getRealPath("");
 
-    	String gnosisDataDir = System.getProperty("jboss.server.data.dir") + File.separator + "gnosis2";
+    	String gnosisDataDir = System.getProperty("jboss.server.data.dir") + File.separator + "gnosis";
 		String gnosisOoxmlDir = gnosisDataDir + File.separator + "ooxml" + File.separator;
         
 		XMLSlideShow ppt;
@@ -137,9 +137,9 @@ public class ApplicationsViewer extends Gnosis2Portlet {
     public void addApplication(ResourceRequest request, ResourceResponse response) throws PortletException, IOException {
     	log.info("Add application");
 
-    	Properties gnosis2Properties = getProperties();
-    	String existURI = gnosis2Properties.getProperty("exist.uri");
-    	String existRepositoryRoot = gnosis2Properties.getProperty("exist.repository.root");
+    	Properties gnosisProperties = getProperties();
+    	String existURI = gnosisProperties.getProperty("exist.uri");
+    	String existRepositoryRoot = gnosisProperties.getProperty("exist.repository.root");
     	String context = getPortletContext().getRealPath("");
     	ApplicationsEstate applications = new ApplicationsEstate(existURI, existRepositoryRoot, context);
     	
@@ -159,9 +159,9 @@ public class ApplicationsViewer extends Gnosis2Portlet {
     public void removeApplication(ResourceRequest request, ResourceResponse response) throws PortletException, IOException {
     	log.info("Remove application");
 
-    	Properties gnosis2Properties = getProperties();
-    	String existURI = gnosis2Properties.getProperty("exist.uri");
-    	String existRepositoryRoot = gnosis2Properties.getProperty("exist.repository.root");
+    	Properties gnosisProperties = getProperties();
+    	String existURI = gnosisProperties.getProperty("exist.uri");
+    	String existRepositoryRoot = gnosisProperties.getProperty("exist.repository.root");
     	String context = getPortletContext().getRealPath("");
     	ApplicationsEstate applications = new ApplicationsEstate(existURI, existRepositoryRoot, context);
     	
@@ -179,9 +179,9 @@ public class ApplicationsViewer extends Gnosis2Portlet {
     public void updateApplicationBasic(ResourceRequest request, ResourceResponse response) throws PortletException, IOException {
     	log.info("Update application basic");
 
-    	Properties gnosis2Properties = getProperties();
-    	String existURI = gnosis2Properties.getProperty("exist.uri");
-    	String existRepositoryRoot = gnosis2Properties.getProperty("exist.repository.root");
+    	Properties gnosisProperties = getProperties();
+    	String existURI = gnosisProperties.getProperty("exist.uri");
+    	String existRepositoryRoot = gnosisProperties.getProperty("exist.repository.root");
     	String context = getPortletContext().getRealPath("");
     	ApplicationsEstate applications = new ApplicationsEstate(existURI, existRepositoryRoot, context);
     	
@@ -201,9 +201,9 @@ public class ApplicationsViewer extends Gnosis2Portlet {
     public void updateCapabilities(ResourceRequest request, ResourceResponse response) throws PortletException, IOException {
     	log.info("Add capability");
 
-    	Properties gnosis2Properties = getProperties();
-    	String existURI = gnosis2Properties.getProperty("exist.uri");
-    	String existRepositoryRoot = gnosis2Properties.getProperty("exist.repository.root");
+    	Properties gnosisProperties = getProperties();
+    	String existURI = gnosisProperties.getProperty("exist.uri");
+    	String existRepositoryRoot = gnosisProperties.getProperty("exist.repository.root");
     	String context = getPortletContext().getRealPath("");
     	ApplicationsEstate applications = new ApplicationsEstate(existURI, existRepositoryRoot, context);
     	
@@ -224,9 +224,9 @@ public class ApplicationsViewer extends Gnosis2Portlet {
     public void removeCapability(ResourceRequest request, ResourceResponse response) throws PortletException, IOException {
     	log.info("Delete capability");
 
-    	Properties gnosis2Properties = getProperties();
-    	String existURI = gnosis2Properties.getProperty("exist.uri");
-    	String existRepositoryRoot = gnosis2Properties.getProperty("exist.repository.root");
+    	Properties gnosisProperties = getProperties();
+    	String existURI = gnosisProperties.getProperty("exist.uri");
+    	String existRepositoryRoot = gnosisProperties.getProperty("exist.repository.root");
     	String context = getPortletContext().getRealPath("");
     	ApplicationsEstate applications = new ApplicationsEstate(existURI, existRepositoryRoot, context);
     	
@@ -247,9 +247,9 @@ public class ApplicationsViewer extends Gnosis2Portlet {
     public void updateLifecycle(ResourceRequest request, ResourceResponse response) throws PortletException, IOException {
     	log.info("Update timeline");
 
-    	Properties gnosis2Properties = getProperties();
-    	String existURI = gnosis2Properties.getProperty("exist.uri");
-    	String existRepositoryRoot = gnosis2Properties.getProperty("exist.repository.root");
+    	Properties gnosisProperties = getProperties();
+    	String existURI = gnosisProperties.getProperty("exist.uri");
+    	String existRepositoryRoot = gnosisProperties.getProperty("exist.repository.root");
     	String context = getPortletContext().getRealPath("");
     	ApplicationsEstate applications = new ApplicationsEstate(existURI, existRepositoryRoot, context);
     	       	
@@ -270,9 +270,9 @@ public class ApplicationsViewer extends Gnosis2Portlet {
     public void removeLifecycle(ResourceRequest request, ResourceResponse response) throws PortletException, IOException {
     	log.info("Update timeline");
 
-    	Properties gnosis2Properties = getProperties();
-    	String existURI = gnosis2Properties.getProperty("exist.uri");
-    	String existRepositoryRoot = gnosis2Properties.getProperty("exist.repository.root");
+    	Properties gnosisProperties = getProperties();
+    	String existURI = gnosisProperties.getProperty("exist.uri");
+    	String existRepositoryRoot = gnosisProperties.getProperty("exist.repository.root");
     	String context = getPortletContext().getRealPath("");
     	ApplicationsEstate applications = new ApplicationsEstate(existURI, existRepositoryRoot, context);
     	       	

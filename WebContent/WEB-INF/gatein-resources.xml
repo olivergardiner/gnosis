@@ -4,56 +4,56 @@
      xmlns="http://www.gatein.org/xml/ns/gatein_resources_1_3">
           
     <portlet-skin>
-        <application-name>Gnosis2</application-name>
+        <application-name>gnosis</application-name>
         <portlet-name>TechnologyDomainsViewer</portlet-name>
         <skin-name>Default</skin-name>
         <css-path>/css/technology-domains-viewer.css</css-path>
     </portlet-skin>
      
     <portlet-skin>
-        <application-name>Gnosis2</application-name>
+        <application-name>gnosis</application-name>
         <portlet-name>ValueChainViewer</portlet-name>
         <skin-name>Default</skin-name>
         <css-path>/css/value-chain-viewer.css</css-path>
     </portlet-skin>
      
     <portlet-skin>
-        <application-name>Gnosis2</application-name>
+        <application-name>gnosis</application-name>
         <portlet-name>FrameworkViewer</portlet-name>
         <skin-name>Default</skin-name>
         <css-path>/css/framework-viewer.css</css-path>
     </portlet-skin>
      
     <portlet-skin>
-        <application-name>Gnosis2</application-name>
+        <application-name>gnosis</application-name>
         <portlet-name>ProcessFlowViewer</portlet-name>
         <skin-name>Default</skin-name>
         <css-path>/css/process-flow-viewer.css</css-path>
     </portlet-skin>
      
     <portlet-skin>
-        <application-name>Gnosis2</application-name>
+        <application-name>gnosis</application-name>
         <portlet-name>ProcessTaxonomyViewer</portlet-name>
         <skin-name>Default</skin-name>
         <css-path>/css/process-taxonomy-viewer.css</css-path>
     </portlet-skin>
      
     <portlet-skin>
-        <application-name>Gnosis2</application-name>
+        <application-name>gnosis</application-name>
         <portlet-name>DataManager</portlet-name>
         <skin-name>Default</skin-name>
         <css-path>/css/data-manager.css</css-path>
     </portlet-skin>
      
     <portlet-skin>
-        <application-name>Gnosis2</application-name>
+        <application-name>gnosis</application-name>
         <portlet-name>DataViewer</portlet-name>
         <skin-name>Default</skin-name>
         <css-path>/css/data-viewer.css</css-path>
     </portlet-skin>
      
     <portlet-skin>
-        <application-name>Gnosis2</application-name>
+        <application-name>gnosis</application-name>
         <portlet-name>ApplicationsViewer</portlet-name>
         <skin-name>Default</skin-name>
         <css-path>/css/applications-viewer.css</css-path>
@@ -319,6 +319,12 @@
     		</depends>
     		<depends>
     			<module>jQueryUI</module>
+    		</depends>
+    		<depends>
+     			<module>selectric</module>
+    		</depends>
+    		<depends>
+    			<module>UUID</module>
     		</depends>
     	</module>
     </portlet>

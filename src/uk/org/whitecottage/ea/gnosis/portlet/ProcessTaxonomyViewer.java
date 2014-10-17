@@ -20,7 +20,7 @@ import uk.org.whitecottage.ea.gnosis.repository.ProcessTaxonomy;
 import uk.org.whitecottage.ea.portlet.ProcessResourceAction;
 import uk.org.whitecottage.ea.portlet.ProcessResourceRequest;
 
-public class ProcessTaxonomyViewer extends Gnosis2Portlet {
+public class ProcessTaxonomyViewer extends GnosisPortlet {
 	@SuppressWarnings("unused")
 	private static final Logger log = Logger.getLogger("uk.org.whitecottage.ea.gnosis.portlet");
 	
@@ -31,9 +31,9 @@ public class ProcessTaxonomyViewer extends Gnosis2Portlet {
     
     @ProcessResourceRequest(name = "jsonData")
     public void serveJSON(ResourceRequest request, ResourceResponse response) throws PortletException, java.io.IOException {
-    	Properties gnosis2Properties = getProperties();
-    	String existURI = gnosis2Properties.getProperty("exist.uri");
-    	String existRepositoryRoot = gnosis2Properties.getProperty("exist.repository.root");
+    	Properties gnosisProperties = getProperties();
+    	String existURI = gnosisProperties.getProperty("exist.uri");
+    	String existRepositoryRoot = gnosisProperties.getProperty("exist.repository.root");
         
     	String context = getPortletContext().getRealPath("");
     	ProcessTaxonomy taxonomy = new ProcessTaxonomy(existURI, existRepositoryRoot, context);
@@ -61,9 +61,9 @@ public class ProcessTaxonomyViewer extends Gnosis2Portlet {
 
     @ProcessResourceAction(name = "updateDomainAction")
     public void updateDomain(ResourceRequest request, ResourceResponse response) {
-    	Properties gnosis2Properties = getProperties();
-    	String existURI = gnosis2Properties.getProperty("exist.uri");
-    	String existRepositoryRoot = gnosis2Properties.getProperty("exist.repository.root");
+    	Properties gnosisProperties = getProperties();
+    	String existURI = gnosisProperties.getProperty("exist.uri");
+    	String existRepositoryRoot = gnosisProperties.getProperty("exist.repository.root");
     	String context = getPortletContext().getRealPath("");
     	ProcessTaxonomy taxonomy = new ProcessTaxonomy(existURI, existRepositoryRoot, context);
     	
@@ -76,9 +76,9 @@ public class ProcessTaxonomyViewer extends Gnosis2Portlet {
 
     @ProcessResourceAction(name = "updateProcessAction")
     public void updateProcess(ResourceRequest request, ResourceResponse response) {
-    	Properties gnosis2Properties = getProperties();
-    	String existURI = gnosis2Properties.getProperty("exist.uri");
-    	String existRepositoryRoot = gnosis2Properties.getProperty("exist.repository.root");
+    	Properties gnosisProperties = getProperties();
+    	String existURI = gnosisProperties.getProperty("exist.uri");
+    	String existRepositoryRoot = gnosisProperties.getProperty("exist.repository.root");
     	String context = getPortletContext().getRealPath("");
     	ProcessTaxonomy taxonomy = new ProcessTaxonomy(existURI, existRepositoryRoot, context);
     	
@@ -91,9 +91,9 @@ public class ProcessTaxonomyViewer extends Gnosis2Portlet {
 
     @ProcessResourceAction(name = "createDomainAction")
     public void createDomain(ResourceRequest request, ResourceResponse response) {
-    	Properties gnosis2Properties = getProperties();
-    	String existURI = gnosis2Properties.getProperty("exist.uri");
-    	String existRepositoryRoot = gnosis2Properties.getProperty("exist.repository.root");
+    	Properties gnosisProperties = getProperties();
+    	String existURI = gnosisProperties.getProperty("exist.uri");
+    	String existRepositoryRoot = gnosisProperties.getProperty("exist.repository.root");
     	String context = getPortletContext().getRealPath("");
     	ProcessTaxonomy taxonomy = new ProcessTaxonomy(existURI, existRepositoryRoot, context);
     	
@@ -107,9 +107,9 @@ public class ProcessTaxonomyViewer extends Gnosis2Portlet {
 
     @ProcessResourceAction(name = "createProcessAction")
     public void createCapability(ResourceRequest request, ResourceResponse response) {
-    	Properties gnosis2Properties = getProperties();
-    	String existURI = gnosis2Properties.getProperty("exist.uri");
-    	String existRepositoryRoot = gnosis2Properties.getProperty("exist.repository.root");
+    	Properties gnosisProperties = getProperties();
+    	String existURI = gnosisProperties.getProperty("exist.uri");
+    	String existRepositoryRoot = gnosisProperties.getProperty("exist.repository.root");
     	String context = getPortletContext().getRealPath("");
     	ProcessTaxonomy taxonomy = new ProcessTaxonomy(existURI, existRepositoryRoot, context);
     	
@@ -123,9 +123,9 @@ public class ProcessTaxonomyViewer extends Gnosis2Portlet {
 
     @ProcessResourceAction(name = "moveDomainAction")
     public void deleteDomain(ResourceRequest request, ResourceResponse response) {
-    	Properties gnosis2Properties = getProperties();
-    	String existURI = gnosis2Properties.getProperty("exist.uri");
-    	String existRepositoryRoot = gnosis2Properties.getProperty("exist.repository.root");
+    	Properties gnosisProperties = getProperties();
+    	String existURI = gnosisProperties.getProperty("exist.uri");
+    	String existRepositoryRoot = gnosisProperties.getProperty("exist.repository.root");
     	String context = getPortletContext().getRealPath("");
     	ProcessTaxonomy taxonomy = new ProcessTaxonomy(existURI, existRepositoryRoot, context);
     	
@@ -138,9 +138,9 @@ public class ProcessTaxonomyViewer extends Gnosis2Portlet {
 
     @ProcessResourceAction(name = "moveProcessAction")
     public void deleteCapability(ResourceRequest request, ResourceResponse response) {
-    	Properties gnosis2Properties = getProperties();
-    	String existURI = gnosis2Properties.getProperty("exist.uri");
-    	String existRepositoryRoot = gnosis2Properties.getProperty("exist.repository.root");
+    	Properties gnosisProperties = getProperties();
+    	String existURI = gnosisProperties.getProperty("exist.uri");
+    	String existRepositoryRoot = gnosisProperties.getProperty("exist.repository.root");
     	String context = getPortletContext().getRealPath("");
     	ProcessTaxonomy taxonomy = new ProcessTaxonomy(existURI, existRepositoryRoot, context);
     	
@@ -153,9 +153,9 @@ public class ProcessTaxonomyViewer extends Gnosis2Portlet {
 
     @ProcessResourceAction(name = "emptyTrashAction")
     public void emptyRecycleBin(ResourceRequest request, ResourceResponse response) {
-    	Properties gnosis2Properties = getProperties();
-    	String existURI = gnosis2Properties.getProperty("exist.uri");
-    	String existRepositoryRoot = gnosis2Properties.getProperty("exist.repository.root");
+    	Properties gnosisProperties = getProperties();
+    	String existURI = gnosisProperties.getProperty("exist.uri");
+    	String existRepositoryRoot = gnosisProperties.getProperty("exist.repository.root");
     	String context = getPortletContext().getRealPath("");
     	ProcessTaxonomy taxonomy = new ProcessTaxonomy(existURI, existRepositoryRoot, context);
     	

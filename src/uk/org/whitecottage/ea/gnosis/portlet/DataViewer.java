@@ -17,7 +17,7 @@ import org.apache.commons.io.IOUtils;
 
 import uk.org.whitecottage.ea.portlet.ProcessResourceRequest;
 
-public class DataViewer extends Gnosis2Portlet {
+public class DataViewer extends GnosisPortlet {
 	private static final Logger log = Logger.getLogger("uk.org.whitecottage.ea.gnosis.portlet");
 	
     @RenderMode(name = "view")
@@ -27,7 +27,7 @@ public class DataViewer extends Gnosis2Portlet {
     
     @ProcessResourceRequest(name = "jsonData")
     public void serveJSONData(ResourceRequest request, ResourceResponse response) throws PortletException, java.io.IOException {
-		String gnosisDataDir = System.getProperty("jboss.server.data.dir") + File.separator + "gnosis2";
+		String gnosisDataDir = System.getProperty("jboss.server.data.dir") + File.separator + "gnosis";
 		String gnosisCLDMDir = gnosisDataDir + File.separator + "cldm";
 		String cldmJSONFile = gnosisCLDMDir + File.separator + "cldm.json";
 		
@@ -46,7 +46,7 @@ public class DataViewer extends Gnosis2Portlet {
     
     @ProcessResourceRequest(name = "modelDetail")
     public void serveModelDetail(ResourceRequest request, ResourceResponse response) throws PortletException, java.io.IOException {
-		String gnosisDataDir = System.getProperty("jboss.server.data.dir") + File.separator + "gnosis2";
+		String gnosisDataDir = System.getProperty("jboss.server.data.dir") + File.separator + "gnosis";
 		String gnosisCLDMDir = gnosisDataDir + File.separator + "cldm";
 		
 		String path = request.getParameter("path");

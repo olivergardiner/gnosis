@@ -21,20 +21,20 @@ import uk.org.whitecottage.ea.gnosis.repository.ProcessFlows;
 import uk.org.whitecottage.ea.gnosis.repository.framework.ProcessFlowPresentation;
 import uk.org.whitecottage.ea.portlet.ProcessResourceRequest;
 
-public class ProcessFlowViewer extends Gnosis2Portlet {
+public class ProcessFlowViewer extends GnosisPortlet {
 	@SuppressWarnings("unused")
 	private static final Logger log = Logger.getLogger("uk.org.whitecottage.ea.gnosis.portlet");
 	
     @RenderMode(name = "view")
     public void view(RenderRequest request, RenderResponse response) throws PortletException, IOException {
-    	getPortletContext().getRequestDispatcher("/WEB-INF/jsp/FrameworkViewer.jsp").include(request, response);
+    	getPortletContext().getRequestDispatcher("/WEB-INF/jsp/ProcessFlowViewer.jsp").include(request, response);
     }
     
     @ProcessResourceRequest(name = "jsonData")
     public void serveJSON(ResourceRequest request, ResourceResponse response) throws PortletException, java.io.IOException {
-    	Properties gnosis2Properties = getProperties();
-    	String existURI = gnosis2Properties.getProperty("exist.uri");
-    	String existRepositoryRoot = gnosis2Properties.getProperty("exist.repository.root");
+    	Properties gnosisProperties = getProperties();
+    	String existURI = gnosisProperties.getProperty("exist.uri");
+    	String existRepositoryRoot = gnosisProperties.getProperty("exist.repository.root");
         
     	String context = getPortletContext().getRealPath("");
     	ProcessFlows processFlows = new ProcessFlows(existURI, existRepositoryRoot, context);
@@ -62,12 +62,12 @@ public class ProcessFlowViewer extends Gnosis2Portlet {
 
     @ProcessResourceRequest(name = "pptx")
     public void serveLifecyclePresentation(ResourceRequest request, ResourceResponse response) throws PortletException, IOException {
-    	Properties gnosis2Properties = getProperties();
-    	String existURI = gnosis2Properties.getProperty("exist.uri");
-    	String existRepositoryRoot = gnosis2Properties.getProperty("exist.repository.root");
+    	Properties gnosisProperties = getProperties();
+    	String existURI = gnosisProperties.getProperty("exist.uri");
+    	String existRepositoryRoot = gnosisProperties.getProperty("exist.repository.root");
     	String context = getPortletContext().getRealPath("");
 
-    	String gnosisDataDir = System.getProperty("jboss.server.data.dir") + File.separator + "gnosis2";
+    	String gnosisDataDir = System.getProperty("jboss.server.data.dir") + File.separator + "gnosis";
 		String gnosisOoxmlDir = gnosisDataDir + File.separator + "ooxml" + File.separator;
         
 		XMLSlideShow ppt;

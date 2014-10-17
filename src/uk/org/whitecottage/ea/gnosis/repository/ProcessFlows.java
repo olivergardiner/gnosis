@@ -14,10 +14,14 @@ import org.xmldb.api.base.XMLDBException;
 import org.xmldb.api.modules.XMLResource;
 
 import uk.org.whitecottage.ea.gnosis.jaxb.framework.Framework;
+import uk.org.whitecottage.ea.gnosis.jaxb.framework.Parent;
+import uk.org.whitecottage.ea.gnosis.jaxb.framework.Predecessor;
 import uk.org.whitecottage.ea.gnosis.jaxb.framework.Process;
 import uk.org.whitecottage.ea.gnosis.jaxb.framework.ProcessDomain;
 import uk.org.whitecottage.ea.gnosis.jaxb.framework.ProcessFlow;
+import uk.org.whitecottage.ea.gnosis.jaxb.framework.ProcessInstance;
 import uk.org.whitecottage.ea.gnosis.json.JSONArray;
+import uk.org.whitecottage.ea.gnosis.json.JSONBoolean;
 import uk.org.whitecottage.ea.gnosis.json.JSONMap;
 import uk.org.whitecottage.ea.gnosis.json.JSONString;
 
@@ -60,8 +64,11 @@ public class ProcessFlows extends XmldbProcessor {
 				processDomains.add(renderProcessDomain(domain));
 			}
 
+			JSONArray processFlows = new JSONArray("processFlows");
+			businessProcesses.put(processFlows);
+			
 			for (ProcessFlow flow: framework.getBusinessOperatingModel().getBusinessProcesses().getProcessFlow()) {
-				processDomains.add(renderProcessFlow(flow));
+				processFlows.add(renderProcessFlow(flow));
 			}
 
 			result = businessProcesses.toJSON();
@@ -97,10 +104,11 @@ public class ProcessFlows extends XmldbProcessor {
 		JSONString descriptionJSON = new JSONString("description", domain.getDescription());
 		domainJSON.put(descriptionJSON);
 		
-		JSONArray processes = new JSONArray("processes");
+		JSONArray processesJSON = new JSONArray("processes");
+		domainJSON.put(processesJSON);
 								
 		for (Process process: domain.getProcess()) {
-			processes.add(renderProcess(process));
+			processesJSON.add(renderProcess(process));
 		}
 		
 		return domainJSON;
@@ -127,6 +135,52 @@ public class ProcessFlows extends XmldbProcessor {
 		JSONString nameJSON = new JSONString("name", processFlow.getName());
 		processJSON.put(nameJSON);
 				
+		JSONArray instancesJSON = new JSONArray("instances");
+		processJSON.put(instancesJSON);
+		
+		for (ProcessInstance instance: processFlow.getProcessInstance()) {
+			instancesJSON.add(renderProcessInstance(instance));
+		}
+		
 		return processJSON;
+	}
+	
+	protected JSONMap renderProcessInstance(ProcessInstance instance) {
+		JSONMap instanceJSON = new JSONMap();
+		
+		JSONString idJSON = new JSONString("process", instance.getProcessId());
+		instanceJSON.put(idJSON);
+		
+		if (instance.getDuration() != null) {
+			JSONString durationJSON = new JSONString("duration", instance.getDuration());
+			instanceJSON.put(durationJSON);
+		}
+
+		JSONArray parentsJSON = new JSONArray("parents");
+		instanceJSON.put(parentsJSON);
+		
+		for (Parent parent: instance.getParent()) {
+			JSONString parentJSON = new JSONString(parent.getProcess());
+			parentsJSON.add(parentJSON);
+		}
+		
+		JSONArray predecessorsJSON = new JSONArray("predecessors");
+		instanceJSON.put(predecessorsJSON);
+		
+		for (Predecessor predecessor: instance.getPredecessor()) {
+			JSONMap predecessorJSON = new JSONMap();
+			predecessorsJSON.add(predecessorJSON);
+
+			JSONString processJSON = new JSONString("predecessor", predecessor.getProcess());
+			predecessorJSON.put(processJSON);
+			
+			if (predecessor.isContiguous() != null && predecessor.isContiguous()) {
+				predecessorJSON.put(new JSONBoolean("contiguous", true));
+			} else {
+				predecessorJSON.put(new JSONBoolean("contiguous", false));
+			}
+		}
+		
+		return instanceJSON;
 	}
 }

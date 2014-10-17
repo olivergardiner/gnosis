@@ -1,2 +1,23 @@
 @import url('common.css');
 @import url('../js/jquery-ui/jquery-ui.css');
+@import url('../js/selectric/selectric.css');
+
+div.selectric {
+	overflow: visible;
+}
+
+div.flow-table {
+	display: table;
+}
+
+div.flow-row {
+	display: table-row;
+}
+
+div.flow-cell {
+	display: table-cell;
+}
+
+div.flow-process {
+	background: #cc66cc;
+}

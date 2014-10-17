@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="gnosis" default="war" basedir=".">
+	<property file="build.properties" />
+	<property file="${user.home}/gnosis.build.properties" />
+	
+	<property name="war-file-name" value="${project-name}.war" />
+	<property name="war-tmp-name" value="${project-name}.tmp" />
+	<property name="source-directory" value="src" />
+	<property name="classes-directory" value="build/classes" />
+	<property name="dist-directory" value="dist" />
+	<property name="web-directory" value="WebContent" />
+	<property name="web-xml-file" value="WebContent/WEB-INF/web.xml" />
+
+	<!-- Override this property in your local gnosis2.build.properties (loaded above) to point ant your GateIn instance -->
+	<property name="jboss.home" value="I:/Development/GateIn-3.7.0.Final-jbossas7"/>
+	
+	<!-- ==================== Project dependencies ======================== -->
+
+	<tstamp prefix="build-info">
+		<format property="current-date" pattern="d-MMMM-yyyy" locale="en" />
+		<format property="current-time" pattern="hh:mm:ss a z" locale="en" />
+		<format property="year-month-day" pattern="yyyy-MM-dd" locale="en" />
+	</tstamp>
+	
+	<target name="prepare">
+		<delete dir="${dist-directory}/${web-directory}"/>
+		<copy todir="${dist-directory}/${web-directory}">
+			<fileset dir="${web-directory}"/>
+		</copy>
+	</target>
+	
+	<target name="war" depends="prepare">
+		<delete file="${dist-directory}/${war-file-name}" />
+		<war warfile="${dist-directory}/${war-file-name}" webxml="${dist-directory}/${web-directory}/WEB-INF/web.xml">
+			<classes dir="${classes-directory}" />
+			<fileset dir="${dist-directory}/${web-directory}">
+				<exclude name="WEB-INF/web.xml" />
+			</fileset>
+			<manifest>
+				<attribute name="Built-By" value="${builder}" />
+				<attribute name="Built-On" value="${build-info.current-date}" />
+				<attribute name="Built-At" value="${build-info.current-time}" />
+			</manifest>
+		</war>
+	</target>
+
+	<target name="undeploy" description="undeploy from jboss">
+		<delete file="${jboss.home}/standalone/deployments/${war-file-name}" />
+	</target>
+	
+	<target name="deploy" description="deploy to jboss">
+		<delete file="${jboss.home}/standalone/deployments/${war-file-name}.undeployed" />
+		<copy file="${dist-directory}/${war-file-name}" tofile="${jboss.home}/standalone/deployments/${war-tmp-name}"/>
+		<move file="${jboss.home}/standalone/deployments/${war-tmp-name}" tofile="${jboss.home}/standalone/deployments/${war-file-name}"/>
+	</target>
+	
+	<target name="build-and-deploy" depends="undeploy,war,deploy"/>
+	
+</project>

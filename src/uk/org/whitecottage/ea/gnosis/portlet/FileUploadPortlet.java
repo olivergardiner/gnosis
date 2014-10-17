@@ -13,10 +13,10 @@ import org.apache.commons.fileupload.portlet.PortletFileUpload;
 
 import uk.org.whitecottage.ea.portlet.PortletRequestContext;
 
-public abstract class FileUploadPortlet extends Gnosis2Portlet {
+public abstract class FileUploadPortlet extends GnosisPortlet {
 	
     protected List<FileItem> getItems(ClientDataRequest request) {
-		String gnosisDataDir = System.getProperty("jboss.server.data.dir") + File.separator + "gnosis2";
+		String gnosisDataDir = System.getProperty("jboss.server.data.dir") + File.separator + "gnosis";
 		String tempDir = gnosisDataDir + File.separator + "tmp";
 
 		// Create a factory for disk-based file items
