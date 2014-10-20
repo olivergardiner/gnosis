@@ -9,6 +9,7 @@
 <portlet:defineObjects/>
 
 <portlet:resourceURL var="jsonDataURL" id="jsonData"/>
+<portlet:resourceURL var="processJsonDataURL" id="processJsonData"/>
 <portlet:resourceURL var="iconURL" id="icon"/>
 <portlet:resourceURL var="pptxURL" id="pptx"/>
 <portlet:resourceURL var="docxURL" id="docx"/>
@@ -16,6 +17,7 @@
 
 <script type="text/javascript">
 var jsonDataURL = "<%= jsonDataURL %>";
+var processJsonDataURL = "<%= processJsonDataURL %>";
 var iconURL = "<%= iconURL %>";
 var pptxURL = "<%= pptxURL %>";
 var docxURL = "<%= docxURL %>";
@@ -38,7 +40,26 @@ var actionURL = "<%= actionURL %>";
 			</div>
 		</div>
 		<div id="flow-diagram"></div>
+		<div style="width: 95%; margin-left: auto; margin-right: auto;">
+			<button id="edit-button" style="display: none;">Edit</button>
+		</div>
+		<br/>
+		<div id="flow-editor" style="display: none; width: 95%; margin-left: auto; margin-right: auto;">
+			<div id="flow-tree"></div>
+		</div>
 		<br/>
 	</div>
 	<br />
+</div>
+
+<div id="edit-process-instance" style="display: none;">
+	<div id="process-selector-tree"></div>
+</div>
+
+<div id="edit-parent-dependency" style="display: none;">
+	<div id="parent-selector-tree"></div>
+</div>
+
+<div id="edit-predecessor-dependency" style="display: none;">
+	<div id="prdecessor-selector-tree"></div>
 </div>

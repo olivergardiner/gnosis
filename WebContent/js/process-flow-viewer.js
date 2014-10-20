@@ -15,7 +15,51 @@
 	$("#docx-download").button().click(function () {
 		downloadURL(unescapeHTML(docxURL));
 	});
-		
+	
+	$("#edit-button").button().click(openTree);
+	
+	$("#edit-process-instance").dialog({
+        autoOpen: false,
+        height: 500,
+        width: 800,
+        modal: true,
+        buttons: {
+        	"Save": selectProcess,
+	    	"Cancel": function() {
+				$(this).dialog( "close" );
+	        }
+        },
+        open: function() {
+        },
+        close: function() {
+        }
+	});
+	
+	$('#process-selector-tree').jstree({
+		'core': {
+			'data': getProcessJsonData,
+			'multiple': false,
+			'check_callback': true,
+			'themes': {
+				'variant': 'small',
+				'responsive': false
+			}
+		},
+		'types': {
+			'#': {
+			},
+			'activity': {
+			},
+			'domain': {
+				'icon': iconURL + "&amp;icon=process-domain.ico"
+			},
+			'process': {
+				'icon': iconURL + "&amp;icon=process.ico"
+			}
+		},
+		'plugins': ['types']
+	});
+
 	$.ajax({
         async : true,
         type : "GET",
@@ -48,10 +92,12 @@
 		var flowId = $("#process-flow-select").val();
 		$("#flow-diagram").empty();
 		
+		var flowName = "";
 		var processElements = [];
 		for (var i = 0; i < processes.processFlows.length; i++) {
 			if (processes.processFlows[i].name == flowId) {
 				var flow = processes.processFlows[i];
+				flowName = flow.name;
 				for (var j = 0; j < flow.instances.length; j++) {
 					processElements.push({
 						start: 0,
@@ -66,7 +112,180 @@
 		layoutProcessElements(processElements);
 		
 		drawFlow(processElements);
+		
+		buildTree(processElements, flowId, flowName);
+		
+		closeTree();
+
+		if (flowId != 'null') {
+			$("#edit-button").button().show();
+		} else {
+			$("#edit-button").button().hide();
+		}
 	}
+	
+	function openTree() {
+		$("#flow-editor").show();
+		$("#edit-button").button("option", "label", "Close").click(closeTree);
+	}
+	
+	function closeTree() {
+		$("#flow-editor").hide();
+		$("#edit-button").button("option", "label", "Edit").click(openTree);
+	}
+	
+	function buildTree(flows, flowId, flowName) {
+		$('#flow-tree').jstree("destroy");
+		
+		var tree = [{
+			text: flowName,
+			type: "flow",
+			data: {
+				flowId: flowId
+			},
+			children: []
+		}];
+		
+		for (var i = 0; i < flows.length; i++) {
+			var flow = flows[i];
+			var node = {
+				text: flow.process.name,
+				type: "instance",
+				data: {
+					flowId: flow.instance.id,
+					processId: flow.process.id,
+					duration: flow.instance.duration
+				},
+				children: []
+			};
+			
+			for (var j = 0; j < flow.instance.parents.length; j++) {
+				var parentProcess = findProcess(flow.instance.parents[j]);
+				node.children.push({
+					text: parentProcess.name,
+					type: "parent",
+					data: {
+						processId: parentProcess.id
+					}
+				});
+			}
+			
+			for (var j = 0; j < flow.instance.predecessors.length; j++) {
+				var predecessorProcess = findProcess(flow.instance.predecessors[j].predecessor);
+				node.children.push({
+					text: predecessorProcess.name,
+					type: "predecessor",
+					data: {
+						processId: predecessorProcess.id
+					}
+				});
+			}
+			
+			tree[0].children.push(node);
+		}
+
+		$('#flow-tree').jstree({
+			'core': {
+				'data': tree,
+				'multiple': false,
+				'check_callback': true,
+				'themes': {
+					'variant': 'small',
+					'responsive': false
+				}
+			},
+			'dnd': {
+				'copy': false,
+				'is_draggable': function (node) {
+					return (node.type != 'flow') ? true : false;
+				}
+			},
+			'types': {
+				'#': {
+					'valid_children': ['flow']
+				},
+				'flow': {
+					'valid_children': ['instance'],
+					'icon': iconURL + "&amp;icon=technology-domain.ico"
+				},
+				'instance': {
+					'valid_children': ['parent', 'predecessor'],
+					'icon': iconURL + "&amp;icon=process.ico"
+				},
+				'parent': {
+					'valid_children': [],
+					'icon': iconURL + "&amp;icon=parent-process.ico"
+				},
+				'predecessor': {
+					'valid_children': [],
+					'icon': iconURL + "&amp;icon=predecessor-process.ico"
+				}
+			},
+			'contextmenu': {
+				'show_at_node': false,
+				'items': contextMenu
+			},
+			'plugins': ['dnd', 'types', 'contextmenu']
+		});	
+	}
+	
+	function contextMenu(node, callback) {
+		var path = $.jstree.reference('#flow-tree').get_path(node, false, true);
+		
+		if (path.length > 1 && path[0] == 'trash') {
+			return {};
+		} else if (node.type == 'flow') {
+			return {
+				'add-instance': {'label': 'New Process Instance', 'action': addInstance }
+			};
+		} else if (node.type == 'instance') {
+			return {
+				'add-parent': {'label': 'New Parent Dependency', 'action': addParent },
+				'add-predecessor': {'label': 'New Predecessor Dependency', 'action': addPredecessor },
+				'delete': {'label': 'Delete', 'action': deleteItem }
+			};
+		} else if (node.type == 'parent') {
+			return {
+				'delete': {'label': 'Delete', 'action': deleteItem }
+			};
+		} else if (node.type == 'predecessor') {
+			return {
+				'delete': {'label': 'Delete', 'action': deleteItem }
+			};
+		}
+	}
+		
+	function addInstance(menu) {
+		var node = $.jstree.reference('#flow-tree').get_node(menu.reference.context);
+		var parentNodeId = $.jstree.reference('#flow-tree').get_parent(node);
+		
+		$("#edit-process-instance").dialog("open");		
+	}
+	
+	function selectProcess() {
+		
+	}
+
+	function addParent(menu) {
+		var node = $.jstree.reference('#flow-tree').get_node(menu.reference.context);
+		var parentNodeId = $.jstree.reference('#flow-tree').get_parent(node);
+		
+		$("#edit-parent-dependency").dialog("open");		
+	}
+
+	function addPredecessor(menu) {
+		var node = $.jstree.reference('#flow-tree').get_node(menu.reference.context);
+		var parentNodeId = $.jstree.reference('#flow-tree').get_parent(node);
+		
+		$("#edit-predecessor-dependency").dialog("open");		
+	}
+	
+	function deleteItem(menu) {
+		var node = $.jstree.reference('#flow-tree').get_node(menu.reference.context);
+		var parentNodeId = $.jstree.reference('#flow-tree').get_parent(node);
+		
+	}
+
 	
 	function drawFlow(flows) {
 		var unitWidth = PROCESS_FULL_WIDTH / resolution;
@@ -262,6 +481,21 @@
                 alert(errorThrown);
             }
         });
+	}
+	
+	function getProcessJsonData(obj, callback) {
+		$.ajax({
+            async : true,
+            type : "GET",
+            url : processJsonDataURL,
+            dataType : "json",
+            success : function(response) {
+        		callback.call(this, response);
+            },
+            error : function(jqXhr, status, reason) {
+            	alert("Unable to retrieve framework data\n" + status + ": " + reason);
+            }
+		});
 	}
 	
 	function downloadURL(url) {

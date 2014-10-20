@@ -321,6 +321,10 @@
     			<module>jQueryUI</module>
     		</depends>
     		<depends>
+    			<module>jstree_local</module>
+    			<as>jstree</as>
+    		</depends>
+    		<depends>
      			<module>selectric</module>
     		</depends>
     		<depends>

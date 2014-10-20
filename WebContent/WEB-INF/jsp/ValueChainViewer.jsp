@@ -35,9 +35,6 @@ var actionURL = "<%= actionURL %>";
 				<button id="edit-button" style="display: none;">Edit</button>
 			</div>
 		</div>
-		<div style="display: table-row;">
-			<div style="display: table-cell; padding: 2px;"></div>
-		</div>
 		<div id="value-chain-tree" style="display: none;">
 			<div style="display: table-cell; padding: 2px; width: 110px;">Use the tree to edit the Value Chain</div>
 			<div style="display: table-cell; padding: 2px; width: 10px;"></div>

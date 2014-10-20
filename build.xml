@@ -11,7 +11,7 @@
 	<property name="web-directory" value="WebContent" />
 	<property name="web-xml-file" value="WebContent/WEB-INF/web.xml" />
 
-	<!-- Override this property in your local gnosis2.build.properties (loaded above) to point ant your GateIn instance -->
+	<!-- Override this property in your local gnosis.build.properties (loaded above) to point ant your GateIn instance -->
 	<property name="jboss.home" value="I:/Development/GateIn-3.7.0.Final-jbossas7"/>
 	
 	<!-- ==================== Project dependencies ======================== -->

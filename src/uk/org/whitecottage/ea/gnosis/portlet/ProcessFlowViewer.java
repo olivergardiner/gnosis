@@ -18,6 +18,7 @@ import org.apache.commons.io.IOUtils;
 import org.apache.poi.xslf.usermodel.XMLSlideShow;
 
 import uk.org.whitecottage.ea.gnosis.repository.ProcessFlows;
+import uk.org.whitecottage.ea.gnosis.repository.ProcessTaxonomy;
 import uk.org.whitecottage.ea.gnosis.repository.framework.ProcessFlowPresentation;
 import uk.org.whitecottage.ea.portlet.ProcessResourceRequest;
 
@@ -39,6 +40,19 @@ public class ProcessFlowViewer extends GnosisPortlet {
     	String context = getPortletContext().getRealPath("");
     	ProcessFlows processFlows = new ProcessFlows(existURI, existRepositoryRoot, context);
     	String json = processFlows.getJSON();
+    	
+    	response.getWriter().print(json);
+    }
+
+    @ProcessResourceRequest(name = "processJsonData")
+    public void serveProcessJSON(ResourceRequest request, ResourceResponse response) throws PortletException, java.io.IOException {
+    	Properties gnosisProperties = getProperties();
+    	String existURI = gnosisProperties.getProperty("exist.uri");
+    	String existRepositoryRoot = gnosisProperties.getProperty("exist.repository.root");
+        
+    	String context = getPortletContext().getRealPath("");
+    	ProcessTaxonomy taxonomy = new ProcessTaxonomy(existURI, existRepositoryRoot, context);
+    	String json = taxonomy.getJSON(false);
     	
     	response.getWriter().print(json);
     }
