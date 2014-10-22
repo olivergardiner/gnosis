@@ -122,6 +122,7 @@
 				<xs:element ref="processInstance" minOccurs="0" maxOccurs="unbounded"/>
 			</xs:sequence>
 			<xs:attribute ref="name" use="required"/>
+			<xs:attribute name="flow-id" type="xs:string" use="required"/>
 		</xs:complexType>
 	</xs:element>
 	<xs:element name="process">

@@ -34,6 +34,48 @@
         close: function() {
         }
 	});
+
+	$('#process-duration-select').selectric({
+		expandToItemText: true,
+		maxHeight: 200
+		//onChange: showFlow
+	});
+	
+	$("#edit-parent-dependency").dialog({
+        autoOpen: false,
+        height: 500,
+        width: 800,
+        modal: true,
+        buttons: {
+        	"Save": selectProcess,
+	    	"Cancel": function() {
+				$(this).dialog( "close" );
+	        }
+        },
+        open: function() {
+        },
+        close: function() {
+        }
+	});
+	
+	$("#edit-predecessor-dependency").dialog({
+        autoOpen: false,
+        height: 500,
+        width: 800,
+        modal: true,
+        buttons: {
+        	"Save": selectProcess,
+	    	"Cancel": function() {
+				$(this).dialog( "close" );
+	        }
+        },
+        open: function() {
+        },
+        close: function() {
+        }
+	});
+	
+	$("#contiguous").button();
 	
 	$('#process-selector-tree').jstree({
 		'core': {
@@ -236,10 +278,12 @@
 			return {};
 		} else if (node.type == 'flow') {
 			return {
+				'rename': {'label': 'Rename', 'action': renameFlow },
 				'add-instance': {'label': 'New Process Instance', 'action': addInstance }
 			};
 		} else if (node.type == 'instance') {
 			return {
+				'edit': {'label': 'Edit', 'action': editInstance },
 				'add-parent': {'label': 'New Parent Dependency', 'action': addParent },
 				'add-predecessor': {'label': 'New Predecessor Dependency', 'action': addPredecessor },
 				'delete': {'label': 'Delete', 'action': deleteItem }
@@ -250,18 +294,46 @@
 			};
 		} else if (node.type == 'predecessor') {
 			return {
+				'edit': {'label': 'Edit', 'action': editPredecessor },
 				'delete': {'label': 'Delete', 'action': deleteItem }
 			};
 		}
 	}
 		
+	function renameFlow(menu) {
+		var $tree = $.jstree.reference('#flow-tree')
+		var node = $tree.get_node(menu.reference.context);
+		
+		$tree.edit(node);
+	}
+
+	function editPredecessor(menu) {
+		var node = $.jstree.reference('#flow-tree').get_node(menu.reference.context);
+		var parentNodeId = $.jstree.reference('#flow-tree').get_parent(node);
+		
+		$("#predecessor-selector-tree").hide();
+		
+		$("#edit-process-instance").dialog("open");		
+	}
+
 	function addInstance(menu) {
 		var node = $.jstree.reference('#flow-tree').get_node(menu.reference.context);
 		var parentNodeId = $.jstree.reference('#flow-tree').get_parent(node);
 		
+		$("#process-selector-tree").show();
+		
 		$("#edit-process-instance").dialog("open");		
 	}
 	
+	function editInstance(menu) {
+		var node = $.jstree.reference('#flow-tree').get_node(menu.reference.context);
+		var parentNodeId = $.jstree.reference('#flow-tree').get_parent(node);
+		
+		$("#process-selector-tree").hide();
+		
+		$("#edit-process-instance").dialog("open");		
+	}
+
 	function selectProcess() {
 		
 	}
@@ -277,6 +349,17 @@
 		var node = $.jstree.reference('#flow-tree').get_node(menu.reference.context);
 		var parentNodeId = $.jstree.reference('#flow-tree').get_parent(node);
 		
+		$("#predecessor-selector-tree").show();
+		
+		$("#edit-predecessor-dependency").dialog("open");		
+	}
+
+	function editPredecessor(menu) {
+		var node = $.jstree.reference('#flow-tree').get_node(menu.reference.context);
+		var parentNodeId = $.jstree.reference('#flow-tree').get_parent(node);
+		
+		$("#predecessor-selector-tree").hide();
+		
 		$("#edit-predecessor-dependency").dialog("open");		
 	}
 	
@@ -286,7 +369,6 @@
 		
 	}
 
-	
 	function drawFlow(flows) {
 		var unitWidth = PROCESS_FULL_WIDTH / resolution;
 		

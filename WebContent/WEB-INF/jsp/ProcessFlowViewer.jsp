@@ -54,6 +54,12 @@ var actionURL = "<%= actionURL %>";
 
 <div id="edit-process-instance" style="display: none;">
 	<div id="process-selector-tree"></div>
+	<select id="process-duration-select">
+		<option value="default">Default</option>
+		<option value="short">Short</option>
+		<option value="long">Long</option>
+		<option value="always">Always</option>
+	</select>
 </div>
 
 <div id="edit-parent-dependency" style="display: none;">
@@ -61,5 +67,7 @@ var actionURL = "<%= actionURL %>";
 </div>
 
 <div id="edit-predecessor-dependency" style="display: none;">
-	<div id="prdecessor-selector-tree"></div>
+	<div id="predecessor-selector-tree"></div>
+	<label for="contiguous">Contiguous</label>
+	<input type="checkbox" id="contiguous">
 </div>

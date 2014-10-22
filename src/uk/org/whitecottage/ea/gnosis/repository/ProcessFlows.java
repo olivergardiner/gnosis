@@ -135,6 +135,9 @@ public class ProcessFlows extends XmldbProcessor {
 		JSONString nameJSON = new JSONString("name", processFlow.getName());
 		processJSON.put(nameJSON);
 				
+		JSONString idJSON = new JSONString("id", processFlow.getFlowId());
+		processJSON.put(idJSON);
+				
 		JSONArray instancesJSON = new JSONArray("instances");
 		processJSON.put(instancesJSON);
 		
