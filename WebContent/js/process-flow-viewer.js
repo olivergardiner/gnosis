@@ -4,6 +4,7 @@
     //alert(versions);
     
     var processes;
+	var processElements = [];
     var resolution = 15;
     var PROCESS_DURATION = 5;
     var PROCESS_FULL_WIDTH = 800;
@@ -24,7 +25,11 @@
         width: 800,
         modal: true,
         buttons: {
-        	"Save": selectProcess,
+        	"Save": function() {
+        		if (saveProcessInstance()) {
+    				$(this).dialog( "close" );
+        		}
+        	},
 	    	"Cancel": function() {
 				$(this).dialog( "close" );
 	        }
@@ -47,7 +52,11 @@
         width: 800,
         modal: true,
         buttons: {
-        	"Save": selectProcess,
+        	"Save": function() {
+        		if (saveParent()) {
+    				$(this).dialog( "close" );
+        		}
+        	},
 	    	"Cancel": function() {
 				$(this).dialog( "close" );
 	        }
@@ -64,7 +73,11 @@
         width: 800,
         modal: true,
         buttons: {
-        	"Save": selectProcess,
+        	"Save": function() {
+        		if (savePredecessor()) {
+    				$(this).dialog( "close" );
+        		}
+        	},
 	    	"Cancel": function() {
 				$(this).dialog( "close" );
 	        }
@@ -118,7 +131,7 @@
 	
 	function buildFlowSelect(flows) {
     	for (var i = 0; i < flows.length; i++) {
-    		$("#process-flow-select").append('<option value="' + flows[i].name + '">' +flows[i].name + '</option>')
+    		$("#process-flow-select").append('<option value="' + flows[i].id + '">' +flows[i].name + '</option>')
     	}
 
     	$('#process-flow-select').selectric({
@@ -135,9 +148,9 @@
 		$("#flow-diagram").empty();
 		
 		var flowName = "";
-		var processElements = [];
+		processElements = [];
 		for (var i = 0; i < processes.processFlows.length; i++) {
-			if (processes.processFlows[i].name == flowId) {
+			if (processes.processFlows[i].id == flowId) {
 				var flow = processes.processFlows[i];
 				flowName = flow.name;
 				for (var j = 0; j < flow.instances.length; j++) {
@@ -194,7 +207,7 @@
 				text: flow.process.name,
 				type: "instance",
 				data: {
-					flowId: flow.instance.id,
+					flowId: flowId,
 					processId: flow.process.id,
 					duration: flow.instance.duration
 				},
@@ -268,7 +281,7 @@
 				'items': contextMenu
 			},
 			'plugins': ['dnd', 'types', 'contextmenu']
-		});	
+		}).on('move_node.jstree', moveInstance).on("rename_node.jstree", applyRenameFlow);	
 	}
 	
 	function contextMenu(node, callback) {
@@ -299,6 +312,17 @@
 			};
 		}
 	}
+	
+	function refresh(response) {
+		var flowId = $("#process-flow-select").val();
+
+		processes = response;
+    	buildFlowSelect(processes.processFlows);
+
+    	$("#process-flow-select").val(flowId);
+
+    	showFlow();	
+	}
 		
 	function renameFlow(menu) {
 		var $tree = $.jstree.reference('#flow-tree')
@@ -307,50 +331,97 @@
 		$tree.edit(node);
 	}
 
-	function editPredecessor(menu) {
-		var node = $.jstree.reference('#flow-tree').get_node(menu.reference.context);
-		var parentNodeId = $.jstree.reference('#flow-tree').get_parent(node);
+	function applyRenameFlow(eventObject, data) {
+		var node = data.node;
+		var flowId = $("#process-flow-select").val();
 		
-		$("#predecessor-selector-tree").hide();
+		var data = {
+			flowId: flowId,
+			instanceId: node.data.processId,
+			name: data.text
+		};
 		
-		$("#edit-process-instance").dialog("open");		
+		repoAction("renameFlowAction", data)
 	}
-
+	
+	function moveInstance(eventObject, data) {
+		var node = data.node;
+		var flowId = $("#process-flow-select").val();
+		
+		var data = {
+			flowId: node.data.flowId,
+			instanceId: node.data.processId,
+			position: data.position
+		};
+		
+		repoAction("moveInstanceAction", data, refresh);
+	}
+	
 	function addInstance(menu) {
 		var node = $.jstree.reference('#flow-tree').get_node(menu.reference.context);
 		var parentNodeId = $.jstree.reference('#flow-tree').get_parent(node);
 		
-		$("#process-selector-tree").show();
+		$("#process-selector-row").show();
 		
+		$("#edit-process-instance").data("mode", "add");		
 		$("#edit-process-instance").dialog("open");		
 	}
 	
 	function editInstance(menu) {
 		var node = $.jstree.reference('#flow-tree').get_node(menu.reference.context);
-		var parentNodeId = $.jstree.reference('#flow-tree').get_parent(node);
 		
-		$("#process-selector-tree").hide();
+		$("#process-selector-row").hide();
 		
+		$("#edit-process-instance").data("mode", "edit");		
+		$("#edit-process-instance").data("instanceId", node.data.processId);		
 		$("#edit-process-instance").dialog("open");		
 	}
-
-	function selectProcess() {
+	
+	function saveProcessInstance() {
+		var flowId = $("#process-flow-select").val();
+		var instanceId = $("#edit-process-instance").data("instanceId");
 		
+		if ($("#edit-process-instance").data("mode") == "add") {
+			var $tree = $.jstree.reference('#process-selector-tree');
+			var selected = $tree.get_node($tree.get_selected()[0]);
+			instanceId = selected.data.id;
+		}
+		
+		var data = {
+			flowId: flowId,
+			instanceId: instanceId,
+			mode:  $("#edit-process-instance").data("mode"),
+			duration: $("#process-duration-select").val()
+		};
+			
+		repoAction("updateInstanceAction", data, refresh);
+		
+		return true;
 	}
 
 	function addParent(menu) {
 		var node = $.jstree.reference('#flow-tree').get_node(menu.reference.context);
 		var parentNodeId = $.jstree.reference('#flow-tree').get_parent(node);
 		
+		buildFlowProcessTree("parent-selector-tree");
+		
 		$("#edit-parent-dependency").dialog("open");		
+	}
+
+	function saveParent() {
+		var flowId = $("#process-flow-select").val();
+		
+		return true;
 	}
 
 	function addPredecessor(menu) {
 		var node = $.jstree.reference('#flow-tree').get_node(menu.reference.context);
 		var parentNodeId = $.jstree.reference('#flow-tree').get_parent(node);
 		
-		$("#predecessor-selector-tree").show();
+		buildFlowProcessTree("predecessor-selector-tree");
+		$("#predecessor-selector-row").show();
 		
+		$("#edit-predecessor-dependency").data("mode", "add");		
 		$("#edit-predecessor-dependency").dialog("open");		
 	}
 
@@ -358,15 +429,83 @@
 		var node = $.jstree.reference('#flow-tree').get_node(menu.reference.context);
 		var parentNodeId = $.jstree.reference('#flow-tree').get_parent(node);
 		
-		$("#predecessor-selector-tree").hide();
+		$("#predecessor-selector-row").hide();
 		
+		$("#edit-predecessor-dependency").data("mode", "edit");		
 		$("#edit-predecessor-dependency").dialog("open");		
 	}
 	
-	function deleteItem(menu) {
-		var node = $.jstree.reference('#flow-tree').get_node(menu.reference.context);
-		var parentNodeId = $.jstree.reference('#flow-tree').get_parent(node);
+	function savePredecessor() {
+		var flowId = $("#process-flow-select").val();
 		
+		return true;
+	}
+
+	function deleteItem(menu) {
+		var flowId = $("#process-flow-select").val();
+		var node = $.jstree.reference('#flow-tree').get_node(menu.reference.context);
+		var parentNode = $.jstree.reference('#flow-tree').get_node($.jstree.reference('#flow-tree').get_parent(node));
+		
+		var data = {
+			flowId: flowId,
+			type: node.type
+		};
+		switch (node.type) {
+		case "flow":
+			break;
+		case "instance":
+			data.instanceId = node.data.processId;
+			break;
+		case "parent":
+		case "predecessor":
+			data.instanceId = parentNode.data.processId;
+			data.dependencyId = node.data.processId;
+			break;
+		}
+				
+		repoAction("deleteItemAction", data, refresh);
+	}
+	
+	function buildFlowProcessTree(target) {
+		$('#' + target).jstree("destroy");
+		
+		var tree = [];
+		
+		for (var i = 0; i < processElements.length; i++) {
+			var flow = processElements[i];
+			var node = {
+				text: flow.process.name,
+				type: "instance",
+				data: {
+					processId: flow.process.id
+				},
+				children: []
+			};
+			
+			tree.push(node);
+		}
+
+		$('#' + target).jstree({
+			'core': {
+				'data': tree,
+				'multiple': false,
+				'check_callback': true,
+				'themes': {
+					'variant': 'small',
+					'responsive': false
+				}
+			},
+			'types': {
+				'#': {
+					'valid_children': ['instance']
+				},
+				'instance': {
+					'valid_children': [],
+					'icon': iconURL + "&amp;icon=process.ico"
+				}
+			},
+			'plugins': ['types']
+		});	
 	}
 
 	function drawFlow(flows) {
@@ -555,7 +694,7 @@
             success: function(response) {
         		$("#wait-form").dialog("close");
         		if (callback != undefined) {
-        			callback.call(response);
+        			callback.call(this, response);
         		}
             },
             error: function (jXHR, textStatus, errorThrown) {

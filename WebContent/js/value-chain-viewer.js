@@ -192,10 +192,10 @@
 			position: data.position
 		};
 		
-		repoAction("moveValueChainAction", data)
+		repoAction("moveValueChainAction", data);
 
 		showValueChain();
-		}
+	}
 	
 	function copyNode(eventObject, data) {
 		data.node.data = data.original.data;

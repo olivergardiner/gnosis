@@ -52,22 +52,55 @@ var actionURL = "<%= actionURL %>";
 	<br />
 </div>
 
-<div id="edit-process-instance" style="display: none;">
-	<div id="process-selector-tree"></div>
-	<select id="process-duration-select">
-		<option value="default">Default</option>
-		<option value="short">Short</option>
-		<option value="long">Long</option>
-		<option value="always">Always</option>
-	</select>
+<div id="edit-process-instance" style="display: none;" title="Process instance">
+	<div style="display: table; table-layout: fixed;">
+		<div style="display: table-row;">
+			<div style="display: table-cell; width: 150px;">Process duration</div>
+			<div style="display: table-cell; width: *">
+				<select id="process-duration-select">
+					<option value="default">Default</option>
+					<option value="short">Short</option>
+					<option value="long">Long</option>
+					<option value="always">Always</option>
+				</select>
+			</div>
+		</div>
+		<br/>
+		<div style="display: table-row;" id="process-selector-row">
+			<div style="display: table-cell;">Process</div>
+			<div style="display: table-cell;">
+				<div id="process-selector-tree"></div>
+			</div>
+		</div>
+	</div>
 </div>
 
-<div id="edit-parent-dependency" style="display: none;">
-	<div id="parent-selector-tree"></div>
+<div id="edit-parent-dependency" style="display: none;" title="Parent process dependency">
+	<div style="display: table; table-layout: fixed;">
+		<div style="display: table-row;">
+			<div style="display: table-cell; width: 150px;">Parent process</div>
+			<div style="display: table-cell;">
+				<div id="parent-selector-tree"></div>
+			</div>
+		</div>
+	</div>
 </div>
 
-<div id="edit-predecessor-dependency" style="display: none;">
-	<div id="predecessor-selector-tree"></div>
-	<label for="contiguous">Contiguous</label>
-	<input type="checkbox" id="contiguous">
+<div id="edit-predecessor-dependency" style="display: none;" title="Predecessor process dependency">
+	<div style="display: table; table-layout: fixed;">
+		<div style="display: table-row;">
+			<div style="display: table-cell; width: 150px;">Dependency is contiguous</div>
+			<div style="display: table-cell; width: *">
+				<label for="contiguous">Contiguous</label>
+				<input type="checkbox" id="contiguous">
+			</div>
+		</div>
+		<br/>
+		<div style="display: table-row;" id="predecessor-selector-row">
+			<div style="display: table-cell;">Preceding process</div>
+			<div style="display: table-cell;">
+				<div id="predecessor-selector-tree"></div>
+			</div>
+		</div>
+	</div>
 </div>

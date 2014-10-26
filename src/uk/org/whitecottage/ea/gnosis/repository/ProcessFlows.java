@@ -1,13 +1,17 @@
 package uk.org.whitecottage.ea.gnosis.repository;
 
+import java.util.List;
 import java.util.logging.Logger;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
 
 import org.exist.xmldb.EXistResource;
+import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
 import org.xmldb.api.base.Collection;
 import org.xmldb.api.base.XMLDBException;
@@ -29,7 +33,7 @@ public class ProcessFlows extends XmldbProcessor {
 	protected Unmarshaller frameworkUnmarshaller = null;
 	protected Marshaller frameworkMarshaller = null;
 
-	@SuppressWarnings("unused")
+	//@SuppressWarnings("unused")
 	private static final Logger log = Logger.getLogger("uk.org.whitecottage.ea.gnosis.framework");
 
 	public ProcessFlows(String URI, String repositoryRoot, String context) {
@@ -185,5 +189,166 @@ public class ProcessFlows extends XmldbProcessor {
 		}
 		
 		return instanceJSON;
+	}
+
+	public void updateProcessInstance(String flowId, String instanceId, String duration, String mode) {
+		log.info("Updating process instance: " + flowId + ", " + instanceId + ", " + duration + ", " + mode);
+
+		Collection repository = null;
+		XMLResource frameworkResource = null;
+		try {   
+			repository = getCollection("");
+		    frameworkResource = getResource(repository, "framework.xml");
+			Framework framework = (Framework) frameworkUnmarshaller.unmarshal(frameworkResource.getContentAsDOM());
+			
+			for (ProcessFlow flow: framework.getBusinessOperatingModel().getBusinessProcesses().getProcessFlow()) {
+				if (flow.getFlowId().equals(flowId)) {
+					if (mode.equals("add")) {
+						ProcessInstance instance = new ProcessInstance();
+						instance.setProcessId(instanceId);
+						instance.setDuration(duration);
+						flow.getProcessInstance().add(instance);
+					} else {
+						for (ProcessInstance instance: flow.getProcessInstance()) {
+							if (instance.getProcessId().equals(instanceId)) {
+								instance.setDuration(duration);
+							}
+						}
+					}
+				}
+			}
+			
+	    	// Create the DOM document
+	    	DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+	        dbf.setNamespaceAware(true);
+	        DocumentBuilder db = dbf.newDocumentBuilder();
+	        Document doc = db.newDocument();
+	    	frameworkMarshaller.marshal(framework, doc);
+	    	
+			storeDomResource(repository, "framework.xml", doc);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+		    if(frameworkResource != null) {
+		        try { ((EXistResource) frameworkResource).freeResources(); } catch(XMLDBException xe) {xe.printStackTrace();}
+		    }
+		    
+		    if(repository != null) {
+		        try { repository.close(); } catch(XMLDBException xe) {xe.printStackTrace();}
+		    }
+		}
+	}
+
+	public void moveProcessInstance(String flowId, String instanceId, int position) {
+		log.info("Moving process instance: " + flowId + ", " + instanceId + ", " + position);
+		
+		Collection repository = null;
+		XMLResource frameworkResource = null;
+		try {   
+			repository = getCollection("");
+		    frameworkResource = getResource(repository, "framework.xml");
+			Framework framework = (Framework) frameworkUnmarshaller.unmarshal(frameworkResource.getContentAsDOM());
+			
+			for (ProcessFlow flow: framework.getBusinessOperatingModel().getBusinessProcesses().getProcessFlow()) {
+				if (flow.getFlowId().equals(flowId)) {
+					for (ProcessInstance instance: flow.getProcessInstance()) {
+						if (instance.getProcessId().equals(instanceId)) {
+							flow.getProcessInstance().remove(instance);
+							flow.getProcessInstance().add(position, instance);
+							break;
+						}
+					}
+				}
+			}
+
+			// Create the DOM document
+	    	DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+	        dbf.setNamespaceAware(true);
+	        DocumentBuilder db = dbf.newDocumentBuilder();
+	        Document doc = db.newDocument();
+	    	frameworkMarshaller.marshal(framework, doc);
+	    	
+			storeDomResource(repository, "framework.xml", doc);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+		    if(frameworkResource != null) {
+		        try { ((EXistResource) frameworkResource).freeResources(); } catch(XMLDBException xe) {xe.printStackTrace();}
+		    }
+		    
+		    if(repository != null) {
+		        try { repository.close(); } catch(XMLDBException xe) {xe.printStackTrace();}
+		    }
+		}
+	}
+
+	public void deleteItem(String flowId, String instanceId, String dependencyId, String type) {
+		log.info("Deleting item: " + flowId + ", " + instanceId + ", " + dependencyId + ", " + type);
+
+		Collection repository = null;
+		XMLResource frameworkResource = null;
+		try {   
+			repository = getCollection("");
+		    frameworkResource = getResource(repository, "framework.xml");
+			Framework framework = (Framework) frameworkUnmarshaller.unmarshal(frameworkResource.getContentAsDOM());
+			
+			List<ProcessFlow> flows =  framework.getBusinessOperatingModel().getBusinessProcesses().getProcessFlow();
+			for (ProcessFlow flow: flows) {
+				if (flow.getFlowId().equals(flowId)) {
+					if (type.equals("flow")) {
+						flows.remove(flow);
+					} else {
+						for (ProcessInstance instance: flow.getProcessInstance()) {
+							if (instance.getProcessId().equals(instanceId)) {
+								if (type.equals("instance")) {
+									log.info("removing instance");
+									flow.getProcessInstance().remove(instance);
+								} else {
+									if (type.equals("parent")) {
+										for (Parent parent: instance.getParent()) {
+											if (parent.getProcess().equals(dependencyId)) {
+												instance.getParent().remove(parent);
+												break;
+											}
+										}
+									} else if (type.equals("predecessor")) {
+										for (Predecessor predecessor: instance.getPredecessor()) {
+											if (predecessor.getProcess().equals(dependencyId)) {
+												instance.getPredecessor().remove(predecessor);
+												break;
+											}
+										}
+									}
+								}
+								break;
+							}
+						}
+					}
+					break;
+				}
+			}
+			
+	    	// Create the DOM document
+	    	DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+	        dbf.setNamespaceAware(true);
+	        DocumentBuilder db = dbf.newDocumentBuilder();
+	        Document doc = db.newDocument();
+	    	frameworkMarshaller.marshal(framework, doc);
+	    	
+			storeDomResource(repository, "framework.xml", doc);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+		    if(frameworkResource != null) {
+		        try { ((EXistResource) frameworkResource).freeResources(); } catch(XMLDBException xe) {xe.printStackTrace();}
+		    }
+		    
+		    if(repository != null) {
+		        try { repository.close(); } catch(XMLDBException xe) {xe.printStackTrace();}
+		    }
+		}
 	}
 }

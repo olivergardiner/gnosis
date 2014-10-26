@@ -60,7 +60,7 @@ public class ValueChainViewer extends GnosisPortlet {
     }
 
     @ProcessResourceAction(name = "updateValueChainAction")
-    public void updateDomain(ResourceRequest request, ResourceResponse response) throws PortletException, java.io.IOException {
+    public void updateValueChain(ResourceRequest request, ResourceResponse response) throws PortletException, java.io.IOException {
     	Properties gnosis2Properties = getProperties();
     	String existURI = gnosis2Properties.getProperty("exist.uri");
     	String existRepositoryRoot = gnosis2Properties.getProperty("exist.repository.root");
@@ -79,7 +79,7 @@ public class ValueChainViewer extends GnosisPortlet {
     }
 
     @ProcessResourceAction(name = "moveValueChainAction")
-    public void deleteDomain(ResourceRequest request, ResourceResponse response) throws PortletException, java.io.IOException {
+    public void moveValueChain(ResourceRequest request, ResourceResponse response) throws PortletException, java.io.IOException {
     	Properties gnosis2Properties = getProperties();
     	String existURI = gnosis2Properties.getProperty("exist.uri");
     	String existRepositoryRoot = gnosis2Properties.getProperty("exist.repository.root");
