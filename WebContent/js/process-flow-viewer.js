@@ -17,7 +17,13 @@
 		downloadURL(unescapeHTML(docxURL));
 	});
 	
-	$("#edit-button").button().click(openTree);
+	$("#edit-flow").button().click(openTree);
+	
+	$("#new-flow").button().click(addFlow);
+	
+	$("#copy-flow").button().click(copyFlow);
+	
+	$("#delete-flow").button().click(deleteFlow);
 	
 	$("#edit-process-instance").dialog({
         autoOpen: false,
@@ -40,12 +46,6 @@
         }
 	});
 
-	$('#process-duration-select').selectric({
-		expandToItemText: true,
-		maxHeight: 200
-		//onChange: showFlow
-	});
-	
 	$("#edit-parent-dependency").dialog({
         autoOpen: false,
         height: 500,
@@ -130,17 +130,21 @@
 	});
 	
 	function buildFlowSelect(flows) {
-    	for (var i = 0; i < flows.length; i++) {
+		$('#process-flow-select').selectric("destroy");
+		$('#process-flow-select').empty();
+		
+		$('#process-flow-select').append('<option value="null">Select a process flow...</option>');
+		for (var i = 0; i < flows.length; i++) {
     		$("#process-flow-select").append('<option value="' + flows[i].id + '">' +flows[i].name + '</option>')
     	}
 
     	$('#process-flow-select').selectric({
     		expandToItemText: true,
-    		maxHeight: 200,
+    		maxHeight: 400,
     		onChange: showFlow
     	});
     	
-    	$("#toolbar").css("display", "table");
+    	$("#toolbar-top").css("display", "table");
 	}
 	
 	function showFlow(element) {
@@ -173,9 +177,9 @@
 		closeTree();
 
 		if (flowId != 'null') {
-			$("#edit-button").button().show();
+			$("#toolbar-bottom").show();
 		} else {
-			$("#edit-button").button().hide();
+			$("#toolbar-bottom").hide();
 		}
 	}
 	
@@ -191,6 +195,7 @@
 	
 	function buildTree(flows, flowId, flowName) {
 		$('#flow-tree').jstree("destroy");
+		$('#flow-tree').empty();
 		
 		var tree = [{
 			text: flowName,
@@ -231,7 +236,8 @@
 					text: predecessorProcess.name,
 					type: "predecessor",
 					data: {
-						processId: predecessorProcess.id
+						processId: predecessorProcess.id,
+						contiguous: flow.instance.predecessors[j].contiguous
 					}
 				});
 			}
@@ -320,10 +326,38 @@
     	buildFlowSelect(processes.processFlows);
 
     	$("#process-flow-select").val(flowId);
+    	$("#process-flow-select").selectric("refresh");
 
     	showFlow();	
 	}
 		
+	function addFlow() {
+		var data = {
+			flowId: uuid.v4()
+		};
+		
+		repoAction("addFlowAction", data, refresh);
+	}
+
+	function copyFlow() {
+		var flowId = $("#process-flow-select").val();
+		var data = {
+			flowId: flowId,
+			copyId: uuid.v4()
+		};
+		
+		repoAction("copyFlowAction", data, refresh);
+	}
+
+	function deleteFlow() {
+		var flowId = $("#process-flow-select").val();
+		var data = {
+			flowId: flowId
+		};
+		
+		repoAction("deleteFlowAction", data, refresh);
+	}
+
 	function renameFlow(menu) {
 		var $tree = $.jstree.reference('#flow-tree')
 		var node = $tree.get_node(menu.reference.context);
@@ -331,17 +365,21 @@
 		$tree.edit(node);
 	}
 
-	function applyRenameFlow(eventObject, data) {
-		var node = data.node;
+	function applyRenameFlow(eventObject, eventData) {
+		var node = eventData.node;
 		var flowId = $("#process-flow-select").val();
 		
 		var data = {
 			flowId: flowId,
 			instanceId: node.data.processId,
-			name: data.text
+			name: eventData.text
 		};
 		
+		// Done
 		repoAction("renameFlowAction", data)
+		
+		$("#process-flow-select option[value='" + flowId + "']").text(eventData.text);
+		$("#process-flow-select").selectric("refesh");
 	}
 	
 	function moveInstance(eventObject, data) {
@@ -354,6 +392,7 @@
 			position: data.position
 		};
 		
+		// Done
 		repoAction("moveInstanceAction", data, refresh);
 	}
 	
@@ -371,6 +410,9 @@
 		var node = $.jstree.reference('#flow-tree').get_node(menu.reference.context);
 		
 		$("#process-selector-row").hide();
+		
+		$("#process-duration-select").val(node.data.duration);
+		$("#process-duration-select").selectric("refesh");
 		
 		$("#edit-process-instance").data("mode", "edit");		
 		$("#edit-process-instance").data("instanceId", node.data.processId);		
@@ -394,6 +436,7 @@
 			duration: $("#process-duration-select").val()
 		};
 			
+		// Done
 		repoAction("updateInstanceAction", data, refresh);
 		
 		return true;
@@ -405,11 +448,26 @@
 		
 		buildFlowProcessTree("parent-selector-tree");
 		
+		$("#edit-parent-dependency").data("instanceId", node.data.processId);		
 		$("#edit-parent-dependency").dialog("open");		
 	}
 
 	function saveParent() {
 		var flowId = $("#process-flow-select").val();
+		var instanceId = $("#edit-parent-dependency").data("instanceId");
+		
+		var $tree = $.jstree.reference('#parent-selector-tree');
+		var selected = $tree.get_node($tree.get_selected()[0]);
+		var parentId = selected.data.processId;
+		
+		var data = {
+			flowId: flowId,
+			instanceId: instanceId,
+			parentId: parentId
+		};
+			
+		// Done
+		repoAction("addParentAction", data, refresh);
 		
 		return true;
 	}
@@ -421,7 +479,10 @@
 		buildFlowProcessTree("predecessor-selector-tree");
 		$("#predecessor-selector-row").show();
 		
-		$("#edit-predecessor-dependency").data("mode", "add");		
+		$("#contiguous").prop("checked", true);
+		$("#contiguous").button("refresh");
+		
+		$("#edit-predecessor-dependency").data("instanceId", node.data.processId);		
 		$("#edit-predecessor-dependency").dialog("open");		
 	}
 
@@ -431,12 +492,30 @@
 		
 		$("#predecessor-selector-row").hide();
 		
-		$("#edit-predecessor-dependency").data("mode", "edit");		
+		$("#contiguous").prop("checked", node.data.contiguous);
+		$("#contiguous").button("refresh");
+		
+		$("#edit-predecessor-dependency").data("instanceId", node.data.processId);		
 		$("#edit-predecessor-dependency").dialog("open");		
 	}
 	
 	function savePredecessor() {
 		var flowId = $("#process-flow-select").val();
+		var instanceId = $("#edit-predecessor-dependency").data("instanceId");
+		
+		var $tree = $.jstree.reference('#predecessor-selector-tree');
+		var selected = $tree.get_node($tree.get_selected()[0]);
+		var predecessorId = selected.data.processId;
+		
+		var data = {
+			flowId: flowId,
+			instanceId: instanceId,
+			predecessorId: predecessorId,
+			contiguous: $("#contiguous").prop("checked") ? "true" : "false"
+		};
+			
+		// Done
+		repoAction("updatePredecessorAction", data, refresh);
 		
 		return true;
 	}
@@ -463,6 +542,7 @@
 			break;
 		}
 				
+		// Done
 		repoAction("deleteItemAction", data, refresh);
 	}
 	

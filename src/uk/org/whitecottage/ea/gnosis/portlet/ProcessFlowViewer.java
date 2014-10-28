@@ -102,6 +102,76 @@ public class ProcessFlowViewer extends GnosisPortlet {
     	ppt.write(response.getPortletOutputStream());
      }
 
+    @ProcessResourceAction(name = "addFlowAction")
+    public void addFlow(ResourceRequest request, ResourceResponse response) throws PortletException, java.io.IOException {
+    	Properties gnosis2Properties = getProperties();
+    	String existURI = gnosis2Properties.getProperty("exist.uri");
+    	String existRepositoryRoot = gnosis2Properties.getProperty("exist.repository.root");
+    	String context = getPortletContext().getRealPath("");
+    	ProcessFlows processFlows = new ProcessFlows(existURI, existRepositoryRoot, context);
+    	
+    	String flowId = request.getParameter("flowId");
+        	
+    	processFlows.addFlow(flowId);
+    	
+    	String json = processFlows.getJSON();
+    	
+    	response.getWriter().print(json);
+    }
+
+    @ProcessResourceAction(name = "copyFlowAction")
+    public void copyFlow(ResourceRequest request, ResourceResponse response) throws PortletException, java.io.IOException {
+    	Properties gnosis2Properties = getProperties();
+    	String existURI = gnosis2Properties.getProperty("exist.uri");
+    	String existRepositoryRoot = gnosis2Properties.getProperty("exist.repository.root");
+    	String context = getPortletContext().getRealPath("");
+    	ProcessFlows processFlows = new ProcessFlows(existURI, existRepositoryRoot, context);
+    	
+    	String flowId = request.getParameter("flowId");
+    	String copyId = request.getParameter("copyId");
+       	
+    	processFlows.copyFlow(flowId, copyId);
+    	
+    	String json = processFlows.getJSON();
+    	
+    	response.getWriter().print(json);
+    }
+
+    @ProcessResourceAction(name = "renameFlowAction")
+    public void renameFlow(ResourceRequest request, ResourceResponse response) throws PortletException, java.io.IOException {
+    	Properties gnosis2Properties = getProperties();
+    	String existURI = gnosis2Properties.getProperty("exist.uri");
+    	String existRepositoryRoot = gnosis2Properties.getProperty("exist.repository.root");
+    	String context = getPortletContext().getRealPath("");
+    	ProcessFlows processFlows = new ProcessFlows(existURI, existRepositoryRoot, context);
+    	
+    	String flowId = request.getParameter("flowId");
+    	String name = request.getParameter("name");
+       	
+    	processFlows.renameFlow(flowId, name);
+    	
+    	String json = processFlows.getJSON();
+    	
+    	response.getWriter().print(json);
+    }
+
+    @ProcessResourceAction(name = "deleteFlowAction")
+    public void deleteFlow(ResourceRequest request, ResourceResponse response) throws PortletException, java.io.IOException {
+    	Properties gnosis2Properties = getProperties();
+    	String existURI = gnosis2Properties.getProperty("exist.uri");
+    	String existRepositoryRoot = gnosis2Properties.getProperty("exist.repository.root");
+    	String context = getPortletContext().getRealPath("");
+    	ProcessFlows processFlows = new ProcessFlows(existURI, existRepositoryRoot, context);
+    	
+    	String flowId = request.getParameter("flowId");
+       	
+    	processFlows.deleteFlow(flowId);
+    	
+    	String json = processFlows.getJSON();
+    	
+    	response.getWriter().print(json);
+    }
+
     @ProcessResourceAction(name = "updateInstanceAction")
     public void updateProcessInstance(ResourceRequest request, ResourceResponse response) throws PortletException, java.io.IOException {
     	Properties gnosis2Properties = getProperties();
@@ -135,6 +205,45 @@ public class ProcessFlowViewer extends GnosisPortlet {
     	String position = request.getParameter("position");
        	
     	processFlows.moveProcessInstance(flowId, instanceId, Integer.parseInt(position));
+
+    	String json = processFlows.getJSON();
+    	
+    	response.getWriter().print(json);
+    }
+
+    @ProcessResourceAction(name = "addParentAction")
+    public void addParentDependency(ResourceRequest request, ResourceResponse response) throws PortletException, java.io.IOException {
+    	Properties gnosis2Properties = getProperties();
+    	String existURI = gnosis2Properties.getProperty("exist.uri");
+    	String existRepositoryRoot = gnosis2Properties.getProperty("exist.repository.root");
+    	String context = getPortletContext().getRealPath("");
+    	ProcessFlows processFlows = new ProcessFlows(existURI, existRepositoryRoot, context);
+    	
+    	String flowId = request.getParameter("flowId");
+    	String instanceId = request.getParameter("instanceId");
+    	String parentId = request.getParameter("parentId");
+       	
+    	processFlows.addParentDependency(flowId, instanceId, parentId);
+
+    	String json = processFlows.getJSON();
+    	
+    	response.getWriter().print(json);
+    }
+
+    @ProcessResourceAction(name = "updatePredecessorAction")
+    public void updatePredecessorDependency(ResourceRequest request, ResourceResponse response) throws PortletException, java.io.IOException {
+    	Properties gnosis2Properties = getProperties();
+    	String existURI = gnosis2Properties.getProperty("exist.uri");
+    	String existRepositoryRoot = gnosis2Properties.getProperty("exist.repository.root");
+    	String context = getPortletContext().getRealPath("");
+    	ProcessFlows processFlows = new ProcessFlows(existURI, existRepositoryRoot, context);
+    	
+    	String flowId = request.getParameter("flowId");
+    	String instanceId = request.getParameter("instanceId");
+    	String predecessorId = request.getParameter("predecessorId");
+    	String contiguous = request.getParameter("contiguous");
+       	
+    	processFlows.updatePredecessorDependency(flowId, instanceId, predecessorId, contiguous);
 
     	String json = processFlows.getJSON();
     	

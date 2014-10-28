@@ -3,20 +3,6 @@ package uk.org.whitecottage.ea.gnosis.repository;
 import java.util.List;
 import java.util.logging.Logger;
 
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
-import javax.xml.bind.Unmarshaller;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-
-import org.exist.xmldb.EXistResource;
-import org.w3c.dom.Document;
-import org.xml.sax.SAXException;
-import org.xmldb.api.base.Collection;
-import org.xmldb.api.base.XMLDBException;
-import org.xmldb.api.modules.XMLResource;
-
 import uk.org.whitecottage.ea.gnosis.jaxb.framework.Framework;
 import uk.org.whitecottage.ea.gnosis.jaxb.framework.Parent;
 import uk.org.whitecottage.ea.gnosis.jaxb.framework.Predecessor;
@@ -29,68 +15,33 @@ import uk.org.whitecottage.ea.gnosis.json.JSONBoolean;
 import uk.org.whitecottage.ea.gnosis.json.JSONMap;
 import uk.org.whitecottage.ea.gnosis.json.JSONString;
 
-public class ProcessFlows extends XmldbProcessor {
-	protected Unmarshaller frameworkUnmarshaller = null;
-	protected Marshaller frameworkMarshaller = null;
-
+public class ProcessFlows extends FrameworkProcessor {
 	//@SuppressWarnings("unused")
 	private static final Logger log = Logger.getLogger("uk.org.whitecottage.ea.gnosis.framework");
 
 	public ProcessFlows(String URI, String repositoryRoot, String context) {
-		super(URI, repositoryRoot);
-
-		try {
-		    JAXBContext frameworkContext = JAXBContext.newInstance("uk.org.whitecottage.ea.gnosis.jaxb.framework");
-		    frameworkUnmarshaller = createUnmarshaller(frameworkContext, context + "/WEB-INF/xsd/framework.xsd");
-		    frameworkMarshaller = frameworkContext.createMarshaller();
-		} catch (JAXBException e) {
-			e.printStackTrace();
-		} catch (SAXException e) {
-			e.printStackTrace();
-		}
+		super(URI, repositoryRoot, context);
 	}
 
 	public String getJSON() {
-		String result = null;
-
-		Collection repository = null;
-		XMLResource frameworkResource = null;
-		try {   
-			repository = getCollection("");
-		    frameworkResource = getResource(repository, "framework.xml");
-			Framework framework = (Framework) frameworkUnmarshaller.unmarshal(frameworkResource.getContentAsDOM());
-			
-			JSONMap businessProcesses = new JSONMap();
-			JSONArray processDomains = new JSONArray("processDomains");
-			businessProcesses.put(processDomains);
-
-			for (ProcessDomain domain: framework.getBusinessOperatingModel().getBusinessProcesses().getProcessDomain()) {
-				processDomains.add(renderProcessDomain(domain));
-			}
-
-			JSONArray processFlows = new JSONArray("processFlows");
-			businessProcesses.put(processFlows);
-			
-			for (ProcessFlow flow: framework.getBusinessOperatingModel().getBusinessProcesses().getProcessFlow()) {
-				processFlows.add(renderProcessFlow(flow));
-			}
-
-			result = businessProcesses.toJSON();
-
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} finally {
-		    if(frameworkResource != null) {
-		        try { ((EXistResource) frameworkResource).freeResources(); } catch(XMLDBException xe) {xe.printStackTrace();}
-		    }
-		    
-		    if(repository != null) {
-		        try { repository.close(); } catch(XMLDBException xe) {xe.printStackTrace();}
-		    }
-		}
+		Framework framework = loadFramework();
 		
-		return result;
+		JSONMap businessProcesses = new JSONMap();
+		JSONArray processDomains = new JSONArray("processDomains");
+		businessProcesses.put(processDomains);
+
+		for (ProcessDomain domain: framework.getBusinessOperatingModel().getBusinessProcesses().getProcessDomain()) {
+			processDomains.add(renderProcessDomain(domain));
+		}
+
+		JSONArray processFlows = new JSONArray("processFlows");
+		businessProcesses.put(processFlows);
+		
+		for (ProcessFlow flow: framework.getBusinessOperatingModel().getBusinessProcesses().getProcessFlow()) {
+			processFlows.add(renderProcessFlow(flow));
+		}
+
+		return businessProcesses.toJSON();
 	}
 
 	protected JSONMap renderProcessDomain(ProcessDomain domain) {
@@ -191,164 +142,255 @@ public class ProcessFlows extends XmldbProcessor {
 		return instanceJSON;
 	}
 
+	public void addFlow(String flowId) {
+		log.info("Adding flow: " + flowId);
+		
+		Framework framework = loadFramework();
+
+		ProcessFlow flow = new ProcessFlow();
+		flow.setFlowId(flowId);
+		flow.setName("New Process Flow");
+		framework.getBusinessOperatingModel().getBusinessProcesses().getProcessFlow().add(flow);
+		
+		saveFramework(framework);
+	}
+
+	public void copyFlow(String flowId, String copyId) {
+		log.info("Renaming flow: " + flowId);
+		
+		Framework framework = loadFramework();
+
+		for (ProcessFlow flow: framework.getBusinessOperatingModel().getBusinessProcesses().getProcessFlow()) {
+			if (flow.getFlowId().equals(flowId)) {
+				framework.getBusinessOperatingModel().getBusinessProcesses().getProcessFlow().add(copyFlow(flow, copyId));
+				break;
+			}
+		}
+		
+		saveFramework(framework);
+	}
+	
+	protected ProcessFlow copyFlow(ProcessFlow flow, String copyId) {
+		ProcessFlow newFlow = new ProcessFlow();
+		newFlow.setFlowId(copyId);
+		newFlow.setName("Copy of " + flow.getName());
+		
+		for (ProcessInstance instance: flow.getProcessInstance()) {
+			ProcessInstance newInstance = new ProcessInstance();
+			newInstance.setProcessId(instance.getProcessId());;
+			newInstance.setDuration(instance.getDuration());
+			
+			for (Parent parent: instance.getParent()) {
+				Parent newParent = new Parent();
+				newParent.setProcess(parent.getProcess());
+				
+				newInstance.getParent().add(newParent);
+			}
+			
+			for (Predecessor predecessor: instance.getPredecessor()) {
+				Predecessor newPredecessor = new Predecessor();
+				newPredecessor.setContiguous(predecessor.isContiguous());
+				newPredecessor.setProcess(predecessor.getProcess());
+				
+				newInstance.getPredecessor().add(newPredecessor);
+			}
+			
+			newFlow.getProcessInstance().add(newInstance);
+		}
+		
+		return newFlow;
+	}
+
+	public void renameFlow(String flowId, String name) {
+		log.info("Renaming flow: " + flowId + ", " + name);
+
+		Framework framework = loadFramework();
+
+		for (ProcessFlow flow: framework.getBusinessOperatingModel().getBusinessProcesses().getProcessFlow()) {
+			if (flow.getFlowId().equals(flowId)) {
+				flow.setName(name);
+			}
+		}
+		
+		saveFramework(framework);
+	}
+
+	public void deleteFlow(String flowId) {
+		log.info("Renaming flow: " + flowId);
+
+		Framework framework = loadFramework();
+
+		for (ProcessFlow flow: framework.getBusinessOperatingModel().getBusinessProcesses().getProcessFlow()) {
+			if (flow.getFlowId().equals(flowId)) {
+				framework.getBusinessOperatingModel().getBusinessProcesses().getProcessFlow().remove(flow);
+				break;
+			}
+		}
+		
+		saveFramework(framework);
+	}
+
 	public void updateProcessInstance(String flowId, String instanceId, String duration, String mode) {
 		log.info("Updating process instance: " + flowId + ", " + instanceId + ", " + duration + ", " + mode);
 
-		Collection repository = null;
-		XMLResource frameworkResource = null;
-		try {   
-			repository = getCollection("");
-		    frameworkResource = getResource(repository, "framework.xml");
-			Framework framework = (Framework) frameworkUnmarshaller.unmarshal(frameworkResource.getContentAsDOM());
-			
-			for (ProcessFlow flow: framework.getBusinessOperatingModel().getBusinessProcesses().getProcessFlow()) {
-				if (flow.getFlowId().equals(flowId)) {
-					if (mode.equals("add")) {
-						ProcessInstance instance = new ProcessInstance();
-						instance.setProcessId(instanceId);
-						instance.setDuration(duration);
-						flow.getProcessInstance().add(instance);
-					} else {
-						for (ProcessInstance instance: flow.getProcessInstance()) {
-							if (instance.getProcessId().equals(instanceId)) {
-								instance.setDuration(duration);
-							}
+		Framework framework = loadFramework();
+
+		for (ProcessFlow flow: framework.getBusinessOperatingModel().getBusinessProcesses().getProcessFlow()) {
+			if (flow.getFlowId().equals(flowId)) {
+				if (mode.equals("add")) {
+					ProcessInstance instance = new ProcessInstance();
+					instance.setProcessId(instanceId);
+					instance.setDuration(duration);
+					flow.getProcessInstance().add(instance);
+				} else {
+					for (ProcessInstance instance: flow.getProcessInstance()) {
+						if (instance.getProcessId().equals(instanceId)) {
+							instance.setDuration(duration);
 						}
 					}
 				}
 			}
-			
-	    	// Create the DOM document
-	    	DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-	        dbf.setNamespaceAware(true);
-	        DocumentBuilder db = dbf.newDocumentBuilder();
-	        Document doc = db.newDocument();
-	    	frameworkMarshaller.marshal(framework, doc);
-	    	
-			storeDomResource(repository, "framework.xml", doc);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} finally {
-		    if(frameworkResource != null) {
-		        try { ((EXistResource) frameworkResource).freeResources(); } catch(XMLDBException xe) {xe.printStackTrace();}
-		    }
-		    
-		    if(repository != null) {
-		        try { repository.close(); } catch(XMLDBException xe) {xe.printStackTrace();}
-		    }
 		}
+		
+		saveFramework(framework);
 	}
 
 	public void moveProcessInstance(String flowId, String instanceId, int position) {
 		log.info("Moving process instance: " + flowId + ", " + instanceId + ", " + position);
-		
-		Collection repository = null;
-		XMLResource frameworkResource = null;
-		try {   
-			repository = getCollection("");
-		    frameworkResource = getResource(repository, "framework.xml");
-			Framework framework = (Framework) frameworkUnmarshaller.unmarshal(frameworkResource.getContentAsDOM());
-			
-			for (ProcessFlow flow: framework.getBusinessOperatingModel().getBusinessProcesses().getProcessFlow()) {
-				if (flow.getFlowId().equals(flowId)) {
-					for (ProcessInstance instance: flow.getProcessInstance()) {
-						if (instance.getProcessId().equals(instanceId)) {
-							flow.getProcessInstance().remove(instance);
-							flow.getProcessInstance().add(position, instance);
-							break;
-						}
+
+		Framework framework = loadFramework();
+
+		for (ProcessFlow flow: framework.getBusinessOperatingModel().getBusinessProcesses().getProcessFlow()) {
+			if (flow.getFlowId().equals(flowId)) {
+				for (ProcessInstance instance: flow.getProcessInstance()) {
+					if (instance.getProcessId().equals(instanceId)) {
+						flow.getProcessInstance().remove(instance);
+						flow.getProcessInstance().add(position, instance);
+						break;
 					}
 				}
 			}
-
-			// Create the DOM document
-	    	DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-	        dbf.setNamespaceAware(true);
-	        DocumentBuilder db = dbf.newDocumentBuilder();
-	        Document doc = db.newDocument();
-	    	frameworkMarshaller.marshal(framework, doc);
-	    	
-			storeDomResource(repository, "framework.xml", doc);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} finally {
-		    if(frameworkResource != null) {
-		        try { ((EXistResource) frameworkResource).freeResources(); } catch(XMLDBException xe) {xe.printStackTrace();}
-		    }
-		    
-		    if(repository != null) {
-		        try { repository.close(); } catch(XMLDBException xe) {xe.printStackTrace();}
-		    }
 		}
+		
+		saveFramework(framework);
+	}
+
+	public void addParentDependency(String flowId, String instanceId, String parentId) {
+		log.info("Updating parent dependency: " + flowId + ", " + instanceId + ", " + parentId);
+
+		Framework framework = loadFramework();
+
+		for (ProcessFlow flow: framework.getBusinessOperatingModel().getBusinessProcesses().getProcessFlow()) {
+			if (flow.getFlowId().equals(flowId)) {
+				for (ProcessInstance instance: flow.getProcessInstance()) {
+					if (instance.getProcessId().equals(instanceId)) {
+						boolean found = false;
+						for (Parent parent: instance.getParent()) {
+							if (parent.getProcess().equals(parentId)) {
+								found = true;
+								
+								break;
+							}
+						}
+						
+						if (!found) {
+							Parent newParent = new Parent();
+							newParent.setProcess(parentId);
+							instance.getParent().add(newParent);
+						}
+						
+						break;
+					}
+				}
+				
+				break;
+			}
+		}
+		
+		saveFramework(framework);
+	}
+
+	public void updatePredecessorDependency(String flowId, String instanceId, String predecessorId, String contiguous) {
+		log.info("Updating predecessor dependency: " + flowId + ", " + instanceId + ", " + predecessorId);
+		if (predecessorId == null) {
+			predecessorId = "";
+		}
+
+		Framework framework = loadFramework();
+
+		for (ProcessFlow flow: framework.getBusinessOperatingModel().getBusinessProcesses().getProcessFlow()) {
+			if (flow.getFlowId().equals(flowId)) {
+				for (ProcessInstance instance: flow.getProcessInstance()) {
+					if (instance.getProcessId().equals(instanceId)) {
+						boolean found = false;
+						for (Predecessor predecessor: instance.getPredecessor()) {
+							if (predecessor.getProcess().equals(predecessorId)) {
+								found = true;
+								predecessor.setContiguous(new Boolean(contiguous.equals("true")));
+								
+								break;
+							}
+						}
+						
+						if (!found) {
+							Predecessor newPredecessor = new Predecessor();
+							newPredecessor.setProcess(predecessorId);
+							newPredecessor.setContiguous(new Boolean(contiguous.equals("true")));
+							instance.getPredecessor().add(newPredecessor);
+						}
+						
+						break;
+					}
+				}
+				
+				break;
+			}
+		}
+		
+		saveFramework(framework);
 	}
 
 	public void deleteItem(String flowId, String instanceId, String dependencyId, String type) {
 		log.info("Deleting item: " + flowId + ", " + instanceId + ", " + dependencyId + ", " + type);
 
-		Collection repository = null;
-		XMLResource frameworkResource = null;
-		try {   
-			repository = getCollection("");
-		    frameworkResource = getResource(repository, "framework.xml");
-			Framework framework = (Framework) frameworkUnmarshaller.unmarshal(frameworkResource.getContentAsDOM());
-			
-			List<ProcessFlow> flows =  framework.getBusinessOperatingModel().getBusinessProcesses().getProcessFlow();
-			for (ProcessFlow flow: flows) {
-				if (flow.getFlowId().equals(flowId)) {
-					if (type.equals("flow")) {
-						flows.remove(flow);
-					} else {
-						for (ProcessInstance instance: flow.getProcessInstance()) {
-							if (instance.getProcessId().equals(instanceId)) {
-								if (type.equals("instance")) {
-									log.info("removing instance");
-									flow.getProcessInstance().remove(instance);
-								} else {
-									if (type.equals("parent")) {
-										for (Parent parent: instance.getParent()) {
-											if (parent.getProcess().equals(dependencyId)) {
-												instance.getParent().remove(parent);
-												break;
-											}
+		Framework framework = loadFramework();
+
+		List<ProcessFlow> flows =  framework.getBusinessOperatingModel().getBusinessProcesses().getProcessFlow();
+		for (ProcessFlow flow: flows) {
+			if (flow.getFlowId().equals(flowId)) {
+				if (type.equals("flow")) {
+					flows.remove(flow);
+				} else {
+					for (ProcessInstance instance: flow.getProcessInstance()) {
+						if (instance.getProcessId().equals(instanceId)) {
+							if (type.equals("instance")) {
+								log.info("removing instance");
+								flow.getProcessInstance().remove(instance);
+							} else {
+								if (type.equals("parent")) {
+									for (Parent parent: instance.getParent()) {
+										if (parent.getProcess().equals(dependencyId)) {
+											instance.getParent().remove(parent);
+											break;
 										}
-									} else if (type.equals("predecessor")) {
-										for (Predecessor predecessor: instance.getPredecessor()) {
-											if (predecessor.getProcess().equals(dependencyId)) {
-												instance.getPredecessor().remove(predecessor);
-												break;
-											}
+									}
+								} else if (type.equals("predecessor")) {
+									for (Predecessor predecessor: instance.getPredecessor()) {
+										if (predecessor.getProcess().equals(dependencyId)) {
+											instance.getPredecessor().remove(predecessor);
+											break;
 										}
 									}
 								}
-								break;
 							}
+							break;
 						}
 					}
-					break;
 				}
+				break;
 			}
-			
-	    	// Create the DOM document
-	    	DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-	        dbf.setNamespaceAware(true);
-	        DocumentBuilder db = dbf.newDocumentBuilder();
-	        Document doc = db.newDocument();
-	    	frameworkMarshaller.marshal(framework, doc);
-	    	
-			storeDomResource(repository, "framework.xml", doc);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} finally {
-		    if(frameworkResource != null) {
-		        try { ((EXistResource) frameworkResource).freeResources(); } catch(XMLDBException xe) {xe.printStackTrace();}
-		    }
-		    
-		    if(repository != null) {
-		        try { repository.close(); } catch(XMLDBException xe) {xe.printStackTrace();}
-		    }
 		}
+		
+		saveFramework(framework);
 	}
 }

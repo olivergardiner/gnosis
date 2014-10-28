@@ -42,8 +42,8 @@ import uk.org.whitecottage.ea.gnosis.jaxb.framework.Capability;
 import uk.org.whitecottage.ea.gnosis.jaxb.framework.Framework;
 import uk.org.whitecottage.ea.gnosis.jaxb.framework.Milestone;
 import uk.org.whitecottage.ea.gnosis.jaxb.framework.TechnologyDomain;
-import uk.org.whitecottage.ea.gnosis.repository.XmldbProcessor;
 import uk.org.whitecottage.ea.gnosis.repository.roadmap.Timeline;
+import uk.org.whitecottage.ea.xmldb.XmldbProcessor;
 
 public class LifecyclePresentation extends XmldbProcessor {
 	

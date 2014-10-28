@@ -28,20 +28,25 @@ var actionURL = "<%= actionURL %>";
 	<div class="portlet-section-header"></div>
 	<br />
 	<div class="portlet-section-body">
-		<div id="toolbar" style="display: none; width: 100%">
+		<div id="toolbar-top" style="display: none; width: 100%">
 			<div style="display: table-row;">
 				<div class="gnosis-left">
-					<select id="process-flow-select">
-						<option value="null">Select a process flow...</option>
-					</select>
+					<button id="new-flow">New</button>
 				</div>
 				<div class="gnosis-spacer">&nbsp;</div>
 				<div class="gnosis-right">Download: <button id="pptx-download">PPTX</button><button id="docx-download">DOCX</button></div>
 			</div>
+			<div style="display: table-row;">
+				<div class="gnosis-left">
+					<select id="process-flow-select"></select>
+				</div>
+			</div>
 		</div>
 		<div id="flow-diagram"></div>
-		<div style="width: 95%; margin-left: auto; margin-right: auto;">
-			<button id="edit-button" style="display: none;">Edit</button>
+		<div id="toolbar-bottom" style="width: 95%; margin-left: auto; margin-right: auto; display: none">
+			<button id="edit-flow">Edit</button>
+			<button id=copy-flow>Copy</button>
+			<button id="delete-flow">Delete</button>
 		</div>
 		<br/>
 		<div id="flow-editor" style="display: none; width: 95%; margin-left: auto; margin-right: auto;">

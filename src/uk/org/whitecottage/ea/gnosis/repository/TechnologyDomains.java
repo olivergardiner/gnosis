@@ -30,6 +30,7 @@ import uk.org.whitecottage.ea.gnosis.json.JSONMap;
 import uk.org.whitecottage.ea.gnosis.json.JSONString;
 import uk.org.whitecottage.ea.gnosis.json.jstree.JSTree;
 import uk.org.whitecottage.ea.gnosis.json.jstree.JSTreeNode;
+import uk.org.whitecottage.ea.xmldb.XmldbProcessor;
 
 public class TechnologyDomains extends XmldbProcessor {
 	protected Unmarshaller frameworkUnmarshaller = null;

@@ -15,7 +15,7 @@ import javax.portlet.PortletRequest;
 import javax.portlet.ResourceRequest;
 import javax.portlet.ResourceResponse;
 
-public class ResourceActionPortlet extends GenericPortlet {
+public abstract class ResourceActionPortlet extends GenericPortlet {
 
 	protected transient Map<String, Method> processResourceActionHandlingMethodsMap = new HashMap<String, Method>();
 	protected transient Map<String, Method> processResourceRequestHandlingMethodsMap = new HashMap<String, Method>();

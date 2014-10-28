@@ -1,4 +1,4 @@
-package uk.org.whitecottage.ea.gnosis.repository;
+package uk.org.whitecottage.ea.xmldb;
 
 import java.io.File;
 import java.util.logging.Logger;

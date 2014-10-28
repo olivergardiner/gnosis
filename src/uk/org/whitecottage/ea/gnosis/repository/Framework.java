@@ -23,6 +23,7 @@ import uk.org.whitecottage.ea.gnosis.jaxb.framework.ValueChain;
 import uk.org.whitecottage.ea.gnosis.json.JSONArray;
 import uk.org.whitecottage.ea.gnosis.json.JSONMap;
 import uk.org.whitecottage.ea.gnosis.json.JSONString;
+import uk.org.whitecottage.ea.xmldb.XmldbProcessor;
 
 public class Framework extends XmldbProcessor {
 	protected Unmarshaller frameworkUnmarshaller = null;

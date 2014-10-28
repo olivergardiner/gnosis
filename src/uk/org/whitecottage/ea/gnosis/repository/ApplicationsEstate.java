@@ -37,6 +37,7 @@ import uk.org.whitecottage.ea.gnosis.json.JSONArray;
 import uk.org.whitecottage.ea.gnosis.json.JSONMap;
 import uk.org.whitecottage.ea.gnosis.json.JSONObject;
 import uk.org.whitecottage.ea.gnosis.json.JSONString;
+import uk.org.whitecottage.ea.xmldb.XmldbProcessor;
 
 public class ApplicationsEstate extends XmldbProcessor {
 
