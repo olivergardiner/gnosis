@@ -28,12 +28,14 @@ public abstract class XmldbProcessor {
 	protected String URI = "xmldb:exist://localhost:8080/exist/xmlrpc";
 	protected String driver = "org.exist.xmldb.DatabaseImpl";
 	protected String repositoryRoot = "/db";
+	protected String username = "gnosis";
+	protected String password = "gnosis";
 
 	protected Database database;
 	protected SchemaFactory schemaFactory;
 
 	// @SuppressWarnings("unused")
-	private static final Logger log = Logger.getLogger("uk.org.whitecottage.ea.gnosis.repository");
+	private static final Logger log = Logger.getLogger("uk.org.whitecottage.ea.xmldb");
 
 	public XmldbProcessor(String URI, String repositoryRoot) {
 		this.URI = URI;
@@ -50,6 +52,11 @@ public abstract class XmldbProcessor {
 		}
 	}
 	
+	public void setCredentials(String username, String password) {
+		this.username = username;
+		this.password = password;
+	}
+
 	protected Unmarshaller createUnmarshaller(JAXBContext context, String schemaPath) throws SAXException, JAXBException {
 	    File schemaFile = new File(schemaPath);
 	    Schema schema = schemaFactory.newSchema(schemaFile);
@@ -63,7 +70,7 @@ public abstract class XmldbProcessor {
 	protected Collection getCollection(String collectionName) throws XMLDBException {
 		log.info("Getting collection: " + collectionName + " from xmldb @ " + URI);
 
-		Collection collection = DatabaseManager.getCollection(URI + repositoryRoot + collectionName, "repository", "repository");
+		Collection collection = DatabaseManager.getCollection(URI + repositoryRoot + collectionName, username, password);
 		collection.setProperty(OutputKeys.INDENT, "no");
 				
 		return collection;

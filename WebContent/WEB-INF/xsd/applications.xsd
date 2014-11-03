@@ -5,7 +5,7 @@
 	<xs:element name="applications">
 		<xs:complexType>
 			<xs:sequence>
-				<xs:element ref="application" maxOccurs="unbounded"/>
+				<xs:element ref="application" minOccurs="0" maxOccurs="unbounded"/>
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>

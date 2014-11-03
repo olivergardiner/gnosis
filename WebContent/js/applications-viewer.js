@@ -516,21 +516,23 @@
 		$("#initial-stage").removeClass("lc-unknown lc-candidate lc-emerging lc-mainstream lc-heritage lc-retire lc-remove");
 		$("#initial-stage").addClass("lc-unknown");
 		$("#initial-stage").attr("data-lifecycle", "unknown");
-    	for (var i = 0; i < data.lifecycle.length; i++) {
-    		if (data.lifecycle[i].date != undefined) {
-	    		eventData.push({
-	    			id: id++,
-	    			type: "stage",
-	    			name: data.lifecycle[i].stage,
-	    			on: new Date(data.lifecycle[i].date),
-	    			eventClass: "gt-lc-" + data.lifecycle[i].stage
-	    		});
-    		} else {
-    			$("#initial-stage").removeClass("lc-unknown");
-    			$("#initial-stage").addClass("lc-" + data.lifecycle[i].stage);
-    			$("#initial-stage").attr("data-lifecycle", data.lifecycle[i].stage);
-    		}
-    	}
+		if (data.lifecycle != undefined) {
+	    	for (var i = 0; i < data.lifecycle.length; i++) {
+	    		if (data.lifecycle[i].date != undefined) {
+		    		eventData.push({
+		    			id: id++,
+		    			type: "stage",
+		    			name: data.lifecycle[i].stage,
+		    			on: new Date(data.lifecycle[i].date),
+		    			eventClass: "gt-lc-" + data.lifecycle[i].stage
+		    		});
+	    		} else {
+	    			$("#initial-stage").removeClass("lc-unknown");
+	    			$("#initial-stage").addClass("lc-" + data.lifecycle[i].stage);
+	    			$("#initial-stage").attr("data-lifecycle", data.lifecycle[i].stage);
+	    		}
+	    	}
+		}
     	
 		showStage($("#initial-stage").attr("data-lifecycle"));
 
@@ -644,7 +646,7 @@
             success: function(response) {
         		$("#wait-form").dialog("close");
         		if (callback != undefined) {
-        			callback.call(response);
+        			callback.call(this, response);
         		}
             },
             error: function (jXHR, textStatus, errorThrown) {
