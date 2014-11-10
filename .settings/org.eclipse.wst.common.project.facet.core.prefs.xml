@@ -1,7 +1,7 @@
 <root>
   <facet id="jpt.jaxb">
     <node name="classgen">
-      <attribute name="package" value="uk.org.whitecottage.ea.gnosis.jaxb.framework"/>
+      <attribute name="package" value="uk.org.whitecottage.ea.gnosis.jaxb.services"/>
     </node>
   </facet>
 </root>
