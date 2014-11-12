@@ -25,6 +25,7 @@ import uk.org.whitecottage.ea.gnosis.jaxb.framework.Framework;
 import uk.org.whitecottage.ea.gnosis.jaxb.framework.ProcessDomain;
 import uk.org.whitecottage.ea.gnosis.jaxb.framework.TechnologyDomain;
 import uk.org.whitecottage.ea.xmldb.XmldbProcessor;
+import uk.org.whitecottage.poi.POIHelper;
 
 public class FrameworkPresentation extends XmldbProcessor {
 	

@@ -12,6 +12,8 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElements;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
@@ -25,10 +27,12 @@ import javax.xml.bind.annotation.XmlType;
  * &lt;complexType>
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;sequence>
- *         &lt;element ref="{}tower" maxOccurs="unbounded" minOccurs="0"/>
- *         &lt;element ref="{}recycleBin" minOccurs="0"/>
- *       &lt;/sequence>
+ *       &lt;choice maxOccurs="unbounded" minOccurs="0">
+ *         &lt;element ref="{}tower"/>
+ *         &lt;element ref="{}serviceComponent"/>
+ *         &lt;element ref="{}serviceElement"/>
+ *         &lt;element ref="{}dependency"/>
+ *       &lt;/choice>
  *     &lt;/restriction>
  *   &lt;/complexContent>
  * &lt;/complexType>
@@ -38,66 +42,49 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-    "tower",
-    "recycleBin"
+    "towerOrServiceComponentOrServiceElement"
 })
-@XmlRootElement(name = "services")
-public class Services {
+@XmlRootElement(name = "recycleBin")
+public class RecycleBin {
 
-    protected List<Tower> tower;
-    protected RecycleBin recycleBin;
+    @XmlElements({
+        @XmlElement(name = "tower", type = Tower.class),
+        @XmlElement(name = "serviceComponent", type = ServiceComponent.class),
+        @XmlElement(name = "serviceElement", type = ServiceElement.class),
+        @XmlElement(name = "dependency", type = Dependency.class)
+    })
+    protected List<Object> towerOrServiceComponentOrServiceElement;
 
     /**
-     * Gets the value of the tower property.
+     * Gets the value of the towerOrServiceComponentOrServiceElement property.
      * 
      * <p>
      * This accessor method returns a reference to the live list,
      * not a snapshot. Therefore any modification you make to the
      * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the tower property.
+     * This is why there is not a <CODE>set</CODE> method for the towerOrServiceComponentOrServiceElement property.
      * 
      * <p>
      * For example, to add a new item, do as follows:
      * <pre>
-     *    getTower().add(newItem);
+     *    getTowerOrServiceComponentOrServiceElement().add(newItem);
      * </pre>
      * 
      * 
      * <p>
      * Objects of the following type(s) are allowed in the list
      * {@link Tower }
+     * {@link ServiceComponent }
+     * {@link ServiceElement }
+     * {@link Dependency }
      * 
      * 
      */
-    public List<Tower> getTower() {
-        if (tower == null) {
-            tower = new ArrayList<Tower>();
+    public List<Object> getTowerOrServiceComponentOrServiceElement() {
+        if (towerOrServiceComponentOrServiceElement == null) {
+            towerOrServiceComponentOrServiceElement = new ArrayList<Object>();
         }
-        return this.tower;
-    }
-
-    /**
-     * Gets the value of the recycleBin property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link RecycleBin }
-     *     
-     */
-    public RecycleBin getRecycleBin() {
-        return recycleBin;
-    }
-
-    /**
-     * Sets the value of the recycleBin property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link RecycleBin }
-     *     
-     */
-    public void setRecycleBin(RecycleBin value) {
-        this.recycleBin = value;
+        return this.towerOrServiceComponentOrServiceElement;
     }
 
 }

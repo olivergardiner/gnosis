@@ -5,6 +5,7 @@
 		<xs:complexType>
 			<xs:sequence>
 				<xs:element ref="tower" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element ref="recycleBin" minOccurs="0"/>
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
@@ -77,6 +78,16 @@
 				<xs:element ref="dependency" minOccurs="0" maxOccurs="unbounded"/>
 			</xs:sequence>
 			<xs:attributeGroup ref="basic"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="recycleBin">
+		<xs:complexType>
+			<xs:choice minOccurs="0" maxOccurs="unbounded">
+				<xs:element ref="tower"/>
+				<xs:element ref="serviceComponent"/>
+				<xs:element ref="serviceElement"/>
+				<xs:element ref="dependency"/>
+			</xs:choice>
 		</xs:complexType>
 	</xs:element>
 </xs:schema>

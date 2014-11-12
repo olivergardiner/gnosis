@@ -27,6 +27,7 @@ import uk.org.whitecottage.ea.gnosis.jaxb.framework.ProcessDomain;
 import uk.org.whitecottage.ea.gnosis.jaxb.framework.ProcessFlow;
 import uk.org.whitecottage.ea.gnosis.jaxb.framework.ProcessInstance;
 import uk.org.whitecottage.ea.xmldb.XmldbProcessor;
+import uk.org.whitecottage.poi.POIHelper;
 
 public class ProcessFlowPresentation extends XmldbProcessor {
 	

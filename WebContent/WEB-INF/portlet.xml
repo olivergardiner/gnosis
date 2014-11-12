@@ -66,6 +66,20 @@
 	</portlet>
 
 	<portlet>
+		<portlet-name>ITServicesViewer</portlet-name>
+	    <portlet-class>uk.org.whitecottage.ea.gnosis.portlet.ITServicesViewer</portlet-class>          
+	    <supports>
+	        <mime-type>text/html</mime-type>
+	        <portlet-mode>VIEW</portlet-mode>
+	    </supports>
+	    <supported-locale>en</supported-locale>        
+		<portlet-info>
+	        <title>IT Services Portlet</title>
+	        <short-title>IT Services</short-title>
+	    </portlet-info>
+	</portlet>
+
+	<portlet>
 		<portlet-name>FrameworkViewer</portlet-name>
 	    <portlet-class>uk.org.whitecottage.ea.gnosis.portlet.FrameworkViewer</portlet-class>          
 	    <supports>

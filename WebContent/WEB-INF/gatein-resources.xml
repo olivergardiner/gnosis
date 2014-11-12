@@ -40,6 +40,13 @@
      
     <portlet-skin>
         <application-name>gnosis</application-name>
+        <portlet-name>ITServicesViewer</portlet-name>
+        <skin-name>Default</skin-name>
+        <css-path>/css/it-services-viewer.css</css-path>
+    </portlet-skin>
+     
+    <portlet-skin>
+        <application-name>gnosis</application-name>
         <portlet-name>DataManager</portlet-name>
         <skin-name>Default</skin-name>
         <css-path>/css/data-manager.css</css-path>
@@ -338,6 +345,36 @@
     	<module>
      		<script>
     			<path>/js/process-taxonomy-viewer.js</path>
+    		</script>
+    		<depends>
+    			<module>jquery_local</module>
+    			<as>$</as>
+    		</depends>
+    		<depends>
+    			<module>jstree_local</module>
+    			<as>jstree</as>
+    		</depends>
+    		<depends>
+    			<module>jQueryUI</module>
+    		</depends>
+    		<depends>
+    			<module>jQTE</module>
+    		</depends>
+    		<depends>
+     			<module>selectric</module>
+    		</depends>
+    		<depends>
+    			<module>UUID</module>
+    		</depends>
+    	</module>
+    </portlet>
+
+
+    <portlet>
+    	<name>ITServicesViewer</name>
+    	<module>
+     		<script>
+    			<path>/js/it-services-viewer.js</path>
     		</script>
     		<depends>
     			<module>jquery_local</module>

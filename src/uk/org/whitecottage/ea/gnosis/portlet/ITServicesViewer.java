@@ -60,18 +60,18 @@ public class ITServicesViewer extends GnosisPortlet {
     }
 
     @ProcessResourceAction(name = "updateComponentAction")
-    public void updateDomain(ResourceRequest request, ResourceResponse response) {
+    public void updateComponent(ResourceRequest request, ResourceResponse response) {
     	Properties gnosisProperties = getProperties();
     	String existURI = gnosisProperties.getProperty("exist.uri");
     	String existRepositoryRoot = gnosisProperties.getProperty("exist.repository.root");
     	String context = getPortletContext().getRealPath("");
     	ITServices services = new ITServices(existURI, existRepositoryRoot, context);
     	
-    	String domainId = request.getParameter("domainId");
-    	String name = request.getParameter("domainName");
-    	String description = request.getParameter("domainDescription");
+    	String id = request.getParameter("id");
+    	String name = request.getParameter("name");
+    	String description = request.getParameter("description");
        	
-    	services.updateProcessDomain(domainId, name, description);
+    	services.updateComponent(id, name, description);
     }
 
     @ProcessResourceAction(name = "emptyTrashAction")
