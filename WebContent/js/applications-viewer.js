@@ -14,7 +14,7 @@
         "info": false,
         "searching": true,
         "ordering": true,
-        "dom": '<"toolbar"frtip>',
+        "dom": '<"toolbar"f<"filter">rtip>',
         "scrollY": 400,
         //"scrollX": false,
         "jQueryUI": false,
@@ -46,6 +46,22 @@
 		newApplication();
 	});
 
+	$("div.toolbar").prepend('<button id="filter-application">Filter</button>');
+	$("#filter-application").button().click(function() {
+		//$("#capability-form").dialog("option", "title", "Add a capability filter");
+		$("#capability-form").data("type", "filter");
+		$("#capability-form").dialog("open");
+	});
+
+	$("div.filter").select2({
+		"width": "100%",
+		"tags": []
+	});
+	
+	table.api().filter(function(value, index, api) {
+		return true;
+	});
+	
 	//table.api().ajax.url(applicationsListJsonDataURL).load();
 
 	$("#app-list tbody").click(function(event) {
@@ -205,22 +221,23 @@
 					tree.open_node(node[0].id);
 				}
 			} else {
-				addCapability();
-				$('#capability-form').dialog("close");
+				applyAddCapability();
 			}
 		}
 	});
 	
 	$('#capability-form').dialog({
+		title: "Add a capability",
         autoOpen: false,
         height: 500,
         width: 300,
-        modal: true
+        modal: true,
+        buttons: { "Add": applyAddCapability, "Close": closeCapabilityForm }
 	});
 	
 	$("#add-capability").button().click(function() {
-		$("#capability-form").dialog("option", "buttons", { "Add": applyAddCapability, "Close": closeCapabilityForm });
-		$("#capability-form").dialog("option", "title", "Add a capability");
+		//$("#capability-form").dialog("option", "title", "Add a capability");
+		$("#capability-form").data("type", "classify");
 		$("#capability-form").dialog("open");
 	});
 	
@@ -241,16 +258,15 @@
 	}
 	
 	function applyAddCapability() {
-		addCapability();
+		if ($("#capability-form").data("type") == "classify") {
+			addCapability();
+		} else {
+			addCapabilityFilter();
+		}
 		
 		$('#capability-form').dialog( "close" );
 	}
-	
-	function applySetCapabilityFilter() {
 		
-		$('#capability-form').dialog( "close" );
-	}
-	
 	$('#edit-lifecycle-form').dialog({
         autoOpen: false,
         height: 200,
@@ -436,6 +452,36 @@
 				
 				$("#capabilities").select2("data", data);
 				repoAddCapability($("#app-id").val(), node[0].data.id);
+			}
+		}
+	}
+	
+	function addCapabilityFilter() {
+		var tree = $.jstree.reference('#jstree');
+		var node = tree.get_selected(true);
+		var capabilities = [];
+		
+		if (node.length > 0) {
+			var data = $("div.filter").select2("data");
+			
+			var found = false;
+			for (var i = 0; i < data.length; i++) {
+				if (data[i].id == node[0].data.id) {
+					found = true;
+				}
+			}
+			
+			if (!found) {
+				data.push({
+		    		id: node[0].data.id,
+		    		text: node[0].text
+		    	});
+				
+				for (var i = 0; i < data.length; i++) {
+					capabilities.push(data[i].id);
+				}
+				
+				$("div.filter").select2("data", data);
 			}
 		}
 	}
