@@ -73,7 +73,7 @@ public class ApplicationsEstate extends XmldbProcessor {
 			
 			JSONObject applicationsList = renderApplicationsList(applications);
 			result = applicationsList.toJSON();
-			log.info("JSON data: " + result);
+			//log.info("JSON data: " + result);
 
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

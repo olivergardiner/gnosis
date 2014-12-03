@@ -56,10 +56,27 @@
 	$("div.filter").select2({
 		"width": "100%",
 		"tags": []
+	}).on("select2-removed", function(event) {
+		table.api().draw();
 	});
 	
-	table.api().filter(function(value, index, api) {
-		return true;
+	$.fn.dataTableExt.afnFiltering.push(function(settings, data, index) {
+		var tags = $("div.filter").select2("data");
+		if (tags.length == 0) {
+			return true;
+		}
+		
+		var app = table.api().row(index).data();
+		for (var i = 0; i< app.capabilities.length; i++) {
+			var cap = app.capabilities[i];
+			for (var j = 0; j < tags.length; j++) {
+				if (tags[j].id == cap) {
+					return true;
+				}
+			}
+		}
+
+		return false;
 	});
 	
 	//table.api().ajax.url(applicationsListJsonDataURL).load();
@@ -262,6 +279,7 @@
 			addCapability();
 		} else {
 			addCapabilityFilter();
+			table.api().draw();
 		}
 		
 		$('#capability-form').dialog( "close" );
