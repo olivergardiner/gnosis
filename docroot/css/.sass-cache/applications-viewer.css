@@ -1,0 +1,141 @@
+/* Override for jqte to ensure that it loads the toolbar image in the portal by using an absoute URL */
+.jqte_tool_icon {
+  display: block;
+  width: 22px;
+  height: 22px;
+  background: url("jquery-te.png") no-repeat; }
+
+div.jqte {
+  margin-top: 0px; }
+
+/* Override search field for select2 */
+ul.select2-choices {
+  cursor: default; }
+
+li.select2-search-field, ul.select2-results {
+  display: none; }
+
+.gt-timeline div.gt-lc-candidate {
+  background: url("lifecycle.png") no-repeat 0 0px;
+  width: 20px;
+  height: 20px;
+  vertical-align: middle; }
+
+.gt-timeline div.gt-lc-candidate {
+  background: url("lifecycle.png") no-repeat 0 0px;
+  width: 20px;
+  height: 20px;
+  vertical-align: middle; }
+
+.gt-timeline div.gt-lc-emerging {
+  background: url("lifecycle.png") no-repeat -22px 0px;
+  width: 20px;
+  height: 20px;
+  vertical-align: middle; }
+
+.gt-timeline div.gt-lc-mainstream {
+  background: url("lifecycle.png") no-repeat 0px -22px;
+  width: 20px;
+  height: 20px;
+  vertical-align: middle; }
+
+.gt-timeline div.gt-lc-heritage {
+  background: url("lifecycle.png") no-repeat -22px -22px;
+  width: 20px;
+  height: 20px;
+  vertical-align: middle; }
+
+.gt-timeline div.gt-lc-sunset {
+  background: url("lifecycle.png") no-repeat 0px -44px;
+  width: 20px;
+  height: 20px;
+  vertical-align: middle; }
+
+.gt-timeline div.gt-lc-retire {
+  background: url("lifecycle.png") no-repeat -22px -44px;
+  width: 20px;
+  height: 20px;
+  vertical-align: middle; }
+
+.gt-timeline div.gt-lc-remove {
+  background: url("lifecycle.png") no-repeat 0px -66px;
+  width: 20px;
+  height: 20px;
+  vertical-align: middle; }
+
+.gt-timeline div.gt-lc-unknown {
+  background: url("lifecycle.png") no-repeat -22px -66px;
+  width: 20px;
+  height: 20px;
+  vertical-align: middle; }
+
+.gt-timeline div.event:hover {
+  background-position: -22px -66px; }
+
+.lc-emerging {
+  background: url("lifecycle.png") no-repeat -22px 0px;
+  width: 20px;
+  height: 20px;
+  margin-left: 10px;
+  vertical-align: middle; }
+
+.lc-mainstream {
+  background: url("lifecycle.png") no-repeat 0px -22px;
+  width: 20px;
+  height: 20px;
+  margin-left: 10px;
+  vertical-align: middle; }
+
+.lc-heritage {
+  background: url("lifecycle.png") no-repeat -22px -22px;
+  width: 20px;
+  height: 20px;
+  margin-left: 10px;
+  vertical-align: middle; }
+
+.lc-sunset {
+  background: url("lifecycle.png") no-repeat 0px -44px;
+  width: 20px;
+  height: 20px;
+  margin-left: 10px;
+  vertical-align: middle; }
+
+.lc-retire {
+  background: url("lifecycle.png") no-repeat -22px -44px;
+  width: 20px;
+  height: 20px;
+  margin-left: 10px;
+  vertical-align: middle; }
+
+.lc-remove {
+  background: url("lifecycle.png") no-repeat 0px -66px;
+  width: 20px;
+  height: 20px;
+  margin-left: 10px;
+  vertical-align: middle; }
+
+.lc-unknown {
+  background: url("lifecycle.png") no-repeat -22px -66px;
+  width: 20px;
+  height: 20px;
+  margin-left: 10px;
+  vertical-align: middle; }
+
+.left-arrow {
+  background: url("arrows.png") no-repeat 0px 0px;
+  width: 20px;
+  height: 20px; }
+
+.right-arrow {
+  background: url("arrows.png") no-repeat -22px 0px;
+  width: 20px;
+  height: 20px; }
+
+.please-wait {
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 65px;
+  width: 16px;
+  height: 16px;
+  background: url("throbber.gif") no-repeat; }
+

@@ -1,0 +1,40 @@
+div.om-layer {
+  background-color: #aaaacc; }
+
+div.om-domain {
+  height: 70px;
+  border: 1px solid;
+  border-radius: 5px;
+  text-align: center;
+  background-color: #9999bb; }
+
+div.ba-layer {
+  background-color: #aaccaa; }
+
+div.ba-domain {
+  height: 70px;
+  border: 1px solid;
+  border-radius: 5px;
+  text-align: center;
+  background-color: #99bb99; }
+
+div.cs-layer {
+  background-color: #ccaaaa; }
+
+div.cs-domain {
+  height: 70px;
+  border: 1px solid;
+  border-radius: 5px;
+  text-align: center;
+  background-color: #bb9999; }
+
+div.inf-layer {
+  background-color: #bbbbbb; }
+
+div.inf-domain {
+  height: 70px;
+  border: 1px solid;
+  border-radius: 5px;
+  text-align: center;
+  background-color: #aaaaaa; }
+

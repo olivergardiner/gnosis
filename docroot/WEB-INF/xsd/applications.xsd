@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2010 (http://www.altova.com) by BBC DMI (BBC) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:include schemaLocation="common.xsd"/>
+	<xs:element name="applications">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="application" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="application">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="classification" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element ref="stage" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element ref="migration" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element ref="investment" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element ref="usedBy" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element ref="description" minOccurs="0"/>
+				<xs:element ref="notes" minOccurs="0"/>
+				<xs:element ref="source" minOccurs="0"/>
+				<xs:element ref="managingOrganisation" minOccurs="0"/>
+				<xs:element ref="procurementTower" minOccurs="0"/>
+			</xs:sequence>
+			<xs:attribute name="app-id" type="xs:token" use="required"/>
+			<xs:attribute ref="name" use="required"/>
+			<xs:attribute name="owner" type="xs:string"/>
+			<xs:attribute name="sensitivity" type="xs:string"/>
+			<xs:attribute name="criticality" type="xs:string"/>
+			<xs:attribute name="virtualisation">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:enumeration value="high"/>
+						<xs:enumeration value="medium"/>
+						<xs:enumeration value="low"/>
+						<xs:enumeration value="unknown"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:attribute>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="classification">
+		<xs:complexType>
+			<xs:attribute name="capability" type="xs:string" use="required"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="stage">
+		<xs:complexType>
+			<xs:attribute name="lifecycle" use="required">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:enumeration value="candidate"/>
+						<xs:enumeration value="emerging"/>
+						<xs:enumeration value="mainstream"/>
+						<xs:enumeration value="heritage"/>
+						<xs:enumeration value="sunset"/>
+						<xs:enumeration value="retire"/>
+						<xs:enumeration value="remove"/>
+						<xs:enumeration value="unknown"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:attribute>
+			<xs:attribute ref="date"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="migration">
+		<xs:complexType>
+			<xs:attribute ref="date" use="required"/>
+			<xs:attribute name="to" type="xs:token" use="required"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="investment">
+		<xs:complexType mixed="true">
+			<xs:attribute ref="date"/>
+			<xs:attribute name="capital" type="xs:integer"/>
+			<xs:attribute name="runrate" type="xs:integer"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="usedBy">
+		<xs:complexType>
+			<xs:attribute name="division" type="xs:string"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="managingOrganisation">
+		<xs:complexType mixed="true">
+			<xs:attribute name="contract-reference"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="procurementTower" type="xs:string"/>
+</xs:schema>
