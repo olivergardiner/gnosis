@@ -1,11 +1,3 @@
-@import url('common.css');
-@import url('../js/jquery-ui/jquery-ui.css');
-@import url('../js/jqte/jquery-te-1.4.0.css');
-@import url('../js/jstree/themes/default/style.css');
-@import url('../js/dataTables/css/jquery.dataTables.css');
-@import url('../js/jqtimeline/css/jquery.jqtimeline.css');
-@import url('../js/select2/select2.css');
-
 /* Override for jqte to ensure that it loads the toolbar image in the portal by using an absoute URL */
 .jqte_tool_icon {
 	display:block;

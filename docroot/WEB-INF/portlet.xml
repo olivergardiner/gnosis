@@ -10,9 +10,236 @@
 	        <portlet-mode>VIEW</portlet-mode>
 	    </supports>
 	    <supported-locale>en</supported-locale>        
+		<resource-bundle>uk.org.whitecottage.ea.gnosis.portlet.Language</resource-bundle>
 		<portlet-info>
 	        <title>Framework Portlet</title>
 	        <short-title>Framework</short-title>
+	    </portlet-info>
+		<security-role-ref>
+			<role-name>administrator</role-name>
+		</security-role-ref>
+		<security-role-ref>
+			<role-name>guest</role-name>
+		</security-role-ref>
+		<security-role-ref>
+			<role-name>power-user</role-name>
+		</security-role-ref>
+		<security-role-ref>
+			<role-name>user</role-name>
+		</security-role-ref>
+	</portlet>
+
+	<portlet>
+		<portlet-name>ApplicationsViewer</portlet-name>
+	    <portlet-class>uk.org.whitecottage.ea.gnosis.portlet.ApplicationsViewer</portlet-class>          
+	    <supports>
+	        <mime-type>text/html</mime-type>
+	        <portlet-mode>VIEW</portlet-mode>
+	    </supports>
+	    <supported-locale>en</supported-locale>        
+		<resource-bundle>uk.org.whitecottage.ea.gnosis.portlet.Language</resource-bundle>
+		<portlet-info>
+	        <title>Applications Portlet</title>
+	        <short-title>Applications</short-title>
+	    </portlet-info>
+		<security-role-ref>
+			<role-name>administrator</role-name>
+		</security-role-ref>
+		<security-role-ref>
+			<role-name>guest</role-name>
+		</security-role-ref>
+		<security-role-ref>
+			<role-name>power-user</role-name>
+		</security-role-ref>
+		<security-role-ref>
+			<role-name>user</role-name>
+		</security-role-ref>
+	</portlet>
+
+	<portlet>
+		<portlet-name>TechnologyDomainsViewer</portlet-name>
+	    <portlet-class>uk.org.whitecottage.ea.gnosis.portlet.TechnologyDomainsViewer</portlet-class>          
+		<init-param>
+		     <name>config-template</name>
+		     <value>/WEB-INF/jsp/configuration/TechnologyDomainsViewerConfig.jsp</value>
+		</init-param>
+ 	    <supports>
+	        <mime-type>text/html</mime-type>
+	        <portlet-mode>VIEW</portlet-mode>
+	    </supports>
+	    <supported-locale>en</supported-locale>        
+		<resource-bundle>uk.org.whitecottage.ea.gnosis.portlet.Language</resource-bundle>
+		<portlet-info>
+	        <title>Technology Domains Portlet</title>
+	        <short-title>Technology Domains</short-title>
+	    </portlet-info>
+	    <portlet-preferences>
+	        <preference>                            
+	            <name>layer</name>                    
+	            <value>BusinessApplications</value>    
+	        </preference>         
+	    </portlet-preferences>                          
+		<security-role-ref>
+			<role-name>administrator</role-name>
+		</security-role-ref>
+		<security-role-ref>
+			<role-name>guest</role-name>
+		</security-role-ref>
+		<security-role-ref>
+			<role-name>power-user</role-name>
+		</security-role-ref>
+		<security-role-ref>
+			<role-name>user</role-name>
+		</security-role-ref>
+	</portlet>
+
+	<portlet>
+		<portlet-name>ValueChainViewer</portlet-name>
+	    <portlet-class>uk.org.whitecottage.ea.gnosis.portlet.ValueChainViewer</portlet-class>          
+	    <supports>
+	        <mime-type>text/html</mime-type>
+	        <portlet-mode>VIEW</portlet-mode>
+	    </supports>
+	    <supported-locale>en</supported-locale>        
+		<resource-bundle>uk.org.whitecottage.ea.gnosis.portlet.Language</resource-bundle>
+		<portlet-info>
+	        <title>Value Chain Portlet</title>
+	        <short-title>Value Chain</short-title>
+	    </portlet-info>
+		<security-role-ref>
+			<role-name>administrator</role-name>
+		</security-role-ref>
+		<security-role-ref>
+			<role-name>guest</role-name>
+		</security-role-ref>
+		<security-role-ref>
+			<role-name>power-user</role-name>
+		</security-role-ref>
+		<security-role-ref>
+			<role-name>user</role-name>
+		</security-role-ref>
+	</portlet>
+
+	<portlet>
+		<portlet-name>ProcessTaxonomyViewer</portlet-name>
+	    <portlet-class>uk.org.whitecottage.ea.gnosis.portlet.ProcessTaxonomyViewer</portlet-class>          
+	    <supports>
+	        <mime-type>text/html</mime-type>
+	        <portlet-mode>VIEW</portlet-mode>
+	    </supports>
+	    <supported-locale>en</supported-locale>        
+		<resource-bundle>uk.org.whitecottage.ea.gnosis.portlet.Language</resource-bundle>
+		<portlet-info>
+	        <title>Process Taxonomy Portlet</title>
+	        <short-title>Process Taxonomy</short-title>
+	    </portlet-info>
+		<security-role-ref>
+			<role-name>administrator</role-name>
+		</security-role-ref>
+		<security-role-ref>
+			<role-name>guest</role-name>
+		</security-role-ref>
+		<security-role-ref>
+			<role-name>power-user</role-name>
+		</security-role-ref>
+		<security-role-ref>
+			<role-name>user</role-name>
+		</security-role-ref>
+	</portlet>
+
+	<portlet>
+		<portlet-name>ProcessFlowViewer</portlet-name>
+	    <portlet-class>uk.org.whitecottage.ea.gnosis.portlet.ProcessFlowViewer</portlet-class>          
+	    <supports>
+	        <mime-type>text/html</mime-type>
+	        <portlet-mode>VIEW</portlet-mode>
+	    </supports>
+	    <supported-locale>en</supported-locale>        
+		<resource-bundle>uk.org.whitecottage.ea.gnosis.portlet.Language</resource-bundle>
+		<portlet-info>
+	        <title>Process Flow Portlet</title>
+	        <short-title>Process Flows</short-title>
+	    </portlet-info>
+		<security-role-ref>
+			<role-name>administrator</role-name>
+		</security-role-ref>
+		<security-role-ref>
+			<role-name>guest</role-name>
+		</security-role-ref>
+		<security-role-ref>
+			<role-name>power-user</role-name>
+		</security-role-ref>
+		<security-role-ref>
+			<role-name>user</role-name>
+		</security-role-ref>
+	</portlet>
+
+	<portlet>
+		<portlet-name>ITServicesViewer</portlet-name>
+	    <portlet-class>uk.org.whitecottage.ea.gnosis.portlet.ITServicesViewer</portlet-class>          
+	    <supports>
+	        <mime-type>text/html</mime-type>
+	        <portlet-mode>VIEW</portlet-mode>
+	    </supports>
+	    <supported-locale>en</supported-locale>        
+		<resource-bundle>uk.org.whitecottage.ea.gnosis.portlet.Language</resource-bundle>
+		<portlet-info>
+	        <title>IT Services Portlet</title>
+	        <short-title>IT Services</short-title>
+	    </portlet-info>
+		<security-role-ref>
+			<role-name>administrator</role-name>
+		</security-role-ref>
+		<security-role-ref>
+			<role-name>guest</role-name>
+		</security-role-ref>
+		<security-role-ref>
+			<role-name>power-user</role-name>
+		</security-role-ref>
+		<security-role-ref>
+			<role-name>user</role-name>
+		</security-role-ref>
+	</portlet>
+
+	<portlet>
+		<portlet-name>DataViewer</portlet-name>
+	    <portlet-class>uk.org.whitecottage.ea.gnosis.portlet.DataViewer</portlet-class>          
+	    <supports>
+	        <mime-type>text/html</mime-type>
+	        <portlet-mode>VIEW</portlet-mode>
+	    </supports>
+	    <supported-locale>en</supported-locale>        
+		<resource-bundle>uk.org.whitecottage.ea.gnosis.portlet.Language</resource-bundle>
+		<portlet-info>
+	        <title>Data Viewer Portlet</title>
+	        <short-title>Data</short-title>
+	    </portlet-info>
+		<security-role-ref>
+			<role-name>administrator</role-name>
+		</security-role-ref>
+		<security-role-ref>
+			<role-name>guest</role-name>
+		</security-role-ref>
+		<security-role-ref>
+			<role-name>power-user</role-name>
+		</security-role-ref>
+		<security-role-ref>
+			<role-name>user</role-name>
+		</security-role-ref>
+	</portlet>
+
+	<portlet>
+		<portlet-name>DataManager</portlet-name>
+	    <portlet-class>uk.org.whitecottage.ea.gnosis.portlet.DataManager</portlet-class>          
+	    <supports>
+	        <mime-type>text/html</mime-type>
+	        <portlet-mode>VIEW</portlet-mode>
+	    </supports>
+	    <supported-locale>en</supported-locale>        
+		<resource-bundle>uk.org.whitecottage.ea.gnosis.portlet.Language</resource-bundle>
+		<portlet-info>
+	        <title>Data Manager Portlet</title>
+	        <short-title>Data Manager</short-title>
 	    </portlet-info>
 		<security-role-ref>
 			<role-name>administrator</role-name>

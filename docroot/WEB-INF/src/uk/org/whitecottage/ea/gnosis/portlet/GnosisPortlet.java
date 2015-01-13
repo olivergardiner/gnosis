@@ -16,15 +16,9 @@ public class GnosisPortlet extends ResourceActionPortlet {
 
 	public Properties getProperties() {
 		Properties properties = new Properties();
-		//Tricky to avoid tying properties file location to specific portal type... 
-		//String configPath = System.getProperty("jboss.server.config.dir") + File.separator + "gnosis.properties";
-		String configDir = System.getProperty("liferay.home") + "/data/gnosis/";
-		
-		log.info("Config directory: " + configDir);
 
-		String configPath = configDir + "gnosis.properties";
 		try {
-			FileInputStream input = new FileInputStream(new File(configPath));
+			FileInputStream input = new FileInputStream(new File(dataDir + "gnosis/gnosis.properties"));
 			properties.load(input);
 			input.close();
 		} catch (FileNotFoundException e) {

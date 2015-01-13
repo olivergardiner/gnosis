@@ -5,7 +5,6 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
-import java.util.logging.Logger;
 
 import javax.portlet.PortletException;
 import javax.portlet.RenderMode;
@@ -28,6 +27,10 @@ import org.eclipse.uml2.uml.resource.UMLResource;
 import uk.org.whitecottage.ea.gnosis.cldm.CLDMJSONRenderer;
 import uk.org.whitecottage.ea.gnosis.cldm.CLDMResourceRenderer;
 import uk.org.whitecottage.ea.portlet.ProcessResourceAction;
+
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
+
 import freemarker.template.Configuration;
 import freemarker.template.DefaultObjectWrapper;
 import freemarker.template.TemplateExceptionHandler;
@@ -38,7 +41,7 @@ public class DataManager extends FileUploadPortlet {
 	public static final int UPLOAD_XMLDB_ERROR = 1;
 	public static final int UPLOAD_UNKNOWN_ERROR = 2;
 
-	private static final Logger log = Logger.getLogger("uk.org.whitecottage.ea.gnosis.portlet");
+	private static final Log log = LogFactoryUtil.getLog(DataManager.class);
 	private URI modelUri = null;
 
 	protected class JSONResponse {
@@ -76,9 +79,7 @@ public class DataManager extends FileUploadPortlet {
 		jResponse.setReturnCode(UPLOAD_SUCCESS);
 
 		List<FileItem> items = getItems(request);
-		String gnosisDataDir = System.getProperty("jboss.server.data.dir") + File.separator + "gnosis";
-		String gnosisUMLDir = gnosisDataDir + File.separator + "uml";
-		String cldmFile = gnosisUMLDir + File.separator + "cldm.uml";
+		String cldmFile = dataDir + "gnosis/uml/cldm.uml";
 
 		// Process the uploaded items
 		if (items.size() == 1) {
@@ -112,11 +113,10 @@ public class DataManager extends FileUploadPortlet {
     }
     
     protected void parseModel() {
-		String gnosisDataDir = System.getProperty("jboss.server.data.dir") + File.separator + "gnosis2";
-		String gnosisUMLDir = gnosisDataDir + File.separator + "uml";
-		String gnosisCLDMDir = gnosisDataDir + File.separator + "cldm";
-		String cldmFile = gnosisUMLDir + File.separator + "cldm.uml";
-		String cldmJSONFile = gnosisCLDMDir + File.separator + "cldm.json";
+		String cldmFile = dataDir + "uml/cldm.uml";
+
+		String gnosisCLDMDir = dataDir + "gnosis/cldm";
+		String cldmJSONFile = dataDir + "gnosis/cldm/cldm.json";
 	
 		File input = new File(cldmFile);
 		File templateDir = new File(getPortletContext().getRealPath("/WEB-INF/ftl"));
@@ -183,10 +183,9 @@ public class DataManager extends FileUploadPortlet {
 	}
     
     protected void cleanOutputDirectory() {
-		String gnosisDataDir = System.getProperty("jboss.server.data.dir") + File.separator + "gnosis2";
-		String gnosisCLDMDir = gnosisDataDir + File.separator + "cldm";
+		String gnosisCLDMDir = dataDir + "gnosis/cldm";
 	
-		File sourceDir = new File(getPortletContext().getRealPath("/WEB-INF/init/data/gnosis2/cldm"));
+		File sourceDir = new File(getPortletContext().getRealPath("/WEB-INF/init/data/gnosis/cldm"));
 		File outputDir = new File(gnosisCLDMDir);
 		
 		log.info("source: " + sourceDir.getPath() + " " + sourceDir.exists());

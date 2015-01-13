@@ -6,22 +6,25 @@ import java.lang.reflect.Method;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.logging.Logger;
 
-import javax.portlet.GenericPortlet;
 import javax.portlet.PortletConfig;
 import javax.portlet.PortletException;
 import javax.portlet.PortletRequest;
 import javax.portlet.ResourceRequest;
 import javax.portlet.ResourceResponse;
 
-public abstract class ResourceActionPortlet extends GenericPortlet {
+import uk.org.whitecottage.ea.gnosis.portlet.TechnologyDomainsViewer;
+
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
+
+public abstract class ResourceActionPortlet extends Portlet {
 
 	protected transient Map<String, Method> processResourceActionHandlingMethodsMap = new HashMap<String, Method>();
 	protected transient Map<String, Method> processResourceRequestHandlingMethodsMap = new HashMap<String, Method>();
 
 	//@SuppressWarnings("unused")
-	private static final Logger log = Logger.getLogger("uk.org.whitecottage.ea.portlet");
+	private static final Log log = LogFactoryUtil.getLog(TechnologyDomainsViewer.class);
 
 	public ResourceActionPortlet() {
 		super();
@@ -66,7 +69,10 @@ public abstract class ResourceActionPortlet extends GenericPortlet {
 		String resourceId = request.getResourceID();
 		
 		if (resourceId.equals("action")) {
-			String action = request.getParameter("action");
+			//If you have liferay then you need the servlet request to get paramters
+			String action = getParameter(request, "action");
+			//If your portal doesn't strip out the request parameters then you can get them direct, as below
+			//String action = request.getParameter("action");
 			
 			if (action == null) {
 				throw new PortletException("no processResourceAction method specified");
@@ -86,6 +92,7 @@ public abstract class ResourceActionPortlet extends GenericPortlet {
 			// if no action processing method was found throw exception
 			throw new PortletException("processResourceAction method not implemented");
 		} else {
+			log.info("Resource requested: " + resourceId);
 			
 			try {
 				// check if resource method is cached

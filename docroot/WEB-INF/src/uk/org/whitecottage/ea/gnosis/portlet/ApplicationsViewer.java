@@ -5,7 +5,6 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Properties;
-import java.util.logging.Logger;
 
 import javax.portlet.PortletException;
 import javax.portlet.RenderMode;
@@ -23,10 +22,13 @@ import uk.org.whitecottage.ea.gnosis.repository.applications.LifecyclePresentati
 import uk.org.whitecottage.ea.portlet.ProcessResourceAction;
 import uk.org.whitecottage.ea.portlet.ProcessResourceRequest;
 
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
+
 public class ApplicationsViewer extends GnosisPortlet {
 
 	//@SuppressWarnings("unused")
-	private static final Logger log = Logger.getLogger("uk.org.whitecottage.ea.gnosis.portlet");
+	private static final Log log = LogFactoryUtil.getLog(ApplicationsViewer.class);
 	
     @RenderMode(name = "view")
     public void view(RenderRequest request, RenderResponse response) throws PortletException, IOException {
@@ -113,8 +115,7 @@ public class ApplicationsViewer extends GnosisPortlet {
     	String existRepositoryRoot = gnosisProperties.getProperty("exist.repository.root");
     	String context = getPortletContext().getRealPath("");
 
-    	String gnosisDataDir = System.getProperty("jboss.server.data.dir") + File.separator + "gnosis";
-		String gnosisOoxmlDir = gnosisDataDir + File.separator + "ooxml" + File.separator;
+		String gnosisOoxmlDir = dataDir + "gnosis/ooxml/";
         
 		XMLSlideShow ppt;
     	File template = new File(gnosisOoxmlDir + "lifecycle-tmpl.pptx");

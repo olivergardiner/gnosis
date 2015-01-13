@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.logging.Logger;
 
 import javax.portlet.PortletException;
 import javax.portlet.RenderMode;
@@ -17,8 +16,11 @@ import org.apache.commons.io.IOUtils;
 
 import uk.org.whitecottage.ea.portlet.ProcessResourceRequest;
 
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
+
 public class DataViewer extends GnosisPortlet {
-	private static final Logger log = Logger.getLogger("uk.org.whitecottage.ea.gnosis.portlet");
+	private static final Log log = LogFactoryUtil.getLog(DataViewer.class);
 	
     @RenderMode(name = "view")
     public void view(RenderRequest request, RenderResponse response) throws PortletException, IOException {
@@ -27,9 +29,7 @@ public class DataViewer extends GnosisPortlet {
     
     @ProcessResourceRequest(name = "jsonData")
     public void serveJSONData(ResourceRequest request, ResourceResponse response) throws PortletException, java.io.IOException {
-		String gnosisDataDir = System.getProperty("jboss.server.data.dir") + File.separator + "gnosis";
-		String gnosisCLDMDir = gnosisDataDir + File.separator + "cldm";
-		String cldmJSONFile = gnosisCLDMDir + File.separator + "cldm.json";
+		String cldmJSONFile = dataDir + "gnosis/cldm/cldm.json";
 		
 		log.info("Serving json data from: " + cldmJSONFile);
 	
@@ -46,8 +46,7 @@ public class DataViewer extends GnosisPortlet {
     
     @ProcessResourceRequest(name = "modelDetail")
     public void serveModelDetail(ResourceRequest request, ResourceResponse response) throws PortletException, java.io.IOException {
-		String gnosisDataDir = System.getProperty("jboss.server.data.dir") + File.separator + "gnosis";
-		String gnosisCLDMDir = gnosisDataDir + File.separator + "cldm";
+		String gnosisCLDMDir = dataDir + "cldm";
 		
 		String path = request.getParameter("path");
 		if (path.startsWith("LDM/")) {

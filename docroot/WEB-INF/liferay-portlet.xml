@@ -6,11 +6,156 @@
 	<portlet>
 		<portlet-name>FrameworkViewer</portlet-name>
 		<icon>/icon.png</icon>
+		<header-portlet-css>/css/common.css</header-portlet-css>
 		<header-portlet-css>/css/framework-viewer.css</header-portlet-css>
-		<header-portlet-javascript>/js/require/require.js</header-portlet-javascript>
+		<header-portlet-javascript>/js/jquery/jquery-1.11.1.min.js</header-portlet-javascript>
+		<header-portlet-javascript>/js/jquery-ui/jquery-ui.min.js</header-portlet-javascript>
 		<footer-portlet-javascript>/js/framework-viewer.js</footer-portlet-javascript>
-		<css-class-wrapper>new-portlet</css-class-wrapper>
+		<css-class-wrapper>gnosis</css-class-wrapper>
 	</portlet>
+	<portlet>
+		<portlet-name>ApplicationsViewer</portlet-name>
+		<icon>/icon.png</icon>
+		<header-portlet-css>/js/jquery-ui/jquery-ui.css</header-portlet-css>
+		<header-portlet-css>/js/jqte/jquery-te-1.4.0.css</header-portlet-css>
+		<header-portlet-css>/js/jstree/themes/default/style.css</header-portlet-css>
+		<header-portlet-css>/js/dataTables/css/jquery.dataTables.css</header-portlet-css>
+		<header-portlet-css>/js/jqtimeline/css/jquery.jqtimeline.css</header-portlet-css>
+		<header-portlet-css>/js/select2/select2.css</header-portlet-css>
+		<header-portlet-css>/css/common.css</header-portlet-css>
+		<header-portlet-css>/css/applications-viewer.css</header-portlet-css>
+		<header-portlet-javascript>/js/jquery/jquery-1.11.1.min.js</header-portlet-javascript>
+		<header-portlet-javascript>/js/jquery-ui/jquery-ui.min.js</header-portlet-javascript>
+		<header-portlet-javascript>/js/dataTables/jquery.dataTables.min.js</header-portlet-javascript>
+		<header-portlet-javascript>/js/select2/select2.min.js</header-portlet-javascript>
+		<header-portlet-javascript>/js/jqte/jquery-te-1.4.0.min.js</header-portlet-javascript>
+		<header-portlet-javascript>/js/jqtimeline/js/jquery.jqtimeline.js</header-portlet-javascript>
+		<header-portlet-javascript>/js/jstree/jstree.min.js</header-portlet-javascript>
+		<header-portlet-javascript>/js/uuid/uuid.js</header-portlet-javascript>
+		<footer-portlet-javascript>/js/applications-viewer.js</footer-portlet-javascript>
+		<css-class-wrapper>gnosis</css-class-wrapper>
+	</portlet>
+    <portlet>
+		<portlet-name>TechnologyDomainsViewer</portlet-name>
+		<icon>/icon.png</icon>
+		<configuration-action-class>com.liferay.portal.kernel.portlet.DefaultConfigurationAction</configuration-action-class>		<header-portlet-css>/js/jquery-ui/jquery-ui.css</header-portlet-css>
+		<header-portlet-css>/js/jquery-ui/jquery-ui.css</header-portlet-css>
+		<header-portlet-css>/js/jqte/jquery-te-1.4.0.css</header-portlet-css>
+		<header-portlet-css>/js/jstree/themes/default/style.css</header-portlet-css>
+		<header-portlet-css>/js/selectric/selectric.css</header-portlet-css>
+		<header-portlet-css>/css/common.css</header-portlet-css>
+		<header-portlet-css>/css/applications-viewer.css</header-portlet-css>
+		<header-portlet-javascript>/js/jquery/jquery-1.11.1.min.js</header-portlet-javascript>
+		<header-portlet-javascript>/js/jquery-ui/jquery-ui.min.js</header-portlet-javascript>
+		<header-portlet-javascript>/js/selectric/jquery.selectric.min.js</header-portlet-javascript>
+		<header-portlet-javascript>/js/jqte/jquery-te-1.4.0.min.js</header-portlet-javascript>
+		<header-portlet-javascript>/js/jstree/jstree.min.js</header-portlet-javascript>
+		<header-portlet-javascript>/js/uuid/uuid.js</header-portlet-javascript>
+		<footer-portlet-javascript>/js/technology-domains-viewer.js</footer-portlet-javascript>
+		<css-class-wrapper>gnosis</css-class-wrapper>
+    </portlet>
+
+    <portlet>
+		<portlet-name>ValueChainViewer</portlet-name>
+		<icon>/icon.png</icon>
+		<header-portlet-css>/js/jquery-ui/jquery-ui.css</header-portlet-css>
+		<header-portlet-css>/js/jstree/themes/default/style.css</header-portlet-css>
+		<header-portlet-css>/js/selectboxit/jquery.selectBoxIt.css</header-portlet-css>
+		<header-portlet-css>/css/common.css</header-portlet-css>
+		<header-portlet-css>/css/applications-viewer.css</header-portlet-css>
+		<header-portlet-javascript>/js/jquery/jquery-1.11.1.min.js</header-portlet-javascript>
+		<header-portlet-javascript>/js/jquery-ui/jquery-ui.min.js</header-portlet-javascript>
+		<header-portlet-javascript>/js/selectboxit/jquery.selectBoxIt.min.js</header-portlet-javascript>
+		<header-portlet-javascript>/js/jstree/jstree.min.js</header-portlet-javascript>
+		<header-portlet-javascript>/js/uuid/uuid.js</header-portlet-javascript>
+		<footer-portlet-javascript>/js/value-chain-viewer.js</footer-portlet-javascript>
+		<css-class-wrapper>gnosis</css-class-wrapper>
+    </portlet>
+
+    <portlet>
+		<portlet-name>ProcessFlowViewer</portlet-name>
+		<icon>/icon.png</icon>
+		<header-portlet-css>/js/jquery-ui/jquery-ui.css</header-portlet-css>
+		<header-portlet-css>/js/selectric/selectric.css</header-portlet-css>
+		<header-portlet-css>/js/jstree/themes/default/style.css</header-portlet-css>
+		<header-portlet-css>/css/common.css</header-portlet-css>
+		<header-portlet-css>/css/applications-viewer.css</header-portlet-css>
+		<header-portlet-javascript>/js/jquery/jquery-1.11.1.min.js</header-portlet-javascript>
+		<header-portlet-javascript>/js/jquery-ui/jquery-ui.min.js</header-portlet-javascript>
+		<header-portlet-javascript>/js/selectric/jquery.selectric.min.js</header-portlet-javascript>
+		<header-portlet-javascript>/js/jstree/jstree.min.js</header-portlet-javascript>
+		<header-portlet-javascript>/js/uuid/uuid.js</header-portlet-javascript>
+		<footer-portlet-javascript>/js/process-flow-viewer.js</footer-portlet-javascript>
+		<css-class-wrapper>gnosis</css-class-wrapper>
+    </portlet>
+
+    <portlet>
+		<portlet-name>ProcessTaxonomyViewer</portlet-name>
+		<icon>/icon.png</icon>
+		<header-portlet-css>/js/jquery-ui/jquery-ui.css</header-portlet-css>
+		<header-portlet-css>/js/selectric/selectric.css</header-portlet-css>
+		<header-portlet-css>/js/jqte/jquery-te-1.4.0.css</header-portlet-css>
+		<header-portlet-css>/js/jstree/themes/default/style.css</header-portlet-css>
+		<header-portlet-css>/css/common.css</header-portlet-css>
+		<header-portlet-css>/css/applications-viewer.css</header-portlet-css>
+		<header-portlet-javascript>/js/jquery/jquery-1.11.1.min.js</header-portlet-javascript>
+		<header-portlet-javascript>/js/jquery-ui/jquery-ui.min.js</header-portlet-javascript>
+		<header-portlet-javascript>/js/selectric/jquery.selectric.min.js</header-portlet-javascript>
+		<header-portlet-javascript>/js/jqte/jquery-te-1.4.0.min.js</header-portlet-javascript>
+		<header-portlet-javascript>/js/jstree/jstree.min.js</header-portlet-javascript>
+		<header-portlet-javascript>/js/uuid/uuid.js</header-portlet-javascript>
+		<footer-portlet-javascript>/js/process-taxonomy-viewer.js</footer-portlet-javascript>
+		<css-class-wrapper>gnosis</css-class-wrapper>
+    </portlet>
+
+
+    <portlet>
+		<portlet-name>ITServicesViewer</portlet-name>
+		<icon>/icon.png</icon>
+		<header-portlet-css>/js/jquery-ui/jquery-ui.css</header-portlet-css>
+		<header-portlet-css>/js/selectric/selectric.css</header-portlet-css>
+		<header-portlet-css>/js/jqte/jquery-te-1.4.0.css</header-portlet-css>
+		<header-portlet-css>/js/jstree/themes/default/style.css</header-portlet-css>
+		<header-portlet-css>/css/common.css</header-portlet-css>
+		<header-portlet-css>/css/applications-viewer.css</header-portlet-css>
+		<header-portlet-javascript>/js/jquery/jquery-1.11.1.min.js</header-portlet-javascript>
+		<header-portlet-javascript>/js/jquery-ui/jquery-ui.min.js</header-portlet-javascript>
+		<header-portlet-javascript>/js/selectric/jquery.selectric.min.js</header-portlet-javascript>
+		<header-portlet-javascript>/js/jqte/jquery-te-1.4.0.min.js</header-portlet-javascript>
+		<header-portlet-javascript>/js/jstree/jstree.min.js</header-portlet-javascript>
+		<header-portlet-javascript>/js/uuid/uuid.js</header-portlet-javascript>
+		<footer-portlet-javascript>/js/it-services-viewer.js</footer-portlet-javascript>
+		<css-class-wrapper>gnosis</css-class-wrapper>
+    </portlet>
+
+    <portlet>
+		<portlet-name>DataManager</portlet-name>
+		<icon>/icon.png</icon>
+		<header-portlet-css>/js/jquery-ui/jquery-ui.css</header-portlet-css>
+		<header-portlet-css>/js/uploadfile/uploadfile.css</header-portlet-css>
+		<header-portlet-css>/css/common.css</header-portlet-css>
+		<header-portlet-css>/css/applications-viewer.css</header-portlet-css>
+		<header-portlet-javascript>/js/jquery/jquery-1.11.1.min.js</header-portlet-javascript>
+		<header-portlet-javascript>/js/jquery-ui/jquery-ui.min.js</header-portlet-javascript>
+		<header-portlet-javascript>/js/uploadfile/jquery.uploadfile.min.js</header-portlet-javascript>
+		<footer-portlet-javascript>/js/data-manager.js</footer-portlet-javascript>
+		<css-class-wrapper>gnosis</css-class-wrapper>
+    </portlet>
+
+    <portlet>
+		<portlet-name>DataViewer</portlet-name>
+		<icon>/icon.png</icon>
+		<header-portlet-css>/js/jquery-ui/jquery-ui.css</header-portlet-css>
+		<header-portlet-css>/js/jstree/themes/default/style.css</header-portlet-css>
+		<header-portlet-css>/css/common.css</header-portlet-css>
+		<header-portlet-css>/css/applications-viewer.css</header-portlet-css>
+		<header-portlet-javascript>/js/jquery/jquery-1.11.1.min.js</header-portlet-javascript>
+		<header-portlet-javascript>/js/jquery-ui/jquery-ui.min.js</header-portlet-javascript>
+		<header-portlet-javascript>/js/jstree/jstree.min.js</header-portlet-javascript>
+		<footer-portlet-javascript>/js/data-viewer.js</footer-portlet-javascript>
+		<css-class-wrapper>gnosis</css-class-wrapper>
+    </portlet>
+
 	<role-mapper>
 		<role-name>administrator</role-name>
 		<role-link>Administrator</role-link>

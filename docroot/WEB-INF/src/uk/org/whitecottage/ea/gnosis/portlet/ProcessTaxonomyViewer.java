@@ -5,7 +5,6 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Properties;
-import java.util.logging.Logger;
 
 import javax.portlet.PortletException;
 import javax.portlet.RenderMode;
@@ -20,9 +19,12 @@ import uk.org.whitecottage.ea.gnosis.repository.ProcessTaxonomy;
 import uk.org.whitecottage.ea.portlet.ProcessResourceAction;
 import uk.org.whitecottage.ea.portlet.ProcessResourceRequest;
 
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
+
 public class ProcessTaxonomyViewer extends GnosisPortlet {
 	@SuppressWarnings("unused")
-	private static final Logger log = Logger.getLogger("uk.org.whitecottage.ea.gnosis.portlet");
+	private static final Log log = LogFactoryUtil.getLog(ProcessTaxonomyViewer.class);
 	
     @RenderMode(name = "view")
     public void view(RenderRequest request, RenderResponse response) throws PortletException, IOException {

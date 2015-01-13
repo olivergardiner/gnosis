@@ -3,7 +3,15 @@
 
 <display>
 	
-	<category name="category.apps">
+	<category name="gnosis.category">
+		<portlet id="ValueChainViewer"></portlet>
 		<portlet id="FrameworkViewer"></portlet>
+		<portlet id="ApplicationsViewer"></portlet>
+		<portlet id="TechnologyDomainsViewer"></portlet>
+		<portlet id="ProcessTaxonomyViewer"></portlet>
+		<portlet id="ProcessFlowViewer"></portlet>
+		<portlet id="ITServicesViewer"></portlet>
+		<portlet id="DataViewer"></portlet>
+		<portlet id="DataManager"></portlet>
 	</category>
 </display>

@@ -1,4 +1,3 @@
-/* @import url('../js/selectric/selectric.css'); */
 /* Override for jqte to ensure that it loads the toolbar image in the portal by using an absoute URL */
 .jqte_tool_icon {
   display: block;
