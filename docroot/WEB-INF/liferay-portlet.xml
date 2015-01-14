@@ -6,6 +6,7 @@
 	<portlet>
 		<portlet-name>FrameworkViewer</portlet-name>
 		<icon>/icon.png</icon>
+		<header-portlet-css>/js/jquery-ui/jquery-ui.css</header-portlet-css>
 		<header-portlet-css>/css/common.css</header-portlet-css>
 		<header-portlet-css>/css/framework-viewer.css</header-portlet-css>
 		<header-portlet-javascript>/js/jquery/jquery-1.11.1.min.js</header-portlet-javascript>
@@ -44,7 +45,7 @@
 		<header-portlet-css>/js/jstree/themes/default/style.css</header-portlet-css>
 		<header-portlet-css>/js/selectric/selectric.css</header-portlet-css>
 		<header-portlet-css>/css/common.css</header-portlet-css>
-		<header-portlet-css>/css/applications-viewer.css</header-portlet-css>
+		<header-portlet-css>/css/technology-domains-viewer.css</header-portlet-css>
 		<header-portlet-javascript>/js/jquery/jquery-1.11.1.min.js</header-portlet-javascript>
 		<header-portlet-javascript>/js/jquery-ui/jquery-ui.min.js</header-portlet-javascript>
 		<header-portlet-javascript>/js/selectric/jquery.selectric.min.js</header-portlet-javascript>
@@ -62,7 +63,7 @@
 		<header-portlet-css>/js/jstree/themes/default/style.css</header-portlet-css>
 		<header-portlet-css>/js/selectboxit/jquery.selectBoxIt.css</header-portlet-css>
 		<header-portlet-css>/css/common.css</header-portlet-css>
-		<header-portlet-css>/css/applications-viewer.css</header-portlet-css>
+		<header-portlet-css>/css/value-chain-viewer.css</header-portlet-css>
 		<header-portlet-javascript>/js/jquery/jquery-1.11.1.min.js</header-portlet-javascript>
 		<header-portlet-javascript>/js/jquery-ui/jquery-ui.min.js</header-portlet-javascript>
 		<header-portlet-javascript>/js/selectboxit/jquery.selectBoxIt.min.js</header-portlet-javascript>
@@ -79,7 +80,7 @@
 		<header-portlet-css>/js/selectric/selectric.css</header-portlet-css>
 		<header-portlet-css>/js/jstree/themes/default/style.css</header-portlet-css>
 		<header-portlet-css>/css/common.css</header-portlet-css>
-		<header-portlet-css>/css/applications-viewer.css</header-portlet-css>
+		<header-portlet-css>/css/process-flow-viewer.css</header-portlet-css>
 		<header-portlet-javascript>/js/jquery/jquery-1.11.1.min.js</header-portlet-javascript>
 		<header-portlet-javascript>/js/jquery-ui/jquery-ui.min.js</header-portlet-javascript>
 		<header-portlet-javascript>/js/selectric/jquery.selectric.min.js</header-portlet-javascript>
@@ -97,7 +98,7 @@
 		<header-portlet-css>/js/jqte/jquery-te-1.4.0.css</header-portlet-css>
 		<header-portlet-css>/js/jstree/themes/default/style.css</header-portlet-css>
 		<header-portlet-css>/css/common.css</header-portlet-css>
-		<header-portlet-css>/css/applications-viewer.css</header-portlet-css>
+		<header-portlet-css>/css/process-taxonomy-viewer.css</header-portlet-css>
 		<header-portlet-javascript>/js/jquery/jquery-1.11.1.min.js</header-portlet-javascript>
 		<header-portlet-javascript>/js/jquery-ui/jquery-ui.min.js</header-portlet-javascript>
 		<header-portlet-javascript>/js/selectric/jquery.selectric.min.js</header-portlet-javascript>
@@ -117,7 +118,7 @@
 		<header-portlet-css>/js/jqte/jquery-te-1.4.0.css</header-portlet-css>
 		<header-portlet-css>/js/jstree/themes/default/style.css</header-portlet-css>
 		<header-portlet-css>/css/common.css</header-portlet-css>
-		<header-portlet-css>/css/applications-viewer.css</header-portlet-css>
+		<header-portlet-css>/css/it-services-viewer.css</header-portlet-css>
 		<header-portlet-javascript>/js/jquery/jquery-1.11.1.min.js</header-portlet-javascript>
 		<header-portlet-javascript>/js/jquery-ui/jquery-ui.min.js</header-portlet-javascript>
 		<header-portlet-javascript>/js/selectric/jquery.selectric.min.js</header-portlet-javascript>
@@ -134,7 +135,7 @@
 		<header-portlet-css>/js/jquery-ui/jquery-ui.css</header-portlet-css>
 		<header-portlet-css>/js/uploadfile/uploadfile.css</header-portlet-css>
 		<header-portlet-css>/css/common.css</header-portlet-css>
-		<header-portlet-css>/css/applications-viewer.css</header-portlet-css>
+		<header-portlet-css>/css/data-manager.css</header-portlet-css>
 		<header-portlet-javascript>/js/jquery/jquery-1.11.1.min.js</header-portlet-javascript>
 		<header-portlet-javascript>/js/jquery-ui/jquery-ui.min.js</header-portlet-javascript>
 		<header-portlet-javascript>/js/uploadfile/jquery.uploadfile.min.js</header-portlet-javascript>
@@ -148,7 +149,7 @@
 		<header-portlet-css>/js/jquery-ui/jquery-ui.css</header-portlet-css>
 		<header-portlet-css>/js/jstree/themes/default/style.css</header-portlet-css>
 		<header-portlet-css>/css/common.css</header-portlet-css>
-		<header-portlet-css>/css/applications-viewer.css</header-portlet-css>
+		<header-portlet-css>/css/data-viewer.css</header-portlet-css>
 		<header-portlet-javascript>/js/jquery/jquery-1.11.1.min.js</header-portlet-javascript>
 		<header-portlet-javascript>/js/jquery-ui/jquery-ui.min.js</header-portlet-javascript>
 		<header-portlet-javascript>/js/jstree/jstree.min.js</header-portlet-javascript>
