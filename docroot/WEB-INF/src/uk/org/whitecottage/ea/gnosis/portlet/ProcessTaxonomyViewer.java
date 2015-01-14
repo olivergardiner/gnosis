@@ -46,7 +46,7 @@ public class ProcessTaxonomyViewer extends GnosisPortlet {
 
     @ProcessResourceRequest(name = "icon")
     public void serveIcon(ResourceRequest request, ResourceResponse response) throws PortletException, java.io.IOException {
-		String icon = request.getParameter("icon");
+		String icon = getParameter(request, "icon");
 	
 		response.setContentType("image/x-icon");
 		
@@ -69,9 +69,9 @@ public class ProcessTaxonomyViewer extends GnosisPortlet {
     	String context = getPortletContext().getRealPath("");
     	ProcessTaxonomy taxonomy = new ProcessTaxonomy(existURI, existRepositoryRoot, context);
     	
-    	String domainId = request.getParameter("domainId");
-    	String name = request.getParameter("domainName");
-    	String description = request.getParameter("domainDescription");
+    	String domainId = getParameter(request, "domainId");
+    	String name = getParameter(request, "domainName");
+    	String description = getParameter(request, "domainDescription");
        	
     	taxonomy.updateProcessDomain(domainId, name, description);
     }
@@ -84,9 +84,9 @@ public class ProcessTaxonomyViewer extends GnosisPortlet {
     	String context = getPortletContext().getRealPath("");
     	ProcessTaxonomy taxonomy = new ProcessTaxonomy(existURI, existRepositoryRoot, context);
     	
-    	String capabilityId = request.getParameter("processId");
-    	String name = request.getParameter("processName");
-    	String description = request.getParameter("processDescription");
+    	String capabilityId = getParameter(request, "processId");
+    	String name = getParameter(request, "processName");
+    	String description = getParameter(request, "processDescription");
    	
     	taxonomy.updateProcess(capabilityId, name, description);
     }
@@ -99,10 +99,10 @@ public class ProcessTaxonomyViewer extends GnosisPortlet {
     	String context = getPortletContext().getRealPath("");
     	ProcessTaxonomy taxonomy = new ProcessTaxonomy(existURI, existRepositoryRoot, context);
     	
-    	String domainId = request.getParameter("domainId");
-    	String valueChain = request.getParameter("valueChain");
-    	String name = request.getParameter("domainName");
-    	String description = request.getParameter("domainDescription");
+    	String domainId = getParameter(request, "domainId");
+    	String valueChain = getParameter(request, "valueChain");
+    	String name = getParameter(request, "domainName");
+    	String description = getParameter(request, "domainDescription");
     	
     	taxonomy.createProcessDomain(valueChain, domainId, name, description);
     }
@@ -115,10 +115,10 @@ public class ProcessTaxonomyViewer extends GnosisPortlet {
     	String context = getPortletContext().getRealPath("");
     	ProcessTaxonomy taxonomy = new ProcessTaxonomy(existURI, existRepositoryRoot, context);
     	
-    	String domainId = request.getParameter("domainId");
-    	String processId = request.getParameter("processId");
-    	String name = request.getParameter("processName");
-    	String description = request.getParameter("processDescription");
+    	String domainId = getParameter(request, "domainId");
+    	String processId = getParameter(request, "processId");
+    	String name = getParameter(request, "processName");
+    	String description = getParameter(request, "processDescription");
    	
     	taxonomy.createProcess(domainId, processId, name, description);
     }
@@ -131,9 +131,9 @@ public class ProcessTaxonomyViewer extends GnosisPortlet {
     	String context = getPortletContext().getRealPath("");
     	ProcessTaxonomy taxonomy = new ProcessTaxonomy(existURI, existRepositoryRoot, context);
     	
-    	String domainId = request.getParameter("domainId");
-    	String parentId = request.getParameter("parentId");
-    	String before = request.getParameter("before");
+    	String domainId = getParameter(request, "domainId");
+    	String parentId = getParameter(request, "parentId");
+    	String before = getParameter(request, "before");
     	
     	taxonomy.moveProcessDomain(domainId, parentId, before);
     }
@@ -146,9 +146,9 @@ public class ProcessTaxonomyViewer extends GnosisPortlet {
     	String context = getPortletContext().getRealPath("");
     	ProcessTaxonomy taxonomy = new ProcessTaxonomy(existURI, existRepositoryRoot, context);
     	
-    	String processyId = request.getParameter("processId");
-    	String parentId = request.getParameter("parentId");
-    	String before = request.getParameter("before");
+    	String processyId = getParameter(request, "processId");
+    	String parentId = getParameter(request, "parentId");
+    	String before = getParameter(request, "before");
 
     	taxonomy.moveProcess(processyId, parentId, before);
     }

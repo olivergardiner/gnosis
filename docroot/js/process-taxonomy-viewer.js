@@ -25,14 +25,14 @@ $('#jstree').jstree({
 		},
 		'domain': {
 			'valid_children': ['process'],
-			'icon': iconURL + "&amp;icon=process-domain.ico"
+			'icon': iconURL + "&icon=process-domain.ico"
 		},
 		'process': {
 			'valid_children': [],
-			'icon': iconURL + "&amp;icon=process.ico"
+			'icon': iconURL + "&icon=process.ico"
 		},
 		'trash': {
-			'icon': iconURL + "&amp;icon=trash.ico"
+			'icon': iconURL + "&icon=trash.ico"
 		}
 	},
 	'contextmenu': {

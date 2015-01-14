@@ -47,7 +47,7 @@ public class FrameworkViewer extends GnosisPortlet {
 
     @ProcessResourceRequest(name = "icon")
     public void serveIcon(ResourceRequest request, ResourceResponse response) throws PortletException, java.io.IOException {
-		String icon = request.getParameter("icon");
+		String icon = getParameter(request, "icon");
 	
 		response.setContentType("image/x-icon");
 		

@@ -40,14 +40,14 @@ $('#jstree').jstree({
 		},
 		'primary-activity': {
 			'valid_children': [],
-			'icon': iconURL + "&amp;icon=technology-domain.ico"
+			'icon': iconURL + "&icon=technology-domain.ico"
 		},
 		'support-activity': {
 			'valid_children': [],
-			'icon': iconURL + "&amp;icon=technology-domain.ico"
+			'icon': iconURL + "&icon=technology-domain.ico"
 		},
 		'trash': {
-			'icon': iconURL + "&amp;icon=trash.ico"
+			'icon': iconURL + "&icon=trash.ico"
 		}
 	},
 	'contextmenu': {

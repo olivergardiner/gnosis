@@ -57,7 +57,7 @@ public class ApplicationsViewer extends GnosisPortlet {
     	String context = getPortletContext().getRealPath("");
     	
     	ApplicationsEstate applications = new ApplicationsEstate(existURI, existRepositoryRoot, context);
-    	String json = applications.getApplicationJSON(request.getParameter("applicationId"));
+    	String json = applications.getApplicationJSON(getParameter(request, "applicationId"));
     	
 		response.setContentType("application/json");
     	response.getWriter().print(json);
@@ -71,7 +71,7 @@ public class ApplicationsViewer extends GnosisPortlet {
     	String context = getPortletContext().getRealPath("");
     	
     	ApplicationsEstate applications = new ApplicationsEstate(existURI, existRepositoryRoot, context);
-    	String json = applications.getApplicationJSON(request.getParameter("classification"));
+    	String json = applications.getApplicationJSON(getParameter(request, "classification"));
     	
 		response.setContentType("application/json");
     	response.getWriter().print(json);
@@ -93,7 +93,7 @@ public class ApplicationsViewer extends GnosisPortlet {
 
     @ProcessResourceRequest(name = "icon")
     public void serveIcon(ResourceRequest request, ResourceResponse response) throws PortletException, IOException {
-		String icon = request.getParameter("icon");
+		String icon = getParameter(request, "icon");
 	
 		response.setContentType("image/x-icon");
 		
@@ -144,13 +144,13 @@ public class ApplicationsViewer extends GnosisPortlet {
     	String context = getPortletContext().getRealPath("");
     	ApplicationsEstate applications = new ApplicationsEstate(existURI, existRepositoryRoot, context);
     	
-    	String applicationId = request.getParameter("applicationId");
-    	String name = request.getParameter("applicationName");
-    	String description = request.getParameter("applicationDescription");
+    	String applicationId = getParameter(request, "applicationId");
+    	String name = getParameter(request, "applicationName");
+    	String description = getParameter(request, "applicationDescription");
        	
     	applications.addApplication(applicationId, name, description);
     	
-    	String json = applications.getApplicationJSON(request.getParameter("applicationId"));    	
+    	String json = applications.getApplicationJSON(getParameter(request, "applicationId"));    	
 
 		response.setContentType("application/json");
 		response.getWriter().print(json);
@@ -166,11 +166,11 @@ public class ApplicationsViewer extends GnosisPortlet {
     	String context = getPortletContext().getRealPath("");
     	ApplicationsEstate applications = new ApplicationsEstate(existURI, existRepositoryRoot, context);
     	
-    	String applicationId = request.getParameter("applicationId");
+    	String applicationId = getParameter(request, "applicationId");
        	
     	applications.removeApplication(applicationId);
     	
-    	String json = applications.getApplicationJSON(request.getParameter("applicationId"));    	
+    	String json = applications.getApplicationJSON(getParameter(request, "applicationId"));    	
 
 		response.setContentType("application/json");
 		response.getWriter().print(json);
@@ -186,13 +186,13 @@ public class ApplicationsViewer extends GnosisPortlet {
     	String context = getPortletContext().getRealPath("");
     	ApplicationsEstate applications = new ApplicationsEstate(existURI, existRepositoryRoot, context);
     	
-    	String applicationId = request.getParameter("applicationId");
-    	String name = request.getParameter("applicationName");
-    	String description = request.getParameter("applicationDescription");
+    	String applicationId = getParameter(request, "applicationId");
+    	String name = getParameter(request, "applicationName");
+    	String description = getParameter(request, "applicationDescription");
        	
     	applications.updateApplicationBasic(applicationId, name, description);
     	
-    	String json = applications.getApplicationJSON(request.getParameter("applicationId"));    	
+    	String json = applications.getApplicationJSON(getParameter(request, "applicationId"));    	
 
 		response.setContentType("application/json");
 		response.getWriter().print(json);
@@ -210,12 +210,12 @@ public class ApplicationsViewer extends GnosisPortlet {
     	
     	logParameters(request);
     	
-    	String applicationId = request.getParameter("applicationId");
-    	String capability = request.getParameter("capability");
+    	String applicationId = getParameter(request, "applicationId");
+    	String capability = getParameter(request, "capability");
     	       	
     	applications.addCapability(applicationId, capability);
     	
-    	String json = applications.getApplicationJSON(request.getParameter("applicationId"));    	
+    	String json = applications.getApplicationJSON(getParameter(request, "applicationId"));    	
 
 		response.setContentType("application/json");
 		response.getWriter().print(json);
@@ -233,12 +233,12 @@ public class ApplicationsViewer extends GnosisPortlet {
     	
     	logParameters(request);
     	
-    	String applicationId = request.getParameter("applicationId");
-    	String capability = request.getParameter("capability");
+    	String applicationId = getParameter(request, "applicationId");
+    	String capability = getParameter(request, "capability");
     	       	
     	applications.removeCapability(applicationId, capability);
     	
-    	String json = applications.getApplicationJSON(request.getParameter("applicationId"));    	
+    	String json = applications.getApplicationJSON(getParameter(request, "applicationId"));    	
 
 		response.setContentType("application/json");
 		response.getWriter().print(json);
@@ -254,14 +254,14 @@ public class ApplicationsViewer extends GnosisPortlet {
     	String context = getPortletContext().getRealPath("");
     	ApplicationsEstate applications = new ApplicationsEstate(existURI, existRepositoryRoot, context);
     	       	
-    	String applicationId = request.getParameter("applicationId");
-    	String stage = request.getParameter("stage");
-    	String mode = request.getParameter("mode");
-    	String date = request.getParameter("date");
+    	String applicationId = getParameter(request, "applicationId");
+    	String stage = getParameter(request, "stage");
+    	String mode = getParameter(request, "mode");
+    	String date = getParameter(request, "date");
     	
     	applications.updateLifecycle(applicationId, stage, mode, date);
     	
-    	String json = applications.getApplicationJSON(request.getParameter("applicationId"));    	
+    	String json = applications.getApplicationJSON(getParameter(request, "applicationId"));    	
 
 		response.setContentType("application/json");
 		response.getWriter().print(json);
@@ -277,12 +277,12 @@ public class ApplicationsViewer extends GnosisPortlet {
     	String context = getPortletContext().getRealPath("");
     	ApplicationsEstate applications = new ApplicationsEstate(existURI, existRepositoryRoot, context);
     	       	
-       	String applicationId = request.getParameter("applicationId");
-       	String stage = request.getParameter("stage");
+       	String applicationId = getParameter(request, "applicationId");
+       	String stage = getParameter(request, "stage");
     	
     	applications.removeLifecycle(applicationId, stage);
  
-    	String json = applications.getApplicationJSON(request.getParameter("applicationId"));    	
+    	String json = applications.getApplicationJSON(getParameter(request, "applicationId"));    	
 
     	response.setContentType("application/json");
     	response.getWriter().print(json);

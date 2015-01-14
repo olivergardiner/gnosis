@@ -46,7 +46,7 @@ public class ITServicesViewer extends GnosisPortlet {
 
     @ProcessResourceRequest(name = "icon")
     public void serveIcon(ResourceRequest request, ResourceResponse response) throws PortletException, java.io.IOException {
-		String icon = request.getParameter("icon");
+		String icon = getParameter(request, "icon");
 	
 		response.setContentType("image/x-icon");
 		
@@ -69,9 +69,9 @@ public class ITServicesViewer extends GnosisPortlet {
     	String context = getPortletContext().getRealPath("");
     	ITServices services = new ITServices(existURI, existRepositoryRoot, context);
     	
-    	String id = request.getParameter("id");
-    	String name = request.getParameter("name");
-    	String description = request.getParameter("description");
+    	String id = getParameter(request, "id");
+    	String name = getParameter(request, "name");
+    	String description = getParameter(request, "description");
        	
     	services.updateComponent(id, name, description);
     }

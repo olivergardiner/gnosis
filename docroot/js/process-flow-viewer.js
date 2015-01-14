@@ -101,10 +101,10 @@ $('#process-selector-tree').jstree({
 		'activity': {
 		},
 		'domain': {
-			'icon': iconURL + "&amp;icon=process-domain.ico"
+			'icon': iconURL + "&icon=process-domain.ico"
 		},
 		'process': {
-			'icon': iconURL + "&amp;icon=process.ico"
+			'icon': iconURL + "&icon=process.ico"
 		}
 	},
 	'plugins': ['types']
@@ -262,19 +262,19 @@ function buildTree(flows, flowId, flowName) {
 			},
 			'flow': {
 				'valid_children': ['instance'],
-				'icon': iconURL + "&amp;icon=technology-domain.ico"
+				'icon': iconURL + "&icon=technology-domain.ico"
 			},
 			'instance': {
 				'valid_children': ['parent', 'predecessor'],
-				'icon': iconURL + "&amp;icon=process.ico"
+				'icon': iconURL + "&icon=process.ico"
 			},
 			'parent': {
 				'valid_children': [],
-				'icon': iconURL + "&amp;icon=parent-process.ico"
+				'icon': iconURL + "&icon=parent-process.ico"
 			},
 			'predecessor': {
 				'valid_children': [],
-				'icon': iconURL + "&amp;icon=predecessor-process.ico"
+				'icon': iconURL + "&icon=predecessor-process.ico"
 			}
 		},
 		'contextmenu': {

@@ -84,10 +84,10 @@ public class TechnologyDomainsViewer extends GnosisPortlet {
     	String context = getPortletContext().getRealPath("");
     	TechnologyDomains domains = new TechnologyDomains(existURI, existRepositoryRoot, context);
     	
-    	String domainId = request.getParameter("domainId");
-    	String name = request.getParameter("domainName");
-    	String description = request.getParameter("domainDescription");
-    	String valueChain = request.getParameter("valueChain");
+    	String domainId = getParameter(request, "domainId");
+    	String name = getParameter(request, "domainName");
+    	String description = getParameter(request, "domainDescription");
+    	String valueChain = getParameter(request, "valueChain");
        	
     	domains.updateTechnologyDomain(domainId, name, description, valueChain);
     }
@@ -100,9 +100,9 @@ public class TechnologyDomainsViewer extends GnosisPortlet {
     	String context = getPortletContext().getRealPath("");
     	TechnologyDomains domains = new TechnologyDomains(existURI, existRepositoryRoot, context);
     	
-    	String capabilityId = request.getParameter("capabilityId");
-    	String name = request.getParameter("capabilityName");
-    	String description = request.getParameter("capabilityDescription");
+    	String capabilityId = getParameter(request, "capabilityId");
+    	String name = getParameter(request, "capabilityName");
+    	String description = getParameter(request, "capabilityDescription");
    	
     	domains.updateCapability(capabilityId, name, description);
     }
@@ -115,10 +115,10 @@ public class TechnologyDomainsViewer extends GnosisPortlet {
     	String context = getPortletContext().getRealPath("");
     	TechnologyDomains domains = new TechnologyDomains(existURI, existRepositoryRoot, context);
     	
-    	String domainId = request.getParameter("domainId");
-    	String name = request.getParameter("domainName");
-    	String description = request.getParameter("domainDescription");
-    	String position = request.getParameter("position");
+    	String domainId = getParameter(request, "domainId");
+    	String name = getParameter(request, "domainName");
+    	String description = getParameter(request, "domainDescription");
+    	String position = getParameter(request, "position");
     	if (position == null) {
     		position = "-1";
     	}
@@ -136,11 +136,11 @@ public class TechnologyDomainsViewer extends GnosisPortlet {
     	String context = getPortletContext().getRealPath("");
     	TechnologyDomains domains = new TechnologyDomains(existURI, existRepositoryRoot, context);
     	
-    	String domainId = request.getParameter("domainId");
-    	String capabilityId = request.getParameter("capabilityId");
-    	String name = request.getParameter("capabilityName");
-    	String description = request.getParameter("capabilityDescription");
-    	String position = request.getParameter("position");
+    	String domainId = getParameter(request, "domainId");
+    	String capabilityId = getParameter(request, "capabilityId");
+    	String name = getParameter(request, "capabilityName");
+    	String description = getParameter(request, "capabilityDescription");
+    	String position = getParameter(request, "position");
     	if (position == null) {
     		position = "-1";
     	}
@@ -156,9 +156,9 @@ public class TechnologyDomainsViewer extends GnosisPortlet {
     	String context = getPortletContext().getRealPath("");
     	TechnologyDomains domains = new TechnologyDomains(existURI, existRepositoryRoot, context);
     	
-    	String domainId = request.getParameter("domainId");
-    	String parentId = request.getParameter("parentId");
-    	String position = request.getParameter("position");
+    	String domainId = getParameter(request, "domainId");
+    	String parentId = getParameter(request, "parentId");
+    	String position = getParameter(request, "position");
     	
     	String layer = request.getPreferences().getValue("layer", "BusinessApplications");
        	
@@ -173,9 +173,9 @@ public class TechnologyDomainsViewer extends GnosisPortlet {
     	String context = getPortletContext().getRealPath("");
     	TechnologyDomains domains = new TechnologyDomains(existURI, existRepositoryRoot, context);
     	
-    	String capabilityId = request.getParameter("capabilityId");
-    	String parentId = request.getParameter("parentId");
-    	String position = request.getParameter("position");
+    	String capabilityId = getParameter(request, "capabilityId");
+    	String parentId = getParameter(request, "parentId");
+    	String position = getParameter(request, "position");
 
     	domains.moveCapability(capabilityId, parentId, Integer.parseInt(position));
     }

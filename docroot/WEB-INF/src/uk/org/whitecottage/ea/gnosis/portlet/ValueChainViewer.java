@@ -46,7 +46,7 @@ public class ValueChainViewer extends GnosisPortlet {
 
     @ProcessResourceRequest(name = "icon")
     public void serveIcon(ResourceRequest request, ResourceResponse response) throws PortletException, java.io.IOException {
-		String icon = request.getParameter("icon");
+		String icon = getParameter(request, "icon");
 	
 		response.setContentType("image/x-icon");
 		
@@ -69,9 +69,9 @@ public class ValueChainViewer extends GnosisPortlet {
     	String context = getPortletContext().getRealPath("");
     	ValueChain valueChain = new ValueChain(existURI, existRepositoryRoot, context);
     	
-    	String valueChainId = request.getParameter("valueChainId");
-    	String name = request.getParameter("name");
-    	String type = request.getParameter("type");
+    	String valueChainId = getParameter(request, "valueChainId");
+    	String name = getParameter(request, "name");
+    	String type = getParameter(request, "type");
        	
     	valueChain.updateValueChain(valueChainId, name, type);
 
@@ -88,10 +88,10 @@ public class ValueChainViewer extends GnosisPortlet {
     	String context = getPortletContext().getRealPath("");
     	ValueChain valueChain = new ValueChain(existURI, existRepositoryRoot, context);
     	
-    	String valueChainId = request.getParameter("valueChainId");
-    	String from = request.getParameter("from");
-    	String to = request.getParameter("to");
-    	String position = request.getParameter("position");
+    	String valueChainId = getParameter(request, "valueChainId");
+    	String from = getParameter(request, "from");
+    	String to = getParameter(request, "to");
+    	String position = getParameter(request, "position");
        	
     	valueChain.moveValueChain(valueChainId, from, to, Integer.parseInt(position));
 

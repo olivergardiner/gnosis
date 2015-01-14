@@ -208,14 +208,14 @@ $('#jstree').jstree({
 		},
 		'technology-domain': {
 			'valid_children': ['capability'],
-			'icon': iconURL + "&amp;icon=technology-domain.ico"
+			'icon': iconURL + "&icon=technology-domain.ico"
 		},
 		'capability': {
 			'valid_children': [],
-			'icon': iconURL + "&amp;icon=capability.ico"
+			'icon': iconURL + "&icon=capability.ico"
 		},
 		'trash': {
-			'icon': iconURL + "&amp;icon=trash.ico"
+			'icon': iconURL + "&icon=trash.ico"
 		}
 	},
 	'plugins': [ 'types' ]

@@ -22,26 +22,26 @@ $('#jstree').jstree({
 		},
 		'tower': {
 			'valid_children': ['service-group', 'dependency'],
-			'icon': iconURL + "&amp;icon=tower.ico"
+			'icon': iconURL + "&icon=tower.ico"
 		},
 		'service-group': {
 			'valid_children': ['service-sub-group', 'dependency'],
-			'icon': iconURL + "&amp;icon=service-group.ico"
+			'icon': iconURL + "&icon=service-group.ico"
 		},
 		'service-sub-group': {
 			'valid_children': ['service-sub-group', 'service-element', 'dependency'],
-			'icon': iconURL + "&amp;icon=service-sub-group.ico"
+			'icon': iconURL + "&icon=service-sub-group.ico"
 		},
 		'service-element': {
 			'valid_children': ['dependency'],
-			'icon': iconURL + "&amp;icon=service-element.ico"
+			'icon': iconURL + "&icon=service-element.ico"
 		},
 		'dependency': {
 			'max_depth': 0,
-			'icon': iconURL + "&amp;icon=dependency.ico"
+			'icon': iconURL + "&icon=dependency.ico"
 		},
 		'trash': {
-			'icon': iconURL + "&amp;icon=trash.ico"
+			'icon': iconURL + "&icon=trash.ico"
 		}
 	},
 	'contextmenu': {
@@ -272,19 +272,19 @@ function addDependency(menu) {
 			},
 			'tower': {
 				'valid_children': ['service-group', 'dependency'],
-				'icon': "icons/tower.ico"
+				'icon': iconURL + "&icon=tower.ico"
 			},
 			'service-group': {
 				'valid_children': ['service-sub-group', 'dependency'],
-				'icon': "icons/service-group.ico"
+				'icon': iconURL + "&icon=service-group.ico"
 			},
 			'service-sub-group': {
 				'valid_children': ['service-sub-group', 'service-element', 'dependency'],
-				'icon': "icons/service-sub-group.ico"
+				'icon': iconURL + "&icon=service-sub-group.ico"
 			},
 			'service-element': {
 				'valid_children': ['dependency'],
-				'icon': "icons/service-element.ico"
+				'icon': iconURL + "&icon=service-element.ico"
 			}
 		},
 		'plugins': ['types']

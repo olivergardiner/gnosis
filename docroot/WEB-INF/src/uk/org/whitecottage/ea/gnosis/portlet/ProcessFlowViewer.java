@@ -63,7 +63,7 @@ public class ProcessFlowViewer extends GnosisPortlet {
 
     @ProcessResourceRequest(name = "icon")
     public void serveIcon(ResourceRequest request, ResourceResponse response) throws PortletException, java.io.IOException {
-		String icon = request.getParameter("icon");
+		String icon = getParameter(request, "icon");
 	
 		response.setContentType("image/x-icon");
 		
@@ -111,7 +111,7 @@ public class ProcessFlowViewer extends GnosisPortlet {
     public void addFlow(ResourceRequest request, ResourceResponse response) throws PortletException, java.io.IOException {
     	ProcessFlows processFlows = getProcessFlows();
 
-    	String flowId = request.getParameter("flowId");
+    	String flowId = getParameter(request, "flowId");
         	
     	processFlows.addFlow(flowId);
     	
@@ -124,8 +124,8 @@ public class ProcessFlowViewer extends GnosisPortlet {
     public void copyFlow(ResourceRequest request, ResourceResponse response) throws PortletException, java.io.IOException {
     	ProcessFlows processFlows = getProcessFlows();
    	
-    	String flowId = request.getParameter("flowId");
-    	String copyId = request.getParameter("copyId");
+    	String flowId = getParameter(request, "flowId");
+    	String copyId = getParameter(request, "copyId");
        	
     	processFlows.copyFlow(flowId, copyId);
     	
@@ -138,8 +138,8 @@ public class ProcessFlowViewer extends GnosisPortlet {
     public void renameFlow(ResourceRequest request, ResourceResponse response) throws PortletException, java.io.IOException {
     	ProcessFlows processFlows = getProcessFlows();
 
-    	String flowId = request.getParameter("flowId");
-    	String name = request.getParameter("name");
+    	String flowId = getParameter(request, "flowId");
+    	String name = getParameter(request, "name");
        	
     	processFlows.renameFlow(flowId, name);
     	
@@ -152,7 +152,7 @@ public class ProcessFlowViewer extends GnosisPortlet {
     public void deleteFlow(ResourceRequest request, ResourceResponse response) throws PortletException, java.io.IOException {
     	ProcessFlows processFlows = getProcessFlows();
 
-    	String flowId = request.getParameter("flowId");
+    	String flowId = getParameter(request, "flowId");
        	
     	processFlows.deleteFlow(flowId);
     	
@@ -165,10 +165,10 @@ public class ProcessFlowViewer extends GnosisPortlet {
     public void updateProcessInstance(ResourceRequest request, ResourceResponse response) throws PortletException, java.io.IOException {
     	ProcessFlows processFlows = getProcessFlows();
 
-    	String flowId = request.getParameter("flowId");
-    	String instanceId = request.getParameter("instanceId");
-    	String duration = request.getParameter("duration");
-    	String mode = request.getParameter("mode");
+    	String flowId = getParameter(request, "flowId");
+    	String instanceId = getParameter(request, "instanceId");
+    	String duration = getParameter(request, "duration");
+    	String mode = getParameter(request, "mode");
        	
     	processFlows.updateProcessInstance(flowId, instanceId, duration, mode);
 
@@ -181,9 +181,9 @@ public class ProcessFlowViewer extends GnosisPortlet {
     public void moveProcessInstance(ResourceRequest request, ResourceResponse response) throws PortletException, java.io.IOException {
     	ProcessFlows processFlows = getProcessFlows();
     	
-    	String flowId = request.getParameter("flowId");
-    	String instanceId = request.getParameter("instanceId");
-    	String position = request.getParameter("position");
+    	String flowId = getParameter(request, "flowId");
+    	String instanceId = getParameter(request, "instanceId");
+    	String position = getParameter(request, "position");
        	
     	processFlows.moveProcessInstance(flowId, instanceId, Integer.parseInt(position));
 
@@ -196,9 +196,9 @@ public class ProcessFlowViewer extends GnosisPortlet {
     public void addParentDependency(ResourceRequest request, ResourceResponse response) throws PortletException, java.io.IOException {
     	ProcessFlows processFlows = getProcessFlows();
     	
-    	String flowId = request.getParameter("flowId");
-    	String instanceId = request.getParameter("instanceId");
-    	String parentId = request.getParameter("parentId");
+    	String flowId = getParameter(request, "flowId");
+    	String instanceId = getParameter(request, "instanceId");
+    	String parentId = getParameter(request, "parentId");
        	
     	processFlows.addParentDependency(flowId, instanceId, parentId);
 
@@ -211,10 +211,10 @@ public class ProcessFlowViewer extends GnosisPortlet {
     public void updatePredecessorDependency(ResourceRequest request, ResourceResponse response) throws PortletException, java.io.IOException {
     	ProcessFlows processFlows = getProcessFlows();
     	
-    	String flowId = request.getParameter("flowId");
-    	String instanceId = request.getParameter("instanceId");
-    	String predecessorId = request.getParameter("predecessorId");
-    	String contiguous = request.getParameter("contiguous");
+    	String flowId = getParameter(request, "flowId");
+    	String instanceId = getParameter(request, "instanceId");
+    	String predecessorId = getParameter(request, "predecessorId");
+    	String contiguous = getParameter(request, "contiguous");
        	
     	processFlows.updatePredecessorDependency(flowId, instanceId, predecessorId, contiguous);
 
@@ -227,10 +227,10 @@ public class ProcessFlowViewer extends GnosisPortlet {
     public void deleteItem(ResourceRequest request, ResourceResponse response) throws PortletException, java.io.IOException {
     	ProcessFlows processFlows = getProcessFlows();
     	
-    	String flowId = request.getParameter("flowId");
-    	String instanceId = request.getParameter("instanceId");
-    	String dependencyId = request.getParameter("dependencyId");
-    	String type = request.getParameter("type");
+    	String flowId = getParameter(request, "flowId");
+    	String instanceId = getParameter(request, "instanceId");
+    	String dependencyId = getParameter(request, "dependencyId");
+    	String type = getParameter(request, "type");
        	
     	processFlows.deleteItem(flowId, instanceId, dependencyId, type);
 
