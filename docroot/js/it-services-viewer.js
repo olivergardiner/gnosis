@@ -209,7 +209,7 @@ function buildCrumbTrail(node, trail) {
 }
 
 function emptyTrash(menu) {
-	var node = $.jstree.reference('#jstree').get_node(menu.reference.context);
+	var node = $.jstree.reference('#jstree').get_node(menu.reference[0]);
 	
 	var i = 0;
 	while (i < node.children.length) {
@@ -220,27 +220,27 @@ function emptyTrash(menu) {
 }
 
 function addTower(menu) {
-	var node = $.jstree.reference('#jstree').get_node(menu.reference.context);
+	var node = $.jstree.reference('#jstree').get_node(menu.reference[0]);
 	addChildItem(node, 'tower', 'New tower');
 }
 
 function addServiceGroup(menu) {
-	var node = $.jstree.reference('#jstree').get_node(menu.reference.context);
+	var node = $.jstree.reference('#jstree').get_node(menu.reference[0]);
 	addChildItem(node, 'service-group', 'New service group');
 }
 
 function addServiceSubGroup(menu) {
-	var node = $.jstree.reference('#jstree').get_node(menu.reference.context);
+	var node = $.jstree.reference('#jstree').get_node(menu.reference[0]);
 	addChildItem(node, 'service-sub-group', 'New service-sub-group');
 }
 
 function addServiceElement(menu) {
-	var node = $.jstree.reference('#jstree').get_node(menu.reference.context);
+	var node = $.jstree.reference('#jstree').get_node(menu.reference[0]);
 	addChildItem(node, 'service-element', 'New service element');
 }
 
 function addDependency(menu) {
-	var node = $.jstree.reference('#jstree').get_node(menu.reference.context);
+	var node = $.jstree.reference('#jstree').get_node(menu.reference[0]);
 	var data = $.jstree.reference('#jstree').get_json(null, {
 		'no_state' : true,
 		'no_id' : false,
@@ -327,7 +327,7 @@ function addChildItem(node, type, label) {
 }
 
 function editItem(menu) {
-	var node = $.jstree.reference('#jstree').get_node(menu.reference.context);
+	var node = $.jstree.reference('#jstree').get_node(menu.reference[0]);
 	
 	$('#element-id').val(node.id);
 	$('#name-editor').val(node.text);
@@ -362,7 +362,7 @@ function applyEdit() {
 }
 
 function deleteItem(menu) {
-	var node = $.jstree.reference('#jstree').get_node(menu.reference.context);
+	var node = $.jstree.reference('#jstree').get_node(menu.reference[0]);
 	
 	if (node.type != 'dependency') {
 		var rootNode = $.jstree.reference('#jstree').get_node('#');

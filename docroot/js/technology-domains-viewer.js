@@ -209,7 +209,7 @@ function buildCrumbTrail(node, trail) {
 
 function addDomain(menu) {
 	var tree = $.jstree.reference('#jstree');
-	var node = tree.get_node(menu.reference.context);
+	var node = tree.get_node(menu.reference[0]);
 	var newNode = tree.get_node(addChildItem(node, 'technology-domain', 'New technology domain'));
 
     $.ajax({
@@ -231,7 +231,7 @@ function addDomain(menu) {
 
 function addCapability(menu) {
 	var tree = $.jstree.reference('#jstree');
-	var node = tree.get_node(menu.reference.context);
+	var node = tree.get_node(menu.reference[0]);
 	var newNode = tree.get_node(addChildItem(node, 'capability', 'New capability'));
 
     $.ajax({
@@ -264,7 +264,7 @@ function addChildItem(node, type, label) {
 }
 
 function editDomain(menu) {
-	var node = $.jstree.reference('#jstree').get_node(menu.reference.context);
+	var node = $.jstree.reference('#jstree').get_node(menu.reference[0]);
 	
 	$('#domain-id').val(node.id);
 	$('#domain-name-editor').val(node.text);
@@ -312,7 +312,7 @@ function applyDomainEdit() {
 }
 
 function editCapability(menu) {
-	var node = $.jstree.reference('#jstree').get_node(menu.reference.context);
+	var node = $.jstree.reference('#jstree').get_node(menu.reference[0]);
 	
 	$('#capability-id').val(node.id);
 	$('#capability-name-editor').val(node.text);
@@ -351,7 +351,7 @@ function applyCapabilityEdit() {
 }
 
 function deleteItem(menu) {
-	var node = $.jstree.reference('#jstree').get_node(menu.reference.context);
+	var node = $.jstree.reference('#jstree').get_node(menu.reference[0]);
 	
 	var parentNodeId = $.jstree.reference('#jstree').get_parent(node);
 	showNode($.jstree.reference('#jstree').get_node(parentNodeId));
@@ -360,7 +360,7 @@ function deleteItem(menu) {
 }
 
 function emptyTrash(menu) {
-	var node = $.jstree.reference('#jstree').get_node(menu.reference.context);
+	var node = $.jstree.reference('#jstree').get_node(menu.reference[0]);
 	
 	var i = 0;
 	while (i < node.children.length) {

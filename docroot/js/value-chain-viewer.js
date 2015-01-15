@@ -122,22 +122,25 @@ function contextMenu(node, callback) {
 	
 function renameNode(menu) {
 	var tree = $.jstree.reference('#jstree')
-	var node = tree.get_node(menu.reference.context);
+	var node = tree.get_node(menu.reference[0]);
 	
 	tree.edit(node);
 };
 
 function addValueChain(menu) {
 	var tree = $.jstree.reference('#jstree');
-	var node = tree.get_node(menu.reference.context);
+	var node = tree.get_node(menu.reference[0]);
+	//var node = tree.get_node(menu.reference.context);
 	
-	var newNode = tree.get_node(addChildItem(node, node.type + "-activity", 'New value chain activity'));
+	var newNodeId = addChildItem(node, node.type + "-activity", 'New value chain activity');
+	var newNode = tree.get_node(newNodeId);
+	//var newNode = tree.get_node(addChildItem(node, node.type + "-activity", 'New value chain activity'));
 	
-	var data = {
-		valueChainId: newNode.data.id,
-		name: newNode.text,
-		type: node.type + "-activity"
-	};
+	//var data = {
+	//	valueChainId: newNode.data.id,
+	//	name: newNode.text,
+	//	type: node.type + "-activity"
+	//};
 	
 	tree.edit(newNode);
 
@@ -156,14 +159,14 @@ function addChildItem(node, type, label) {
 }
 
 function deleteItem(menu) {
-	var node = $.jstree.reference('#jstree').get_node(menu.reference.context);
+	var node = $.jstree.reference('#jstree').get_node(menu.reference[0]);
 	var parentNodeId = $.jstree.reference('#jstree').get_parent(node);
 	
 	$.jstree.reference('#jstree').move_node(node, $.jstree.reference('#jstree').get_node('trash'));
 }
 
 function emptyTrash(menu) {
-	var node = $.jstree.reference('#jstree').get_node(menu.reference.context);
+	var node = $.jstree.reference('#jstree').get_node(menu.reference[0]);
 	
 	while (node.children.length > 0) {
 		var deleteNode = $.jstree.reference('#jstree').get_node(node.children[0]);

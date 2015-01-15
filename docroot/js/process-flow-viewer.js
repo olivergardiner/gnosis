@@ -355,7 +355,7 @@ function deleteFlow() {
 
 function renameFlow(menu) {
 	var $tree = $.jstree.reference('#flow-tree')
-	var node = $tree.get_node(menu.reference.context);
+	var node = $tree.get_node(menu.reference[0]);
 	
 	$tree.edit(node);
 }
@@ -392,7 +392,7 @@ function moveInstance(eventObject, data) {
 }
 
 function addInstance(menu) {
-	var node = $.jstree.reference('#flow-tree').get_node(menu.reference.context);
+	var node = $.jstree.reference('#flow-tree').get_node(menu.reference[0]);
 	var parentNodeId = $.jstree.reference('#flow-tree').get_parent(node);
 	
 	$("#process-selector-row").show();
@@ -402,7 +402,7 @@ function addInstance(menu) {
 }
 
 function editInstance(menu) {
-	var node = $.jstree.reference('#flow-tree').get_node(menu.reference.context);
+	var node = $.jstree.reference('#flow-tree').get_node(menu.reference[0]);
 	
 	$("#process-selector-row").hide();
 	
@@ -438,7 +438,7 @@ function saveProcessInstance() {
 }
 
 function addParent(menu) {
-	var node = $.jstree.reference('#flow-tree').get_node(menu.reference.context);
+	var node = $.jstree.reference('#flow-tree').get_node(menu.reference[0]);
 	var parentNodeId = $.jstree.reference('#flow-tree').get_parent(node);
 	
 	buildFlowProcessTree("parent-selector-tree");
@@ -468,7 +468,7 @@ function saveParent() {
 }
 
 function addPredecessor(menu) {
-	var node = $.jstree.reference('#flow-tree').get_node(menu.reference.context);
+	var node = $.jstree.reference('#flow-tree').get_node(menu.reference[0]);
 	var parentNodeId = $.jstree.reference('#flow-tree').get_parent(node);
 	
 	buildFlowProcessTree("predecessor-selector-tree");
@@ -482,7 +482,7 @@ function addPredecessor(menu) {
 }
 
 function editPredecessor(menu) {
-	var node = $.jstree.reference('#flow-tree').get_node(menu.reference.context);
+	var node = $.jstree.reference('#flow-tree').get_node(menu.reference[0]);
 	var parentNodeId = $.jstree.reference('#flow-tree').get_parent(node);
 	
 	$("#predecessor-selector-row").hide();
@@ -517,7 +517,7 @@ function savePredecessor() {
 
 function deleteItem(menu) {
 	var flowId = $("#process-flow-select").val();
-	var node = $.jstree.reference('#flow-tree').get_node(menu.reference.context);
+	var node = $.jstree.reference('#flow-tree').get_node(menu.reference[0]);
 	var parentNode = $.jstree.reference('#flow-tree').get_node($.jstree.reference('#flow-tree').get_parent(node));
 	
 	var data = {
