@@ -42,4 +42,4 @@ Icon
 Network Trash Folder
 Temporary Items
 .apdisk
-/docroot/WEB-INF/classes
+docroot/WEB-INF/classes
