@@ -13,3 +13,9 @@ div.jqte {
 div.selectric {
 	overflow: visible;
 }
+
+div.tree-panel {
+	overflow-x: auto;
+	min-width: 350px;
+	max-width: 350px;
+}

@@ -23,40 +23,31 @@ var actionURL = "<%= actionURL %>";
 	<div class="portlet-section-header"></div>
 	<br />
 	<div class="portlet-section-body">
-		<table>
-			<tr>
-				<td style="width: 350px; vertical-align: top;">
-					<div id="jstree"></div>
-				</td>
-				<td style="width: auto; vertical-align: top;">
-					<div id="tree-panel"
-						class="ui-widget ui-widget-content ui-corner-all aurora-panel">
-<p>Use the process tree on the right to view or edit the process taxonomy</p>
-<p></p>
+		<div style="display: table; table-layout: fixed;">
+			<div style="display: table-row;">
+				<div style="display: table-cell;" class="tree-panel">
+					<div id="jstree" class="process-tree"></div>
+				</div>
+				<div style="display: table-cell; width: 100%;">
+					<div id="tree-panel" class="ui-widget ui-widget-content ui-corner-all info-panel">
+						<h3>Process taxonomy</h3>
+						<p></p>
 					</div>
-					<div id="domain-panel"
-						class="ui-widget ui-widget-content ui-corner-all aurora-panel"
-						style="display: none;">
+					<div id="domain-panel" class="ui-widget ui-widget-content ui-corner-all info-panel" style="display: none;">
 						<!-- <div id="crumb-trail"></div> -->
-						<h3>
-							<span id="domain-title"></span>
-						</h3>
+						<h3><span id="domain-title"></span></h3>
+						<h4>Description</h4>
 						<div id="domain-description"></div>
 					</div>
-					<div id="process-panel"
-						class="ui-widget ui-widget-content ui-corner-all aurora-panel"
-						style="display: none;">
-						<h3>
-							<span id="process-domain-title"></span>
-						</h3>
-						<h4>
-							<span id="process-title"></span>
-						</h4>
+					<div id="process-panel" class="ui-widget ui-widget-content ui-corner-all info-panel" style="display: none;">
+						<!-- <div id="crumb-trail"></div> -->
+						<h3><span id="process-domain-title"></span></h3>
+						<h4><span id="process-title"></span></h4>
 						<div id="process-description"></div>
 					</div>
-				</td>
-			</tr>
-		</table>
+				</div>
+			</div>
+		</div>
 	</div>
 	<br />
 </div>

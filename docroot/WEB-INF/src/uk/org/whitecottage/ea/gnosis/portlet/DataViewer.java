@@ -46,7 +46,9 @@ public class DataViewer extends GnosisPortlet {
     
     @ProcessResourceRequest(name = "modelDetail")
     public void serveModelDetail(ResourceRequest request, ResourceResponse response) throws PortletException, java.io.IOException {
-		String gnosisCLDMDir = dataDir + "cldm";
+		String gnosisCLDMDir = dataDir + "gnosis/cldm";
+		
+		//logParameters(request, log);
 		
 		String path = getParameter(request, "path");
 		if (path.startsWith("LDM/")) {

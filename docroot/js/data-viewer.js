@@ -31,7 +31,7 @@ $('#jstree').jstree({
 
 changeNodeCallback = function(resourcePath) {
 	$.jstree.reference('#jstree').deselect_all();
-	$("#detail-panel").load(modelDetailURL + "&amp;path=" + resourcePath);
+	$("#detail-panel").load(modelDetailURL + "&path=" + resourcePath);
 }
 
 function showNode(node){
@@ -42,7 +42,7 @@ function showNode(node){
 		resourcePath += "/" + node.text + ".html"
 	}
 	
-	$("#detail-panel").load(modelDetailURL + "&amp;path=" + resourcePath);
+	$("#detail-panel").load(modelDetailURL + "&path=" + resourcePath);
 }
 
 function getJsonData(obj, callback) {

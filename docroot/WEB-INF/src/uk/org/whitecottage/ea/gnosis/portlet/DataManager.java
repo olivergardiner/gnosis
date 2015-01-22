@@ -113,7 +113,7 @@ public class DataManager extends FileUploadPortlet {
     }
     
     protected void parseModel() {
-		String cldmFile = dataDir + "uml/cldm.uml";
+		String cldmFile = dataDir + "gnosis/uml/cldm.uml";
 
 		String gnosisCLDMDir = dataDir + "gnosis/cldm";
 		String cldmJSONFile = dataDir + "gnosis/cldm/cldm.json";

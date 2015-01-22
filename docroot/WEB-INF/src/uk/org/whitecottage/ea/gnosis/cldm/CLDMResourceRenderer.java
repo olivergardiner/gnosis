@@ -24,6 +24,9 @@ import org.eclipse.uml2.uml.Stereotype;
 import org.eclipse.uml2.uml.Type;
 import org.eclipse.uml2.uml.UMLPackage;
 
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
+
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
@@ -32,6 +35,7 @@ import freemarker.template.TemplateException;
 public class CLDMResourceRenderer extends CLDMProcessor {
 	protected List<String> untypedAttributes;
 	protected List<Class> classes;
+	private static final Log log = LogFactoryUtil.getLog(CLDMResourceRenderer.class);
 
 	public CLDMResourceRenderer(Model root) {
 		super(root);
@@ -59,6 +63,9 @@ public class CLDMResourceRenderer extends CLDMProcessor {
 	public void generateCLDMResources(Configuration cfg, File outputDir) {
 		Package ldm = getLDM();
 		String basePath = outputDir.getPath();
+		
+		Stereotype sEntity = profile.getOwnedStereotype("Entity");
+		log.info("Found stereotype: " + sEntity.getQualifiedName());
 		
 		Map<String, Object> packageListData = buildPackageListData(ldm);
 
