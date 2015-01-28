@@ -29,24 +29,25 @@ var actionURL = "<%= actionURL %>";
 	<br />
 	<div class="portlet-section-body">
 		<div id="toolbar-top" style="display: none; width: 100%">
-			<div style="display: table-row;">
-				<div class="gnosis-left">
-					<button id="new-flow">New</button>
-				</div>
-				<div class="gnosis-spacer">&nbsp;</div>
-				<div class="gnosis-right">Download: <button id="pptx-download">PPTX</button><button id="docx-download">DOCX</button></div>
-			</div>
-			<div style="display: table-row;">
-				<div class="gnosis-left">
-					<select id="process-flow-select"></select>
-				</div>
+			<div style="display: table-row; position: relative;">
+				<div class="gnosis-left"><select id="process-flow-select"></select></div>
 			</div>
 		</div>
 		<div id="flow-diagram"></div>
-		<div id="toolbar-bottom" style="width: 95%; margin-left: auto; margin-right: auto; display: none">
-			<button id="edit-flow">Edit</button>
-			<button id=copy-flow>Copy</button>
-			<button id="delete-flow">Delete</button>
+		<br/>
+		<div id="toolbar-bottom" style="width: 95%; margin-left: auto; margin-right: auto; display: table">
+			<div style="display: table-row; position: relative;">
+				<div class="gnosis-left gnosis-middle"><button id="new-flow">New</button></div>
+				<div id="edit-controls" style="display: none;">
+					<div class="gnosis-left gnosis-middle"><button id="edit-flow">Edit</button></div>
+					<div class="gnosis-left gnosis-middle"><button id=copy-flow>Copy</button></div>
+					<div class="gnosis-left gnosis-middle"><button id="delete-flow">Delete</button></div>
+					<div class="gnosis-spacer">&nbsp;</div>
+					<div class="gnosis-right gnosis-middle"><button id="docx-download">DOCX</button></div>
+					<div class="gnosis-right gnosis-middle"><button id="pptx-download">PPTX</button></div>
+					<div class="gnosis-right gnosis-middle">Download:</div>
+				</div>
+			</div>
 		</div>
 		<br/>
 		<div id="flow-editor" style="display: none; width: 95%; margin-left: auto; margin-right: auto;">

@@ -172,9 +172,10 @@ function showFlow(element) {
 	closeTree();
 
 	if (flowId != 'null') {
-		$("#toolbar-bottom").show();
+		//$("#toolbar-bottom").css("display", "table");
+		$("#edit-controls").show();
 	} else {
-		$("#toolbar-bottom").hide();
+		$("#edit-controls").hide();
 	}
 }
 
