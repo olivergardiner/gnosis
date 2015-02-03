@@ -149,6 +149,7 @@ public class DataManager extends FileUploadPortlet {
 
 			Model root = getModel(input.getAbsolutePath());
 			if (root != null) {
+				log.info("Initialising the CLDMProcessor");
 				CLDMResourceRenderer cldm = new CLDMResourceRenderer(root);
 				cldm.generateCLDMResources(cfg, outputDir);
 				
@@ -157,7 +158,7 @@ public class DataManager extends FileUploadPortlet {
 				json.print(cldmJSON.generateJSON());
 				json.close();
 			} else {
-				System.out.println("Failed to load model");
+				log.info("Could not load the model");
 			}
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
@@ -176,10 +177,14 @@ public class DataManager extends FileUploadPortlet {
 		set.getResourceFactoryRegistry().getExtensionToFactoryMap().put(UMLResource.FILE_EXTENSION, UMLResource.Factory.INSTANCE);
 
 		set.createResource(modelUri);
-		System.out.println("Fetching the resource: " + modelUri.path());
+		log.info("Fetching the resource: " + modelUri.path());
 		Resource r = set.getResource(modelUri, true);
 		
-        return (Model) EcoreUtil.getObjectByType(r.getContents(), UMLPackage.Literals.MODEL);
+		Model model = (Model) EcoreUtil.getObjectByType(r.getContents(), UMLPackage.Literals.MODEL);
+		if (model == null) {
+			log.info("Could not load model");
+		}
+        return model;
 	}
     
     protected void cleanOutputDirectory() {

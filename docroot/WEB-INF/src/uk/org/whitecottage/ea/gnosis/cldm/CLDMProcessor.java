@@ -11,25 +11,33 @@ import org.eclipse.uml2.uml.Profile;
 import org.eclipse.uml2.uml.Stereotype;
 import org.eclipse.uml2.uml.UMLPackage;
 
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
+
 public abstract class CLDMProcessor {
 	protected Model root;
 	protected Profile profile;
 
+	private static final Log log = LogFactoryUtil.getLog(CLDMProcessor.class);
+
 	public CLDMProcessor(Model root) {
 		super();
 		this.root = root;
-		profile = getLDM().getAppliedProfile("Profile", true);
+		Package ldm = getLDM();
+		profile = ldm.getAppliedProfile("Profile", true);
 	}
 	
 	protected Package getLDM() {
 		for (Object o: EcoreUtil.getObjectsByType(root.getPackagedElements(), UMLPackage.Literals.PACKAGE)) {
 			Package p = (Package) o;
 			if (p.getName().equals("LDM")) {
+				log.info("Found package LDM");
 				return p;
 			}
 		}
 		
-		return null;
+		log.info("Did not find package LDM so returning the model root as a Package");
+		return root;
 	}
 	
 	protected Collection<Class> filterClasses(Stereotype stereotype, Collection<Object> classes) {

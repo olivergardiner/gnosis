@@ -91,7 +91,7 @@ public class CLDMResourceRenderer extends CLDMProcessor {
 			
 			for (Map<String, Object> pkg: packageData) {
 				String packagePath = (String) pkg.get("packagePath");
-				packageTmpl.process(pkg, new FileWriter(new File(basePath + packagePath + "/package-frame.html")));
+				packageTmpl.process(pkg, new FileWriter(new File(basePath + "/" + packagePath + "/package-frame.html")));
 			}
 
 			Template entityTmpl = cfg.getTemplate("entity.ftl");
@@ -99,19 +99,19 @@ public class CLDMResourceRenderer extends CLDMProcessor {
 			for (Map<String, Object> entity: entityData) {
 				String packagePath = (String) entity.get("packagePath");
 				String entityName = (String) entity.get("entityName");
-				entityTmpl.process(entity, new FileWriter(new File(basePath + packagePath + "/" + entityName + ".html")));
+				entityTmpl.process(entity, new FileWriter(new File(basePath + "/" + packagePath + "/" + entityName + ".html")));
 			}
 
 			for (Map<String, Object> entity: referenceEntityData) {
 				String packagePath = (String) entity.get("packagePath");
 				String entityName = (String) entity.get("entityName");
-				entityTmpl.process(entity, new FileWriter(new File(basePath + packagePath + "/" + entityName + ".html")));
+				entityTmpl.process(entity, new FileWriter(new File(basePath + "/" + packagePath + "/" + entityName + ".html")));
 			}
 
 			for (Map<String, Object> entity: complexEntityData) {
 				String packagePath = (String) entity.get("packagePath");
 				String entityName = (String) entity.get("entityName");
-				entityTmpl.process(entity, new FileWriter(new File(basePath + packagePath + "/" + entityName + ".html")));
+				entityTmpl.process(entity, new FileWriter(new File(basePath + "/" + packagePath + "/" + entityName + ".html")));
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -230,7 +230,10 @@ public class CLDMResourceRenderer extends CLDMProcessor {
 		Collection<Class> classes = filterClasses(s, EcoreUtil.getObjectsByType(pkg.getPackagedElements(), UMLPackage.Literals.CLASS));
 
 		String qualifiedPackageName = formatPackageName(pkg.getQualifiedName());
-		String packagePath = "/" + qualifiedPackageName.replace("::", "/");
+		log.info("Package name: " + pkg.getQualifiedName());
+		
+		String packagePath = qualifiedPackageName.replace("::", "/");
+		log.info("Package path: " + qualifiedPackageName);
 
 		int depth = packagePath.split("/").length;
 		String rootPath="";
@@ -238,6 +241,7 @@ public class CLDMResourceRenderer extends CLDMProcessor {
 			rootPath += "../";
 		}
 		
+		log.info("Package directory: " + basePath + File.separator + packagePath);
 		File packageDir = new File(basePath + File.separator + packagePath);
 		
 		if (!packageDir.exists()) {
@@ -477,7 +481,10 @@ public class CLDMResourceRenderer extends CLDMProcessor {
 		String qPackageName = e.getNamespace().getQualifiedName();
 		
 		qPackageName = qPackageName.substring(qPackageName.indexOf("::") + 2);
-		qPackageName = qPackageName.substring(qPackageName.indexOf("::") + 2);
+		
+		if (qPackageName.startsWith("LDM::")) {
+			qPackageName = qPackageName.substring(qPackageName.indexOf("::") + 2);
+		}
 
 		String separator = "";
 		if (!qPackageName.isEmpty()) {
@@ -527,9 +534,16 @@ public class CLDMResourceRenderer extends CLDMProcessor {
 	}
 	
 	protected static String formatPackageName(String name) {
+		if (name.indexOf("::") == -1) {
+			return name;
+		}
+		
 		String formattedName = name.substring(name.indexOf("::") + 2);
-		if (formattedName.indexOf("::") != -1) {
-			formattedName = formattedName.substring(formattedName.indexOf("::") + 2);
+		
+		if (name.startsWith("cldm::LDM")) {
+			if (formattedName.indexOf("::") != -1) {
+				formattedName = formattedName.substring(formattedName.indexOf("::") + 2);
+			}
 		}
 		
 		return formattedName;

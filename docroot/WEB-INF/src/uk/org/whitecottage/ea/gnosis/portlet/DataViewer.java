@@ -55,9 +55,13 @@ public class DataViewer extends GnosisPortlet {
 			path = path.replaceFirst("LDM/", "");
 		}
 		
-		log.info("Fetching: " + gnosisCLDMDir + File.separator + path);
+		if (path.startsWith("model/")) {
+			path = path.replaceFirst("model/", "");
+		}
 		
-		File file = new File(gnosisCLDMDir + File.separator + path);
+		log.info("Fetching: " + gnosisCLDMDir + "/" + path);
+		
+		File file = new File(gnosisCLDMDir + "/" + path);
 		try {
 			IOUtils.copy(new FileInputStream(file), response.getPortletOutputStream());
 		} catch (FileNotFoundException e) {
