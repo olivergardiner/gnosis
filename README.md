@@ -22,8 +22,7 @@ The specific setup I have used is based on Eclipse Luna and Liferay CE 6.2 ga3, 
 
 The next step is to clone (or download) the project files from GitHub - the important point is to make sure that the project directory is placed under the SDK/portlets directory as the build system (based on Ant) is dependent on scripts within the SDK. Do not try and clone the project into an Eclipse workspace or into a general GitHub local directory as the project won't build properly. When you've finished, you should have a directory layout something like this:
 
-... + + liferay-plugins-sdk-6.2   (I prefer to manually add "-ce-ga3" on the end to avoid confusion)
-    | |
+##   + + liferay-plugins-sdk-6.2   (I prefer to manually add "-ce-ga3" on the end to avoid confusion)    | |
     | + ...
     | |
     | + + portlets
