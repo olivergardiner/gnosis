@@ -16,7 +16,7 @@ Gnosis is currently written to run in the Liferay Portal and the eXist XMLDB. Po
 Build instructions
 ==================
 
-Because Gnosis is designed to run within Liferay, by far the easiest way to get started with Gnosis is by using the standard Liferay development set up. This is described in detail on liferay.com (http://www.liferay.com/en_GB/documentation/liferay-portal/6.2/development/-/ai/developing-apps-with-liferay-ide-liferay-portal-6-2-dev-guide-02-en) butI have found it to require a few tweaks:
+Because Gnosis is designed to run within Liferay, by far the easiest way to get started with Gnosis is by using the standard Liferay development set up. This is described in detail on liferay.com (http://www.liferay.com/en_GB/documentation/liferay-portal/6.2/development/-/ai/developing-apps-with-liferay-ide-liferay-portal-6-2-dev-guide-02-en) but I have found it to require a few tweaks:
 
 The specific setup I have used is based on Eclipse Luna and Liferay CE 6.2 ga3, so the first step is to install Eclipse and add the Liferay IDE extension. You will also need to download the Liferay portal runtime (I recommend the Tomcat bundle) and the SDK. Optionally, you can also download the portal doc and src bundles. The portal runtime and the SDK should be unzipped next to each other. In Eclipse, configure a Liferay server with the home directory of the portal runtime you just unzipped. If you use the default server name, the project settings in the gnosis Eclipse project will automatically pick up the right server libraries.
 
