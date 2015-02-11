@@ -24,6 +24,10 @@ $("#pptx-download").button().click(function () {
 	downloadURL(unescapeHTML(pptxURL));
 }).show();
 
+$("#xlsx-download").button().click(function () {
+	downloadURL(unescapeHTML(xlsxURL));
+}).show();
+
 $("div.toolbar").prepend('<button id="delete-application">Delete</button>');
 $("#delete-application").button().click(function() {
 	deleteSelectedApplication();

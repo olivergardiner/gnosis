@@ -15,9 +15,11 @@ import javax.portlet.ResourceResponse;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.poi.xslf.usermodel.XMLSlideShow;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import uk.org.whitecottage.ea.gnosis.repository.ApplicationsEstate;
 import uk.org.whitecottage.ea.gnosis.repository.TechnologyDomains;
+import uk.org.whitecottage.ea.gnosis.repository.applications.ApplicationsSpreadsheet;
 import uk.org.whitecottage.ea.gnosis.repository.applications.LifecyclePresentation;
 import uk.org.whitecottage.ea.portlet.ProcessResourceAction;
 import uk.org.whitecottage.ea.portlet.ProcessResourceRequest;
@@ -116,7 +118,7 @@ public class ApplicationsViewer extends GnosisPortlet {
     	String context = getPortletContext().getRealPath("");
 
 		String gnosisOoxmlDir = dataDir + "gnosis/ooxml/";
-        
+		
 		XMLSlideShow ppt;
     	File template = new File(gnosisOoxmlDir + "lifecycle-tmpl.pptx");
     	if (template.exists()) {
@@ -133,6 +135,35 @@ public class ApplicationsViewer extends GnosisPortlet {
     	//response.setHeader("Content-Disposition", "attachment;filename=\"Lifecycle.pptx\"");
     	ppt.write(response.getPortletOutputStream());
      }
+    
+    @ProcessResourceRequest(name = "xlsx")
+    public void serveApplicationsSpreadsheet(ResourceRequest request, ResourceResponse response) throws PortletException, IOException {
+    	Properties gnosisProperties = getProperties();
+    	String existURI = gnosisProperties.getProperty("exist.uri");
+    	String existRepositoryRoot = gnosisProperties.getProperty("exist.repository.root");
+    	String context = getPortletContext().getRealPath("");
+
+		String gnosisOoxmlDir = dataDir + "gnosis/ooxml/";
+        
+    	File template = new File(gnosisOoxmlDir + "applications-tmpl.xlsx");
+    	XSSFWorkbook xlsx;
+    	
+    	if (template.exists()) {
+    		xlsx = new XSSFWorkbook(new FileInputStream(template));
+    	} else {
+    		xlsx = new XSSFWorkbook();
+    	}
+    	
+    	// Build the spreadsheet
+    	ApplicationsSpreadsheet ass = new ApplicationsSpreadsheet(existURI, existRepositoryRoot, context);
+    	ass.setDomainFilter(getParameter(request, "domainFilter"));
+    	ass.setDivisionFilter(getParameter(request, "divisionFilter"), "true".equals(getParameter(request, "divisionStrict")));
+    	ass.render(xlsx);
+   	
+    	response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+    	//response.setHeader("Content-Disposition", "attachment;filename=\"Lifecycle.pptx\"");
+    	xlsx.write(response.getPortletOutputStream());
+    }
     
     @ProcessResourceAction(name = "addApplicationAction")
     public void addApplication(ResourceRequest request, ResourceResponse response) throws PortletException, IOException {

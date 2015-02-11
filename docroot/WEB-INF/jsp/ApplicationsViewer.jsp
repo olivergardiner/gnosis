@@ -10,6 +10,7 @@
 <portlet:resourceURL var="frameworkJsonDataURL" id="frameworkJsonData"/>
 <portlet:resourceURL var="actionURL" id="action"/>
 <portlet:resourceURL var="pptxURL" id="pptx"/>
+<portlet:resourceURL var="xlsxURL" id="xlsx"/>
 <portlet:resourceURL var="iconURL" id="icon"/>
 
 <script type="text/javascript">
@@ -17,6 +18,7 @@ var applicationsListJsonDataURL = "<%= applicationsListJsonDataURL %>";
 var frameworkJsonDataURL = "<%= frameworkJsonDataURL %>";
 var iconURL = "<%= iconURL %>";
 var pptxURL = "<%= pptxURL %>";
+var xlsxURL = "<%= xlsxURL %>";
 var actionURL = "<%= actionURL %>";
 </script>
 
