@@ -9,7 +9,6 @@ import java.util.GregorianCalendar;
 import java.util.Iterator;
 import java.util.List;
 import java.util.TimeZone;
-import java.util.logging.Logger;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -18,6 +17,9 @@ import javax.xml.bind.Unmarshaller;
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
@@ -38,6 +40,7 @@ import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.exist.xmldb.EXistResource;
+import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
 import org.xmldb.api.base.Collection;
 import org.xmldb.api.base.XMLDBException;
@@ -58,6 +61,9 @@ import uk.org.whitecottage.ea.gnosis.jaxb.framework.Framework;
 import uk.org.whitecottage.ea.gnosis.jaxb.framework.Group;
 import uk.org.whitecottage.ea.gnosis.jaxb.framework.TechnologyDomain;
 import uk.org.whitecottage.ea.xmldb.XmldbProcessor;
+
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
 
 public class ApplicationsSpreadsheet extends XmldbProcessor {
 	protected Applications applications;
@@ -87,8 +93,7 @@ public class ApplicationsSpreadsheet extends XmldbProcessor {
 		"CA","CB","CC","CD","CE","CF","CG","CH","CI","CJ","CK","CL","CM","CN","CO","CP","CQ","CR","CS","CT","CU","CV","CW","CX","CY","CZ"
 	};
 
-	@SuppressWarnings("unused")
-	private static final Logger log = Logger.getLogger("uk.org.whitecottage.ea.gnosis.repository.applications");
+	private static final Log log = LogFactoryUtil.getLog(ApplicationsSpreadsheet.class);
 
 	public ApplicationsSpreadsheet(String URI, String repositoryRoot, String context) {
 		super(URI, repositoryRoot);
@@ -109,11 +114,9 @@ public class ApplicationsSpreadsheet extends XmldbProcessor {
 
 		    JAXBContext frameworkContext = JAXBContext.newInstance("uk.org.whitecottage.ea.gnosis.jaxb.framework");
 		    frameworkUnmarshaller = createUnmarshaller(frameworkContext, context + "/WEB-INF/xsd/framework.xsd");
-		    frameworkMarshaller = frameworkContext.createMarshaller();
 
 		    JAXBContext classificationContext = JAXBContext.newInstance("uk.org.whitecottage.ea.gnosis.jaxb.classification");
 		    classificationUnmarshaller = createUnmarshaller(classificationContext, context + "/WEB-INF/xsd/classification.xsd");
-		    classificationMarshaller = classificationContext.createMarshaller();
 
 		    repository = getCollection("");
 		    applicationsResource = getResource(repository, "applications.xml");
@@ -162,6 +165,41 @@ public class ApplicationsSpreadsheet extends XmldbProcessor {
 		updateMigrations(workbook);
 
 		updateInvestments(workbook);
+		
+		store();
+	}
+	
+	protected void store() {
+		Collection repository = null;
+		XMLResource updateResource = null;
+
+	    try {
+			// Create the DOM document
+	    	DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+	        dbf.setNamespaceAware(true);
+	        DocumentBuilder db = dbf.newDocumentBuilder();
+	        Document doc = db.newDocument();
+	    	applicationsMarshaller.marshal(applications, doc);
+	    	
+			repository = getCollection("");
+
+		    // Convert the DOM document into an XMLResource
+	    	updateResource = (XMLResource) repository.createResource("applications.xml", "XMLResource");
+	    	updateResource.setContentAsDOM(doc);
+	    	
+	    	// Store the XMLResource
+	    	repository.storeResource(updateResource);
+		} catch (XMLDBException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (JAXBException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ParserConfigurationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 	}
 
 	public void render(XSSFWorkbook workbook) {

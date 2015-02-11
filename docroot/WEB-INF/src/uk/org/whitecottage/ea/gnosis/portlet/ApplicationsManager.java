@@ -1,10 +1,8 @@
 package uk.org.whitecottage.ea.gnosis.portlet;
 
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.List;
+import java.util.Properties;
 
 import javax.portlet.PortletException;
 import javax.portlet.RenderMode;
@@ -14,27 +12,13 @@ import javax.portlet.ResourceRequest;
 import javax.portlet.ResourceResponse;
 
 import org.apache.commons.fileupload.FileItem;
-import org.apache.commons.io.FileUtils;
-import org.eclipse.emf.common.util.URI;
-import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.emf.ecore.resource.ResourceSet;
-import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
-import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.eclipse.uml2.uml.Model;
-import org.eclipse.uml2.uml.UMLPackage;
-import org.eclipse.uml2.uml.resource.UMLResource;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-import uk.org.whitecottage.ea.gnosis.cldm.CLDMJSONRenderer;
-import uk.org.whitecottage.ea.gnosis.cldm.CLDMResourceRenderer;
+import uk.org.whitecottage.ea.gnosis.repository.applications.ApplicationsSpreadsheet;
 import uk.org.whitecottage.ea.portlet.ProcessResourceAction;
 
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
-
-import freemarker.template.Configuration;
-import freemarker.template.DefaultObjectWrapper;
-import freemarker.template.TemplateExceptionHandler;
-import freemarker.template.Version;
 
 public class ApplicationsManager extends FileUploadPortlet {
 	public static final int UPLOAD_SUCCESS = 0;
@@ -71,6 +55,11 @@ public class ApplicationsManager extends FileUploadPortlet {
     
     @ProcessResourceAction(name = "uploadApplicationsAction")
     public void uploadApplications(ResourceRequest request, ResourceResponse response) {
+    	Properties gnosisProperties = getProperties();
+    	String existURI = gnosisProperties.getProperty("exist.uri");
+    	String existRepositoryRoot = gnosisProperties.getProperty("exist.repository.root");
+    	String context = getPortletContext().getRealPath("");
+
     	log.info("Upload applications spreadsheet");
 
 		JSONResponse jResponse = new JSONResponse();
@@ -78,16 +67,18 @@ public class ApplicationsManager extends FileUploadPortlet {
 		jResponse.setReturnCode(UPLOAD_SUCCESS);
 
 		List<FileItem> items = getItems(request);
-		//String cldmFile = dataDir + "gnosis/uml/cldm.uml";
 
 		// Process the uploaded items
 		if (items.size() == 1) {
 			FileItem item = items.get(0);
 			
 			if (!item.isFormField()) {
-				//File newCldm = new File(cldmFile);
 				try {
-					//item.write(newCldm);
+					XSSFWorkbook xlsx = new XSSFWorkbook(item.getInputStream());
+					log.info("Got the workbook: " + xlsx.getNumberOfSheets());
+			    	ApplicationsSpreadsheet ass = new ApplicationsSpreadsheet(existURI, existRepositoryRoot, context);
+					log.info("Invoking the update");
+			    	ass.update(xlsx);
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
