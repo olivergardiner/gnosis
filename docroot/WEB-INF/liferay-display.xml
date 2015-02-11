@@ -7,6 +7,7 @@
 		<portlet id="ValueChainViewer"></portlet>
 		<portlet id="FrameworkViewer"></portlet>
 		<portlet id="ApplicationsViewer"></portlet>
+		<portlet id="ApplicationsManager"></portlet>
 		<portlet id="TechnologyDomainsViewer"></portlet>
 		<portlet id="ProcessTaxonomyViewer"></portlet>
 		<portlet id="ProcessFlowViewer"></portlet>

@@ -14,6 +14,7 @@
 		<footer-portlet-javascript>/js/framework-viewer.js</footer-portlet-javascript>
 		<css-class-wrapper>gnosis</css-class-wrapper>
 	</portlet>
+
 	<portlet>
 		<portlet-name>ApplicationsViewer</portlet-name>
 		<icon>/icon.png</icon>
@@ -36,6 +37,21 @@
 		<footer-portlet-javascript>/js/applications-viewer.js</footer-portlet-javascript>
 		<css-class-wrapper>gnosis</css-class-wrapper>
 	</portlet>
+
+    <portlet>
+		<portlet-name>ApplicationsManager</portlet-name>
+		<icon>/icon.png</icon>
+		<header-portlet-css>/js/jquery-ui/jquery-ui.css</header-portlet-css>
+		<header-portlet-css>/js/uploadfile/uploadfile.css</header-portlet-css>
+		<header-portlet-css>/css/common.css</header-portlet-css>
+		<header-portlet-css>/css/applications-manager.css</header-portlet-css>
+		<header-portlet-javascript>/js/jquery/jquery-1.11.1.min.js</header-portlet-javascript>
+		<header-portlet-javascript>/js/jquery-ui/jquery-ui.min.js</header-portlet-javascript>
+		<header-portlet-javascript>/js/uploadfile/jquery.uploadfile.min.js</header-portlet-javascript>
+		<footer-portlet-javascript>/js/applications-manager.js</footer-portlet-javascript>
+		<css-class-wrapper>gnosis</css-class-wrapper>
+    </portlet>
+
     <portlet>
 		<portlet-name>TechnologyDomainsViewer</portlet-name>
 		<icon>/icon.png</icon>
@@ -108,7 +124,6 @@
 		<footer-portlet-javascript>/js/process-taxonomy-viewer.js</footer-portlet-javascript>
 		<css-class-wrapper>gnosis</css-class-wrapper>
     </portlet>
-
 
     <portlet>
 		<portlet-name>ITServicesViewer</portlet-name>

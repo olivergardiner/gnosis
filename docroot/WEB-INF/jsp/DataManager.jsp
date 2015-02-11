@@ -17,7 +17,7 @@ var actionURL = "<%= actionURL %>";
 	<br />
 	<div class="portlet-section-body">
 		<div id="dm-upload" style="display:none;">
-			<div>To update the the Logical Data Model, simply upload a new UML file for the data model</div>
+			<div>To update the Logical Data Model, simply upload a new UML file for the data model</div>
 			<div id="dm-upload-form">Upload Data Model</div>
 		</div>
 	</div>
