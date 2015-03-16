@@ -508,7 +508,7 @@ function getFrameworkJsonData(obj, callback) {
         url : frameworkJsonDataURL,
         dataType : "json",
         success : function(response) {
-    		callback.call(this, response);
+    		callback.call(this, response.tree);
         },
         error : function(jqXhr, status, reason) {
         	alert("Unable to retrieve framework data\n" + status + ": " + reason);

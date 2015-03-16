@@ -23,6 +23,7 @@ public class PortletRequestContext implements RequestContext {
 		return request.getContentType();
 	}
 
+	@Deprecated
 	public int getContentLength() {
 		return request.getContentLength();
 	}

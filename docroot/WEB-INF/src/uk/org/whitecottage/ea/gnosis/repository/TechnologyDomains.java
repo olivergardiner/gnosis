@@ -68,6 +68,7 @@ public class TechnologyDomains extends XmldbProcessor {
 			Framework framework = (Framework) frameworkUnmarshaller.unmarshal(frameworkResource.getContentAsDOM());
 			
 			JSTree tree = new JSTree();
+			JSONBoolean isLOB = new JSONBoolean("isLOB", true);
 			
 			switch (layer) {
 			case "BusinessApplications":
@@ -75,9 +76,11 @@ public class TechnologyDomains extends XmldbProcessor {
 				break;
 			case "CommonServices":
 				tree.add(renderTechnologyDomainList(framework.getCommonServices().getTechnologyDomain(), "Common Services", false));
+				isLOB.setValue(false);
 				break;
 			case "Infrastructure":
 				tree.add(renderTechnologyDomainList(framework.getInfrastructure().getTechnologyDomain(), "Infrastructure", false));
+				isLOB.setValue(false);
 				break;
 			default:
 				tree.add(renderTechnologyDomainList(framework.getBusinessApplications().getTechnologyDomain(), "Business Applications", true));
@@ -90,7 +93,13 @@ public class TechnologyDomains extends XmldbProcessor {
 				tree.add(renderTrash(framework.getRecycleBin()));
 			}
 			
-			result = tree.toJSON();
+			JSONMap response = new JSONMap();
+			tree.setFieldName("tree");
+			response.put(tree);
+			response.put(isLOB);
+			
+			
+			result = response.toJSON();
 
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -245,7 +254,7 @@ public class TechnologyDomains extends XmldbProcessor {
 		}
  	}
 	
-	public void createTechnologyDomain(String layer, String domainId, String name, String description, int position) {
+	public void createTechnologyDomain(String layer, String domainId, String name, String description, String valueChain, int position) {
 		log.info("Creating domain: " + domainId + ", " + name + ", " + description);
 
 		Collection repository = null;
@@ -266,6 +275,9 @@ public class TechnologyDomains extends XmldbProcessor {
 			descriptionNode.setTextContent(description);
 			domainNode.setAttribute("domain-id", domainId);
 			domainNode.setAttribute("name", name);
+			if (valueChain != null && !"".equals(valueChain)) {
+				domainNode.setAttribute("value-chain", valueChain);
+			}
 			domainNode.appendChild(descriptionNode);
 			
 			if (position == -1) {

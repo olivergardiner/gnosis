@@ -69,8 +69,9 @@ public class FrameworkViewer extends GnosisPortlet {
     	String existRepositoryRoot = gnosisProperties.getProperty("exist.repository.root");
     	String context = getPortletContext().getRealPath("");
 
-    	String gnosisDataDir = System.getProperty("jboss.server.data.dir") + File.separator + "gnosis";
-		String gnosisOoxmlDir = gnosisDataDir + File.separator + "ooxml" + File.separator;
+		String gnosisOoxmlDir = dataDir + "gnosis/ooxml/";
+    	//String gnosisDataDir = System.getProperty("jboss.server.data.dir") + File.separator + "gnosis";
+		//String gnosisOoxmlDir = gnosisDataDir + File.separator + "ooxml" + File.separator;
         
 		XMLSlideShow ppt;
     	File template = new File(gnosisOoxmlDir + "framework-tmpl.pptx");

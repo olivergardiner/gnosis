@@ -1,4 +1,5 @@
 var valueChain;
+var isLOB = false;
 
 $('#jstree').jstree({
 	'core': {
@@ -177,8 +178,8 @@ function getValueChainName(id) {
 	}
 
 	for (var i=0; i < valueChain[1].children.length; i++) {
-		if (valueChain[0].children[i].data.id == id) {
-			return valueChain[0].children[i].text;
+		if (valueChain[1].children[i].data.id == id) {
+			return valueChain[1].children[i].text;
 		}
 	}
 	
@@ -212,13 +213,18 @@ function addDomain(menu) {
 	var node = tree.get_node(menu.reference[0]);
 	var newNode = tree.get_node(addChildItem(node, 'technology-domain', 'New technology domain'));
 
+	if (isLOB) {
+		newNode.data.valueChain = valueChain[0].children[0].data.id;
+	}
+	
     $.ajax({
         url: unescapeHTML(actionURL) + "&action=createDomainAction",
         type: "POST",
         data: {
 			domainId: newNode.data.id,
 			domainName: newNode.text,
-			domainDescription: newNode.data.description
+			domainDescription: newNode.data.description,
+			valueChain: newNode.data.valueChain
     	},
         success: function (data) {
             //$("#form_output").html(data);
@@ -271,7 +277,8 @@ function editDomain(menu) {
 	$('#domain-name-editor').attr('disabled', false);
 	$('#edit-domain-form').dialog('option', 'title', node.text);
 	$('#domain-description-editor').jqteVal(unescapeHTML(node.data.description));
-	if (node.data.isLOB) {
+	//if (node.data.isLOB) {
+	if (isLOB) {
 		$('#domain-value-chain-editor').val(node.data.valueChain).selectric("refresh");
 		$("#value-chain").css("display", "table-row");
 	} else {
@@ -434,7 +441,8 @@ function getJsonData(obj, callback) {
         url : jsonDataURL,
         dataType : "json",
         success : function(response) {
-    		callback.call(this, response);
+        	isLOB = response.isLOB;
+    		callback.call(this, response.tree);
         },
         error : function(jqXhr, status, reason) {
         	alert("Unable to retrieve framework data\n" + status + ": " + reason);
