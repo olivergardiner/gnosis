@@ -253,8 +253,8 @@ function buildTree(flows, flowId, flowName) {
 		},
 		'dnd': {
 			'copy': false,
-			'is_draggable': function (node) {
-				return (node.type != 'flow') ? true : false;
+			'is_draggable': function (nodes) {
+				return (nodes[0].type != 'flow') ? true : false;
 			}
 		},
 		'types': {

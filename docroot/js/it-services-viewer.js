@@ -9,8 +9,8 @@ $('#jstree').jstree({
 		}
 	},
 	'dnd': {
-		'is_draggable': function (node) {
-			return (node.data.type == 'root') ? false : true;
+		'is_draggable': function (nodes) {
+			return (nodes[0].data.type == 'root') ? false : true;
 		}
 	},
 	'types': {

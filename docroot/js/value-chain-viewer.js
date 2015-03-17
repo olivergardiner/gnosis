@@ -24,8 +24,8 @@ $('#jstree').jstree({
 	},
 	'dnd': {
 		'copy': false,
-		'is_draggable': function (node) {
-			return (node.type == 'primary-activity' || node.type == 'support-activity') ? true : false;
+		'is_draggable': function (nodes) {
+			return (nodes[0].type == 'primary-activity' || node.type == 'support-activity') ? true : false;
 		}
 	},
 	'types': {
