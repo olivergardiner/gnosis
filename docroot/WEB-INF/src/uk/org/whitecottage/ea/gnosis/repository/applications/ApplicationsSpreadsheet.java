@@ -158,7 +158,7 @@ public class ApplicationsSpreadsheet extends XmldbProcessor {
 
 		updateDomains(workbook);
 
-		updateDivisions(workbook);
+		// updateDivisions(workbook);
 
 		updateLifecycle(workbook);
 
@@ -221,8 +221,8 @@ public class ApplicationsSpreadsheet extends XmldbProcessor {
 		sheet = workbook.createSheet("Domains");
 		createDomains(sheet);
 		
-		sheet = workbook.createSheet("Divisions");
-		createDivisions(sheet);
+		// sheet = workbook.createSheet("Divisions");
+		// createDivisions(sheet);
 				
 		sheet = workbook.createSheet("Lifecycle");
 		createLifecycle(sheet);
@@ -522,7 +522,7 @@ public class ApplicationsSpreadsheet extends XmldbProcessor {
     	widths.add(Integer.valueOf(APPLICATION_NAME_WIDTH));
 		List<String> divisions = new ArrayList<String>();
 		
-		names.add("Pan-BBC");
+		names.add("Pan-company");
 		widths.add(Integer.valueOf(20));
    	
 		for (Group group: framework.getBusinessOperatingModel().getOrganisation().getGroup()) {

@@ -13,8 +13,6 @@ import javax.portlet.PortletRequest;
 import javax.portlet.ResourceRequest;
 import javax.portlet.ResourceResponse;
 
-import uk.org.whitecottage.ea.gnosis.portlet.TechnologyDomainsViewer;
-
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 
@@ -24,7 +22,7 @@ public abstract class ResourceActionPortlet extends Portlet {
 	protected transient Map<String, Method> processResourceRequestHandlingMethodsMap = new HashMap<String, Method>();
 
 	//@SuppressWarnings("unused")
-	private static final Log log = LogFactoryUtil.getLog(TechnologyDomainsViewer.class);
+	private static final Log log = LogFactoryUtil.getLog(ResourceActionPortlet.class);
 
 	public ResourceActionPortlet() {
 		super();

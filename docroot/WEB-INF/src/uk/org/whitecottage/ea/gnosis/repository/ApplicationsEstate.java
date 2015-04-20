@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.List;
 import java.util.TimeZone;
 import java.util.logging.Logger;
 
@@ -354,20 +355,35 @@ public class ApplicationsEstate extends XmldbProcessor {
 		try {   
 			repository = getCollection("");
 		    applicationsResource = getResource(repository, "applications.xml");
-			Node applications = applicationsResource.getContentAsDOM();
+		    
+			Applications applications = (Applications) applicationsUnmarshaller.unmarshal(applicationsResource.getContentAsDOM());
 
-		   	String query = "//application[@app-id='" + applicationId + "']";
-			XPath xpath = XPathFactory.newInstance().newXPath();
-			Element applicationNode = (Element) xpath.evaluate(query, applications, XPathConstants.NODE);
-			if (applicationNode != null) {
-				query = "classification[@capability='" + capability + "']";
-				Node classificationNode = (Node) xpath.evaluate(query, applicationNode, XPathConstants.NODE);
-				if (classificationNode != null) {
-					applicationNode.removeChild(classificationNode);
-		
-					storeDomResource(repository, "applications.xml", applications);
-				}
+			boolean update = false;
+			
+			for (Application application: applications.getApplication()) {
+		   		if (application.getAppId().equals(applicationId)) {
+		   			List<Classification> classifications = application.getClassification();
+		   			for (Classification classification: application.getClassification()) {
+			   			if (classification.getCapability().equals(capability)) {
+			   				classifications.remove(classification);
+			   				update = true;
+			   				break;
+			   			}
+		   			}
+		   		}
+		   	}
+			
+			if (update) {
+		    	// Create the DOM document
+		    	DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+		        dbf.setNamespaceAware(true);
+		        DocumentBuilder db = dbf.newDocumentBuilder();
+		        Document doc = db.newDocument();
+		    	applicationsMarshaller.marshal(applications, doc);
+		    	
+				storeDomResource(repository, "applications.xml", doc);
 			}
+		    
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
