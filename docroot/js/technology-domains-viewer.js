@@ -14,7 +14,7 @@ $('#jstree').jstree({
 	'dnd': {
 		'copy': false,
 		'is_draggable': function (nodes) {
-			return (nodes[0].data.type == 'root') ? false : true;
+			return (nodes[0].type == 'root') ? false : true;
 		}
 	},
 	'types': {
@@ -162,6 +162,7 @@ function showNode(node){
 		var domainNodeId = $.jstree.reference('#jstree').get_parent(node);
 		var domainNode = $.jstree.reference('#jstree').get_node(domainNodeId);
 		
+		$('#capability-value-chain').text(getValueChainName(domainNode.data.valueChain));
 		$('#capability-domain-title').text(domainNode.text);
 		$('#capability-title').text(node.text);
 		$('#capability-description').html(unescapeHTML(node.data.description));

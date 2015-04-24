@@ -34,10 +34,10 @@ public class FrameworkPresentation extends XmldbProcessor {
 	protected static final double PAGE_HEIGHT = 540.0;
 	protected static final double TITLE_HEIGHT = 80.0;
 	protected static final double LAYER_WIDTH = 680.0;
-	protected static final double LAYER_HEIGHT = 90.0;
+	protected static final double LAYER_HEIGHT = 70.0;
 	protected static final double CONTEXT_LAYER_HEIGHT = 30.0;
 	protected static final double CAPABILITY_HEIGHT = 10.0;
-	protected static final double DOMAIN_HEIGHT = 50.0;
+	protected static final double DOMAIN_HEIGHT = 40.0;
 	protected static final double MARGIN = 2.0;
 	protected static final double TITLE_HEIGHT1 = 14.0;
 	protected static final double TITLE_HEIGHT2 = 8.0;
@@ -122,12 +122,12 @@ public class FrameworkPresentation extends XmldbProcessor {
     	double y = y0;
     	double x = (PAGE_WIDTH - LAYER_WIDTH)/2;
    	
-    	shape = POIHelper.textShape(slide, x, y, LAYER_WIDTH, CONTEXT_LAYER_HEIGHT, "Market Context", 12.0);
+    	//shape = POIHelper.textShape(slide, x, y, LAYER_WIDTH, CONTEXT_LAYER_HEIGHT, "Market Context", 12.0);
     	//shape.setShapeType(XSLFShapeType.ROUND_RECT);
-    	shape.setVerticalAlignment(VerticalAlignment.TOP);
-    	shape.setTopInset(0.0);
-    	shape.setFillColor(CLR_LAYER);
-    	y += CONTEXT_LAYER_HEIGHT + MARGIN;
+    	//shape.setVerticalAlignment(VerticalAlignment.TOP);
+    	//shape.setTopInset(0.0);
+    	//shape.setFillColor(CLR_LAYER);
+    	//y += CONTEXT_LAYER_HEIGHT + MARGIN;
 
     	shape = POIHelper.textShape(slide, x, y, LAYER_WIDTH, LAYER_HEIGHT, "Business Operating Model", 12.0);
     	//shape.setShapeType(XSLFShapeType.ROUND_RECT);
@@ -136,20 +136,20 @@ public class FrameworkPresentation extends XmldbProcessor {
     	shape.setFillColor(CLR_LAYER);
     	y += LAYER_HEIGHT + MARGIN;
 
-    	shape = POIHelper.textShape(slide, x, y, LAYER_WIDTH, LAYER_HEIGHT, "Business Applications", 12.0);
+    	shape = POIHelper.textShape(slide, x, y, LAYER_WIDTH, 2 * LAYER_HEIGHT, "Business Applications", 12.0);
     	//shape.setShapeType(XSLFShapeType.ROUND_RECT);
     	shape.setVerticalAlignment(VerticalAlignment.TOP);
     	shape.setTopInset(0.0);
     	shape.setFillColor(CLR_LAYER);
-    	drawTechnologyDomains(slide, framework.getBusinessApplications().getTechnologyDomain(), x, y, false);
-    	y += LAYER_HEIGHT + MARGIN;
+    	drawTechnologyDomains(slide, framework.getBusinessApplications().getTechnologyDomain(), x, y, false, 2);
+    	y += 2 * LAYER_HEIGHT + MARGIN;
 
     	shape = POIHelper.textShape(slide, x, y, LAYER_WIDTH, LAYER_HEIGHT, "Common Services", 12.0);
     	//shape.setShapeType(XSLFShapeType.ROUND_RECT);
     	shape.setVerticalAlignment(VerticalAlignment.TOP);
     	shape.setTopInset(0.0);
     	shape.setFillColor(CLR_LAYER);
-    	drawTechnologyDomains(slide, framework.getCommonServices().getTechnologyDomain(), x, y, false);
+    	drawTechnologyDomains(slide, framework.getCommonServices().getTechnologyDomain(), x, y, false, 1);
     	y += LAYER_HEIGHT + MARGIN;
 
     	shape = POIHelper.textShape(slide, x, y, LAYER_WIDTH, LAYER_HEIGHT, "Infrastructure", 12.0);
@@ -157,7 +157,7 @@ public class FrameworkPresentation extends XmldbProcessor {
     	shape.setVerticalAlignment(VerticalAlignment.TOP);
     	shape.setTopInset(0.0);
     	shape.setFillColor(CLR_LAYER);
-    	drawTechnologyDomains(slide, framework.getInfrastructure().getTechnologyDomain(), x, y, false);
+    	drawTechnologyDomains(slide, framework.getInfrastructure().getTechnologyDomain(), x, y, false, 1);
     	y += LAYER_HEIGHT;
 	}
 	
@@ -171,12 +171,12 @@ public class FrameworkPresentation extends XmldbProcessor {
     	double y = y0;
     	double x = (PAGE_WIDTH - LAYER_WIDTH)/2;
    	
-    	shape = POIHelper.textShape(slide, x, y, LAYER_WIDTH, CONTEXT_LAYER_HEIGHT, "Market Context", 8.0);
+    	//shape = POIHelper.textShape(slide, x, y, LAYER_WIDTH, CONTEXT_LAYER_HEIGHT, "Market Context", 8.0);
     	//shape.setShapeType(XSLFShapeType.ROUND_RECT);
-    	shape.setVerticalAlignment(VerticalAlignment.TOP);
-    	shape.setTopInset(0.0);
-    	shape.setFillColor(CLR_LAYER);
-    	y += CONTEXT_LAYER_HEIGHT + MARGIN;
+    	//shape.setVerticalAlignment(VerticalAlignment.TOP);
+    	//shape.setTopInset(0.0);
+    	//shape.setFillColor(CLR_LAYER);
+    	//y += CONTEXT_LAYER_HEIGHT + MARGIN;
 
     	shape = POIHelper.textShape(slide, x, y, LAYER_WIDTH, LAYER_HEIGHT, "Business Operating Model", 8.0);
     	//shape.setShapeType(XSLFShapeType.ROUND_RECT);
@@ -185,20 +185,20 @@ public class FrameworkPresentation extends XmldbProcessor {
     	shape.setFillColor(CLR_LAYER);
     	y += LAYER_HEIGHT + MARGIN;
 
-    	shape = POIHelper.textShape(slide, x, y, LAYER_WIDTH, LAYER_HEIGHT, "Business Applications", 8.0);
+    	shape = POIHelper.textShape(slide, x, y, LAYER_WIDTH, 2 * LAYER_HEIGHT, "Business Applications", 8.0);
     	//shape.setShapeType(XSLFShapeType.ROUND_RECT);
     	shape.setVerticalAlignment(VerticalAlignment.TOP);
     	shape.setTopInset(0.0);
     	shape.setFillColor(CLR_LAYER);
-    	drawTechnologyDomains(slide, framework.getBusinessApplications().getTechnologyDomain(), x, y, true);
-    	y += LAYER_HEIGHT + MARGIN;
+    	drawTechnologyDomains(slide, framework.getBusinessApplications().getTechnologyDomain(), x, y, true, 2);
+    	y += 2 * LAYER_HEIGHT + MARGIN;
 
     	shape = POIHelper.textShape(slide, x, y, LAYER_WIDTH, LAYER_HEIGHT, "Common Services", 8.0);
     	//shape.setShapeType(XSLFShapeType.ROUND_RECT);
     	shape.setVerticalAlignment(VerticalAlignment.TOP);
     	shape.setTopInset(0.0);
     	shape.setFillColor(CLR_LAYER);
-    	drawTechnologyDomains(slide, framework.getCommonServices().getTechnologyDomain(), x, y, true);
+    	drawTechnologyDomains(slide, framework.getCommonServices().getTechnologyDomain(), x, y, true, 1);
     	y += LAYER_HEIGHT + MARGIN;
 
     	shape = POIHelper.textShape(slide, x, y, LAYER_WIDTH, LAYER_HEIGHT, "Infrastructure", 8.0);
@@ -206,14 +206,14 @@ public class FrameworkPresentation extends XmldbProcessor {
     	shape.setVerticalAlignment(VerticalAlignment.TOP);
     	shape.setTopInset(0.0);
     	shape.setFillColor(CLR_LAYER);
-    	drawTechnologyDomains(slide, framework.getInfrastructure().getTechnologyDomain(), x, y, true);
+    	drawTechnologyDomains(slide, framework.getInfrastructure().getTechnologyDomain(), x, y, true, 1);
     	y += LAYER_HEIGHT;
 	}
 	
-	protected void drawTechnologyDomains(XSLFSlide slide, List<TechnologyDomain> technologyDomains, double x0, double y0, boolean detail) {
+	protected void drawTechnologyDomains(XSLFSlide slide, List<TechnologyDomain> technologyDomains, double x0, double y0, boolean detail, int size) {
 		int rows = (technologyDomains.size() - 1)/MAX_DOMAINS + 1;
 		double titleHeight = (detail) ? TITLE_HEIGHT2 : TITLE_HEIGHT1;
-		double domainHeight = (LAYER_HEIGHT - MARGIN - titleHeight)/rows - MARGIN;
+		double domainHeight = (LAYER_HEIGHT * size - MARGIN - titleHeight)/rows - MARGIN;
 
 		int domainCount = technologyDomains.size();
 		if (rows > 1) {

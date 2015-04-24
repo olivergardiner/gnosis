@@ -26,42 +26,49 @@ var actionURL = "<%= actionURL %>";
 	<div class="portlet-section-body">
 		<%-- <input id="framework-layer" type="hidden" value="<%= layer %>"/> --%>
 		<!-- <button id="framework-save">Save</button> -->
-		<table>
-			<tr>
-				<td style="width: 350px; vertical-align: top;">
+		<div style="display: table; table-layout: fixed;">
+			<div style="display: table-row;">
+				<div style="display: table-cell;" class="ui-widget ui-widget-content ui-corner-all tree-panel">
 					<div id="jstree"></div>
-				</td>
-				<td style="width: auto; vertical-align: top;">
-					<div id="tree-panel"
-						class="ui-widget ui-widget-content ui-corner-all aurora-panel">
+				</div>
+				<div style="display: table-cell; width: 100%;">
+					<div id="tree-panel" class="ui-widget ui-widget-content ui-corner-all info-panel">
 <p>Select a Technology Domain or Capability from the tree on the right to view or edit</p>
 <p></p>
 					</div>
-					<div id="domain-panel"
-						class="ui-widget ui-widget-content ui-corner-all aurora-panel"
-						style="display: none;">
-						<!-- <div id="crumb-trail"></div> -->
-						<h3>
-							<span id="domain-title"></span>
-						</h3>
-						<div id="domain-value-chain"></div>
+					<div id="domain-panel" class="ui-widget ui-widget-content ui-corner-all info-panel" style="display: none;">
+						<div style="display: table; table-layout: fixed;">
+							<div style="display: table-row;">
+								<div style="display: table-cell;" class="info-header"><h4>Value chain</h4></div>
+								<div style="display: table-cell;"><h4><span id="domain-value-chain"></span></h4></div>
+							</div>
+							<div style="display: table-row;">
+								<div style="display: table-cell;" class="info-header"><h4>Domain</h4></div>
+								<div style="display: table-cell;"><h4><span id="domain-title"></span></h4></div>
+							</div>
+						</div>
 						<div id="domain-description"></div>
 					</div>
-					<div id="capability-panel"
-						class="ui-widget ui-widget-content ui-corner-all aurora-panel"
-						style="display: none;">
-						<div id="gnosis2-crumb-trail"></div>
-						<h3>
-							<span id="capability-domain-title"></span>
-						</h3>
-						<h4>
-							<span id="capability-title"></span>
-						</h4>
+					<div id="capability-panel" class="ui-widget ui-widget-content ui-corner-all info-panel" style="display: none;">
+						<div style="display: table; table-layout: fixed;">
+							<div style="display: table-row;">
+								<div style="display: table-cell;" class="info-header"><h4>Value chain</h4></div>
+								<div style="display: table-cell;"><h4><span id="capability-value-chain"></span></h4></div>
+							</div>
+							<div style="display: table-row;">
+								<div style="display: table-cell;" class="info-header"><h4>Domain</h4></div>
+								<div style="display: table-cell;"><h4><span id="capability-domain-title"></span></h4></div>
+							</div>
+							<div style="display: table-row;">
+								<div style="display: table-cell;" class="info-header"><h4>Capability</h4></div>
+								<div style="display: table-cell;"><h4><span id="capability-title"></span></h4></div>
+							</div>
+						</div>
 						<div id="capability-description"></div>
 					</div>
-				</td>
-			</tr>
-		</table>
+				</div>
+			</div>
+		</div>
 	</div>
 	<br />
 </div>
