@@ -27,4 +27,7 @@ public abstract class JSONObject {
 		this.fieldName = fieldName;
 	}
 	
+	public String safeJSONString(String value) {
+		return value.replace("\"", "\\\"");
+	}
 }

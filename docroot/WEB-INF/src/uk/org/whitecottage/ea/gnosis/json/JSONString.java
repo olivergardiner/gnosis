@@ -23,7 +23,7 @@ public class JSONString extends JSONObject {
 		String result = createFieldName();
 
 		// Should probably make the string safe here...
-		result += "\"" + value + "\"";
+		result += "\"" + safeJSONString(value) + "\"";
 		
 		return result;
 	}
