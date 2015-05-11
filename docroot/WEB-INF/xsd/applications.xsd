@@ -71,10 +71,14 @@
 		</xs:complexType>
 	</xs:element>
 	<xs:element name="investment">
-		<xs:complexType mixed="true">
-			<xs:attribute ref="date"/>
-			<xs:attribute name="capital" type="xs:integer"/>
-			<xs:attribute name="runrate" type="xs:integer"/>
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="xs:string">
+					<xs:attribute ref="date"/>
+					<xs:attribute name="capital" type="xs:integer"/>
+					<xs:attribute name="runrate" type="xs:integer"/>
+				</xs:extension>
+			</xs:simpleContent>
 		</xs:complexType>
 	</xs:element>
 	<xs:element name="usedBy">

@@ -117,7 +117,10 @@ public class ApplicationsViewer extends GnosisPortlet {
     	String existRepositoryRoot = gnosisProperties.getProperty("exist.repository.root");
     	String context = getPortletContext().getRealPath("");
 
-		String gnosisOoxmlDir = dataDir + "gnosis/ooxml/";
+    	String capabilities = getParameter(request, "capabilities");
+    	//log.info("Capabilities: " + capabilities);
+
+    	String gnosisOoxmlDir = dataDir + "gnosis/ooxml/";
 		
 		XMLSlideShow ppt;
     	File template = new File(gnosisOoxmlDir + "lifecycle-tmpl.pptx");
@@ -129,6 +132,8 @@ public class ApplicationsViewer extends GnosisPortlet {
     	
     	// Build the slides
     	LifecyclePresentation arb = new LifecyclePresentation(existURI, existRepositoryRoot, context);
+    	arb.setCapabilityFilter(capabilities);
+    	//arb.setFutureOnly(true);
     	arb.render(ppt);
     	
     	response.setContentType("application/vnd.openxmlformats-officedocument.presentationml.presentation");

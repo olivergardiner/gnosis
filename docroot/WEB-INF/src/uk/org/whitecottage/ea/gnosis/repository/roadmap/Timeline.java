@@ -192,7 +192,7 @@ public class Timeline {
 		    	labelPara = shape.addNewTextParagraph();
 		    	labelPara.setTextAlign(TextAlign.RIGHT);
 		    	labelText = labelPara.addNewTextRun();
-		    	labelText.setText(milestone.getContent());
+		    	labelText.setText(milestone.getValue());
 		    	labelText.setFontSize(8.0);
 		    	shape.setVerticalAlignment(VerticalAlignment.MIDDLE);
 				

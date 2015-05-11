@@ -21,7 +21,19 @@ var table = $("#apps-table").dataTable({
 var eventData;
 
 $("#pptx-download").button().click(function () {
-	downloadURL(unescapeHTML(pptxURL));
+	var tags = $("div.filter").select2("data");
+	var filter = "";
+	if (tags.length != 0) {
+		filter = "&capabilities=";
+		var separator = "";
+		for (var i = 0; i < tags.length; i++) {
+			filter += separator + tags[i].id;
+			separator = ",";
+		}
+	}
+
+	var url = unescapeHTML(pptxURL) + filter
+	downloadURL(url);
 }).show();
 
 $("#xlsx-download").button().click(function () {
@@ -284,8 +296,8 @@ function applyAddCapability() {
 	
 $('#edit-lifecycle-form').dialog({
     autoOpen: false,
-    height: 200,
-    width: 400,
+    height: 500,
+    width: 600,
     modal: true,
     buttons: {
     	"Save": function() {

@@ -4,9 +4,13 @@
 	<xs:attribute name="date" type="xs:date"/>
 	<xs:attribute name="name" type="xs:string"/>
 	<xs:element name="milestone">
-		<xs:complexType mixed="true">
-			<xs:attribute ref="date" use="required"/>
-			<xs:attribute name="type"/>
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="xs:string">
+					<xs:attribute ref="date" use="required"/>
+					<xs:attribute name="type"/>
+				</xs:extension>
+			</xs:simpleContent>
 		</xs:complexType>
 	</xs:element>
 	<xs:element name="description" type="xs:string"/>

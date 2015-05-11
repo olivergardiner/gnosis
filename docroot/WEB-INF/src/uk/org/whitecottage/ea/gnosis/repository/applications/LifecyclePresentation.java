@@ -9,7 +9,6 @@ import java.util.Collections;
 import java.util.GregorianCalendar;
 import java.util.Iterator;
 import java.util.List;
-import java.util.logging.Logger;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -45,6 +44,9 @@ import uk.org.whitecottage.ea.gnosis.jaxb.framework.TechnologyDomain;
 import uk.org.whitecottage.ea.gnosis.repository.roadmap.Timeline;
 import uk.org.whitecottage.ea.xmldb.XmldbProcessor;
 
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
+
 public class LifecyclePresentation extends XmldbProcessor {
 	
 	// Default page size is 720x540
@@ -64,6 +66,7 @@ public class LifecyclePresentation extends XmldbProcessor {
 	protected double COST_HEIGHT = 10;
 	protected double CONNECTOR = 3;
 	protected double LINE = 2;
+	protected double TUBE_LINE = 6;
 	protected double TEXT_OFFSET = 0;
 	protected double TEXT_WIDTH = 40;
 	protected double TITLE_WIDTH = 700;
@@ -105,7 +108,7 @@ public class LifecyclePresentation extends XmldbProcessor {
 	protected Marshaller frameworkMarshaller = null;
 
 	@SuppressWarnings("unused")
-	private static final Logger log = Logger.getLogger("uk.org.whitecottage.ea.gnosis.repository.applications");
+	private static final Log log = LogFactoryUtil.getLog(LifecyclePresentation.class);
 
 	public LifecyclePresentation(String URI, String repositoryRoot, String context) {
 		super(URI, repositoryRoot);
@@ -148,7 +151,7 @@ public class LifecyclePresentation extends XmldbProcessor {
 	}
 
 	public void setCapabilityFilter(String filter) {
-		if (filter.isEmpty()) {
+		if (filter == null || filter.isEmpty()) {
 			capabilityFilter = null;
 			return;
 		}
@@ -159,6 +162,7 @@ public class LifecyclePresentation extends XmldbProcessor {
 	public void render(XMLSlideShow presentation) {
 		renderSummary(presentation);
 		renderRoadmap(presentation);
+		renderTubemap(presentation);
 	}
 	
 	protected boolean inCapabilityFilter(String capabilityId) {
@@ -167,6 +171,20 @@ public class LifecyclePresentation extends XmldbProcessor {
 		}
 		
 		return capabilityFilter.contains(capabilityId);
+	}
+	
+	protected boolean inCapabilityFilter(Application app) {
+		if (capabilityFilter == null) {
+			return true;
+		}
+		
+		for (Classification classification: app.getClassification()) {
+			if (inCapabilityFilter(classification.getCapability())) {
+				return true;
+			}
+		}
+		
+		return false;
 	}
 	
 	protected void renderSummary(XMLSlideShow presentation) {
@@ -340,7 +358,7 @@ public class LifecyclePresentation extends XmldbProcessor {
     	
     	tl.addAll(getMilestones(domain));
 
-    	header(slide, tl, domain.getName());
+    	header(slide, tl, domain.getName() + " roadmap");
    	
     	double y = Y0 + 3 * tl.getHeight();
     	
@@ -450,7 +468,7 @@ public class LifecyclePresentation extends XmldbProcessor {
 					if (tl.contains(inv.getDate())) {
 		    			if (inv.getDate() != null) {
 	    					x = X0 + APP_WIDTH + H_SPACING + tl.position(inv.getDate());
-							investment(slide, x, y + APP_HEIGHT / 2, inv.getContent());							
+							investment(slide, x, y + APP_HEIGHT / 2, inv.getValue());							
 							costs(slide, x + INV_WIDTH, y + APP_HEIGHT / 2, capital, runrate);
 		    			} else {
 							costs(slide, x, y + APP_HEIGHT / 2, capital, runrate);
@@ -465,11 +483,79 @@ public class LifecyclePresentation extends XmldbProcessor {
     	}
     }
     
+    protected void renderTubemap(XMLSlideShow presentation) {
+    	XSLFSlide slide = presentation.createSlide();
+    	XSLFAutoShape shape;
+    	Timeline tl = new Timeline(X0 + APP_WIDTH + H_SPACING, Y0);
+    	tl.setRange(3);
+    	tl.setCalendar(true);
+    	
+    	//tl.addAll(getMilestones(domain));
+
+    	header(slide, tl, "Application Tube Map");
+   	
+    	double y = Y0 + 3 * tl.getHeight();
+    	
+		for (Application app: applications.getApplication()) {
+			if (isFuture(app) && inCapabilityFilter(app)) {
+    			Stage current = getCurrentStage(app);
+    			shape = textShape(slide, X0 - DOMAIN_WIDTH + H_SPACING, y , APP_WIDTH + DOMAIN_WIDTH, APP_HEIGHT, " " + app.getName(), 6.0);
+    			shape.setShapeType(XSLFShapeType.ROUND_RECT);
+	    		if (current == null) {
+	    			shape.setLineColor(new Color(0xaaaaaa));
+	    		} else {
+	    			shape.setLineColor(new Color(setColour(current.getLifecycle())));
+	    		}
+			
+	    		List<Stage> stages = app.getStage();
+	    		Collections.sort(stages, new StageComparator());
+	    		Iterator<Stage> j = stages.iterator();
+	    		int lineColour = 0xffffff;
+	    		double x = X0 + APP_WIDTH + H_SPACING;
+	    		double w0 = 0;
+	    		while (j.hasNext()) {
+	    			Stage stage = j.next();
+	    			int leadLineColour = lineColour;
+					if (tl.contains(stage.getDate())) {
+						lineColour = setColour(stage.getLifecycle());
+		    			if (stage.getDate() != null) {
+		    				double w = tl.position(stage.getDate()) - w0;
+		    				double pOffset = 0;
+		    				if (w0 == 0) {
+		    					pOffset = tl.getOffset();
+		    				}
+		    				
+		        			shape = textShape(slide, x, y , w + pOffset, APP_HEIGHT, "", 6.0);
+		        			shape.setShapeType(XSLFShapeType.RECT);
+		        			shape.setFillColor(new Color(leadLineColour));
+		
+		    				w0 += w;
+	    					x += w + pOffset;
+		    			}
+	    			}
+	    		}
+	    		
+	    		if (lineColour != CLR_REMOVE) {
+        			shape = textShape(slide, x, y , tl.getWidth() + X0 + APP_WIDTH + H_SPACING - x, APP_HEIGHT, "", 6.0);
+        			shape.setShapeType(XSLFShapeType.RECT);
+        			shape.setFillColor(new Color(lineColour));
+	    		}
+
+	    		y += APP_HEIGHT + V_SPACING;
+	   			if (y > 500.0) {
+	   				y = Y0 + 3 * tl.getHeight();
+	   				slide = presentation.createSlide();
+	   		    	header(slide, tl, "Application Tube Map");
+	   			}
+			}
+		}
+    }
+    
     protected void header(XSLFSlide slide, Timeline tl, String domainName) {
     	XSLFAutoShape shape;
     	
     	double tx = (720 - TITLE_WIDTH) / 2;
-    	shape = textShape(slide, tx, TITLE_POSITION, TITLE_WIDTH, TITLE_HEIGHT, domainName + " roadmap", 28.0);
+    	shape = textShape(slide, tx, TITLE_POSITION, TITLE_WIDTH, TITLE_HEIGHT, domainName, 28.0);
     	shape.setLineColor(null);
 
     	tl.render(slide);
@@ -479,7 +565,7 @@ public class LifecyclePresentation extends XmldbProcessor {
     	List<Milestone> milestones = new ArrayList<Milestone>();
     	for (uk.org.whitecottage.ea.gnosis.jaxb.framework.Milestone m: domain.getMilestone()) {
     		Milestone milestone = new Milestone();
-    		milestone.setContent(m.getContent());
+    		milestone.setValue(m.getValue());
     		milestone.setDate(m.getDate());
     		milestones.add(milestone);
     	}
@@ -495,7 +581,7 @@ public class LifecyclePresentation extends XmldbProcessor {
     	List<Milestone> milestones = new ArrayList<Milestone>();
     	for (Milestone m: capability.getMilestone()) {
     		Milestone milestone = new Milestone();
-    		milestone.setContent(m.getContent());
+    		milestone.setValue(m.getValue());
     		milestone.setDate(m.getDate());
     		milestones.add(milestone);
     	}
@@ -606,9 +692,9 @@ public class LifecyclePresentation extends XmldbProcessor {
     	String label;
 
 		if (capital != null) {
-			label = "£" + capital + "k";
+			label = "ï¿½" + capital + "k";
 		} else {
-			label = "£???k";
+			label = "ï¿½???k";
 		}
 
     	shape = slide.createAutoShape();
@@ -622,9 +708,9 @@ public class LifecyclePresentation extends XmldbProcessor {
     	shape.setVerticalAlignment(VerticalAlignment.MIDDLE);
 		
 		if (runrate != null) {
-			label = "£" + runrate + "k p.a.";
+			label = "ï¿½" + runrate + "k p.a.";
 		} else {
-			label = "£???k p.a.";
+			label = "ï¿½???k p.a.";
 		}
 		
     	shape = slide.createAutoShape();
@@ -691,6 +777,15 @@ public class LifecyclePresentation extends XmldbProcessor {
 		}
     	
      	return groups;
+    }
+    
+    protected boolean isFuture(Application app) {
+    	Stage stage = getCurrentStage(app);
+    	if (stage.getLifecycle().equals(STAGE_VALUES[0]) || stage.getLifecycle().equals(STAGE_VALUES[1]) || stage.getLifecycle().equals(STAGE_VALUES[2])) {
+    		return true;
+    	} else {    	
+    		return false;
+    	}
     }
         
     protected boolean providesCapability(Application app, Capability capability) {

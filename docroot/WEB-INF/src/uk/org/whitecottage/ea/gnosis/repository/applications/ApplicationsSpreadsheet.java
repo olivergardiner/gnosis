@@ -93,6 +93,7 @@ public class ApplicationsSpreadsheet extends XmldbProcessor {
 		"CA","CB","CC","CD","CE","CF","CG","CH","CI","CJ","CK","CL","CM","CN","CO","CP","CQ","CR","CS","CT","CU","CV","CW","CX","CY","CZ"
 	};
 
+	@SuppressWarnings("unused")
 	private static final Log log = LogFactoryUtil.getLog(ApplicationsSpreadsheet.class);
 
 	public ApplicationsSpreadsheet(String URI, String repositoryRoot, String context) {

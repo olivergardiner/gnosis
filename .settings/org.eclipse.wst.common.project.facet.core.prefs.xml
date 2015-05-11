@@ -4,4 +4,9 @@
       <attribute name="provider-id" value="com.liferay.ide.eclipse.plugin.portlet.libraryProvider"/>
     </node>
   </facet>
+  <facet id="jpt.jaxb">
+    <node name="classgen">
+      <attribute name="package" value="uk.org.whitecottage.ea.gnosis.jaxb.classification"/>
+    </node>
+  </facet>
 </root>
