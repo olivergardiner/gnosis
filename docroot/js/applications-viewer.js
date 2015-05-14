@@ -134,7 +134,7 @@ $("#application-detail").dialog({
 
 $('#edit-app-basic-form').dialog({
     autoOpen: false,
-    height: 500,
+    height: 800,
     width: 800,
     modal: true,
     buttons: {
@@ -336,6 +336,51 @@ $('#edit-lifecycle-form').dialog({
     }
 });
 
+$('#edit-milestone-form').dialog({
+    autoOpen: false,
+    height: 500,
+    width: 600,
+    modal: true,
+    buttons: {
+    	"Save": function() {
+            var selected = table.$('tr.selected');
+            if (selected.length !== 0) {
+        		var data = table.fnGetData(selected[0]);
+        		if (checkLifecycle(data)) {
+        			var date = $("#milestone-date").datepicker("getDate");
+        			var dateString = "";
+        	        if (date != undefined) {
+            			date.setHours(5);
+            			dateString = date.toISOString();
+        	        }
+        			repoAction("updateInvestmentAction", {
+        				applicationId: data.applicationId,
+        				mode: $("#lifecycle-detail").attr("data-mode"),
+        				index: $("#lifecycle-detail").attr("data-milestone-index"),
+        				description: $("#milestone-description").val(),
+        				date: dateString,
+        				capital: $("#milestone-capital").val(),
+        				runrate: $("#milestone-runrate").val()
+        			}, function(response) {
+            			updateApplicationList(response);
+            			var year = parseInt($("#timeline").attr("data-start-year"));
+            			buildTimeline(year, response);
+        			});
+        			
+    				$(this).dialog("close");
+        		}
+            }
+        },
+    	"Cancel": function() {
+			$(this).dialog( "close" );
+        }
+    },
+    open: function() {
+    },
+    close: function() {
+    }
+});
+
 //$("#lifecycle-stage").selectmenu({
 //	width: 140
 //});
@@ -353,12 +398,23 @@ $("#new-lifecycle").button().click(function( event ) {
     $('#edit-lifecycle-form').dialog("open");
 });
 
+$("#new-milestone").button().click(function( event ) {
+    event.preventDefault();
+    $("#lifecycle-detail").attr("data-mode", "new");
+    $("#lifecycle-detail").attr("data-milestone-index", undefined);
+    $("#milestone-description").val("");
+    $("#milestone-date").datepicker("setDate", "");
+    $("#milestone-capital").val("");
+    $("#milestone-runrate").val("");
+    $('#edit-milestone-form').dialog("open");
+});
+
 $("#edit-lifecycle").button().click(function( event ) {
     event.preventDefault();
-    $("#lifecycle-detail").attr("data-mode", "edit");
-    $("#lifecycle-stage").val($("#lifecycle-detail").attr("data-stage"));
-    var formattedDate = "";
-    if ($("#lifecycle-detail").attr("data-date") != "") {
+    if ($("#lifecycle-detail").attr("data-type") == "investment") {
+	    $("#lifecycle-detail").attr("data-mode", "edit");
+	    $("#milestone-description").val($("#lifecycle-detail").attr("data-description"));
+	    var formattedDate = "";
         var date = new Date($("#lifecycle-detail").attr("data-date"));
         if (date != undefined) {
 	        formattedDate = formatDate(date, {
@@ -367,20 +423,36 @@ $("#edit-lifecycle").button().click(function( event ) {
 	        	monthFirst: false
 	        });
         }
-		$("#lifecycle-initial-state").prop("checked", false);
-		$("#lifecycle-initial-state").prop("disabled", true);
-		$("#lifecycle-stage").prop("disabled", true);
-		$("#lifecycle-date-row").show();
-		$("#lifecycle-initial-row").hide();
-	} else {
-		$("#lifecycle-initial-state").prop("checked", true);
-		$("#lifecycle-initial-state").prop("disabled", true);
-		$("#lifecycle-stage").prop("disabled", false);
-		$("#lifecycle-date-row").hide();
-		$("#lifecycle-initial-row").show();
-	}
-    $("#lifecycle-date").datepicker("setDate", formattedDate);
-    $("#edit-lifecycle-form").dialog("open");
+	    $("#milestone-date").datepicker("setDate", formattedDate);
+	    $("#edit-milestone-form").dialog("open");
+    } else {
+	    $("#lifecycle-detail").attr("data-mode", "edit");
+	    $("#lifecycle-stage").val($("#lifecycle-detail").attr("data-stage"));
+	    var formattedDate = "";
+	    if ($("#lifecycle-detail").attr("data-date") != "") {
+	        var date = new Date($("#lifecycle-detail").attr("data-date"));
+	        if (date != undefined) {
+		        formattedDate = formatDate(date, {
+		        	shortMonths: true,
+		        	ordinals: false,
+		        	monthFirst: false
+		        });
+	        }
+			$("#lifecycle-initial-state").prop("checked", false);
+			$("#lifecycle-initial-state").prop("disabled", true);
+			$("#lifecycle-stage").prop("disabled", true);
+			$("#lifecycle-date-row").show();
+			$("#lifecycle-initial-row").hide();
+		} else {
+			$("#lifecycle-initial-state").prop("checked", true);
+			$("#lifecycle-initial-state").prop("disabled", true);
+			$("#lifecycle-stage").prop("disabled", false);
+			$("#lifecycle-date-row").hide();
+			$("#lifecycle-initial-row").show();
+		}
+	    $("#lifecycle-date").datepicker("setDate", formattedDate);
+	    $("#edit-lifecycle-form").dialog("open");
+    }
 });
 
 $("#remove-lifecycle").button().click(function( event ) {
@@ -390,7 +462,7 @@ $("#remove-lifecycle").button().click(function( event ) {
 
 $("#confirm-lifecycle-remove-form").dialog({
     autoOpen: false,
-    height: 200,
+    height: 300,
     width: 400,
     modal: true,
     buttons: {
@@ -398,10 +470,18 @@ $("#confirm-lifecycle-remove-form").dialog({
             var selected = table.$('tr.selected');
             if (selected.length !== 0) {
         		var data = table.fnGetData(selected[0]);
-    			repoAction("removeLifecycleAction", {
-    				applicationId: data.applicationId,
-    				stage: $("#lifecycle-detail").attr("data-stage")
-    			}, function(response) {
+        		
+        		var update = {
+	    				applicationId: data.applicationId,
+	    		};
+        		
+        	    if ($("#lifecycle-detail").attr("data-type") == "investment") {
+	    			update.milestone = $("#lifecycle-detail").attr("data-milestone-index")
+        	    } else {
+        	    	update.stage = $("#lifecycle-detail").attr("data-stage")
+        	    }
+        	    
+    			repoAction("removeLifecycleAction", update, function(response) {
         			updateApplicationList(response);
         			var year = parseInt($("#timeline").attr("data-start-year"));
         			buildTimeline(year, response);
@@ -435,6 +515,12 @@ $("#wait-form").dialog({
 });
 
 $("#lifecycle-date").datepicker({
+    changeMonth: true,
+    changeYear: true,
+    dateFormat: "d M yy"
+});
+
+$("#milestone-date").datepicker({
     changeMonth: true,
     changeYear: true,
     dateFormat: "d M yy"
@@ -607,6 +693,19 @@ function buildTimeline(year, data) {
     	}
 	}
 	
+	if (data.milestones != undefined) {
+    	for (var i = 0; i < data.milestones.length; i++) {
+    		eventData.push({
+    			id: id++,
+    			type: "investment",
+    			name: data.milestones[i].description,
+    			index: data.milestones[i].index,
+    			on: new Date(data.milestones[i].date),
+    			eventClass: "gt-lc-milestone"
+    		});
+		}
+	}
+	
 	showStage($("#initial-stage").attr("data-lifecycle"));
 
 	showTimeline(year);
@@ -652,13 +751,18 @@ function showTimeline(year) {
 	
 	$("#timeline").attr("data-start-year", year);
 	
+	var numYears = 3;
+	
 	$("#timeline").jqtimeline({
 		events: eventData,
-		gap: 22,
+		gap: 66 / numYears,
 		startYear: year,
+		numYears: numYears,
 		click: function(e, event) {
 			if (event.type == "stage") {
     			showStage(event.name, new Date(event.on));
+			} else if (event.type == "investment") {
+				showMilestone(event.name, new Date(event.on), event.index)
 			}
 		}
 	});
@@ -667,6 +771,7 @@ function showTimeline(year) {
 function showStage(name, date) {
 	$("#lifecycle-detail").empty();
 	var html;
+	$("#lifecycle-detail").attr("data-type", "stage");
 	$("#lifecycle-detail").attr("data-stage", name);
 	html = '<span class="lc-' + name + '" style="display: inline-block; vertical-align: middle;"></span> <span class="event-name" style="vertical-align: middle;">' + toUpperCamelCase(name);
 	if (date != undefined) {
@@ -676,6 +781,17 @@ function showStage(name, date) {
 		$("#lifecycle-detail").attr("data-date", "");
 		html += ' - initial lifecycle stage</span>';
 	}
+	$("#lifecycle-detail").html(html);
+}
+
+function showMilestone(name, date, index) {
+	$("#lifecycle-detail").empty();
+	var html;
+	$("#lifecycle-detail").attr("data-type", "investment");
+	$("#lifecycle-detail").attr("data-description", name);
+	$("#lifecycle-detail").attr("data-milestone-index", index);
+	$("#lifecycle-detail").attr("data-date", date.toISOString());
+	html = '<span class="lc-milestone" style="display: inline-block; vertical-align: middle;"></span><span class="event-date" style="vertical-align: middle;"> ' + formatDate(date) + ': ' + name + '</span>';
 	$("#lifecycle-detail").html(html);
 }
 

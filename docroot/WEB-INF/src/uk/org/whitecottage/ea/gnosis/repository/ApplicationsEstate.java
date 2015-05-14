@@ -1,5 +1,6 @@
 package uk.org.whitecottage.ea.gnosis.repository;
 
+import java.math.BigInteger;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -33,8 +34,10 @@ import org.xmldb.api.modules.XMLResource;
 import uk.org.whitecottage.ea.gnosis.jaxb.applications.Application;
 import uk.org.whitecottage.ea.gnosis.jaxb.applications.Applications;
 import uk.org.whitecottage.ea.gnosis.jaxb.applications.Classification;
+import uk.org.whitecottage.ea.gnosis.jaxb.applications.Investment;
 import uk.org.whitecottage.ea.gnosis.jaxb.applications.Stage;
 import uk.org.whitecottage.ea.gnosis.json.JSONArray;
+import uk.org.whitecottage.ea.gnosis.json.JSONInteger;
 import uk.org.whitecottage.ea.gnosis.json.JSONMap;
 import uk.org.whitecottage.ea.gnosis.json.JSONObject;
 import uk.org.whitecottage.ea.gnosis.json.JSONString;
@@ -164,6 +167,27 @@ public class ApplicationsEstate extends XmldbProcessor {
 			lifecycle.add(stageJSON);
 		}
 		data.put(lifecycle);
+		
+		int index = 0;
+		JSONArray investments = new JSONArray("milestones");
+		for (Investment investment: application.getInvestment()) {
+			JSONMap investmentJSON = new JSONMap();
+			
+			JSONInteger indexJSON = new JSONInteger("index", index++);
+			investmentJSON.put(indexJSON);
+			
+			JSONString decriptionJSON = new JSONString("description", investment.getValue());
+			investmentJSON.put(decriptionJSON);
+			
+			XMLGregorianCalendar date = investment.getDate();
+			if (date != null) {
+				JSONString dateJSON = new JSONString("date", date.toXMLFormat());
+				investmentJSON.put(dateJSON);
+			}
+			
+			investments.add(investmentJSON);
+		}
+		data.put(investments);
 		
 		return data;
 	}
@@ -481,6 +505,94 @@ public class ApplicationsEstate extends XmldbProcessor {
 		}
 	}
 
+	public void updateInvestment(String applicationId, String index, String mode, String date, String description, String capital, String runrate) {
+		log.info("Id: " + applicationId);
+
+		try {
+			Integer.parseInt(capital);
+		} catch (Exception e) {
+			capital = "0";
+		}
+		
+		try {
+			Integer.parseInt(runrate);
+		} catch (Exception e) {
+			runrate = "0";
+		}
+		
+		Collection repository = null;
+		XMLResource applicationsResource = null;
+		try {   
+			repository = getCollection("");
+		    applicationsResource = getResource(repository, "applications.xml");
+		    Date investmentDate = null;
+		    
+		    SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+		    if (!date.equals("")) {
+			    investmentDate = format.parse(date);
+		    }
+
+		    Applications applications = (Applications) applicationsUnmarshaller.unmarshal(applicationsResource.getContentAsDOM());
+
+		    boolean update = false;
+		    for (Application application: applications.getApplication()) {
+		   		if (application.getAppId().equals(applicationId)) {
+		   			
+		   			if (mode.equals("edit")) {
+		   				Investment investment = application.getInvestment().get(Integer.parseInt(index));
+		   				investment.setValue(description);
+						GregorianCalendar cal = new GregorianCalendar();
+						cal.setTimeZone(TimeZone.getTimeZone("Europe/London"));
+						cal.setTime(investmentDate);
+		   				investment.setDate(getXMLDate(cal));
+		   				investment.setCapital(new BigInteger(capital));
+		   				investment.setRunrate(new BigInteger(runrate));
+		   				
+		   				update = true;
+		   			}
+		   			
+		   			if (mode.equals("new") && !update) {
+		   				Investment investment = new Investment();
+		   				investment.setValue(description);
+						GregorianCalendar cal = new GregorianCalendar();
+						cal.setTimeZone(TimeZone.getTimeZone("Europe/London"));
+						cal.setTime(investmentDate);
+		   				investment.setDate(getXMLDate(cal));
+		   				investment.setCapital(new BigInteger(capital));
+		   				investment.setRunrate(new BigInteger(runrate));
+		   				
+		   				application.getInvestment().add(investment);
+
+		   				update = true;
+		   			}
+		   			
+		   			break;
+		   		}
+		   	}
+			
+			if (update) {
+		    	DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+		        dbf.setNamespaceAware(true);
+		        DocumentBuilder db = dbf.newDocumentBuilder();
+		        Document doc = db.newDocument();
+		    	applicationsMarshaller.marshal(applications, doc);
+		    	
+				storeDomResource(repository, "applications.xml", doc);
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+		    if(applicationsResource != null) {
+		        try { ((EXistResource) applicationsResource).freeResources(); } catch(XMLDBException xe) {xe.printStackTrace();}
+		    }
+		    
+		    if(repository != null) {
+		        try { repository.close(); } catch(XMLDBException xe) {xe.printStackTrace();}
+		    }
+		}
+	}
+
 	protected XMLGregorianCalendar getXMLDate(GregorianCalendar cal) {
 		XMLGregorianCalendar xgc = null;
 				
@@ -497,10 +609,11 @@ public class ApplicationsEstate extends XmldbProcessor {
 		return xgc;
 	}
 	
-	public void removeLifecycle(String applicationId, String stage) {
+	public void removeLifecycle(String applicationId, String stage, String milestone) {
 		log.info("Id: " + applicationId);
 		Collection repository = null;
 		XMLResource applicationsResource = null;
+
 		try {   
 			repository = getCollection("");
 		    applicationsResource = getResource(repository, "applications.xml");
@@ -510,7 +623,11 @@ public class ApplicationsEstate extends XmldbProcessor {
 			XPath xpath = XPathFactory.newInstance().newXPath();
 			Element applicationNode = (Element) xpath.evaluate(query, applications, XPathConstants.NODE);
 			if (applicationNode != null) {
-				query = "./stage[@lifecycle='" + stage + "']";
+				if (stage != null) {
+					query = "./stage[@lifecycle='" + stage + "']";
+				} else {
+					query = "./investment[" + milestone + "]";
+				}
 				log.info("Query: " + query);
 				Element stageNode = (Element) xpath.evaluate(query, applicationNode, XPathConstants.NODE);
 				if (stageNode != null) {

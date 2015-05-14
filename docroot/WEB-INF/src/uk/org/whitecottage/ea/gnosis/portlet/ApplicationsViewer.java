@@ -291,11 +291,37 @@ public class ApplicationsViewer extends GnosisPortlet {
     	ApplicationsEstate applications = new ApplicationsEstate(existURI, existRepositoryRoot, context);
     	       	
     	String applicationId = getParameter(request, "applicationId");
-    	String stage = getParameter(request, "stage");
     	String mode = getParameter(request, "mode");
     	String date = getParameter(request, "date");
+    	String stage = getParameter(request, "stage");
     	
     	applications.updateLifecycle(applicationId, stage, mode, date);
+    	
+    	String json = applications.getApplicationJSON(getParameter(request, "applicationId"));    	
+
+		response.setContentType("application/json");
+		response.getWriter().print(json);
+   }
+
+    @ProcessResourceAction(name = "updateInvestmentAction")
+    public void updateInvestment(ResourceRequest request, ResourceResponse response) throws PortletException, IOException {
+    	log.info("Update timeline");
+
+    	Properties gnosisProperties = getProperties();
+    	String existURI = gnosisProperties.getProperty("exist.uri");
+    	String existRepositoryRoot = gnosisProperties.getProperty("exist.repository.root");
+    	String context = getPortletContext().getRealPath("");
+    	ApplicationsEstate applications = new ApplicationsEstate(existURI, existRepositoryRoot, context);
+    	       	
+    	String applicationId = getParameter(request, "applicationId");
+    	String mode = getParameter(request, "mode");
+    	String date = getParameter(request, "date");
+    	String index = getParameter(request, "index");
+    	String description = getParameter(request, "description");
+    	String capital = getParameter(request, "capital");
+    	String runrate = getParameter(request, "runrate");
+    	
+    	applications.updateInvestment(applicationId, index, mode, date, description, capital, runrate);
     	
     	String json = applications.getApplicationJSON(getParameter(request, "applicationId"));    	
 
@@ -315,8 +341,9 @@ public class ApplicationsViewer extends GnosisPortlet {
     	       	
        	String applicationId = getParameter(request, "applicationId");
        	String stage = getParameter(request, "stage");
+       	String milestone = getParameter(request, "milestone");
     	
-    	applications.removeLifecycle(applicationId, stage);
+    	applications.removeLifecycle(applicationId, stage, milestone);
  
     	String json = applications.getApplicationJSON(getParameter(request, "applicationId"));    	
 

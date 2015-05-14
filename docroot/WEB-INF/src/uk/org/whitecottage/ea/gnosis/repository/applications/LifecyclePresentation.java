@@ -59,6 +59,9 @@ public class LifecyclePresentation extends XmldbProcessor {
 	protected double STAGE_WIDTH = 97;
 	protected double INV_WIDTH = 40;
 	protected double INV_HEIGHT = 16;
+	protected double MILESTONE_WIDTH = 100;
+	protected double MILESTONE_HEIGHT = 20;
+	protected double MILESTONE = 10;
 	protected double CORNER = 10;
 	protected double H_SPACING = 5;
 	protected double V_SPACING = 5;
@@ -421,13 +424,11 @@ public class LifecyclePresentation extends XmldbProcessor {
 	
 	    		List<Stage> stages = app.getStage();
 	    		Collections.sort(stages, new StageComparator());
-	    		Iterator<Stage> j = stages.iterator();
 	    		int lineColour = 0xffffff;
 	    		double x = X0 + APP_WIDTH + H_SPACING;
 	    		double w0 = 0;
 				double mOffset = 0;
-	    		while (j.hasNext()) {
-	    			Stage stage = j.next();
+	    		for (Stage stage: stages) {
 	    			int leadLineColour = lineColour;
 					if (tl.contains(stage.getDate())) {
 						lineColour = setColour(stage.getLifecycle());
@@ -460,9 +461,7 @@ public class LifecyclePresentation extends XmldbProcessor {
 	    		
 	    		List<Investment> investments = app.getInvestment();
 	    		Collections.sort(investments, new InvestmentComparator());
-	    		Iterator<Investment> m = investments.iterator();
-	    		while (m.hasNext()) {
-	    			Investment inv = m.next();
+	    		for (Investment inv: investments) {
 	    			BigInteger capital = inv.getCapital();
 	    			BigInteger runrate = inv.getRunrate();
 					if (tl.contains(inv.getDate())) {
@@ -509,12 +508,10 @@ public class LifecyclePresentation extends XmldbProcessor {
 			
 	    		List<Stage> stages = app.getStage();
 	    		Collections.sort(stages, new StageComparator());
-	    		Iterator<Stage> j = stages.iterator();
 	    		int lineColour = 0xffffff;
 	    		double x = X0 + APP_WIDTH + H_SPACING;
 	    		double w0 = 0;
-	    		while (j.hasNext()) {
-	    			Stage stage = j.next();
+	    		for (Stage stage: stages) {
 	    			int leadLineColour = lineColour;
 					if (tl.contains(stage.getDate())) {
 						lineColour = setColour(stage.getLifecycle());
@@ -528,6 +525,7 @@ public class LifecyclePresentation extends XmldbProcessor {
 		        			shape = textShape(slide, x, y , w + pOffset, APP_HEIGHT, "", 6.0);
 		        			shape.setShapeType(XSLFShapeType.RECT);
 		        			shape.setFillColor(new Color(leadLineColour));
+		        			shape.setLineColor(null);
 		
 		    				w0 += w;
 	    					x += w + pOffset;
@@ -539,8 +537,20 @@ public class LifecyclePresentation extends XmldbProcessor {
         			shape = textShape(slide, x, y , tl.getWidth() + X0 + APP_WIDTH + H_SPACING - x, APP_HEIGHT, "", 6.0);
         			shape.setShapeType(XSLFShapeType.RECT);
         			shape.setFillColor(new Color(lineColour));
+        			shape.setLineColor(null);
 	    		}
 
+	    		List<Investment> investments = app.getInvestment();
+	    		Collections.sort(investments, new InvestmentComparator());
+	    		for (Investment inv: investments) {
+					if (tl.contains(inv.getDate())) {
+		    			if (inv.getDate() != null) {
+	    					x = X0 + APP_WIDTH + H_SPACING + tl.position(inv.getDate());
+							milestone(slide, x , y + APP_HEIGHT / 2, inv.getValue());
+		    			}
+	    			}
+	    		}
+	    		
 	    		y += APP_HEIGHT + V_SPACING;
 	   			if (y > 500.0) {
 	   				y = Y0 + 3 * tl.getHeight();
@@ -685,6 +695,31 @@ public class LifecyclePresentation extends XmldbProcessor {
 		shape.setFillColor(new Color(0xffffff));
     }
 
+    protected void milestone(XSLFSlide slide, double x, double y, String text) {
+    	XSLFAutoShape shape;
+   	
+		shape = textShape(slide, x, y - MILESTONE / 2 , MILESTONE, MILESTONE, "", 4.0);
+    	shape.setShapeType(XSLFShapeType.RECT);
+    	shape.setRotation(45.0);
+		shape.setFillColor(new Color(0x000000));
+	   	
+		shape = textShape(slide, x + 20, y - (10 + MILESTONE_HEIGHT), MILESTONE_WIDTH, MILESTONE_HEIGHT, text, 4.0);
+    	shape.setShapeType(XSLFShapeType.RECT);
+		shape.setFillColor(new Color(0xffff66));
+
+   		XSLFConnectorShape connector;
+   		
+   		connector = slide.createConnector();
+		connector.setAnchor(new Rectangle2D.Double(x +  MILESTONE/2, y - (10 + MILESTONE_HEIGHT/2), 0, 10 + MILESTONE_HEIGHT/2));
+		connector.setLineColor(new Color(0x000000));
+		connector.setLineWidth(LINE);
+   		
+   		connector = slide.createConnector();
+		connector.setAnchor(new Rectangle2D.Double(x +  MILESTONE/2, y - (10 + MILESTONE_HEIGHT/2), 20 - MILESTONE/2, 0));
+		connector.setLineColor(new Color(0x000000));
+		connector.setLineWidth(LINE);
+    }
+
     protected void costs(XSLFSlide slide, double x, double y, BigInteger capital, BigInteger runrate) {
     	XSLFAutoShape shape;
     	XSLFTextParagraph labelPara;
@@ -692,9 +727,9 @@ public class LifecyclePresentation extends XmldbProcessor {
     	String label;
 
 		if (capital != null) {
-			label = "�" + capital + "k";
+			label = "£" + capital + "k";
 		} else {
-			label = "�???k";
+			label = "£???k";
 		}
 
     	shape = slide.createAutoShape();
@@ -708,9 +743,9 @@ public class LifecyclePresentation extends XmldbProcessor {
     	shape.setVerticalAlignment(VerticalAlignment.MIDDLE);
 		
 		if (runrate != null) {
-			label = "�" + runrate + "k p.a.";
+			label = "£" + runrate + "k p.a.";
 		} else {
-			label = "�???k p.a.";
+			label = "£???k p.a.";
 		}
 		
     	shape = slide.createAutoShape();

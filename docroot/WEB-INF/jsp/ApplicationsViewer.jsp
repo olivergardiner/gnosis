@@ -87,7 +87,8 @@ var actionURL = "<%= actionURL %>";
 		<div style="display: table;">
 			<div style="display: table-row; background: #eeeeee;">
 				<div style="display: table-cell; width: 100%;"><div class="gnosis-title"><span>Lifecycle</span></div></div>
-				<div style="display: table-cell;"><button id="new-lifecycle">New</button></div>
+				<div style="display: table-cell;"><button id="new-lifecycle">Stage</button></div>
+				<div style="display: table-cell;"><button id="new-milestone">Milestone</button></div>
 				<div style="display: table-cell;"><button id="edit-lifecycle">Edit</button></div>
 				<div style="display: table-cell; padding-top: 2px; padding-bottom: 2px; padding-left: 2px;"><button id="remove-lifecycle">Remove</button></div>
 			</div>
@@ -116,11 +117,8 @@ var actionURL = "<%= actionURL %>";
 		</div>
 		<div style="display: table;">
 			<div style="display: table-row; background: #eeeeee; height: 30px;">
-				<div style="display: table-cell; vertical-align:middle"><div class="gnosis-label" style="width: 100px; padding-left: 10px; vertical-align: middle;">Lifecycle detail: </div></div>
+				<div style="display: table-cell; vertical-align:middle"><div id="detail-label" class="gnosis-label" style="width: 100px; padding-left: 10px; vertical-align: middle;">Lifecycle detail: </div></div>
 				<div style="display: table-cell; width: 100%; vertical-align: middle;"><div id="lifecycle-detail" style="vertical-align: middle;"></div></div>
-				<!-- <div style="display: table-cell;"><button id="new-lifecycle">New...</button></div>
-				<div style="display: table-cell;"><button id="edit-lifecycle">Edit</button></div>
-				<div style="display: table-cell; padding-top: 2px; padding-bottom: 2px; padding-left: 2px;"><button id="remove-lifecycle">Remove</button></div> -->
 			</div>
 		</div>
 	</div>
@@ -171,6 +169,30 @@ var actionURL = "<%= actionURL %>";
 		<div id="lifecycle-date-row" style="display: table-row;">
 			<div style="display: table-cell; vertical-align: top;" class="gnosis-label">Date:</div>
 			<div style="display: table-cell; vertical-align: top;"><input type="text" id="lifecycle-date" class="ui-widget-content ui-corner-all"></input></div>
+		</div>
+	</div>
+</div>
+
+<div id="edit-milestone-form" title="Investment milestone" style="display: none;">
+	<br>
+	<div style="display: table;">
+		<div style="display: table-row;">
+			<div style="display: table-cell; min-width: 150px; vertical-align: top;" class="gnosis-label">Description:</div>
+			<div style="display: table-cell; width: 100%;"><textarea id="milestone-description" class="ui-widget-content ui-corner-all"></textarea></div>
+		</div>
+		<br>
+		<div id="milestone-date-row" style="display: table-row;">
+			<div style="display: table-cell; vertical-align: top;" class="gnosis-label">Date:</div>
+			<div style="display: table-cell; vertical-align: top;"><input type="text" id="milestone-date" class="ui-widget-content ui-corner-all"></input></div>
+		</div>
+		<br>
+		<div id="milestone-capital-row" style="display: table-row;">
+			<div style="display: table-cell; vertical-align: top;" class="gnosis-label">Capital:</div>
+			<div style="display: table-cell; vertical-align: top;"><input type="text" id="milestone-capital"></input></div>
+		</div>
+		<div id="milestone-runrate-row" style="display: table-row;">
+			<div style="display: table-cell; vertical-align: top;" class="gnosis-label">Run rate:</div>
+			<div style="display: table-cell; vertical-align: top;"><input type="text" id="milestone-runrate"></input></div>
 		</div>
 	</div>
 </div>
