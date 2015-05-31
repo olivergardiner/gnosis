@@ -21,11 +21,10 @@ import org.xmldb.api.modules.XMLResource;
 
 import uk.org.whitecottage.ea.gnosis.jaxb.framework.BusinessProcesses;
 import uk.org.whitecottage.ea.gnosis.jaxb.framework.Framework;
-import uk.org.whitecottage.ea.gnosis.jaxb.framework.PrimaryActivity;
+import uk.org.whitecottage.ea.gnosis.jaxb.framework.Activity;
 import uk.org.whitecottage.ea.gnosis.jaxb.framework.Process;
 import uk.org.whitecottage.ea.gnosis.jaxb.framework.ProcessDomain;
 import uk.org.whitecottage.ea.gnosis.jaxb.framework.RecycleBin;
-import uk.org.whitecottage.ea.gnosis.jaxb.framework.SupportActivity;
 import uk.org.whitecottage.ea.gnosis.json.JSONArray;
 import uk.org.whitecottage.ea.gnosis.json.JSONMap;
 import uk.org.whitecottage.ea.gnosis.json.JSONString;
@@ -72,12 +71,12 @@ public class ProcessTaxonomy extends XmldbProcessor {
 			
 			JSTree tree = new JSTree();
 
-			for (PrimaryActivity activity: framework.getValueChain().getPrimaryActivity()) {
-				tree.add(renderActivity(businessProcesses, activity.getValueChainId(), activity.getValue()));
+			for (Activity activity: framework.getValueChain().getPrimaryActivities().getActivity()) {
+				tree.add(renderActivity(businessProcesses, activity.getActivityId(), activity.getDescription()));
 			}
 			
-			for (SupportActivity activity: framework.getValueChain().getSupportActivity()) {
-				tree.add(renderActivity(businessProcesses, activity.getValueChainId(), activity.getValue()));
+			for (Activity activity: framework.getValueChain().getSupportActivities().getActivity()) {
+				tree.add(renderActivity(businessProcesses, activity.getActivityId(), activity.getDescription()));
 			}
 			
 			if (withRecycleBin) {
@@ -159,7 +158,7 @@ public class ProcessTaxonomy extends XmldbProcessor {
 		JSONArray children = trash.getChildren();
 		
 		if (recycleBin != null) {
-			for (Object o: recycleBin.getTechnologyDomainOrCapabilityOrPrimaryActivity()) {
+			for (Object o: recycleBin.getTechnologyDomainOrCapabilityOrActivity()) {
 				if (o instanceof ProcessDomain) {
 					children.add(renderProcessDomain((ProcessDomain) o));
 				} else if (o instanceof Process) {

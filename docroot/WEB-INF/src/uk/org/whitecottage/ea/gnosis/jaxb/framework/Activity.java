@@ -30,12 +30,10 @@ import javax.xml.bind.annotation.XmlType;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
  *         &lt;element ref="{}description"/>
- *         &lt;element ref="{}process" maxOccurs="unbounded" minOccurs="0"/>
+ *         &lt;element ref="{}ecosystem" maxOccurs="unbounded" minOccurs="0"/>
  *       &lt;/sequence>
- *       &lt;attribute name="domain-id" use="required" type="{http://www.w3.org/2001/XMLSchema}string" />
- *       &lt;attribute ref="{}name use="required""/>
- *       &lt;attribute name="value-chain" use="required" type="{http://www.w3.org/2001/XMLSchema}anySimpleType" />
- *       &lt;attribute name="technolgy-domain" type="{http://www.w3.org/2001/XMLSchema}anySimpleType" />
+ *       &lt;attribute name="activity-id" use="required" type="{http://www.w3.org/2001/XMLSchema}anySimpleType" />
+ *       &lt;attribute ref="{}name"/>
  *     &lt;/restriction>
  *   &lt;/complexContent>
  * &lt;/complexType>
@@ -46,24 +44,19 @@ import javax.xml.bind.annotation.XmlType;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
     "description",
-    "process"
+    "ecosystem"
 })
-@XmlRootElement(name = "processDomain")
-public class ProcessDomain {
+@XmlRootElement(name = "activity")
+public class Activity {
 
     @XmlElement(required = true)
     protected String description;
-    protected List<Process> process;
-    @XmlAttribute(name = "domain-id", required = true)
-    protected String domainId;
-    @XmlAttribute(name = "name", required = true)
+    protected List<Ecosystem> ecosystem;
+    @XmlAttribute(name = "activity-id", required = true)
+    @XmlSchemaType(name = "anySimpleType")
+    protected String activityId;
+    @XmlAttribute(name = "name")
     protected String name;
-    @XmlAttribute(name = "value-chain", required = true)
-    @XmlSchemaType(name = "anySimpleType")
-    protected String valueChain;
-    @XmlAttribute(name = "technolgy-domain")
-    @XmlSchemaType(name = "anySimpleType")
-    protected String technolgyDomain;
 
     /**
      * Gets the value of the description property.
@@ -90,56 +83,56 @@ public class ProcessDomain {
     }
 
     /**
-     * Gets the value of the process property.
+     * Gets the value of the ecosystem property.
      * 
      * <p>
      * This accessor method returns a reference to the live list,
      * not a snapshot. Therefore any modification you make to the
      * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the process property.
+     * This is why there is not a <CODE>set</CODE> method for the ecosystem property.
      * 
      * <p>
      * For example, to add a new item, do as follows:
      * <pre>
-     *    getProcess().add(newItem);
+     *    getEcosystem().add(newItem);
      * </pre>
      * 
      * 
      * <p>
      * Objects of the following type(s) are allowed in the list
-     * {@link Process }
+     * {@link Ecosystem }
      * 
      * 
      */
-    public List<Process> getProcess() {
-        if (process == null) {
-            process = new ArrayList<Process>();
+    public List<Ecosystem> getEcosystem() {
+        if (ecosystem == null) {
+            ecosystem = new ArrayList<Ecosystem>();
         }
-        return this.process;
+        return this.ecosystem;
     }
 
     /**
-     * Gets the value of the domainId property.
+     * Gets the value of the activityId property.
      * 
      * @return
      *     possible object is
      *     {@link String }
      *     
      */
-    public String getDomainId() {
-        return domainId;
+    public String getActivityId() {
+        return activityId;
     }
 
     /**
-     * Sets the value of the domainId property.
+     * Sets the value of the activityId property.
      * 
      * @param value
      *     allowed object is
      *     {@link String }
      *     
      */
-    public void setDomainId(String value) {
-        this.domainId = value;
+    public void setActivityId(String value) {
+        this.activityId = value;
     }
 
     /**
@@ -164,54 +157,6 @@ public class ProcessDomain {
      */
     public void setName(String value) {
         this.name = value;
-    }
-
-    /**
-     * Gets the value of the valueChain property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getValueChain() {
-        return valueChain;
-    }
-
-    /**
-     * Sets the value of the valueChain property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setValueChain(String value) {
-        this.valueChain = value;
-    }
-
-    /**
-     * Gets the value of the technolgyDomain property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getTechnolgyDomain() {
-        return technolgyDomain;
-    }
-
-    /**
-     * Sets the value of the technolgyDomain property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setTechnolgyDomain(String value) {
-        this.technolgyDomain = value;
     }
 
 }

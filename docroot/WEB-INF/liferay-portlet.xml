@@ -76,12 +76,14 @@
 		<portlet-name>ValueChainViewer</portlet-name>
 		<icon>/icon.png</icon>
 		<header-portlet-css>/js/jquery-ui/jquery-ui.css</header-portlet-css>
+		<header-portlet-css>/js/jqte/jquery-te-1.4.0.css</header-portlet-css>
 		<header-portlet-css>/js/jstree/themes/default/style.css</header-portlet-css>
 		<header-portlet-css>/js/selectboxit/jquery.selectBoxIt.css</header-portlet-css>
 		<header-portlet-css>/css/common.css</header-portlet-css>
 		<header-portlet-css>/css/value-chain-viewer.css</header-portlet-css>
 		<header-portlet-javascript>/js/jquery/jquery-1.11.1.min.js</header-portlet-javascript>
 		<header-portlet-javascript>/js/jquery-ui/jquery-ui.min.js</header-portlet-javascript>
+		<header-portlet-javascript>/js/jqte/jquery-te-1.4.0.min.js</header-portlet-javascript>
 		<header-portlet-javascript>/js/selectboxit/jquery.selectBoxIt.min.js</header-portlet-javascript>
 		<header-portlet-javascript>/js/jstree/jstree.min.js</header-portlet-javascript>
 		<header-portlet-javascript>/js/uuid/uuid.js</header-portlet-javascript>

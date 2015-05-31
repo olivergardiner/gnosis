@@ -16,8 +16,9 @@ import org.xmldb.api.modules.XMLResource;
 
 import uk.org.whitecottage.ea.gnosis.jaxb.framework.BusinessOperatingModel;
 import uk.org.whitecottage.ea.gnosis.jaxb.framework.Capability;
-import uk.org.whitecottage.ea.gnosis.jaxb.framework.PrimaryActivity;
-import uk.org.whitecottage.ea.gnosis.jaxb.framework.SupportActivity;
+import uk.org.whitecottage.ea.gnosis.jaxb.framework.CapabilityInstance;
+import uk.org.whitecottage.ea.gnosis.jaxb.framework.Ecosystem;
+import uk.org.whitecottage.ea.gnosis.jaxb.framework.Activity;
 import uk.org.whitecottage.ea.gnosis.jaxb.framework.TechnologyDomain;
 import uk.org.whitecottage.ea.gnosis.jaxb.framework.ValueChain;
 import uk.org.whitecottage.ea.gnosis.json.JSONArray;
@@ -71,7 +72,6 @@ public class Framework extends XmldbProcessor {
 			result = frameworkJSON.toJSON();
 
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
 		    if(frameworkResource != null) {
@@ -159,40 +159,73 @@ public class Framework extends XmldbProcessor {
 		
 		JSONArray primaryActivitiesJSON = new JSONArray("primaryActivities");
 		valueChainJSON.put(primaryActivitiesJSON);
-		for (PrimaryActivity activity: valueChain.getPrimaryActivity()) {
-			primaryActivitiesJSON.add(renderPrimaryActivity(activity));
+		for (Activity activity: valueChain.getPrimaryActivities().getActivity()) {
+			primaryActivitiesJSON.add(renderActivity(activity));
 		}
 		
 		JSONArray supportActivitiesJSON = new JSONArray("supportActivities");
 		valueChainJSON.put(supportActivitiesJSON);
-		for (SupportActivity activity: valueChain.getSupportActivity()) {
-			supportActivitiesJSON.add(renderSupportActivity(activity));
+		for (Activity activity: valueChain.getSupportActivities().getActivity()) {
+			supportActivitiesJSON.add(renderActivity(activity));
 		}
 		
 		return valueChainJSON;
 	}
 	
-	protected JSONMap renderPrimaryActivity(PrimaryActivity activity) {
+	protected JSONMap renderActivity(Activity activity) {
 		JSONMap activityJSON = new JSONMap();
 		
-		JSONString idJSON = new JSONString("id", activity.getValueChainId());
+		JSONString idJSON = new JSONString("id", activity.getActivityId());
 		activityJSON.put(idJSON);
 				
-		JSONString nameJSON = new JSONString("name", activity.getValue());
+		JSONString nameJSON = new JSONString("name", activity.getName());
 		activityJSON.put(nameJSON);
+		
+		JSONString descriptionJSON = new JSONString("description", activity.getDescription());
+		activityJSON.put(descriptionJSON);
+
+		JSONArray ecosystemsJSON = new JSONArray("ecosystems");
+		activityJSON.put(ecosystemsJSON);
+		for (Ecosystem ecosystem: activity.getEcosystem()) {
+			ecosystemsJSON.add(renderEcosystem(ecosystem));
+		}
 		
 		return activityJSON;
 	}
 	
-	protected JSONMap renderSupportActivity(SupportActivity activity) {
-		JSONMap activityJSON = new JSONMap();
-		
-		JSONString idJSON = new JSONString("id", activity.getValueChainId());
-		activityJSON.put(idJSON);
+	protected JSONMap renderEcosystem(Ecosystem ecosystem) {
+		JSONMap ecosystemJSON = new JSONMap("ecosystem");
 				
-		JSONString nameJSON = new JSONString("name", activity.getValue());
-		activityJSON.put(nameJSON);
+		JSONString idJSON = new JSONString("id", ecosystem.getEcosystemId());
+		ecosystemJSON.put(idJSON);
 		
-		return activityJSON;
+		JSONString nameJSON = new JSONString("name", ecosystem.getName());
+		ecosystemJSON.put(nameJSON);
+		
+		JSONString descriptionJSON = new JSONString("description", ecosystem.getDescription());
+		ecosystemJSON.put(descriptionJSON);
+		
+		JSONArray capabilityJSON = new JSONArray("capabilities");
+		ecosystemJSON.put(capabilityJSON);
+		for (CapabilityInstance capability: ecosystem.getCapabilityInstance()) {
+			capabilityJSON.add(renderCapabilityInstance(capability));
+		}
+		
+		return ecosystemJSON;
+	}
+
+	protected JSONMap renderCapabilityInstance(CapabilityInstance capability) {
+		JSONMap capabilityJSON = new JSONMap("capability");
+				
+		JSONString idJSON = new JSONString("id", capability.getCapabilityId());
+		capabilityJSON.put(idJSON);
+				
+		JSONString nameJSON = new JSONString("name", capability.getName());
+		capabilityJSON.put(nameJSON);
+		
+		JSONString descriptionJSON = new JSONString("description", capability.getDescription());
+		capabilityJSON.put(descriptionJSON);
+		
+		return capabilityJSON;
 	}
 }

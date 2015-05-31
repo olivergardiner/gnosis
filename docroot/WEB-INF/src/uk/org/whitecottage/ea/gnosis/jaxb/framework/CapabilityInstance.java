@@ -8,8 +8,6 @@
 
 package uk.org.whitecottage.ea.gnosis.jaxb.framework;
 
-import java.util.ArrayList;
-import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -30,7 +28,6 @@ import javax.xml.bind.annotation.XmlType;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
  *         &lt;element ref="{}description"/>
- *         &lt;element ref="{}milestone" maxOccurs="unbounded" minOccurs="0"/>
  *       &lt;/sequence>
  *       &lt;attribute name="capability-id" use="required" type="{http://www.w3.org/2001/XMLSchema}anySimpleType" />
  *       &lt;attribute ref="{}name use="required""/>
@@ -43,15 +40,13 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-    "description",
-    "milestone"
+    "description"
 })
-@XmlRootElement(name = "capability")
-public class Capability {
+@XmlRootElement(name = "capabilityInstance")
+public class CapabilityInstance {
 
     @XmlElement(required = true)
     protected String description;
-    protected List<Milestone> milestone;
     @XmlAttribute(name = "capability-id", required = true)
     @XmlSchemaType(name = "anySimpleType")
     protected String capabilityId;
@@ -80,35 +75,6 @@ public class Capability {
      */
     public void setDescription(String value) {
         this.description = value;
-    }
-
-    /**
-     * Gets the value of the milestone property.
-     * 
-     * <p>
-     * This accessor method returns a reference to the live list,
-     * not a snapshot. Therefore any modification you make to the
-     * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the milestone property.
-     * 
-     * <p>
-     * For example, to add a new item, do as follows:
-     * <pre>
-     *    getMilestone().add(newItem);
-     * </pre>
-     * 
-     * 
-     * <p>
-     * Objects of the following type(s) are allowed in the list
-     * {@link Milestone }
-     * 
-     * 
-     */
-    public List<Milestone> getMilestone() {
-        if (milestone == null) {
-            milestone = new ArrayList<Milestone>();
-        }
-        return this.milestone;
     }
 
     /**

@@ -13,7 +13,6 @@ import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
@@ -29,11 +28,10 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element ref="{}description"/>
- *         &lt;element ref="{}milestone" maxOccurs="unbounded" minOccurs="0"/>
+ *         &lt;element ref="{}activity" maxOccurs="unbounded" minOccurs="0"/>
  *       &lt;/sequence>
- *       &lt;attribute name="capability-id" use="required" type="{http://www.w3.org/2001/XMLSchema}anySimpleType" />
- *       &lt;attribute ref="{}name use="required""/>
+ *       &lt;attribute name="value-chain-id" type="{http://www.w3.org/2001/XMLSchema}anySimpleType" />
+ *       &lt;attribute ref="{}name"/>
  *     &lt;/restriction>
  *   &lt;/complexContent>
  * &lt;/complexType>
@@ -43,96 +41,69 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-    "description",
-    "milestone"
+    "activity"
 })
-@XmlRootElement(name = "capability")
-public class Capability {
+@XmlRootElement(name = "supportActivities")
+public class SupportActivities {
 
-    @XmlElement(required = true)
-    protected String description;
-    protected List<Milestone> milestone;
-    @XmlAttribute(name = "capability-id", required = true)
+    protected List<Activity> activity;
+    @XmlAttribute(name = "value-chain-id")
     @XmlSchemaType(name = "anySimpleType")
-    protected String capabilityId;
-    @XmlAttribute(name = "name", required = true)
+    protected String valueChainId;
+    @XmlAttribute(name = "name")
     protected String name;
 
     /**
-     * Gets the value of the description property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getDescription() {
-        return description;
-    }
-
-    /**
-     * Sets the value of the description property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setDescription(String value) {
-        this.description = value;
-    }
-
-    /**
-     * Gets the value of the milestone property.
+     * Gets the value of the activity property.
      * 
      * <p>
      * This accessor method returns a reference to the live list,
      * not a snapshot. Therefore any modification you make to the
      * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the milestone property.
+     * This is why there is not a <CODE>set</CODE> method for the activity property.
      * 
      * <p>
      * For example, to add a new item, do as follows:
      * <pre>
-     *    getMilestone().add(newItem);
+     *    getActivity().add(newItem);
      * </pre>
      * 
      * 
      * <p>
      * Objects of the following type(s) are allowed in the list
-     * {@link Milestone }
+     * {@link Activity }
      * 
      * 
      */
-    public List<Milestone> getMilestone() {
-        if (milestone == null) {
-            milestone = new ArrayList<Milestone>();
+    public List<Activity> getActivity() {
+        if (activity == null) {
+            activity = new ArrayList<Activity>();
         }
-        return this.milestone;
+        return this.activity;
     }
 
     /**
-     * Gets the value of the capabilityId property.
+     * Gets the value of the valueChainId property.
      * 
      * @return
      *     possible object is
      *     {@link String }
      *     
      */
-    public String getCapabilityId() {
-        return capabilityId;
+    public String getValueChainId() {
+        return valueChainId;
     }
 
     /**
-     * Sets the value of the capabilityId property.
+     * Sets the value of the valueChainId property.
      * 
      * @param value
      *     allowed object is
      *     {@link String }
      *     
      */
-    public void setCapabilityId(String value) {
-        this.capabilityId = value;
+    public void setValueChainId(String value) {
+        this.valueChainId = value;
     }
 
     /**

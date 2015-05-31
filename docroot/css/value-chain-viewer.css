@@ -15,3 +15,18 @@ div.support-activity {
 	vertical-align: middle;
 	background-color: #99bb99;
 }
+
+div.jqte {
+	margin-top: 0px;
+}
+
+div.tree-panel {
+	overflow-x: auto;
+	min-width: 400px;
+	max-width: 400px;
+}
+
+div.info-panel {
+	margin-left: 20px;
+	margin-right: 20px;
+}

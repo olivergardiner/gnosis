@@ -65,49 +65,6 @@
 			<xs:attribute ref="name" use="required"/>
 		</xs:complexType>
 	</xs:element>
-	<xs:element name="businessApplications">
-		<xs:complexType>
-			<xs:sequence>
-				<xs:element ref="technologyDomain" minOccurs="0" maxOccurs="unbounded"/>
-			</xs:sequence>
-		</xs:complexType>
-	</xs:element>
-	<xs:element name="commonServices">
-		<xs:complexType>
-			<xs:sequence>
-				<xs:element ref="technologyDomain" minOccurs="0" maxOccurs="unbounded"/>
-			</xs:sequence>
-		</xs:complexType>
-	</xs:element>
-	<xs:element name="technologyDomain">
-		<xs:complexType>
-			<xs:sequence>
-				<xs:element ref="description"/>
-				<xs:element ref="capability" minOccurs="0" maxOccurs="unbounded"/>
-				<xs:element ref="milestone" minOccurs="0" maxOccurs="unbounded"/>
-			</xs:sequence>
-			<xs:attribute name="domain-id" use="required"/>
-			<xs:attribute ref="name" use="required"/>
-			<xs:attribute name="standardisation">
-				<xs:simpleType>
-					<xs:restriction base="xs:string">
-						<xs:enumeration value="diverse"/>
-						<xs:enumeration value="replicated"/>
-						<xs:enumeration value="coordinated"/>
-						<xs:enumeration value="unified"/>
-					</xs:restriction>
-				</xs:simpleType>
-			</xs:attribute>
-			<xs:attribute name="value-chain"/>
-		</xs:complexType>
-	</xs:element>
-	<xs:element name="infrastructure">
-		<xs:complexType>
-			<xs:sequence>
-				<xs:element ref="technologyDomain" minOccurs="0" maxOccurs="unbounded"/>
-			</xs:sequence>
-		</xs:complexType>
-	</xs:element>
 	<xs:element name="businessProcesses">
 		<xs:complexType>
 			<xs:sequence>
@@ -158,56 +115,6 @@
 			<xs:attribute name="contiguous" type="xs:boolean"/>
 		</xs:complexType>
 	</xs:element>
-	<xs:element name="capability">
-		<xs:complexType>
-			<xs:sequence>
-				<xs:element ref="description"/>
-				<xs:element ref="milestone" minOccurs="0" maxOccurs="unbounded"/>
-			</xs:sequence>
-			<xs:attribute name="capability-id" use="required"/>
-			<xs:attribute ref="name" use="required"/>
-		</xs:complexType>
-	</xs:element>
-	<xs:element name="valueChain">
-		<xs:complexType>
-			<xs:sequence>
-				<xs:element ref="primaryActivity" minOccurs="0" maxOccurs="unbounded"/>
-				<xs:element ref="supportActivity" minOccurs="0" maxOccurs="unbounded"/>
-			</xs:sequence>
-		</xs:complexType>
-	</xs:element>
-	<xs:element name="primaryActivity">
-		<xs:complexType>
-			<xs:simpleContent>
-				<xs:extension base="xs:string">
-					<xs:attribute name="value-chain-id"/>
-				</xs:extension>
-			</xs:simpleContent>
-		</xs:complexType>
-	</xs:element>
-	<xs:element name="supportActivity">
-		<xs:complexType>
-			<xs:simpleContent>
-				<xs:extension base="xs:string">
-					<xs:attribute name="value-chain-id"/>
-				</xs:extension>
-			</xs:simpleContent>
-		</xs:complexType>
-	</xs:element>
-	<xs:element name="recycleBin">
-		<xs:complexType>
-			<xs:choice minOccurs="0" maxOccurs="unbounded">
-				<xs:element ref="technologyDomain"/>
-				<xs:element ref="capability"/>
-				<xs:element ref="primaryActivity"/>
-				<xs:element ref="supportActivity"/>
-				<xs:element ref="processDomain"/>
-				<xs:element ref="process"/>
-				<xs:element ref="processComponent"/>
-				<xs:element ref="processFlow"/>
-			</xs:choice>
-		</xs:complexType>
-	</xs:element>
 	<xs:element name="processInstance">
 		<xs:complexType>
 			<xs:sequence>
@@ -231,6 +138,129 @@
 			</xs:sequence>
 			<xs:attribute name="process-component-id" type="xs:string" use="required"/>
 			<xs:attribute ref="name" use="required"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="businessApplications">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="technologyDomain" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="commonServices">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="technologyDomain" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="infrastructure">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="technologyDomain" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="technologyDomain">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="description"/>
+				<xs:element ref="capability" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element ref="milestone" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+			<xs:attribute name="domain-id" use="required"/>
+			<xs:attribute ref="name" use="required"/>
+			<xs:attribute name="standardisation">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:enumeration value="diverse"/>
+						<xs:enumeration value="replicated"/>
+						<xs:enumeration value="coordinated"/>
+						<xs:enumeration value="unified"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:attribute>
+			<xs:attribute name="value-chain"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="capability">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="description"/>
+				<xs:element ref="milestone" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+			<xs:attribute name="capability-id" use="required"/>
+			<xs:attribute ref="name" use="required"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="valueChain">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="primaryActivities"/>
+				<xs:element ref="supportActivities"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="primaryActivities">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="activity" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+			<xs:attribute name="value-chain-id"/>
+			<xs:attribute ref="name"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="supportActivities">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="activity" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+			<xs:attribute name="value-chain-id"/>
+			<xs:attribute ref="name"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="activity">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="description"/>
+				<xs:element ref="ecosystem" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+			<xs:attribute name="activity-id" use="required"/>
+			<xs:attribute ref="name"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="ecosystem">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="description"/>
+				<xs:element ref="capabilityInstance" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+			<xs:attribute name="ecosystem-id" use="required"/>
+			<xs:attribute ref="name" use="required"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="capabilityInstance">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="description"/>
+			</xs:sequence>
+			<xs:attribute name="capability-id" use="required"/>
+			<xs:attribute ref="name" use="required"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="recycleBin">
+		<xs:complexType>
+			<xs:choice minOccurs="0" maxOccurs="unbounded">
+				<xs:element ref="technologyDomain"/>
+				<xs:element ref="capability"/>
+				<xs:element ref="activity"/>
+				<xs:element ref="ecosystem"/>
+				<xs:element ref="capabilityInstance"/>
+				<xs:element ref="processDomain"/>
+				<xs:element ref="process"/>
+				<xs:element ref="processComponent"/>
+				<xs:element ref="processFlow"/>
+			</xs:choice>
 		</xs:complexType>
 	</xs:element>
 </xs:schema>

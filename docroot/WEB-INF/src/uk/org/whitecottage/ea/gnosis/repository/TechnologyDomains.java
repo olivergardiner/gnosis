@@ -136,7 +136,7 @@ public class TechnologyDomains extends XmldbProcessor {
 		JSONArray children = trash.getChildren();
 		
 		if (recycleBin != null) {
-			for (Object o: recycleBin.getTechnologyDomainOrCapabilityOrPrimaryActivity()) {
+			for (Object o: recycleBin.getTechnologyDomainOrCapabilityOrActivity()) {
 				if (o instanceof TechnologyDomain) {
 					children.add(renderTechnologyDomain((TechnologyDomain) o, false));
 				} else if (o instanceof Capability) {

@@ -9,11 +9,13 @@
 <portlet:defineObjects/>
 
 <portlet:resourceURL var="jsonDataURL" id="jsonData"/>
+<portlet:resourceURL var="frameworkJsonDataURL" id="frameworkJsonData"/>
 <portlet:resourceURL var="iconURL" id="icon"/>
 <portlet:resourceURL var="actionURL" id="action"/>
 
 <script type="text/javascript">
 var jsonDataURL = "<%= jsonDataURL %>";
+var frameworkJsonDataURL = "<%= frameworkJsonDataURL %>";
 var iconURL = "<%= iconURL %>";
 var actionURL = "<%= actionURL %>";
 </script>
@@ -22,28 +24,44 @@ var actionURL = "<%= actionURL %>";
 	<div class="portlet-section-header"></div>
 	<br />
 	<div class="portlet-section-body">
-		<div style="display: table; width: 95%; margin-left: auto; margin-right: auto;">
-			<div style="display: table-row;" id="primary-value-chain">
+
+		<div style="display: table; table-layout: fixed;">
+			<div style="display: table-row;">
+				<div style="display: table-cell;" class="ui-widget ui-widget-content ui-corner-all tree-panel">
+					<div id="jstree"></div>
+				</div>
+				<div style="display: table-cell; width: 100%;">
+					<div id="tree-panel" class="ui-widget ui-widget-content ui-corner-all info-panel">
+<p>Select an element of the value chain from the tree on the right to view or edit</p>
+<p></p>
+					</div>
+					<div id="detail-panel" class="ui-widget ui-widget-content ui-corner-all info-panel" style="display: none;">
+						<div style="display: table-cell;"><h4><span id="detail-name"></span></h4></div>
+						<div id="detail-description"></div>
+					</div>
+				</div>
 			</div>
 		</div>
-		<div style="display: table; width: 95%; margin-left: auto; margin-right: auto;" id="support-value-chain"></div>
-		<br/>
 	</div>
-	<div style="display: table; width: 95%; margin-left: auto; margin-right: auto;">
+</div>
+
+<div id="edit-node-form" title="Value chain detail" style="display: none;">
+	<br>
+	<div style="display: table;">
 		<div style="display: table-row;">
-			<div style="display: table-cell; padding: 2px;">
-				<button id="edit-button" style="display: none;">Edit</button>
-			</div>
+			<div style="display: table-cell; min-width: 150px; vertical-align: top;" class="gnosis-label">Name:</div>
+			<div style="display: table-cell; width: 100%;"><input id="name-editor" type="text" class="ui-widget ui-corner-all" style="width: 100%;"></input></div>
 		</div>
-		<div id="value-chain-tree" style="display: none;">
-			<div style="display: table-cell; padding: 2px; width: 110px;">Use the tree to edit the Value Chain</div>
-			<div style="display: table-cell; padding: 2px; width: 10px;"></div>
-			<div style="display: table-cell; padding: 2px;">
-				<div id="jstree"></div>
-			</div>
+		<br>
+		<div style="display: table-row;">
+			<div style="display: table-cell; vertical-align: top;" class="gnosis-label">Description:</div>
+			<div style="display: table-cell; vertical-align: top;"><div id="description-editor"></div></div>
 		</div>
 	</div>
-	<br />
+</div>
+
+<div id="capability-form" title="" style="display: none;">
+	<div id="capability-jstree"></div>
 </div>
 
 <div id="wait-form" title="Please wait..." style="display: none;">
