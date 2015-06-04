@@ -48,6 +48,7 @@ import org.xmldb.api.modules.XMLResource;
 
 import uk.org.whitecottage.ea.gnosis.jaxb.applications.Application;
 import uk.org.whitecottage.ea.gnosis.jaxb.applications.Applications;
+import uk.org.whitecottage.ea.gnosis.jaxb.applications.Investment;
 import uk.org.whitecottage.ea.gnosis.jaxb.applications.ManagingOrganisation;
 import uk.org.whitecottage.ea.gnosis.jaxb.applications.Migration;
 import uk.org.whitecottage.ea.gnosis.jaxb.applications.Stage;
@@ -85,6 +86,7 @@ public class ApplicationsSpreadsheet extends XmldbProcessor {
 	protected XSSFCellStyle headerStyle;
 	protected XSSFCellStyle headerCentreStyle;
 	protected XSSFCellStyle dateFieldStyle;
+	protected XSSFCellStyle currencyFieldStyle;
 	protected int rowsProcessed;
 	protected static final String columns[] = {
 		"A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z",
@@ -795,6 +797,17 @@ public class ApplicationsSpreadsheet extends XmldbProcessor {
     	names.add("Application Name");
     	List<Integer> widths = new ArrayList<Integer>();
     	widths.add(Integer.valueOf(APPLICATION_NAME_WIDTH));
+    	
+    	for (int i = 0; i < 4; i++) {
+    		names.add("Description");
+    		widths.add(Integer.valueOf(APPLICATION_NAME_WIDTH));
+    		names.add("Date");
+    		widths.add(Integer.valueOf(20));
+    		names.add("Capital");
+    		widths.add(Integer.valueOf(20));
+    		names.add("Run rate");
+    		widths.add(Integer.valueOf(20));
+    	}
 
     	createHeader(sheet, names, widths);
     	
@@ -803,6 +816,26 @@ public class ApplicationsSpreadsheet extends XmldbProcessor {
     		XSSFRow row = sheet.createRow(r++);
     		XSSFCell cell = row.createCell(0);
     		cell.setCellValue(app.getName());
+
+        	int c = 1;
+        	for (Investment investment: app.getInvestment()) {
+        		cell = row.createCell(c++);
+        		cell.setCellValue(investment.getValue());
+        		if (investment.getDate() != null) {
+	        		cell = row.createCell(c);
+	        		cell.setCellValue(investment.getDate().toGregorianCalendar().getTime());
+	        		cell.setCellStyle(dateFieldStyle);
+
+	        		cell = row.createCell(c + 1);
+	        		cell.setCellValue(investment.getCapital().doubleValue());
+	        		cell.setCellStyle(currencyFieldStyle);
+
+	        		cell = row.createCell(c + 2);
+	        		cell.setCellValue(investment.getRunrate().doubleValue());
+	        		cell.setCellStyle(currencyFieldStyle);
+        		}
+        		c += 3;
+        	}
     	}
     	
     	sheet.createFreezePane(0, 1);
@@ -1002,6 +1035,9 @@ public class ApplicationsSpreadsheet extends XmldbProcessor {
 		XSSFDataFormat dataFormat = workbook.createDataFormat();
 		dateFieldStyle = workbook.createCellStyle();
 		dateFieldStyle.setDataFormat(dataFormat.getFormat("yyyy-mm-dd;@"));
+
+		currencyFieldStyle = workbook.createCellStyle();
+		currencyFieldStyle.setDataFormat(dataFormat.getFormat("£#,##0k;[Red]-£#,##0k"));
 	}
 
 	protected List<String> addArray(List<String> list, String array[]) {

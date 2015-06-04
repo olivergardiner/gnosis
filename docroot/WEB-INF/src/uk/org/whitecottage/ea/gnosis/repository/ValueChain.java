@@ -23,11 +23,13 @@ import org.xmldb.api.base.Collection;
 import org.xmldb.api.base.XMLDBException;
 import org.xmldb.api.modules.XMLResource;
 
+import uk.org.whitecottage.ea.gnosis.jaxb.framework.Capability;
 import uk.org.whitecottage.ea.gnosis.jaxb.framework.CapabilityInstance;
 import uk.org.whitecottage.ea.gnosis.jaxb.framework.Ecosystem;
 import uk.org.whitecottage.ea.gnosis.jaxb.framework.Framework;
 import uk.org.whitecottage.ea.gnosis.jaxb.framework.Activity;
 import uk.org.whitecottage.ea.gnosis.jaxb.framework.RecycleBin;
+import uk.org.whitecottage.ea.gnosis.jaxb.framework.TechnologyDomain;
 import uk.org.whitecottage.ea.gnosis.json.JSONArray;
 import uk.org.whitecottage.ea.gnosis.json.JSONMap;
 import uk.org.whitecottage.ea.gnosis.json.JSONString;
@@ -80,7 +82,7 @@ public class ValueChain extends XmldbProcessor {
 			tree.add(renderSupportActivities(framework));
 
 			if (withRecycleBin) {
-				tree.add(renderTrash(framework.getRecycleBin()));
+				tree.add(renderTrash(framework, framework.getRecycleBin()));
 			}
 			
 			result = tree.toJSON();
@@ -106,7 +108,7 @@ public class ValueChain extends XmldbProcessor {
 		JSTreeNode root = new JSTreeNode("Primary Activities", "primary");
 		
 		for (Activity activity: framework.getValueChain().getPrimaryActivities().getActivity()) {
-			root.getChildren().add(renderActivity(activity));
+			root.getChildren().add(renderActivity(framework, activity));
 		}
 		
 		return root;
@@ -117,13 +119,13 @@ public class ValueChain extends XmldbProcessor {
 		JSTreeNode root = new JSTreeNode("Support Activities", "support");
 		
 		for (Activity activity: framework.getValueChain().getSupportActivities().getActivity()) {
-			root.getChildren().add(renderActivity(activity));
+			root.getChildren().add(renderActivity(framework, activity));
 		}
 		
 		return root;
 	}
 	
-	protected JSTreeNode renderTrash(RecycleBin recycleBin) {
+	protected JSTreeNode renderTrash(Framework framework, RecycleBin recycleBin) {
 		JSTreeNode trash = new JSTreeNode("Recycle bin", "trash");
 		JSONString trashId = new JSONString("id", "trash");
 		trash.put(trashId);
@@ -133,7 +135,7 @@ public class ValueChain extends XmldbProcessor {
 		if (recycleBin != null) {
 			for (Object o: recycleBin.getTechnologyDomainOrCapabilityOrActivity()) {
 				if (o instanceof Activity) {
-					children.add(renderActivity((Activity) o));
+					children.add(renderActivity(framework, (Activity) o));
 				}
 			}
 		}
@@ -141,7 +143,7 @@ public class ValueChain extends XmldbProcessor {
 		return trash;
 	}
 	
-	protected JSTreeNode renderActivity(Activity activity) {
+	protected JSTreeNode renderActivity(Framework framework, Activity activity) {
 		JSONMap data = new JSONMap("data");
 		
 		JSONString idJSON = new JSONString("id", activity.getActivityId());
@@ -153,13 +155,13 @@ public class ValueChain extends XmldbProcessor {
 		JSTreeNode node = new JSTreeNode(activity.getName(), "activity", data);
 		
 		for (Ecosystem ecosystem: activity.getEcosystem()) {
-			node.getChildren().add(renderEcosystem(ecosystem));
+			node.getChildren().add(renderEcosystem(framework, ecosystem));
 		}
 		
 		return node;
 	}
 	
-	protected JSTreeNode renderEcosystem(Ecosystem ecosystem) {
+	protected JSTreeNode renderEcosystem(Framework framework, Ecosystem ecosystem) {
 		JSONMap data = new JSONMap("data");
 				
 		JSONString idJSON = new JSONString("id", ecosystem.getEcosystemId());
@@ -171,18 +173,23 @@ public class ValueChain extends XmldbProcessor {
 		JSTreeNode node = new JSTreeNode(ecosystem.getName(), "ecosystem", data);
 
 		for (CapabilityInstance capability: ecosystem.getCapabilityInstance()) {
-			node.getChildren().add(renderCapabilityInstance(capability));
+			node.getChildren().add(renderCapabilityInstance(framework, capability));
 		}
 		
 		return node;
 	}
 
-	protected JSTreeNode renderCapabilityInstance(CapabilityInstance capability) {
+	protected JSTreeNode renderCapabilityInstance(Framework framework, CapabilityInstance capability) {
 		//TODO: Change to return a JSTreeNode
 		JSONMap data = new JSONMap("data");
 				
-		JSONString idJSON = new JSONString("id", capability.getCapabilityId());
+		String capabilityId = capability.getCapabilityId();
+		JSONString idJSON = new JSONString("id", capabilityId);
 		data.put(idJSON);
+		
+		Capability capabilityRef = findCapability(framework, capabilityId);
+		JSONString capabilityNameJSON = new JSONString("name", capabilityRef.getName());
+		data.put(capabilityNameJSON);
 				
 		JSONString descriptionJSON = new JSONString("description", capability.getDescription());
 		data.put(descriptionJSON);
@@ -657,6 +664,32 @@ public class ValueChain extends XmldbProcessor {
 		}
 
 		return foundEcosystem;
+	}
+
+	protected Capability findCapability(Framework framework, String capabilityId) {
+		Capability capability = findCapability(framework.getBusinessApplications().getTechnologyDomain(), capabilityId);
+
+		if (capability == null) {
+			capability = findCapability(framework.getCommonServices().getTechnologyDomain(), capabilityId);
+		}
+
+		if (capability == null) {
+			capability = findCapability(framework.getInfrastructure().getTechnologyDomain(), capabilityId);
+		}
+		
+		return capability;
+	}
+	
+	protected Capability findCapability(List<TechnologyDomain> domains, String capabilityId) {
+		for (TechnologyDomain domain: domains) {
+			for (Capability capability: domain.getCapability()) {
+				if (capability.getCapabilityId().equals(capabilityId)) {
+					return capability;
+				}
+			}
+		}
+		
+		return null;
 	}
 
 	protected CapabilityInstance findCapabilityInstance(Framework framework, String ecosystemId, String capabilityId) {

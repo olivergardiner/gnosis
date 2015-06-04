@@ -59,6 +59,8 @@ $('#jstree').jstree({
 		'items': contextMenu
 	},
 	'plugins': ['dnd', 'types', 'contextmenu']
+}).on('select_node.jstree', function(e, data) {
+	showNode(data.node);
 }).on('move_node.jstree', moveNode).on('copy_node.jstree', copyNode);
 
 $('#description-editor').jqte({
@@ -66,8 +68,8 @@ $('#description-editor').jqte({
 
 $('#edit-node-form').dialog({
     autoOpen: false,
-    height: 800,
-    width: 500,
+    height: 500,
+    width: 700,
     modal: true,
     buttons: {
     	"Save": function() {
@@ -182,6 +184,29 @@ function applyAddCapability() {
 	//$('#edit-node-form').dialog("open");
 }
 	
+function showNode(node){
+	var type = node.type;
+	
+	if (type == 'root' || type == 'primary' || type == 'support' || type == 'trash') {
+		$('#tree-panel').show();
+		$('#detail-panel').hide();
+	} else {
+		$('#tree-panel').hide();
+		
+		$('#detail-name').text(node.text);
+		$('#detail-description').html(unescapeHTML(node.data.description));
+		
+		if (type == 'capability') {
+			$('#detail-capability-name').text(node.data.name);
+			$('#detail-capability').show();
+		} else {
+			$('#detail-capability').hide();
+		}
+		
+		$('#detail-panel').show();
+	}
+}
+
 function showValueChain() {
 	var tree = $.jstree.reference('#jstree');
 	var json = tree.get_json();
@@ -253,6 +278,12 @@ function editNode(menu) {
 	$("#edit-node-form").data("node", node.id);
 	$('#name-editor').val(node.text);
 	$('#description-editor').jqteVal(node.data.description);
+	if (node.type == 'capability') {
+		$('#capability-name').text(node.data.name);
+		$('#capability-row').css("display", "table-row");
+	} else {
+		$('#capability-row').css("display", "none");
+	}
 	
 	$('#edit-node-form').dialog("open");
 };

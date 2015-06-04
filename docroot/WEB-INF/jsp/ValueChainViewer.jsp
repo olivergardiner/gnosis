@@ -36,7 +36,8 @@ var actionURL = "<%= actionURL %>";
 <p></p>
 					</div>
 					<div id="detail-panel" class="ui-widget ui-widget-content ui-corner-all info-panel" style="display: none;">
-						<div style="display: table-cell;"><h4><span id="detail-name"></span></h4></div>
+						<div id="detail-capability" style="display: none;"><h4><span id="detail-capability-name"></span></h4></div>
+						<div><h4><span id="detail-name"></span></h4></div>
 						<div id="detail-description"></div>
 					</div>
 				</div>
@@ -49,7 +50,16 @@ var actionURL = "<%= actionURL %>";
 	<br>
 	<div style="display: table;">
 		<div style="display: table-row;">
-			<div style="display: table-cell; min-width: 150px; vertical-align: top;" class="gnosis-label">Name:</div>
+			<div style="display: table-cell; min-width: 150px;"></div>
+			<div style="display: table-cell; width: 100%;"></div>
+		</div>
+		<div style="display: none;" id="capability-row">
+			<div style="display: table-cell; vertical-align: top;" class="gnosis-label">Capability:</div>
+			<div style="display: table-cell; width: 100%;"><span id="capability-name" class="ui-widget ui-corner-all" style="width: 100%;"></span></div>
+		</div>
+		<br>
+		<div style="display: table-row;">
+			<div style="display: table-cell; vertical-align: top;" class="gnosis-label">Name:</div>
 			<div style="display: table-cell; width: 100%;"><input id="name-editor" type="text" class="ui-widget ui-corner-all" style="width: 100%;"></input></div>
 		</div>
 		<br>
