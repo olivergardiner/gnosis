@@ -481,7 +481,7 @@ function getJsonData(obj, callback) {
     		callback.call(this, response);
         },
         error : function(jqXhr, status, reason) {
-        	alert("Unable to retrieve framework data\n" + status + ": " + reason);
+        	alert("Unable to retrieve value chain data\n" + status + ": " + reason);
         }
 	});
 }

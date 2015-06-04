@@ -33,7 +33,9 @@ import org.xmldb.api.modules.XMLResource;
 
 import uk.org.whitecottage.ea.gnosis.jaxb.applications.Application;
 import uk.org.whitecottage.ea.gnosis.jaxb.applications.Applications;
+import uk.org.whitecottage.ea.gnosis.jaxb.applications.Capability;
 import uk.org.whitecottage.ea.gnosis.jaxb.applications.Classification;
+import uk.org.whitecottage.ea.gnosis.jaxb.applications.Ecosystem;
 import uk.org.whitecottage.ea.gnosis.jaxb.applications.Investment;
 import uk.org.whitecottage.ea.gnosis.jaxb.applications.Stage;
 import uk.org.whitecottage.ea.gnosis.json.JSONArray;
@@ -138,6 +140,25 @@ public class ApplicationsEstate extends XmldbProcessor {
 		JSONString idJSON = new JSONString("applicationId", application.getAppId());
 		data.put(idJSON);
 		
+		JSONArray ecosystems = new JSONArray("ecosystems");
+		for (Ecosystem ecosystem: application.getEcosystem()) {
+			JSONMap ecosystemJSON = new JSONMap();
+
+			JSONString ecosystemIdJSON = new JSONString("ecosystemId", ecosystem.getEcosystem());
+			ecosystemJSON.put(ecosystemIdJSON);
+			
+			JSONArray capabilitiesJSON = new JSONArray("capabilities");
+			for (Capability capability: ecosystem.getCapability()) {
+				JSONString capabilityJSON = new JSONString(capability.getCapability());
+				capabilitiesJSON.add(capabilityJSON);
+			}
+			
+			ecosystemJSON.put(capabilitiesJSON);
+			
+			ecosystems.add(ecosystemJSON);
+		}
+		data.put(ecosystems);
+				
 		JSONString nameJSON = new JSONString("name", application.getName());
 		data.put(nameJSON);
 		
@@ -393,6 +414,123 @@ public class ApplicationsEstate extends XmldbProcessor {
 			   				update = true;
 			   				break;
 			   			}
+		   			}
+		   		}
+		   	}
+			
+			if (update) {
+		    	// Create the DOM document
+		    	DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+		        dbf.setNamespaceAware(true);
+		        DocumentBuilder db = dbf.newDocumentBuilder();
+		        Document doc = db.newDocument();
+		    	applicationsMarshaller.marshal(applications, doc);
+		    	
+				storeDomResource(repository, "applications.xml", doc);
+			}
+		    
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+		    if(applicationsResource != null) {
+		        try { ((EXistResource) applicationsResource).freeResources(); } catch(XMLDBException xe) {xe.printStackTrace();}
+		    }
+		    
+		    if(repository != null) {
+		        try { repository.close(); } catch(XMLDBException xe) {xe.printStackTrace();}
+		    }
+		}
+	}
+
+	public void addEcosystem(String applicationId, String ecosystemId, String capabilityId) {
+		Collection repository = null;
+		XMLResource applicationsResource = null;
+		try {   
+			repository = getCollection("");
+		    applicationsResource = getResource(repository, "applications.xml");
+		    
+			Applications applications = (Applications) applicationsUnmarshaller.unmarshal(applicationsResource.getContentAsDOM());
+
+			boolean update = false;
+			
+			for (Application application: applications.getApplication()) {
+		   		if (application.getAppId().equals(applicationId)) {
+   					Capability capability = new Capability();
+   					capability.setCapability(capabilityId);
+
+   					boolean found = false;
+		   			for (Ecosystem ecosystem: application.getEcosystem()) {
+		   				if (ecosystem.getEcosystem().equals(ecosystemId)) {
+		   					found = true;
+		   					ecosystem.getCapability().add(capability);
+		   				}
+		   			}
+		   			
+		   			if (!found) {
+		   				Ecosystem ecosystem = new Ecosystem();
+		   				ecosystem.setEcosystem(ecosystemId);
+	   					ecosystem.getCapability().add(capability);
+	   					application.getEcosystem().add(ecosystem);
+		   			}
+		   			
+		   			update = true;
+		   		}
+		   	}
+			
+			if (update) {
+		    	// Create the DOM document
+		    	DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+		        dbf.setNamespaceAware(true);
+		        DocumentBuilder db = dbf.newDocumentBuilder();
+		        Document doc = db.newDocument();
+		    	applicationsMarshaller.marshal(applications, doc);
+		    	
+				storeDomResource(repository, "applications.xml", doc);
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+		    if(applicationsResource != null) {
+		        try { ((EXistResource) applicationsResource).freeResources(); } catch(XMLDBException xe) {xe.printStackTrace();}
+		    }
+		    
+		    if(repository != null) {
+		        try { repository.close(); } catch(XMLDBException xe) {xe.printStackTrace();}
+		    }
+		}
+	}
+
+	public void removeEcosystem(String applicationId, String ecosystemId, String capabilityId) {
+		Collection repository = null;
+		XMLResource applicationsResource = null;
+		try {   
+			repository = getCollection("");
+		    applicationsResource = getResource(repository, "applications.xml");
+		    
+			Applications applications = (Applications) applicationsUnmarshaller.unmarshal(applicationsResource.getContentAsDOM());
+
+			boolean update = false;
+			
+			for (Application application: applications.getApplication()) {
+		   		if (application.getAppId().equals(applicationId)) {
+		   			for (Ecosystem ecosystem: application.getEcosystem()) {
+		   				if (ecosystem.getEcosystem().equals(ecosystemId)) {
+				   			for (Capability capability: ecosystem.getCapability()) {
+					   			if (capability.getCapability().equals(capabilityId)) {
+					   				ecosystem.getCapability().remove(capability);
+					   				update = true;
+					   				break;
+					   			}
+				   			}
+		   				}
+		   				if (update) {
+		   					if (ecosystem.getCapability().isEmpty()) {
+		   						application.getEcosystem().remove(ecosystem);
+		   					}
+		   					break;
+		   				}
 		   			}
 		   		}
 		   	}

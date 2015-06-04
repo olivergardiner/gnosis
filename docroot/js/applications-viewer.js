@@ -201,6 +201,22 @@ $("#capabilities").select2({
 	repoDeleteCapability($("#app-id").val(), event.val);
 });
 
+$("#ecosystems").select2({
+	"width": "100%",
+	"tags": []
+})./*on("change", function(event) {
+	// According to the documentation, this should work - but the event does not get fired for add...
+	if (event.removed != undefined) {
+		repoDeleteCapability($("#app-id").val(), event.removed.id);
+	}
+	if (event.added != undefined) {
+		repoAddCapability($("#app-id").val(), event.added.id);
+	}
+}).*/on("select2-removing", function(event) {
+	var id = event.val.split("/");
+	repoDeleteEcosystem($("#app-id").val(), id[0], id[1]);
+});
+
 $("ul.select2-choices").click(function() {
 	
 });
@@ -252,6 +268,60 @@ $('#jstree').jstree({
 	}
 });
 
+$('#value-chain-jstree').jstree({
+	'core': {
+		'data': getValueChainJsonData,
+		'multiple': false,
+		'check_callback': true,
+		'themes': {
+			'variant': 'small',
+			'responsive': false
+		}
+	},
+	'types': {
+		'#': {
+			'valid_children': ['primary', 'support', 'trash']
+		},
+		'primary': {
+			'valid_children': ['activity']
+		},
+		'support': {
+			'valid_children': ['activity']
+		},
+		'activity': {
+			'valid_children': ['ecosystem'],
+			'icon': iconURL + "&icon=technology-domain.ico"
+		},
+		'ecosystem': {
+			'valid_children': ['capability'],
+			'icon': iconURL + "&icon=technology-domain.ico"
+		},
+		'capability': {
+			'valid_children': [],
+			'icon': iconURL + "&icon=technology-domain.ico"
+		},
+		'trash': {
+			'icon': iconURL + "&icon=trash.ico"
+		}
+	},
+	'plugins': [ 'types' ]
+}).dblclick(function() {
+	var tree = $.jstree.reference('#value-chain-jstree');
+	var node = tree.get_selected(true);
+	
+	if (node.length > 0) {
+		if (node[0].data == undefined || node[0].type != "capability") {
+			if (tree.is_open(node[0].id)) {
+				tree.close_node(node[0].id);
+			} else {
+				tree.open_node(node[0].id);
+			}
+		} else {
+			applyAddEcosystem();
+		}
+	}
+});
+
 $('#capability-form').dialog({
 	title: "Add a capability",
     autoOpen: false,
@@ -265,6 +335,21 @@ $("#add-capability").button().click(function() {
 	//$("#capability-form").dialog("option", "title", "Add a capability");
 	$("#capability-form").data("type", "classify");
 	$("#capability-form").dialog("open");
+});
+
+$('#ecosystem-form').dialog({
+	title: "Add an ecosystem",
+    autoOpen: false,
+    height: 500,
+    width: 300,
+    modal: true,
+    buttons: { "Add": applyAddEcosystem, "Close": closeEcosystemForm }
+});
+
+$("#add-ecosystem").button().click(function() {
+	//$("#capability-form").dialog("option", "title", "Add a capability");
+	$("#ecosystem-form").data("type", "classify");
+	$("#ecosystem-form").dialog("open");
 });
 
 function downloadURL(url) {
@@ -283,6 +368,10 @@ function closeCapabilityForm() {
 	$('#capability-form').dialog("close");
 }
 
+function closeEcosystemForm() {
+	$('#ecosystem-form').dialog("close");
+}
+
 function applyAddCapability() {
 	if ($("#capability-form").data("type") == "classify") {
 		addCapability();
@@ -292,6 +381,17 @@ function applyAddCapability() {
 	}
 	
 	$('#capability-form').dialog( "close" );
+}
+	
+function applyAddEcosystem() {
+	if ($("#ecosystem-form").data("type") == "classify") {
+		addEcosystem();
+	} else {
+		//addCapabilityFilter();
+		//table.api().draw();
+	}
+	
+	$('#ecosystem-form').dialog( "close" );
 }
 	
 $('#edit-lifecycle-form').dialog({
@@ -541,7 +641,6 @@ function checkLifecycle(data) {
 function addCapability() {
 	var tree = $.jstree.reference('#jstree');
 	var node = tree.get_selected(true);
-	var capabilities = [];
 	
 	if (node.length > 0) {
 		var data = $("#capabilities").select2("data");
@@ -559,12 +658,37 @@ function addCapability() {
 	    		text: node[0].text
 	    	});
 			
-			for (var i = 0; i < data.length; i++) {
-				capabilities.push(data[i].id);
-			}
-			
 			$("#capabilities").select2("data", data);
 			repoAddCapability($("#app-id").val(), node[0].data.id);
+		}
+	}
+}
+
+function addEcosystem() {
+	var tree = $.jstree.reference('#value-chain-jstree');
+	var node = tree.get_selected(true);
+	
+	if (node.length > 0) {
+		var data = $("#ecosystems").select2("data");
+		
+		var parentNode = tree.get_node(tree.get_parent(node[0]));
+		var id = parentNode.data.id + "/" + node[0].data.id;
+		
+		var found = false;
+		for (var i = 0; i < data.length; i++) {
+			if (data[i].id == id) {
+				found = true;
+			}
+		}
+		
+		if (!found) {
+			data.push({
+	    		id: id,
+	    		text: node[0].text
+	    	});
+			
+			$("#ecosystems").select2("data", data);
+			repoAddEcosystem($("#app-id").val(), parentNode.data.id, node[0].data.id);
 		}
 	}
 }
@@ -572,7 +696,6 @@ function addCapability() {
 function addCapabilityFilter() {
 	var tree = $.jstree.reference('#jstree');
 	var node = tree.get_selected(true);
-	var capabilities = [];
 	
 	if (node.length > 0) {
 		var data = $("div.filter").select2("data");
@@ -589,10 +712,6 @@ function addCapabilityFilter() {
 	    		id: node[0].data.id,
 	    		text: node[0].text
 	    	});
-			
-			for (var i = 0; i < data.length; i++) {
-				capabilities.push(data[i].id);
-			}
 			
 			$("div.filter").select2("data", data);
 		}
@@ -614,6 +733,21 @@ function getFrameworkJsonData(obj, callback) {
 	});
 }
 
+function getValueChainJsonData(obj, callback) {
+	$.ajax({
+        async : true,
+        type : "GET",
+        url : valueChainJsonDataURL,
+        dataType : "json",
+        success : function(response) {
+    		callback.call(this, response);
+        },
+        error : function(jqXhr, status, reason) {
+        	alert("Unable to retrieve value chain data\n" + status + ": " + reason);
+        }
+	});
+}
+
 function getCapabilityName(capabilityId) {
 	var tree = $.jstree.reference('#jstree');
 	var json = tree.get_json();
@@ -625,6 +759,30 @@ function getCapabilityName(capabilityId) {
 			for (var k = 0; k < domain.children.length; k++) {
 				if (domain.children[k].data.id == capabilityId) {
 					return domain.children[k].text;
+				}
+			}
+		}
+	}
+	
+	return undefined;
+}
+
+function getCapabilityInstanceName(ecosystemId, capabilityId) {
+	var tree = $.jstree.reference('#value-chain-jstree');
+	var json = tree.get_json();
+	
+	for (var i = 0; i < json.length; i++) {
+		var layer = json[i];
+		for (var j = 0; j < layer.children.length; j++) {
+			var domain = layer.children[j];
+			for (var k = 0; k < domain.children.length; k++) {
+				var ecosystem = domain.children[k];
+				if (ecosystem.data.id == ecosystemId) {
+					for (var l = 0; l < ecosystem.children.length; l++) {
+						if (ecosystem.children[l].data.id == capabilityId) {
+							return ecosystem.children[l].text;
+						}
+					}
 				}
 			}
 		}
@@ -661,7 +819,26 @@ function editSelectedApplication() {
     	}
     	
     	$("#capabilities").select2("data", capabilities);
+    	
+    	var ecosystems = [];
+    	for (var i = 0; i < data.ecosystems.length; i++) {
+    		var ecosystem = data.ecosystems[i];
+    		var ecosystemId = ecosystem.ecosystemId;
+    		for (var j = 0; j < ecosystem.capabilities.length; j++) {
+    	   		var capabilityId = ecosystem.capabilities[j];
+    			var capabilityName = getCapabilityInstanceName(ecosystemId, capabilityId);
+    		
+	    		if (capabilityName != undefined) {
+			    	ecosystems.push({
+			    		id: ecosystemId + "/" + capabilityId,
+			    		text: capabilityName
+			    	});
+	    		}
+    		}
+     	}
 
+    	$("#ecosystems").select2("data", ecosystems);
+    	
     	buildTimeline(new Date().getFullYear(), data);
     	
         $("#application-detail").dialog("open");
@@ -820,6 +997,22 @@ function repoAddCapability(id, capability) {
 function repoDeleteCapability(id, capability) {
 	repoAction("removeCapabilityAction", {
 		applicationId: id,
+		capability: capability
+	});
+}
+
+function repoAddEcosystem(id, ecosystem, capability) {
+	repoAction("addEcosystemAction", {
+		applicationId: id,
+		ecosystem: ecosystem,
+		capability: capability
+	});
+}
+
+function repoDeleteEcosystem(id, ecosystem, capability) {
+	repoAction("removeEcosystemAction", {
+		applicationId: id,
+		ecosystem: ecosystem,
 		capability: capability
 	});
 }

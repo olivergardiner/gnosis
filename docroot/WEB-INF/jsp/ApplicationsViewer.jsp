@@ -8,6 +8,7 @@
 
 <portlet:resourceURL var="applicationsListJsonDataURL" id="applicationsListJsonData"/>
 <portlet:resourceURL var="frameworkJsonDataURL" id="frameworkJsonData"/>
+<portlet:resourceURL var="valueChainJsonDataURL" id="valueChainJsonData"/>
 <portlet:resourceURL var="actionURL" id="action"/>
 <portlet:resourceURL var="pptxURL" id="pptx"/>
 <portlet:resourceURL var="xlsxURL" id="xlsx"/>
@@ -16,6 +17,7 @@
 <script type="text/javascript">
 var applicationsListJsonDataURL = "<%= applicationsListJsonDataURL %>";
 var frameworkJsonDataURL = "<%= frameworkJsonDataURL %>";
+var valueChainJsonDataURL = "<%= valueChainJsonDataURL %>";
 var iconURL = "<%= iconURL %>";
 var pptxURL = "<%= pptxURL %>";
 var xlsxURL = "<%= xlsxURL %>";
@@ -86,6 +88,17 @@ var actionURL = "<%= actionURL %>";
 	<div class="ui-widget-content ui-corner-all">
 		<div style="display: table;">
 			<div style="display: table-row; background: #eeeeee;">
+				<div style="display: table-cell; width: 100%;"><div class="gnosis-title"><span>Ecosystems</span></div></div>
+				<div style="display: table-cell; padding-top: 2px; padding-bottom: 2px; padding-left: 2px;"><button id="add-ecosystem">Add</button></div>
+			</div>
+		</div>
+		<div id="ecosystems"></div>
+		<!-- <div style="background: #eeeeee;"><button id="add-capability" style="margin-right: 0px;">Add</button></div> -->
+	</div>
+	<br>
+	<div class="ui-widget-content ui-corner-all">
+		<div style="display: table;">
+			<div style="display: table-row; background: #eeeeee;">
 				<div style="display: table-cell; width: 100%;"><div class="gnosis-title"><span>Lifecycle</span></div></div>
 				<div style="display: table-cell;"><button id="new-lifecycle">Stage</button></div>
 				<div style="display: table-cell;"><button id="new-milestone">Milestone</button></div>
@@ -141,6 +154,10 @@ var actionURL = "<%= actionURL %>";
 
 <div id="capability-form" title="" style="display: none;">
 	<div id="jstree"></div>
+</div>
+
+<div id="ecosystem-form" title="" style="display: none;">
+	<div id="value-chain-jstree"></div>
 </div>
 
 <div id="edit-lifecycle-form" title="Lifecycle stage" style="display: none;">

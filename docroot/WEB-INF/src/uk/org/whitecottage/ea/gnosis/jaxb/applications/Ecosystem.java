@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
@@ -26,8 +27,9 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element ref="{}application" maxOccurs="unbounded" minOccurs="0"/>
+ *         &lt;element ref="{}capability" maxOccurs="unbounded" minOccurs="0"/>
  *       &lt;/sequence>
+ *       &lt;attribute name="ecosystem" use="required" type="{http://www.w3.org/2001/XMLSchema}string" />
  *     &lt;/restriction>
  *   &lt;/complexContent>
  * &lt;/complexType>
@@ -37,40 +39,66 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-    "application"
+    "capability"
 })
-@XmlRootElement(name = "applications")
-public class Applications {
+@XmlRootElement(name = "ecosystem")
+public class Ecosystem {
 
-    protected List<Application> application;
+    protected List<Capability> capability;
+    @XmlAttribute(name = "ecosystem", required = true)
+    protected String ecosystem;
 
     /**
-     * Gets the value of the application property.
+     * Gets the value of the capability property.
      * 
      * <p>
      * This accessor method returns a reference to the live list,
      * not a snapshot. Therefore any modification you make to the
      * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the application property.
+     * This is why there is not a <CODE>set</CODE> method for the capability property.
      * 
      * <p>
      * For example, to add a new item, do as follows:
      * <pre>
-     *    getApplication().add(newItem);
+     *    getCapability().add(newItem);
      * </pre>
      * 
      * 
      * <p>
      * Objects of the following type(s) are allowed in the list
-     * {@link Application }
+     * {@link Capability }
      * 
      * 
      */
-    public List<Application> getApplication() {
-        if (application == null) {
-            application = new ArrayList<Application>();
+    public List<Capability> getCapability() {
+        if (capability == null) {
+            capability = new ArrayList<Capability>();
         }
-        return this.application;
+        return this.capability;
+    }
+
+    /**
+     * Gets the value of the ecosystem property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getEcosystem() {
+        return ecosystem;
+    }
+
+    /**
+     * Sets the value of the ecosystem property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setEcosystem(String value) {
+        this.ecosystem = value;
     }
 
 }

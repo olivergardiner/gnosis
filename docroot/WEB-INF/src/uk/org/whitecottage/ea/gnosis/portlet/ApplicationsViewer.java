@@ -19,6 +19,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import uk.org.whitecottage.ea.gnosis.repository.ApplicationsEstate;
 import uk.org.whitecottage.ea.gnosis.repository.TechnologyDomains;
+import uk.org.whitecottage.ea.gnosis.repository.ValueChain;
 import uk.org.whitecottage.ea.gnosis.repository.applications.ApplicationsSpreadsheet;
 import uk.org.whitecottage.ea.gnosis.repository.applications.LifecyclePresentation;
 import uk.org.whitecottage.ea.portlet.ProcessResourceAction;
@@ -88,6 +89,20 @@ public class ApplicationsViewer extends GnosisPortlet {
     	String context = getPortletContext().getRealPath("");
     	TechnologyDomains domains = new TechnologyDomains(existURI, existRepositoryRoot, context);
     	String json = domains.getJSON("all", false);
+    	
+		response.setContentType("application/json");
+    	response.getWriter().print(json);
+    }
+
+    @ProcessResourceRequest(name = "valueChainJsonData")
+    public void serveValueChainJSON(ResourceRequest request, ResourceResponse response) throws PortletException, IOException {
+    	Properties gnosisProperties = getProperties();
+    	String existURI = gnosisProperties.getProperty("exist.uri");
+    	String existRepositoryRoot = gnosisProperties.getProperty("exist.repository.root");
+        
+    	String context = getPortletContext().getRealPath("");
+    	ValueChain valueChain = new ValueChain(existURI, existRepositoryRoot, context);
+    	String json = valueChain.getJSON();
     	
 		response.setContentType("application/json");
     	response.getWriter().print(json);
@@ -235,7 +250,7 @@ public class ApplicationsViewer extends GnosisPortlet {
     }
 
     @ProcessResourceAction(name = "addCapabilityAction")
-    public void updateCapabilities(ResourceRequest request, ResourceResponse response) throws PortletException, IOException {
+    public void addCapability(ResourceRequest request, ResourceResponse response) throws PortletException, IOException {
     	log.info("Add capability");
 
     	Properties gnosisProperties = getProperties();
@@ -273,6 +288,54 @@ public class ApplicationsViewer extends GnosisPortlet {
     	String capability = getParameter(request, "capability");
     	       	
     	applications.removeCapability(applicationId, capability);
+    	
+    	String json = applications.getApplicationJSON(getParameter(request, "applicationId"));    	
+
+		response.setContentType("application/json");
+		response.getWriter().print(json);
+    }
+
+    @ProcessResourceAction(name = "addEcosystemAction")
+    public void addEcosystem(ResourceRequest request, ResourceResponse response) throws PortletException, IOException {
+    	log.info("Add ecosystem");
+
+    	Properties gnosisProperties = getProperties();
+    	String existURI = gnosisProperties.getProperty("exist.uri");
+    	String existRepositoryRoot = gnosisProperties.getProperty("exist.repository.root");
+    	String context = getPortletContext().getRealPath("");
+    	ApplicationsEstate applications = new ApplicationsEstate(existURI, existRepositoryRoot, context);
+    	
+    	logParameters(request);
+    	
+    	String applicationId = getParameter(request, "applicationId");
+    	String ecosystem = getParameter(request, "ecosystem");
+    	String capability = getParameter(request, "capability");
+    	       	
+    	applications.addEcosystem(applicationId, ecosystem, capability);
+    	
+    	String json = applications.getApplicationJSON(getParameter(request, "applicationId"));    	
+
+		response.setContentType("application/json");
+		response.getWriter().print(json);
+    }
+
+    @ProcessResourceAction(name = "removeEcosystemAction")
+    public void removeEcosystem(ResourceRequest request, ResourceResponse response) throws PortletException, IOException {
+    	log.info("Delete ecosystem");
+
+    	Properties gnosisProperties = getProperties();
+    	String existURI = gnosisProperties.getProperty("exist.uri");
+    	String existRepositoryRoot = gnosisProperties.getProperty("exist.repository.root");
+    	String context = getPortletContext().getRealPath("");
+    	ApplicationsEstate applications = new ApplicationsEstate(existURI, existRepositoryRoot, context);
+    	
+    	logParameters(request);
+    	
+    	String applicationId = getParameter(request, "applicationId");
+    	String ecosystem = getParameter(request, "ecosystem");
+    	String capability = getParameter(request, "capability");
+    	       	
+    	applications.removeEcosystem(applicationId, ecosystem, capability);
     	
     	String json = applications.getApplicationJSON(getParameter(request, "applicationId"));    	
 

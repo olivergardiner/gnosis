@@ -1,5 +1,6 @@
 package uk.org.whitecottage.ea.gnosis.repository.applications;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -847,9 +848,31 @@ public class ApplicationsSpreadsheet extends XmldbProcessor {
 		for (Row row: sheet) {
 			int r = row.getRowNum();
 			if (r != 0) {
-				@SuppressWarnings("unused")
 				Application app = getApplication(workbook, r);
-				// TODO: Needs to be completed...
+				
+				app.getInvestment().clear();
+				for (int c=0; c<4; c++) {
+					Date date = getDateCellValue(row, c * 4 + 2);
+					if (date != null) {
+						Investment i = new Investment();
+
+						GregorianCalendar cal = new GregorianCalendar();
+						cal.setTimeZone(TimeZone.getTimeZone("Europe/London"));
+						cal.setTime(date);
+						i.setDate(getXMLDate(cal));
+
+						String description = getCellValue(row, c * 4 + 1);
+						i.setValue(description);
+						
+						double capital = getNumericCellValue(row, c * 4 + 3);
+						i.setCapital(BigInteger.valueOf((long) capital));
+						
+						double runrate = getNumericCellValue(row, c * 4 + 4);
+						i.setRunrate(BigInteger.valueOf((long) runrate));
+						
+						app.getInvestment().add(i);
+					}
+				}
 			}
 		}
 	}
@@ -975,6 +998,17 @@ public class ApplicationsSpreadsheet extends XmldbProcessor {
 		}
 
 		return null;
+	}
+	
+	protected double getNumericCellValue(Row row, int c) {
+		Cell cell = row.getCell(c);
+		if (cell != null) {
+			if (cell.getCellType() == Cell.CELL_TYPE_NUMERIC) {
+				return cell.getNumericCellValue();
+			}
+		}
+
+		return 0.0;
 	}
 	
 	protected XMLGregorianCalendar getXMLDate(GregorianCalendar cal) {

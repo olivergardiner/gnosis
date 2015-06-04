@@ -24,7 +24,7 @@ import javax.xml.bind.annotation.XmlType;
  * &lt;complexType>
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;attribute name="division" type="{http://www.w3.org/2001/XMLSchema}string" />
+ *       &lt;attribute name="capability" use="required" type="{http://www.w3.org/2001/XMLSchema}string" />
  *     &lt;/restriction>
  *   &lt;/complexContent>
  * &lt;/complexType>
@@ -34,34 +34,34 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "")
-@XmlRootElement(name = "usedBy")
-public class UsedBy {
+@XmlRootElement(name = "capability")
+public class Capability {
 
-    @XmlAttribute(name = "division")
-    protected String division;
+    @XmlAttribute(name = "capability", required = true)
+    protected String capability;
 
     /**
-     * Gets the value of the division property.
+     * Gets the value of the capability property.
      * 
      * @return
      *     possible object is
      *     {@link String }
      *     
      */
-    public String getDivision() {
-        return division;
+    public String getCapability() {
+        return capability;
     }
 
     /**
-     * Sets the value of the division property.
+     * Sets the value of the capability property.
      * 
      * @param value
      *     allowed object is
      *     {@link String }
      *     
      */
-    public void setDivision(String value) {
-        this.division = value;
+    public void setCapability(String value) {
+        this.capability = value;
     }
 
 }
