@@ -164,9 +164,9 @@ function applyAddCapability() {
 	var node = tree.get_node($("#capability-form").data("node"));
 	var capabilityNode = capabilityTree.get_selected(true)[0];
 	
-	var newNodeId = addChildItem(node, "capability", 'New capability instance', capabilityNode.data.id);
+	var newNodeId = addChildItem(node, "capability", capabilityNode.text, capabilityNode.data.id);
 	var newNode = tree.get_node(newNodeId);
-	newNode.data.description = "";
+	newNode.data.description = capabilityNode.data.description;
 	
 	$('#capability-form').dialog( "close" );
 
@@ -174,7 +174,7 @@ function applyAddCapability() {
 		ecosystemId: node.data.id,
 		capabilityId: newNode.data.id,
 		name: newNode.text,
-		description: newNode.description
+		description: newNode.data.description
 	});
 
 	//$("#edit-node-form").data("node", newNode.id);
@@ -193,13 +193,15 @@ function showNode(node){
 	} else {
 		$('#tree-panel').hide();
 		
-		$('#detail-name').text(node.text);
-		$('#detail-description').html(unescapeHTML(node.data.description));
+		//$('#detail-description').html(unescapeHTML(node.data.description));
+		$('#detail-description').html(node.data.description);
 		
 		if (type == 'capability') {
-			$('#detail-capability-name').text(node.data.name);
+			$('#detail-name').text("Ecosytem capability: " + node.text);
+			$('#detail-capability-name').text("Logical capability: " + node.data.name);
 			$('#detail-capability').show();
 		} else {
+			$('#detail-name').text(node.text);
 			$('#detail-capability').hide();
 		}
 		

@@ -543,21 +543,26 @@ public class ValueChain extends XmldbProcessor {
 				if (ecosystem != null) {
 					for (CapabilityInstance capability: ecosystem.getCapabilityInstance()) {
 						if (capability.getCapabilityId().equals(id)) {
-							Ecosystem targetEcosystem = findEcosystem(framework, toId);
-							if (targetEcosystem != null) {
-								boolean capabilityExists = false;
-								for (CapabilityInstance ecosystemCapability: targetEcosystem.getCapabilityInstance()) {
-									if (ecosystemCapability.getCapabilityId().equals(id)) {
-										capabilityExists = true;
-										break;
+							if ("trash".equals(to)) {
+								recycleBin.getTechnologyDomainOrCapabilityOrActivity().add(position, capability);
+								ecosystem.getCapabilityInstance().remove(capability);
+							} else if ("ecosystem".equals(to)) {
+								Ecosystem targetEcosystem = findEcosystem(framework, toId);
+								if (targetEcosystem != null) {
+									boolean capabilityExists = false;
+									for (CapabilityInstance ecosystemCapability: targetEcosystem.getCapabilityInstance()) {
+										if (ecosystemCapability.getCapabilityId().equals(id)) {
+											capabilityExists = true;
+											break;
+										}
+									}
+									if (!capabilityExists) {
+										ecosystem.getCapabilityInstance().remove(capability);
+										targetEcosystem.getCapabilityInstance().add(position, capability);
 									}
 								}
-								if (!capabilityExists) {
-									ecosystem.getCapabilityInstance().remove(capability);
-									targetEcosystem.getCapabilityInstance().add(position, capability);
-									break;
-								}
 							}
+							break;
 						}
 					}
 				}

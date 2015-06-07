@@ -398,7 +398,8 @@ public class ApplicationsSpreadsheet extends XmldbProcessor {
 	protected String getCurrentStage(Application app) {
 		Calendar date = new GregorianCalendar();
 		
-		Stage current = null;
+		Stage current = new Stage();
+		current.setLifecycle("unknown");
 		for (Stage stage: app.getStage()) {
 			if (stage.getDate() == null) {
 				current = stage;

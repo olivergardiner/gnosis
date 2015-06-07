@@ -1,6 +1,3 @@
-var valueChain;
-var isLOB = false;
-
 $('#jstree').jstree({
 	'core': {
 		'data': getJsonData,
@@ -46,32 +43,6 @@ $('#jstree').jstree({
 }).on('move_node.jstree', moveNode).on('copy_node.jstree', copyNode);
 
 $('#tree-panel').show();
-
-$.ajax({
-    async : true,
-    type : "GET",
-    url : valueChainJsonDataURL,
-    dataType : "json",
-    success : function(response) {
-    	valueChain = response;
-    	for (var i = 0; i < response[0].children.length; i++) {
-    		$("#domain-value-chain-editor").append('<option value="' + response[0].children[i].data.id + '">' + response[0].children[i].text + '</option>')
-    	}
-
-    	for (var i = 0; i < response[1].children.length; i++) {
-    		$("#domain-value-chain-editor").append('<option value="' + response[1].children[i].data.id + '">' + response[1].children[i].text + '</option>')
-    	}
-
-    	$('#domain-value-chain-editor').selectric({
-    		expandToItemText: true,
-    		maxHeight: 120
-    	});
-    },
-    error : function(jqXhr, status, reason) {
-    	alert("Unable to retrieve value chain data\n" + status + ": " + reason);
-    }
-});
-
 
 $('#edit-domain-form').dialog({
     autoOpen: false,
@@ -153,7 +124,6 @@ function showNode(node){
 		
 		$('#domain-title').text(node.text);
 		$('#domain-description').html(unescapeHTML(node.data.description));
-		$('#domain-value-chain').text(getValueChainName(node.data.valueChain));
 		$('#domain-panel').show();
 	} else if (type == 'capability') {
 		$('#tree-panel').hide();
@@ -162,29 +132,12 @@ function showNode(node){
 		var domainNodeId = $.jstree.reference('#jstree').get_parent(node);
 		var domainNode = $.jstree.reference('#jstree').get_node(domainNodeId);
 		
-		$('#capability-value-chain').text(getValueChainName(domainNode.data.valueChain));
 		$('#capability-domain-title').text(domainNode.text);
 		$('#capability-title').text(node.text);
 		$('#capability-description').html(unescapeHTML(node.data.description));
 		//showCrumbTrail(buildCrumbTrail(node, []));
 		$('#capability-panel').show();
 	}
-}
-
-function getValueChainName(id) {
-	for (var i=0; i < valueChain[0].children.length; i++) {
-		if (valueChain[0].children[i].data.id == id) {
-			return valueChain[0].children[i].text;
-		}
-	}
-
-	for (var i=0; i < valueChain[1].children.length; i++) {
-		if (valueChain[1].children[i].data.id == id) {
-			return valueChain[1].children[i].text;
-		}
-	}
-	
-	return '';
 }
 
 function showCrumbTrail(trail) {
@@ -214,18 +167,13 @@ function addDomain(menu) {
 	var node = tree.get_node(menu.reference[0]);
 	var newNode = tree.get_node(addChildItem(node, 'technology-domain', 'New technology domain'));
 
-	if (isLOB) {
-		newNode.data.valueChain = valueChain[0].children[0].data.id;
-	}
-	
     $.ajax({
         url: unescapeHTML(actionURL) + "&action=createDomainAction",
         type: "POST",
         data: {
 			domainId: newNode.data.id,
 			domainName: newNode.text,
-			domainDescription: newNode.data.description,
-			valueChain: newNode.data.valueChain
+			domainDescription: newNode.data.description
     	},
         success: function (data) {
             //$("#form_output").html(data);
@@ -278,14 +226,7 @@ function editDomain(menu) {
 	$('#domain-name-editor').attr('disabled', false);
 	$('#edit-domain-form').dialog('option', 'title', node.text);
 	$('#domain-description-editor').jqteVal(unescapeHTML(node.data.description));
-	//if (node.data.isLOB) {
-	if (isLOB) {
-		$('#domain-value-chain-editor').val(node.data.valueChain).selectric("refresh");
-		$("#value-chain").css("display", "table-row");
-	} else {
-		$('#domain-value-chain-editor').val('');
-		$("#value-chain").css("display", "none");
-	}
+
 	$('#edit-domain-form').dialog("open");
 }
 
@@ -295,7 +236,6 @@ function applyDomainEdit() {
 	$.jstree.reference('#jstree').rename_node(node, $('#domain-name-editor').val());
 	var html = $('#edit-domain-form div.jqte_editor').html();
 	node.data.description = escapeHTML(html);
-	node.data.valueChain = $('#domain-value-chain-editor').val();
 	
 	showNode(node);
 	
@@ -305,8 +245,7 @@ function applyDomainEdit() {
         data: {
 			domainId: node.data.id,
 			domainName: $('#domain-name-editor').val(),
-			domainDescription: node.data.description,
-			valueChain: node.data.valueChain
+			domainDescription: node.data.description
     	},
         success: function (data) {
             //$("#form_output").html(data);
@@ -442,7 +381,6 @@ function getJsonData(obj, callback) {
         url : jsonDataURL,
         dataType : "json",
         success : function(response) {
-        	isLOB = response.isLOB;
     		callback.call(this, response.tree);
         },
         error : function(jqXhr, status, reason) {

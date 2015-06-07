@@ -283,7 +283,8 @@ public class LifecyclePresentation extends XmldbProcessor {
 
     protected Stage getCurrentStage(Application app) {
     	
-    	Stage currentStage = null;
+    	Stage currentStage = new Stage();
+    	currentStage.setLifecycle("unknown");
     	GregorianCalendar date = new GregorianCalendar();
 		List<Stage> stages = app.getStage();
 		Collections.sort(stages, new StageComparator());

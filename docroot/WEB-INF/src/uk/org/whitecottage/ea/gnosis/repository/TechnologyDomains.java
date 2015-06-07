@@ -72,20 +72,20 @@ public class TechnologyDomains extends XmldbProcessor {
 			
 			switch (layer) {
 			case "BusinessApplications":
-				tree.add(renderTechnologyDomainList(framework.getBusinessApplications().getTechnologyDomain(), "Business Applications", true));
+				tree.add(renderTechnologyDomainList(framework.getBusinessApplications().getTechnologyDomain(), "Business Applications"));
 				break;
 			case "CommonServices":
-				tree.add(renderTechnologyDomainList(framework.getCommonServices().getTechnologyDomain(), "Common Services", false));
+				tree.add(renderTechnologyDomainList(framework.getCommonServices().getTechnologyDomain(), "Common Services"));
 				isLOB.setValue(false);
 				break;
 			case "Infrastructure":
-				tree.add(renderTechnologyDomainList(framework.getInfrastructure().getTechnologyDomain(), "Infrastructure", false));
+				tree.add(renderTechnologyDomainList(framework.getInfrastructure().getTechnologyDomain(), "Infrastructure"));
 				isLOB.setValue(false);
 				break;
 			default:
-				tree.add(renderTechnologyDomainList(framework.getBusinessApplications().getTechnologyDomain(), "Business Applications", true));
-				tree.add(renderTechnologyDomainList(framework.getCommonServices().getTechnologyDomain(), "Common Services", false));
-				tree.add(renderTechnologyDomainList(framework.getInfrastructure().getTechnologyDomain(), "Infrastructure", false));
+				tree.add(renderTechnologyDomainList(framework.getBusinessApplications().getTechnologyDomain(), "Business Applications"));
+				tree.add(renderTechnologyDomainList(framework.getCommonServices().getTechnologyDomain(), "Common Services"));
+				tree.add(renderTechnologyDomainList(framework.getInfrastructure().getTechnologyDomain(), "Infrastructure"));
 				break;
 			}
 
@@ -117,12 +117,12 @@ public class TechnologyDomains extends XmldbProcessor {
 		return result;
 	}
 	
-	protected JSTreeNode renderTechnologyDomainList(List<TechnologyDomain> technologyDomains, String layer, boolean isLOB) {
+	protected JSTreeNode renderTechnologyDomainList(List<TechnologyDomain> technologyDomains, String layer) {
 		
 		JSTreeNode root = new JSTreeNode(layer, "root");
 		
 		for (TechnologyDomain domain: technologyDomains) {
-			root.getChildren().add(renderTechnologyDomain(domain, isLOB));
+			root.getChildren().add(renderTechnologyDomain(domain));
 		}
 		
 		return root;
@@ -138,7 +138,7 @@ public class TechnologyDomains extends XmldbProcessor {
 		if (recycleBin != null) {
 			for (Object o: recycleBin.getTechnologyDomainOrCapabilityOrActivity()) {
 				if (o instanceof TechnologyDomain) {
-					children.add(renderTechnologyDomain((TechnologyDomain) o, false));
+					children.add(renderTechnologyDomain((TechnologyDomain) o));
 				} else if (o instanceof Capability) {
 					children.add(renderCapability((Capability) o));
 				}
@@ -148,7 +148,7 @@ public class TechnologyDomains extends XmldbProcessor {
 		return trash;
 	}
 	
-	protected JSTreeNode renderTechnologyDomain(TechnologyDomain domain, boolean isLOB) {
+	protected JSTreeNode renderTechnologyDomain(TechnologyDomain domain) {
 		JSONMap data = new JSONMap("data");
 		
 		JSONString idJSON = new JSONString("id", domain.getDomainId());
@@ -157,14 +157,6 @@ public class TechnologyDomains extends XmldbProcessor {
 		JSONString descriptionJSON = new JSONString("description", domain.getDescription());
 		data.put(descriptionJSON);
 				
-		JSONBoolean isLOBJSON = new JSONBoolean("isLOB", isLOB);
-		data.put(isLOBJSON);
-				
-		if (domain.getValueChain() != null) {
-			JSONString valueChainJSON = new JSONString("valueChain", domain.getValueChain());
-			data.put(valueChainJSON);
-		}
-		
 		JSTreeNode node = new JSTreeNode(domain.getName(), "technology-domain", data);
 		JSONArray children = node.getChildren();
 		
@@ -189,7 +181,7 @@ public class TechnologyDomains extends XmldbProcessor {
 		return node;
 	}
 	
-	public void updateTechnologyDomain(String domainId, String name, String description, String valueChain) {
+	public void updateTechnologyDomain(String domainId, String name, String description) {
 		log.info("Updating domain: " + domainId + ", " + name + ", " + description);
 
 		Collection repository = null;
@@ -203,9 +195,6 @@ public class TechnologyDomains extends XmldbProcessor {
 			XPath xpath = XPathFactory.newInstance().newXPath();
 			Element domainNode = (Element) xpath.evaluate(query, framework, XPathConstants.NODE);
 			domainNode.setAttribute("name", name);
-			if (valueChain != null) {
-				domainNode.setAttribute("value-chain", valueChain);
-			}
 			((Element) domainNode.getElementsByTagName("description").item(0)).setTextContent(description);
 
 			storeDomResource(repository, "framework.xml", framework);
@@ -254,7 +243,7 @@ public class TechnologyDomains extends XmldbProcessor {
 		}
  	}
 	
-	public void createTechnologyDomain(String layer, String domainId, String name, String description, String valueChain, int position) {
+	public void createTechnologyDomain(String layer, String domainId, String name, String description, int position) {
 		log.info("Creating domain: " + domainId + ", " + name + ", " + description);
 
 		Collection repository = null;
@@ -275,9 +264,6 @@ public class TechnologyDomains extends XmldbProcessor {
 			descriptionNode.setTextContent(description);
 			domainNode.setAttribute("domain-id", domainId);
 			domainNode.setAttribute("name", name);
-			if (valueChain != null && !"".equals(valueChain)) {
-				domainNode.setAttribute("value-chain", valueChain);
-			}
 			domainNode.appendChild(descriptionNode);
 			
 			if (position == -1) {

@@ -39,10 +39,6 @@ var actionURL = "<%= actionURL %>";
 					<div id="domain-panel" class="ui-widget ui-widget-content ui-corner-all info-panel" style="display: none;">
 						<div style="display: table; table-layout: fixed;">
 							<div style="display: table-row;">
-								<div style="display: table-cell;" class="info-header"><h4>Value chain</h4></div>
-								<div style="display: table-cell;"><h4><span id="domain-value-chain"></span></h4></div>
-							</div>
-							<div style="display: table-row;">
 								<div style="display: table-cell;" class="info-header"><h4>Domain</h4></div>
 								<div style="display: table-cell;"><h4><span id="domain-title"></span></h4></div>
 							</div>
@@ -51,10 +47,6 @@ var actionURL = "<%= actionURL %>";
 					</div>
 					<div id="capability-panel" class="ui-widget ui-widget-content ui-corner-all info-panel" style="display: none;">
 						<div style="display: table; table-layout: fixed;">
-							<div style="display: table-row;">
-								<div style="display: table-cell;" class="info-header"><h4>Value chain</h4></div>
-								<div style="display: table-cell;"><h4><span id="capability-value-chain"></span></h4></div>
-							</div>
 							<div style="display: table-row;">
 								<div style="display: table-cell;" class="info-header"><h4>Domain</h4></div>
 								<div style="display: table-cell;"><h4><span id="capability-domain-title"></span></h4></div>
@@ -87,12 +79,6 @@ var actionURL = "<%= actionURL %>";
 			<div style="margin-top: 30px;" class="gnosis-text">Description:</div>
 		</td><td style="vertical-align: top;">
 			<div id="domain-description-editor"></div>
-		</td></tr>
-		<tr id="value-chain"><td style="vertical-align: top;">
-			<div style="margin-top: 30px;" class="gnosis-text">Value chain:</div>
-		</td><td style="vertical-align: top;">
-			<select id="domain-value-chain-editor">
-			</select>
 		</td></tr>
 	</table>
 </div>

@@ -124,11 +124,6 @@ public class Framework extends XmldbProcessor {
 		JSONString descriptionJSON = new JSONString("description", domain.getDescription());
 		domainJSON.put(descriptionJSON);
 				
-		if (domain.getValueChain() != null) {
-			JSONString valueChainJSON = new JSONString("valueChain", domain.getValueChain());
-			domainJSON.put(valueChainJSON);
-		}
-		
 		JSONArray capabilitiesJSON = new JSONArray("capabilities");
 		domainJSON.put(capabilitiesJSON);
 		
@@ -194,7 +189,7 @@ public class Framework extends XmldbProcessor {
 	}
 	
 	protected JSONMap renderEcosystem(Ecosystem ecosystem) {
-		JSONMap ecosystemJSON = new JSONMap("ecosystem");
+		JSONMap ecosystemJSON = new JSONMap();
 				
 		JSONString idJSON = new JSONString("id", ecosystem.getEcosystemId());
 		ecosystemJSON.put(idJSON);
@@ -215,7 +210,7 @@ public class Framework extends XmldbProcessor {
 	}
 
 	protected JSONMap renderCapabilityInstance(CapabilityInstance capability) {
-		JSONMap capabilityJSON = new JSONMap("capability");
+		JSONMap capabilityJSON = new JSONMap();
 				
 		JSONString idJSON = new JSONString("id", capability.getCapabilityId());
 		capabilityJSON.put(idJSON);

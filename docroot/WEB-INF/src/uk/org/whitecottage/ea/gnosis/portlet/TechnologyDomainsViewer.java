@@ -87,9 +87,8 @@ public class TechnologyDomainsViewer extends GnosisPortlet {
     	String domainId = getParameter(request, "domainId");
     	String name = getParameter(request, "domainName");
     	String description = getParameter(request, "domainDescription");
-    	String valueChain = getParameter(request, "valueChain");
        	
-    	domains.updateTechnologyDomain(domainId, name, description, valueChain);
+    	domains.updateTechnologyDomain(domainId, name, description);
     }
 
     @ProcessResourceAction(name = "updateCapabilityAction")
@@ -118,7 +117,6 @@ public class TechnologyDomainsViewer extends GnosisPortlet {
     	String domainId = getParameter(request, "domainId");
     	String name = getParameter(request, "domainName");
     	String description = getParameter(request, "domainDescription");
-    	String valueChain = getParameter(request, "valueChain");
     	String position = getParameter(request, "position");
     	if (position == null) {
     		position = "-1";
@@ -126,7 +124,7 @@ public class TechnologyDomainsViewer extends GnosisPortlet {
     	
     	String layer = request.getPreferences().getValue("layer", "BusinessApplications");
        	
-    	domains.createTechnologyDomain(layer, domainId, name, description, valueChain, Integer.parseInt(position));
+    	domains.createTechnologyDomain(layer, domainId, name, description, Integer.parseInt(position));
     }
 
     @ProcessResourceAction(name = "createCapabilityAction")
