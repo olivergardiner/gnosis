@@ -7,7 +7,6 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.TimeZone;
-import java.util.logging.Logger;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -45,13 +44,16 @@ import uk.org.whitecottage.ea.gnosis.json.JSONObject;
 import uk.org.whitecottage.ea.gnosis.json.JSONString;
 import uk.org.whitecottage.ea.xmldb.XmldbProcessor;
 
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
+
 public class ApplicationsEstate extends XmldbProcessor {
 
 	protected Unmarshaller applicationsUnmarshaller = null;
 	protected Marshaller applicationsMarshaller = null;
 
 	//@SuppressWarnings("unused")
-	private static final Logger log = Logger.getLogger("uk.org.whitecottage.ea.gnosis.repository");
+	private static final Log log = LogFactoryUtil.getLog(ApplicationsEstate.class);
 
 	public ApplicationsEstate(String URI, String repositoryRoot, String context) {
 		super(URI, repositoryRoot);
@@ -764,7 +766,8 @@ public class ApplicationsEstate extends XmldbProcessor {
 				if (stage != null) {
 					query = "./stage[@lifecycle='" + stage + "']";
 				} else {
-					query = "./investment[" + milestone + "]";
+					int index = Integer.parseInt(milestone) + 1;
+					query = "./investment[" + index + "]";
 				}
 				log.info("Query: " + query);
 				Element stageNode = (Element) xpath.evaluate(query, applicationNode, XPathConstants.NODE);

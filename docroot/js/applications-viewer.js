@@ -821,21 +821,23 @@ function editSelectedApplication() {
     	$("#capabilities").select2("data", capabilities);
     	
     	var ecosystems = [];
-    	for (var i = 0; i < data.ecosystems.length; i++) {
-    		var ecosystem = data.ecosystems[i];
-    		var ecosystemId = ecosystem.ecosystemId;
-    		for (var j = 0; j < ecosystem.capabilities.length; j++) {
-    	   		var capabilityId = ecosystem.capabilities[j];
-    			var capabilityName = getCapabilityInstanceName(ecosystemId, capabilityId);
-    		
-	    		if (capabilityName != undefined) {
-			    	ecosystems.push({
-			    		id: ecosystemId + "/" + capabilityId,
-			    		text: capabilityName
-			    	});
+    	if (data.ecosystems != undefined) {
+	    	for (var i = 0; i < data.ecosystems.length; i++) {
+	    		var ecosystem = data.ecosystems[i];
+	    		var ecosystemId = ecosystem.ecosystemId;
+	    		for (var j = 0; j < ecosystem.capabilities.length; j++) {
+	    	   		var capabilityId = ecosystem.capabilities[j];
+	    			var capabilityName = getCapabilityInstanceName(ecosystemId, capabilityId);
+	    		
+		    		if (capabilityName != undefined) {
+				    	ecosystems.push({
+				    		id: ecosystemId + "/" + capabilityId,
+				    		text: capabilityName
+				    	});
+		    		}
 	    		}
-    		}
-     	}
+	     	}
+    	}
 
     	$("#ecosystems").select2("data", ecosystems);
     	

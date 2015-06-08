@@ -394,7 +394,7 @@ public class ApplicationsViewer extends GnosisPortlet {
 
     @ProcessResourceAction(name = "removeLifecycleAction")
     public void removeLifecycle(ResourceRequest request, ResourceResponse response) throws PortletException, IOException {
-    	log.info("Update timeline");
+    	log.info("Remove lifecycle");
 
     	Properties gnosisProperties = getProperties();
     	String existURI = gnosisProperties.getProperty("exist.uri");
