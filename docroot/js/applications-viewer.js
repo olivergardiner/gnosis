@@ -134,7 +134,7 @@ $("#application-detail").dialog({
 
 $('#edit-app-basic-form').dialog({
     autoOpen: false,
-    height: 800,
+    height: 500,
     width: 800,
     modal: true,
     buttons: {
@@ -326,7 +326,7 @@ $('#capability-form').dialog({
 	title: "Add a capability",
     autoOpen: false,
     height: 500,
-    width: 300,
+    width: 600,
     modal: true,
     buttons: { "Add": applyAddCapability, "Close": closeCapabilityForm }
 });
@@ -341,7 +341,7 @@ $('#ecosystem-form').dialog({
 	title: "Add an ecosystem",
     autoOpen: false,
     height: 500,
-    width: 300,
+    width: 600,
     modal: true,
     buttons: { "Add": applyAddEcosystem, "Close": closeEcosystemForm }
 });
