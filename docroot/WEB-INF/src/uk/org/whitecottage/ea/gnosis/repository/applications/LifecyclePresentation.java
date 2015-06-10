@@ -434,30 +434,33 @@ public class LifecyclePresentation extends XmldbProcessor {
 					if (tl.contains(stage.getDate())) {
 						lineColour = setColour(stage.getLifecycle());
 		    			if (stage.getDate() != null) {
-		    				double w = tl.position(stage.getDate()) - w0;
+		    				//double w = tl.position(stage.getDate()) - w0;
+		    				double w = tl.truePosition(stage.getDate()) - w0;
 		    				double pOffset = 0;
-		    				if (w0 == 0) {
+/*		    				if (w0 == 0) {
 		    					pOffset = tl.getOffset();
 		    				}
-		    				
-	    		       		connector = slide.createConnector();
-	    					connector.setAnchor(new Rectangle2D.Double(x + mOffset, y + APP_HEIGHT / 2, w + pOffset - mOffset, 0));
-	    					connector.setLineColor(new Color(leadLineColour));
-	    					connector.setLineWidth(LINE);
+*/		    				
+		    				if (w > mOffset) {
+		    		       		connector = slide.createConnector();
+		    					connector.setAnchor(new Rectangle2D.Double(x + mOffset, y + APP_HEIGHT / 2, w + pOffset - mOffset, 0));
+		    					connector.setLineColor(new Color(leadLineColour));
+		    					connector.setLineWidth(LINE);
+		    				}
 		
 		    				mOffset = MARKER / 2;
 		    				w0 += w;
-	    					x += w +pOffset;
+	    					x += w + pOffset;
 							marker(slide, x, y + APP_HEIGHT / 2, lineColour);
 		    			}
 	    			}
 	    		}
 	    		
-	    		if (lineColour != CLR_REMOVE) {
+	    		if (lineColour != CLR_REMOVE && stages.size() > 0) {
 		       		connector = slide.createConnector();
 					connector.setAnchor(new Rectangle2D.Double(x + mOffset, y + APP_HEIGHT / 2, tl.getWidth() + X0 + APP_WIDTH + H_SPACING - x - mOffset, 0));
 					connector.setLineColor(new Color(lineColour));
-					connector.setLineWidth(LINE);
+					connector.setLineWidth(2.0);
 	    		}
 	    		
 	    		List<Investment> investments = app.getInvestment();
@@ -817,7 +820,7 @@ public class LifecyclePresentation extends XmldbProcessor {
     
     protected boolean isFuture(Application app) {
     	Stage stage = getCurrentStage(app);
-    	if (stage.getLifecycle().equals(STAGE_VALUES[0]) || stage.getLifecycle().equals(STAGE_VALUES[1]) || stage.getLifecycle().equals(STAGE_VALUES[2])) {
+    	if (stage.getLifecycle().equals(STAGE_VALUES[0]) || stage.getLifecycle().equals(STAGE_VALUES[1]) || stage.getLifecycle().equals(STAGE_VALUES[2]) || stage.getLifecycle().equals("unknown")) {
     		return true;
     	} else {    	
     		return false;

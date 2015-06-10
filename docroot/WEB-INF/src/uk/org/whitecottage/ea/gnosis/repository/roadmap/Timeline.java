@@ -3,6 +3,7 @@ package uk.org.whitecottage.ea.gnosis.repository.roadmap;
 import java.awt.Color;
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.GregorianCalendar;
@@ -19,6 +20,9 @@ import org.apache.poi.xslf.usermodel.XSLFShapeType;
 import org.apache.poi.xslf.usermodel.XSLFSlide;
 import org.apache.poi.xslf.usermodel.XSLFTextParagraph;
 import org.apache.poi.xslf.usermodel.XSLFTextRun;
+
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
 
 import uk.org.whitecottage.ea.gnosis.jaxb.framework.Milestone;
 
@@ -38,6 +42,8 @@ public class Timeline {
 	protected double SCREEN_HEIGHT = 390;
 	protected int QTR_LABEL = 1;
 	
+	private static final Log log = LogFactoryUtil.getLog(Timeline.class);
+
 	public Timeline() {
 		range = 3;
 		date = new GregorianCalendar();
@@ -224,6 +230,25 @@ public class Timeline {
 		int qtrs = (y - year) * 4 + q - quarter;
 		
 		return qtrs * WIDTH / (4 * range);
+	}
+	
+	public double truePosition(XMLGregorianCalendar d) {
+		GregorianCalendar qDate = d.toGregorianCalendar();
+		
+		int year = date.get(GregorianCalendar.YEAR);
+		int quarter = date.get(GregorianCalendar.MONTH) / 3;
+		
+		Calendar startDate = Calendar.getInstance();
+		startDate.set(year, quarter * 3, 0);
+		
+		int offset = (int) ((qDate.getTimeInMillis() - startDate.getTimeInMillis()) / (1000 * 60 * 60 * 24));
+		log.info("Offset: " + offset);
+		
+		if (offset < 0) {
+			return 0;
+		}
+		
+		return offset * WIDTH / (range * 365);
 	}
 	
 	public boolean contains(XMLGregorianCalendar d) {
