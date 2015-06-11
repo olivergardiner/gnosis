@@ -643,24 +643,29 @@ function addCapability() {
 	var node = tree.get_selected(true);
 	
 	if (node.length > 0) {
-		var data = $("#capabilities").select2("data");
 		
-		var found = false;
-		for (var i = 0; i < data.length; i++) {
-			if (data[i].id == node[0].data.id) {
-				found = true;
-			}
+		_addCapability(node[0].data.id, node[0].text);
+	}
+}
+
+function _addCapability(capability, text) {
+	var data = $("#capabilities").select2("data");
+	
+	var found = false;
+	for (var i = 0; i < data.length; i++) {
+		if (data[i].id == capability) {
+			found = true;
 		}
+	}
+	
+	if (!found) {
+		data.push({
+    		id: capability,
+    		text: text
+    	});
 		
-		if (!found) {
-			data.push({
-	    		id: node[0].data.id,
-	    		text: node[0].text
-	    	});
-			
-			$("#capabilities").select2("data", data);
-			repoAddCapability($("#app-id").val(), node[0].data.id);
-		}
+		$("#capabilities").select2("data", data);
+		repoAddCapability($("#app-id").val(), capability);
 	}
 }
 
@@ -669,27 +674,37 @@ function addEcosystem() {
 	var node = tree.get_selected(true);
 	
 	if (node.length > 0) {
-		var data = $("#ecosystems").select2("data");
 		
 		var parentNode = tree.get_node(tree.get_parent(node[0]));
-		var id = parentNode.data.id + "/" + node[0].data.id;
 		
-		var found = false;
-		for (var i = 0; i < data.length; i++) {
-			if (data[i].id == id) {
-				found = true;
-			}
+		_addEcosystem(parentNode.data.id, node[0].data.id, node[0].text);		
+	}
+}
+
+function _addEcosystem(ecosystem, capability, text) {
+	var data = $("#ecosystems").select2("data");
+	
+	var id = ecosystem + "/" + capability;
+
+	var found = false;
+	for (var i = 0; i < data.length; i++) {
+		if (data[i].id == id) {
+			found = true;
 		}
-		
-		if (!found) {
-			data.push({
-	    		id: id,
-	    		text: node[0].text
-	    	});
-			
-			$("#ecosystems").select2("data", data);
-			repoAddEcosystem($("#app-id").val(), parentNode.data.id, node[0].data.id);
-		}
+	}
+	
+	if (!found) {
+		data.push({
+    		id: id,
+    		text: text
+    	});
+				
+		$("#ecosystems").select2("data", data);
+		repoAddEcosystem($("#app-id").val(), ecosystem, capability);
+
+		// It would be nice to also add the corresponding Logical Application automatically
+		var capabilityName = getCapabilityName(capability);
+		_addCapability(capability, capabilityName);
 	}
 }
 
