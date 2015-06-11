@@ -323,7 +323,7 @@ $('#value-chain-jstree').jstree({
 });
 
 $('#capability-form').dialog({
-	title: "Add a capability",
+	title: "Add a Logical Application",
     autoOpen: false,
     height: 500,
     width: 600,
@@ -338,7 +338,7 @@ $("#add-capability").button().click(function() {
 });
 
 $('#ecosystem-form').dialog({
-	title: "Add an ecosystem",
+	title: "Add an Ecosystem",
     autoOpen: false,
     height: 500,
     width: 600,

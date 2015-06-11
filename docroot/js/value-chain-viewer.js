@@ -146,7 +146,7 @@ $('#capability-jstree').jstree({
 });
 
 $('#capability-form').dialog({
-	title: "Add a capability",
+	title: "Add a Logcal Application",
     autoOpen: false,
     height: 500,
     width: 600,
@@ -197,8 +197,8 @@ function showNode(node){
 		$('#detail-description').html(node.data.description);
 		
 		if (type == 'capability') {
-			$('#detail-name').text("Ecosytem capability: " + node.text);
-			$('#detail-capability-name').text("Logical capability: " + node.data.name);
+			$('#detail-name').text("Ecosytem application: " + node.text);
+			$('#detail-capability-name').text("Logical application: " + node.data.name);
 			$('#detail-capability').show();
 		} else {
 			$('#detail-name').text(node.text);
@@ -251,7 +251,7 @@ function contextMenu(node, callback) {
 		};
 	} else if (node.type == 'ecosystem') {
 		return {
-			'add-capability': {'label': 'Include Capability', 'action': addCapability },
+			'add-capability': {'label': 'Include Logical Application', 'action': addCapability },
 			'delete': {'label': 'Delete', 'action': deleteItem },
 			'edit': {'label': 'Edit', 'action': editNode }
 		};

@@ -95,7 +95,7 @@ function contextMenu(node, callback) {
 		};
 	} else if (node.type == 'technology-domain') {
 		return {
-			'add-capability': {'label': 'New Capability', 'action': addCapability },
+			'add-capability': {'label': 'New Logical Application', 'action': addCapability },
 			'delete': {'label': 'Delete', 'action': deleteItem },
 			'edit': {'label': 'Edit', 'action': editDomain }
 		};

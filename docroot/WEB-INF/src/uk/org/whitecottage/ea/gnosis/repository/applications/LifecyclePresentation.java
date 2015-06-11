@@ -59,8 +59,8 @@ public class LifecyclePresentation extends XmldbProcessor {
 	protected double STAGE_WIDTH = 97;
 	protected double INV_WIDTH = 40;
 	protected double INV_HEIGHT = 16;
-	protected double MILESTONE_WIDTH = 100;
-	protected double MILESTONE_HEIGHT = 20;
+	protected double MILESTONE_WIDTH = 80;
+	protected double MILESTONE_HEIGHT = 16;
 	protected double MILESTONE = 10;
 	protected double CORNER = 10;
 	protected double H_SPACING = 5;
@@ -71,7 +71,7 @@ public class LifecyclePresentation extends XmldbProcessor {
 	protected double LINE = 2;
 	protected double TUBE_LINE = 6;
 	protected double TEXT_OFFSET = 0;
-	protected double TEXT_WIDTH = 40;
+	protected double TEXT_WIDTH = 80;
 	protected double TITLE_WIDTH = 700;
 	protected double TITLE_HEIGHT = 40;
 	protected double TITLE_POSITION = 40;
@@ -404,7 +404,8 @@ public class LifecyclePresentation extends XmldbProcessor {
 	    				int target = findApp2(group, to);
 	    				if (target >= 0) {
 	    					double yt = Y0 + 3 * tl.getHeight() + ((target + ag) % PAGINATION) * (APP_HEIGHT + V_SPACING);
-	    					double xm = X0 + APP_WIDTH + H_SPACING + tl.position(migration.getDate()) + tl.getOffset();
+	    					//double xm = X0 + APP_WIDTH + H_SPACING + tl.position(migration.getDate()) + tl.getOffset();
+	    					double xm = X0 + APP_WIDTH + H_SPACING + tl.truePosition(migration.getDate());
 	    					
 		    		    	if (yt != y) {
 		    		       		connector = slide.createConnector();
@@ -437,10 +438,10 @@ public class LifecyclePresentation extends XmldbProcessor {
 		    				//double w = tl.position(stage.getDate()) - w0;
 		    				double w = tl.truePosition(stage.getDate()) - w0;
 		    				double pOffset = 0;
-/*		    				if (w0 == 0) {
-		    					pOffset = tl.getOffset();
-		    				}
-*/		    				
+		    				//if (w0 == 0) {
+		    				//	pOffset = tl.getOffset();
+		    				//}
+		    				
 		    				if (w > mOffset) {
 		    		       		connector = slide.createConnector();
 		    					connector.setAnchor(new Rectangle2D.Double(x + mOffset, y + APP_HEIGHT / 2, w + pOffset - mOffset, 0));
@@ -470,7 +471,8 @@ public class LifecyclePresentation extends XmldbProcessor {
 	    			BigInteger runrate = inv.getRunrate();
 					if (tl.contains(inv.getDate())) {
 		    			if (inv.getDate() != null) {
-	    					x = X0 + APP_WIDTH + H_SPACING + tl.position(inv.getDate());
+	    					//x = X0 + APP_WIDTH + H_SPACING + tl.position(inv.getDate());
+	    					x = X0 + APP_WIDTH + H_SPACING + tl.truePosition(inv.getDate());
 							investment(slide, x, y + APP_HEIGHT / 2, inv.getValue());							
 							costs(slide, x + INV_WIDTH, y + APP_HEIGHT / 2, capital, runrate);
 		    			} else {
@@ -501,15 +503,6 @@ public class LifecyclePresentation extends XmldbProcessor {
     	
 		for (Application app: applications.getApplication()) {
 			if (isFuture(app) && inCapabilityFilter(app)) {
-    			Stage current = getCurrentStage(app);
-    			shape = textShape(slide, X0 - DOMAIN_WIDTH + H_SPACING, y , APP_WIDTH + DOMAIN_WIDTH, APP_HEIGHT, " " + app.getName(), 6.0);
-    			shape.setShapeType(XSLFShapeType.ROUND_RECT);
-	    		if (current == null) {
-	    			shape.setLineColor(new Color(0xaaaaaa));
-	    		} else {
-	    			shape.setLineColor(new Color(setColour(current.getLifecycle())));
-	    		}
-			
 	    		List<Stage> stages = app.getStage();
 	    		Collections.sort(stages, new StageComparator());
 	    		int lineColour = 0xffffff;
@@ -520,11 +513,12 @@ public class LifecyclePresentation extends XmldbProcessor {
 					if (tl.contains(stage.getDate())) {
 						lineColour = setColour(stage.getLifecycle());
 		    			if (stage.getDate() != null) {
-		    				double w = tl.position(stage.getDate()) - w0;
+		    				//double w = tl.position(stage.getDate()) - w0;
+		    				double w = tl.truePosition(stage.getDate()) - w0;
 		    				double pOffset = 0;
-		    				if (w0 == 0) {
-		    					pOffset = tl.getOffset();
-		    				}
+		    				//if (w0 == 0) {
+		    				//	pOffset = tl.getOffset();
+		    				//}
 		    				
 		        			shape = textShape(slide, x, y , w + pOffset, APP_HEIGHT, "", 6.0);
 		        			shape.setShapeType(XSLFShapeType.RECT);
@@ -549,14 +543,24 @@ public class LifecyclePresentation extends XmldbProcessor {
 	    		for (Investment inv: investments) {
 					if (tl.contains(inv.getDate())) {
 		    			if (inv.getDate() != null) {
-	    					x = X0 + APP_WIDTH + H_SPACING + tl.position(inv.getDate());
+	    					//x = X0 + APP_WIDTH + H_SPACING + tl.position(inv.getDate());
+	    					x = X0 + APP_WIDTH + H_SPACING + tl.truePosition(inv.getDate());
 							milestone(slide, x , y + APP_HEIGHT / 2, inv.getValue());
 		    			}
 	    			}
 	    		}
 	    		
+    			Stage current = getCurrentStage(app);
+    			shape = textShape(slide, X0 - DOMAIN_WIDTH + H_SPACING, y , APP_WIDTH + DOMAIN_WIDTH, APP_HEIGHT, " " + app.getName(), 6.0);
+    			shape.setShapeType(XSLFShapeType.ROUND_RECT);
+	    		if (current == null) {
+	    			shape.setLineColor(new Color(0xaaaaaa));
+	    		} else {
+	    			shape.setLineColor(new Color(setColour(current.getLifecycle())));
+	    		}
+			
 	    		y += APP_HEIGHT + V_SPACING;
-	   			if (y > 500.0) {
+	   			if (y > 450.0) {
 	   				y = Y0 + 3 * tl.getHeight();
 	   				slide = presentation.createSlide();
 	   		    	header(slide, tl, "Application Tube Map");
@@ -694,7 +698,7 @@ public class LifecyclePresentation extends XmldbProcessor {
     protected void investment(XSLFSlide slide, double x, double y, String text) {
     	XSLFAutoShape shape;
    	
-		shape = textShape(slide, x, y - INV_HEIGHT / 2 , INV_WIDTH, INV_HEIGHT, text, 4.0);
+		shape = textShape(slide, x, y - INV_HEIGHT / 2 , INV_WIDTH, INV_HEIGHT, text, 3.0);
     	shape.setShapeType(XSLFShapeType.ROUND_RECT);
 		shape.setFillColor(new Color(0xffffff));
     }
@@ -702,7 +706,7 @@ public class LifecyclePresentation extends XmldbProcessor {
     protected void milestone(XSLFSlide slide, double x, double y, String text) {
     	XSLFAutoShape shape;
    	
-		shape = textShape(slide, x, y - MILESTONE / 2 , MILESTONE, MILESTONE, "", 4.0);
+		shape = textShape(slide, x, y - MILESTONE / 2 , MILESTONE, MILESTONE, "", 3.0);
     	shape.setShapeType(XSLFShapeType.RECT);
     	shape.setRotation(45.0);
 		shape.setFillColor(new Color(0x000000));

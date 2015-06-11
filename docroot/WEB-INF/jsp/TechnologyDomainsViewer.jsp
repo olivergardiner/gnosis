@@ -33,7 +33,7 @@ var actionURL = "<%= actionURL %>";
 				</div>
 				<div style="display: table-cell; width: 100%;">
 					<div id="tree-panel" class="ui-widget ui-widget-content ui-corner-all info-panel">
-<p>Select a Technology Domain or Capability from the tree on the right to view or edit</p>
+<p>Select a Technology Domain or Logical Application from the tree on the right to view or edit</p>
 <p></p>
 					</div>
 					<div id="domain-panel" class="ui-widget ui-widget-content ui-corner-all info-panel" style="display: none;">
@@ -52,7 +52,7 @@ var actionURL = "<%= actionURL %>";
 								<div style="display: table-cell;"><h4><span id="capability-domain-title"></span></h4></div>
 							</div>
 							<div style="display: table-row;">
-								<div style="display: table-cell;" class="info-header"><h4>Capability</h4></div>
+								<div style="display: table-cell;" class="info-header"><h4>Logical Application</h4></div>
 								<div style="display: table-cell;"><h4><span id="capability-title"></span></h4></div>
 							</div>
 						</div>
@@ -88,7 +88,7 @@ var actionURL = "<%= actionURL %>";
 	</form>
 	<table>
 		<tr><td style="width: 150px; vertical-align: top;">
-			<div class="gnosis-text">Capability name:</div>
+			<div class="gnosis-text">Logical Application name:</div>
 		</td><td>
 			<input id="capability-name-editor" type="text" class="ui-widget ui-corner-all" style="width: 100%;"></input>
 		</td></tr>

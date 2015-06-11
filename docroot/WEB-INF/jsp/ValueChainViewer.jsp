@@ -54,7 +54,7 @@ var actionURL = "<%= actionURL %>";
 			<div style="display: table-cell; width: 100%;"></div>
 		</div>
 		<div style="display: none;" id="capability-row">
-			<div style="display: table-cell; vertical-align: top;" class="gnosis-label">Capability:</div>
+			<div style="display: table-cell; vertical-align: top;" class="gnosis-label">Logical Application:</div>
 			<div style="display: table-cell; width: 100%;"><span id="capability-name" class="ui-widget ui-corner-all" style="width: 100%;"></span></div>
 		</div>
 		<br>

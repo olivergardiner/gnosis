@@ -77,7 +77,7 @@ var actionURL = "<%= actionURL %>";
 	<div class="ui-widget-content ui-corner-all">
 		<div style="display: table;">
 			<div style="display: table-row; background: #eeeeee;">
-				<div style="display: table-cell; width: 100%;"><div class="gnosis-title"><span>Capabilities</span></div></div>
+				<div style="display: table-cell; width: 100%;"><div class="gnosis-title"><span>Logical Applications</span></div></div>
 				<div style="display: table-cell; padding-top: 2px; padding-bottom: 2px; padding-left: 2px;"><button id="add-capability">Add</button></div>
 			</div>
 		</div>
