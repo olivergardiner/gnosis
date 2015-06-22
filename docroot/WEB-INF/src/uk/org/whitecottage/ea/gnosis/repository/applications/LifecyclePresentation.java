@@ -37,7 +37,9 @@ import uk.org.whitecottage.ea.gnosis.jaxb.applications.Classification;
 import uk.org.whitecottage.ea.gnosis.jaxb.applications.Investment;
 import uk.org.whitecottage.ea.gnosis.jaxb.applications.Migration;
 import uk.org.whitecottage.ea.gnosis.jaxb.applications.Stage;
+import uk.org.whitecottage.ea.gnosis.jaxb.framework.Activity;
 import uk.org.whitecottage.ea.gnosis.jaxb.framework.Capability;
+import uk.org.whitecottage.ea.gnosis.jaxb.framework.Ecosystem;
 import uk.org.whitecottage.ea.gnosis.jaxb.framework.Framework;
 import uk.org.whitecottage.ea.gnosis.jaxb.framework.Milestone;
 import uk.org.whitecottage.ea.gnosis.jaxb.framework.TechnologyDomain;
@@ -165,7 +167,10 @@ public class LifecyclePresentation extends XmldbProcessor {
 	public void render(XMLSlideShow presentation) {
 		renderSummary(presentation);
 		renderRoadmap(presentation);
-		renderTubemap(presentation);
+		
+		for (Activity activity: framework.getValueChain().getPrimaryActivities().getActivity()) {
+			renderTubemap(presentation, activity);
+		}
 	}
 	
 	protected boolean inCapabilityFilter(String capabilityId) {
@@ -488,7 +493,7 @@ public class LifecyclePresentation extends XmldbProcessor {
     	}
     }
     
-    protected void renderTubemap(XMLSlideShow presentation) {
+    protected void renderTubemap(XMLSlideShow presentation, Activity activity) {
     	XSLFSlide slide = presentation.createSlide();
     	XSLFAutoShape shape;
     	Timeline tl = new Timeline(X0 + APP_WIDTH + H_SPACING, Y0);
@@ -497,12 +502,12 @@ public class LifecyclePresentation extends XmldbProcessor {
     	
     	//tl.addAll(getMilestones(domain));
 
-    	header(slide, tl, "Application Tube Map");
+    	header(slide, tl, "Application Tube Map: " + activity.getName());
    	
     	double y = Y0 + 3 * tl.getHeight();
     	
 		for (Application app: applications.getApplication()) {
-			if (isFuture(app) && inCapabilityFilter(app)) {
+			if (isFuture(app) && inCapabilityFilter(app) && inValueChain(app, activity)) {
 	    		List<Stage> stages = app.getStage();
 	    		Collections.sort(stages, new StageComparator());
 	    		int lineColour = 0xffffff;
@@ -841,4 +846,24 @@ public class LifecyclePresentation extends XmldbProcessor {
 
     	return false;
     }
+
+    protected boolean inEcosystem(Application app, Ecosystem ecosystem) {
+    	for (uk.org.whitecottage.ea.gnosis.jaxb.applications.Ecosystem e: app.getEcosystem()) {
+    		if (e.getEcosystem().equals(ecosystem.getEcosystemId())) {
+    			return true;
+    		}
+    	}
+
+    	return false;
+    }
+
+	protected boolean inValueChain(Application app, Activity activity) {
+		for (Ecosystem ecosystem: activity.getEcosystem()) {
+			if (inEcosystem(app, ecosystem)) {
+				return true;
+			}
+		}
+		
+		return false;
+	}
 }

@@ -42,6 +42,7 @@ public class Timeline {
 	protected double SCREEN_HEIGHT = 390;
 	protected int QTR_LABEL = 1;
 	
+	@SuppressWarnings("unused")
 	private static final Log log = LogFactoryUtil.getLog(Timeline.class);
 
 	public Timeline() {
@@ -242,7 +243,6 @@ public class Timeline {
 		startDate.set(year, quarter * 3, 0);
 		
 		int offset = (int) ((qDate.getTimeInMillis() - startDate.getTimeInMillis()) / (1000 * 60 * 60 * 24));
-		log.info("Offset: " + offset);
 		
 		if (offset < 0) {
 			return 0;
