@@ -494,7 +494,7 @@ public class LifecyclePresentation extends XmldbProcessor {
     }
     
     protected void renderTubemap(XMLSlideShow presentation, Activity activity) {
-    	XSLFSlide slide = presentation.createSlide();
+    	XSLFSlide slide = null;
     	XSLFAutoShape shape;
     	Timeline tl = new Timeline(X0 + APP_WIDTH + H_SPACING, Y0);
     	tl.setRange(3);
@@ -502,12 +502,17 @@ public class LifecyclePresentation extends XmldbProcessor {
     	
     	//tl.addAll(getMilestones(domain));
 
-    	header(slide, tl, "Application Tube Map: " + activity.getName());
-   	
-    	double y = Y0 + 3 * tl.getHeight();
+    	double y = 0;
+    	boolean createSlide = true;
     	
 		for (Application app: applications.getApplication()) {
 			if (isFuture(app) && inCapabilityFilter(app) && inValueChain(app, activity)) {
+				if (createSlide) {
+	   				y = Y0 + 3 * tl.getHeight();
+	   				slide = presentation.createSlide();
+	   		    	header(slide, tl, "Application Tube Map: " + activity.getName());
+	   		    	createSlide = false;
+				}
 	    		List<Stage> stages = app.getStage();
 	    		Collections.sort(stages, new StageComparator());
 	    		int lineColour = 0xffffff;
@@ -515,8 +520,8 @@ public class LifecyclePresentation extends XmldbProcessor {
 	    		double w0 = 0;
 	    		for (Stage stage: stages) {
 	    			int leadLineColour = lineColour;
+					lineColour = setColour(stage.getLifecycle());
 					if (tl.contains(stage.getDate())) {
-						lineColour = setColour(stage.getLifecycle());
 		    			if (stage.getDate() != null) {
 		    				//double w = tl.position(stage.getDate()) - w0;
 		    				double w = tl.truePosition(stage.getDate()) - w0;
@@ -566,9 +571,7 @@ public class LifecyclePresentation extends XmldbProcessor {
 			
 	    		y += APP_HEIGHT + V_SPACING;
 	   			if (y > 450.0) {
-	   				y = Y0 + 3 * tl.getHeight();
-	   				slide = presentation.createSlide();
-	   		    	header(slide, tl, "Application Tube Map");
+	   				createSlide = true;
 	   			}
 			}
 		}
