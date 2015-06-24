@@ -6,6 +6,7 @@ import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.GregorianCalendar;
 import java.util.Iterator;
 import java.util.List;
@@ -115,6 +116,64 @@ public class LifecyclePresentation extends XmldbProcessor {
 	@SuppressWarnings("unused")
 	private static final Log log = LogFactoryUtil.getLog(LifecyclePresentation.class);
 
+	protected class EcosystemComparator implements Comparator<Application> {
+
+		@Override
+		public int compare(Application app1, Application app2) {
+			if (app1.getEcosystem().isEmpty()) {
+				if (app2.getEcosystem().isEmpty()) {
+					return 0;
+				} else {
+					return -1;
+				}
+			} else if (app2.getEcosystem().isEmpty()) {
+				return 1;
+			}
+			
+			uk.org.whitecottage.ea.gnosis.jaxb.applications.Ecosystem eco1 = app1.getEcosystem().get(0);
+			uk.org.whitecottage.ea.gnosis.jaxb.applications.Ecosystem eco2 = app2.getEcosystem().get(0);
+
+			return compareEcosystem(eco1.getEcosystem(), eco2.getEcosystem());
+		}
+		
+		protected int compareEcosystem(String eco1, String eco2) {
+			int i1 = ecosystemIndex(eco1);
+			int i2 = ecosystemIndex(eco2);
+			
+			if (i1 < i2) {
+				return -1;
+			} else if (i1 == i2) {
+				return 0;
+			} else {
+				return 1;
+			}
+		}
+		
+		protected int ecosystemIndex(String ecosystem) {
+			int index = 0;
+			
+			for (Activity a: framework.getValueChain().getPrimaryActivities().getActivity()) {
+				for (Ecosystem e: a.getEcosystem()) {
+					if (e.getEcosystemId().equals(ecosystem)) {
+						return index;
+					}
+					index++;
+				}
+			}
+			
+			for (Activity a: framework.getValueChain().getSupportActivities().getActivity()) {
+				for (Ecosystem e: a.getEcosystem()) {
+					if (e.getEcosystemId().equals(ecosystem)) {
+						return index;
+					}
+					index++;
+				}
+			}
+			
+			return -1;
+		}
+	}
+	
 	public LifecyclePresentation(String URI, String repositoryRoot, String context) {
 		super(URI, repositoryRoot);
 
@@ -505,6 +564,8 @@ public class LifecyclePresentation extends XmldbProcessor {
     	double y = 0;
     	boolean createSlide = true;
     	
+		Collections.sort(applications.getApplication(), new EcosystemComparator());
+		
 		for (Application app: applications.getApplication()) {
 			if (isFuture(app) && inCapabilityFilter(app) && inValueChain(app, activity)) {
 				if (createSlide) {
