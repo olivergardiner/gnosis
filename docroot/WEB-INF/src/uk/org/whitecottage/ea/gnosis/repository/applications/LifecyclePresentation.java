@@ -40,6 +40,7 @@ import uk.org.whitecottage.ea.gnosis.jaxb.applications.Migration;
 import uk.org.whitecottage.ea.gnosis.jaxb.applications.Stage;
 import uk.org.whitecottage.ea.gnosis.jaxb.framework.Activity;
 import uk.org.whitecottage.ea.gnosis.jaxb.framework.Capability;
+import uk.org.whitecottage.ea.gnosis.jaxb.framework.CapabilityInstance;
 import uk.org.whitecottage.ea.gnosis.jaxb.framework.Ecosystem;
 import uk.org.whitecottage.ea.gnosis.jaxb.framework.Framework;
 import uk.org.whitecottage.ea.gnosis.jaxb.framework.Milestone;
@@ -130,15 +131,17 @@ public class LifecyclePresentation extends XmldbProcessor {
 				return 1;
 			}
 			
-			uk.org.whitecottage.ea.gnosis.jaxb.applications.Ecosystem eco1 = app1.getEcosystem().get(0);
-			uk.org.whitecottage.ea.gnosis.jaxb.applications.Ecosystem eco2 = app2.getEcosystem().get(0);
+			uk.org.whitecottage.ea.gnosis.jaxb.applications.Capability eco1 = app1.getEcosystem().get(0).getCapability().get(0);
+			uk.org.whitecottage.ea.gnosis.jaxb.applications.Capability eco2 = app2.getEcosystem().get(0).getCapability().get(0);
 
-			return compareEcosystem(eco1.getEcosystem(), eco2.getEcosystem());
+			return compareEcosystem(eco1.getCapability(), eco2.getCapability());
 		}
 		
 		protected int compareEcosystem(String eco1, String eco2) {
 			int i1 = ecosystemIndex(eco1);
 			int i2 = ecosystemIndex(eco2);
+			
+			//log.info("Eco1: " + eco1 + "  index: " + i1);
 			
 			if (i1 < i2) {
 				return -1;
@@ -149,24 +152,28 @@ public class LifecyclePresentation extends XmldbProcessor {
 			}
 		}
 		
-		protected int ecosystemIndex(String ecosystem) {
+		protected int ecosystemIndex(String capability) {
 			int index = 0;
 			
 			for (Activity a: framework.getValueChain().getPrimaryActivities().getActivity()) {
 				for (Ecosystem e: a.getEcosystem()) {
-					if (e.getEcosystemId().equals(ecosystem)) {
-						return index;
+					for (CapabilityInstance c: e.getCapabilityInstance()) {
+						if (c.getCapabilityId().equals(capability)) {
+							return index;
+						}
+						index++;
 					}
-					index++;
 				}
 			}
 			
 			for (Activity a: framework.getValueChain().getSupportActivities().getActivity()) {
 				for (Ecosystem e: a.getEcosystem()) {
-					if (e.getEcosystemId().equals(ecosystem)) {
-						return index;
+					for (CapabilityInstance c: e.getCapabilityInstance()) {
+						if (c.getCapabilityId().equals(capability)) {
+							return index;
+						}
+						index++;
 					}
-					index++;
 				}
 			}
 			
@@ -228,8 +235,14 @@ public class LifecyclePresentation extends XmldbProcessor {
 		renderRoadmap(presentation);
 		
 		for (Activity activity: framework.getValueChain().getPrimaryActivities().getActivity()) {
-			renderTubemap(presentation, activity);
+			renderTubemap(presentation, activity, 7);
 		}
+
+		for (Activity activity: framework.getValueChain().getPrimaryActivities().getActivity()) {
+			renderTubemap(presentation, activity, 6);
+		}
+
+		//renderTubemap(presentation, null, 2);
 	}
 	
 	protected boolean inCapabilityFilter(String capabilityId) {
@@ -552,7 +565,7 @@ public class LifecyclePresentation extends XmldbProcessor {
     	}
     }
     
-    protected void renderTubemap(XMLSlideShow presentation, Activity activity) {
+    protected void renderTubemap(XMLSlideShow presentation, Activity activity, int mask) {
     	XSLFSlide slide = null;
     	XSLFAutoShape shape;
     	Timeline tl = new Timeline(X0 + APP_WIDTH + H_SPACING, Y0);
@@ -563,11 +576,19 @@ public class LifecyclePresentation extends XmldbProcessor {
 
     	double y = 0;
     	boolean createSlide = true;
+    	boolean useFutureFilter = (mask & 1) != 0;
+    	boolean useCapabilityFilter = (mask & 2) != 0;
+    	boolean useActivityFilter = (mask & 4) != 0;
     	
-		Collections.sort(applications.getApplication(), new EcosystemComparator());
+		List<Application> appsList = applications.getApplication();
+		Collections.sort(appsList, new EcosystemComparator());
 		
-		for (Application app: applications.getApplication()) {
-			if (isFuture(app) && inCapabilityFilter(app) && inValueChain(app, activity)) {
+		for (Application app: appsList) {
+			boolean include = (!useFutureFilter || isFuture(app));
+			include = include && (!useCapabilityFilter || inCapabilityFilter(app));
+			include = include && (!useActivityFilter || inValueChain(app, activity));
+			
+			if (include) {
 				if (createSlide) {
 	   				y = Y0 + 3 * tl.getHeight();
 	   				slide = presentation.createSlide();
