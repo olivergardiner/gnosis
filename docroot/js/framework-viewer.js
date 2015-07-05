@@ -55,9 +55,9 @@ function showFramework(response) {
 $("#pptx-download").button().click(function () {
 	downloadURL(unescapeHTML(pptxURL));
 }).show();
-	
-$("#docx-download").button().click(function () {
-	downloadURL(unescapeHTML(docxURL));
+
+$("#vdx-download").button().click(function () {
+	downloadURL(unescapeHTML(vdxURL));
 }).show();
 	
 $.ajax({

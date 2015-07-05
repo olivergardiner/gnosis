@@ -85,19 +85,17 @@ public abstract class XmldbProcessor {
 	}
 	
 	protected void storeJaxbResource(Collection collection, String resourceName, Object jaxbElement, Marshaller marshaller) throws XMLDBException, JAXBException, ParserConfigurationException {
+    	storeDomResource(collection, resourceName, createDomFromJaxb(jaxbElement, marshaller));
+	}
+	
+	protected Node createDomFromJaxb(Object jaxbElement, Marshaller marshaller) throws ParserConfigurationException, JAXBException {
 	   	// Create the DOM document
     	DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
         dbf.setNamespaceAware(true);
         DocumentBuilder db = dbf.newDocumentBuilder();
         Document doc = db.newDocument();
     	marshaller.marshal(jaxbElement, doc);
-
-    	// Convert the DOM document into an XMLResource
-    	XMLResource updateResource = (XMLResource) collection.createResource(resourceName, "XMLResource");
-    	updateResource.setContentAsDOM(doc);
-    	
-    	// Store the XMLResource
-    	collection.storeResource(updateResource);
+		return doc;
 	}
 
 	protected void storeDomResource(Collection collection, String resourceName, Node node) throws XMLDBException {

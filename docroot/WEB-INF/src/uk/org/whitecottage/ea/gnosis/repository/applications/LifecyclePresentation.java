@@ -55,7 +55,7 @@ public class LifecyclePresentation extends XmldbProcessor {
 	
 	// Default page size is 720x540
 	protected double X0 = 69;
-	protected double Y0 = 90;
+	protected double Y0 = 40;
 	protected double DOMAIN_WIDTH = 60;
 	protected double DOMAIN_HEIGHT = 50;
 	protected double APP_WIDTH = 65;
@@ -78,7 +78,7 @@ public class LifecyclePresentation extends XmldbProcessor {
 	protected double TEXT_WIDTH = 80;
 	protected double TITLE_WIDTH = 700;
 	protected double TITLE_HEIGHT = 40;
-	protected double TITLE_POSITION = 40;
+	protected double TITLE_POSITION = 10;
 	protected double ARROW = 5;
 	protected int SUMMARY_PAGINATION = 7;
 	protected int PAGINATION = 16;
@@ -242,7 +242,7 @@ public class LifecyclePresentation extends XmldbProcessor {
 			renderTubemap(presentation, activity, 6);
 		}
 
-		//renderTubemap(presentation, null, 2);
+		renderTubemap(presentation, null, 2);
 	}
 	
 	protected boolean inCapabilityFilter(String capabilityId) {

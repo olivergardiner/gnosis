@@ -3,7 +3,6 @@ package uk.org.whitecottage.ea.gnosis.repository.framework;
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Logger;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -14,18 +13,22 @@ import org.apache.poi.xslf.usermodel.VerticalAlignment;
 import org.apache.poi.xslf.usermodel.XMLSlideShow;
 import org.apache.poi.xslf.usermodel.XSLFAutoShape;
 import org.apache.poi.xslf.usermodel.XSLFSlide;
-import org.exist.xmldb.EXistResource;
 import org.xml.sax.SAXException;
 import org.xmldb.api.base.Collection;
 import org.xmldb.api.base.XMLDBException;
 import org.xmldb.api.modules.XMLResource;
 
+import uk.org.whitecottage.ea.gnosis.jaxb.framework.Activity;
 import uk.org.whitecottage.ea.gnosis.jaxb.framework.Capability;
+import uk.org.whitecottage.ea.gnosis.jaxb.framework.Ecosystem;
 import uk.org.whitecottage.ea.gnosis.jaxb.framework.Framework;
 import uk.org.whitecottage.ea.gnosis.jaxb.framework.ProcessDomain;
 import uk.org.whitecottage.ea.gnosis.jaxb.framework.TechnologyDomain;
 import uk.org.whitecottage.ea.xmldb.XmldbProcessor;
 import uk.org.whitecottage.poi.POIHelper;
+
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
 
 public class FrameworkPresentation extends XmldbProcessor {
 	
@@ -71,13 +74,12 @@ public class FrameworkPresentation extends XmldbProcessor {
 	protected Marshaller frameworkMarshaller = null;
 
 	@SuppressWarnings("unused")
-	private static final Logger log = Logger.getLogger("uk.org.whitecottage.ea.gnosis.repository.framework");
+	private static final Log log = LogFactoryUtil.getLog(FrameworkPresentation.class);
 
 	public FrameworkPresentation(String URI, String repositoryRoot, String context) {
 		super(URI, repositoryRoot);
 
 		Collection repository = null;
-		XMLResource applicationsResource = null;
 		XMLResource frameworkResource = null;
 
 		try {
@@ -97,10 +99,6 @@ public class FrameworkPresentation extends XmldbProcessor {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
-		    if(applicationsResource != null) {
-		        try { ((EXistResource) applicationsResource).freeResources(); } catch(XMLDBException xe) {xe.printStackTrace();}
-		    }
-		    
 		    if(repository != null) {
 		        try { repository.close(); } catch(XMLDBException xe) {xe.printStackTrace();}
 		    }
@@ -110,8 +108,22 @@ public class FrameworkPresentation extends XmldbProcessor {
 	public void render(XMLSlideShow presentation) {
 		renderOverview(presentation);
 		renderLevel3(presentation);
+		renderEcosystems(presentation);
 	}
 
+	protected void renderEcosystems(XMLSlideShow presentation) {
+    	XSLFSlide slide = presentation.createSlide();
+    	XSLFAutoShape shape;
+    	
+    	for (Activity activity: framework.getValueChain().getPrimaryActivities().getActivity()) {
+    		for (Ecosystem ecosystem: activity.getEcosystem()) {
+    			
+    		}
+    	}
+    	
+    	drawTitle(slide, "Ecosystems");
+	}
+	
 	protected void renderOverview(XMLSlideShow presentation) {
     	XSLFSlide slide = presentation.createSlide();
     	XSLFAutoShape shape;

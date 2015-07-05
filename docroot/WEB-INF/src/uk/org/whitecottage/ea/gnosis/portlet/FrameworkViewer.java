@@ -17,8 +17,10 @@ import org.apache.commons.io.IOUtils;
 import org.apache.poi.xslf.usermodel.XMLSlideShow;
 
 import uk.org.whitecottage.ea.gnosis.repository.Framework;
+import uk.org.whitecottage.ea.gnosis.repository.framework.EcosystemVisio;
 import uk.org.whitecottage.ea.gnosis.repository.framework.FrameworkPresentation;
 import uk.org.whitecottage.ea.portlet.ProcessResourceRequest;
+import uk.org.whitecottage.visio.Visio;
 
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
@@ -88,5 +90,32 @@ public class FrameworkViewer extends GnosisPortlet {
     	response.setContentType("application/vnd.openxmlformats-officedocument.presentationml.presentation");
     	//response.setHeader("Content-Disposition", "attachment;filename=\"Lifecycle.pptx\"");
     	ppt.write(response.getPortletOutputStream());
+     }
+
+    @ProcessResourceRequest(name = "vdx")
+    public void serveLifecycleVisio(ResourceRequest request, ResourceResponse response) throws PortletException, IOException {
+    	Properties gnosisProperties = getProperties();
+    	String existURI = gnosisProperties.getProperty("exist.uri");
+    	String existRepositoryRoot = gnosisProperties.getProperty("exist.repository.root");
+    	String context = getPortletContext().getRealPath("");
+    	String schemaPath = context + "/WEB-INF/xsd/Visio2010XSDFiles";
+
+		String gnosisOoxmlDir = dataDir + "gnosis/ooxml/";
+    	//String gnosisDataDir = System.getProperty("jboss.server.data.dir") + File.separator + "gnosis";
+		//String gnosisOoxmlDir = gnosisDataDir + File.separator + "ooxml" + File.separator;
+        
+		Visio visio;
+    	File template = new File(gnosisOoxmlDir + "framework-tmpl.vdx");
+    	if (template.exists()) {
+    		visio = new Visio(template, schemaPath);
+    	
+	    	// Build the slides
+	    	EcosystemVisio arb = new EcosystemVisio(existURI, existRepositoryRoot, context);
+	    	arb.render(visio);
+	    	
+	    	response.setContentType("application/vnd.visio.drawing");
+	    	//response.setHeader("Content-Disposition", "attachment;filename=\"Lifecycle.pptx\"");
+	    	visio.write(response.getPortletOutputStream());
+    	}
      }
 }

@@ -12,6 +12,7 @@
 <portlet:resourceURL var="iconURL" id="icon"/>
 <portlet:resourceURL var="pptxURL" id="pptx"/>
 <portlet:resourceURL var="docxURL" id="docx"/>
+<portlet:resourceURL var="vdxURL" id="vdx"/>
 <portlet:resourceURL var="actionURL" id="action"/>
 
 <script type="text/javascript">
@@ -19,6 +20,7 @@ var jsonDataURL = "<%= jsonDataURL %>";
 var iconURL = "<%= iconURL %>";
 var pptxURL = "<%= pptxURL %>";
 var docxURL = "<%= docxURL %>";
+var vdxURL = "<%= vdxURL %>";
 var actionURL = "<%= actionURL %>";
 </script>
 
@@ -47,7 +49,7 @@ var actionURL = "<%= actionURL %>";
 			</div>
 		</div>
 		<br/>
-		<div>Download: <button id="pptx-download" style="display: none">PPTX</button><button id="docx-download" style="display: none">DOCX</button></div>
+		<div>Download: <button id="pptx-download" style="display: none">PPTX</button><button id="vdx-download" style="display: none">VDX</button></div>
 	</div>
 	<br />
 </div>
