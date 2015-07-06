@@ -19,31 +19,17 @@ import javax.xml.validation.SchemaFactory;
 
 import org.xml.sax.SAXException;
 
-import uk.org.whitecottage.visio.jaxb.visio2003.AngleType;
 import uk.org.whitecottage.visio.jaxb.visio2003.CellType;
 import uk.org.whitecottage.visio.jaxb.visio2003.FillType;
-import uk.org.whitecottage.visio.jaxb.visio2003.FlipXType;
-import uk.org.whitecottage.visio.jaxb.visio2003.FlipYType;
 import uk.org.whitecottage.visio.jaxb.visio2003.GeomType;
-import uk.org.whitecottage.visio.jaxb.visio2003.HeightType;
 import uk.org.whitecottage.visio.jaxb.visio2003.LineToType;
 import uk.org.whitecottage.visio.jaxb.visio2003.LineType;
-import uk.org.whitecottage.visio.jaxb.visio2003.LocPinXType;
-import uk.org.whitecottage.visio.jaxb.visio2003.LocPinYType;
 import uk.org.whitecottage.visio.jaxb.visio2003.MoveToType;
-import uk.org.whitecottage.visio.jaxb.visio2003.NoFillType;
-import uk.org.whitecottage.visio.jaxb.visio2003.NoLineType;
-import uk.org.whitecottage.visio.jaxb.visio2003.NoShowType;
-import uk.org.whitecottage.visio.jaxb.visio2003.NoSnapType;
 import uk.org.whitecottage.visio.jaxb.visio2003.PageType;
-import uk.org.whitecottage.visio.jaxb.visio2003.PinXType;
-import uk.org.whitecottage.visio.jaxb.visio2003.PinYType;
-import uk.org.whitecottage.visio.jaxb.visio2003.ResizeModeType;
 import uk.org.whitecottage.visio.jaxb.visio2003.ShapeType;
 import uk.org.whitecottage.visio.jaxb.visio2003.ShapesType;
 import uk.org.whitecottage.visio.jaxb.visio2003.TextType;
 import uk.org.whitecottage.visio.jaxb.visio2003.VisioDocumentType;
-import uk.org.whitecottage.visio.jaxb.visio2003.WidthType;
 import uk.org.whitecottage.visio.jaxb.visio2003.XFormType;
 import uk.org.whitecottage.visio.jaxb.visio2003.XType;
 import uk.org.whitecottage.visio.jaxb.visio2003.YType;
@@ -52,6 +38,7 @@ public class Visio {
 	protected JAXBElement<VisioDocumentType> visio;
 	protected Unmarshaller visioUnmarshaller;
 	protected Marshaller visioMarshaller;
+	protected double scaleFactor = 25.4;
 
 	public Visio() {
 		this(null);
@@ -108,8 +95,63 @@ public class Visio {
 		}
 	}
 	
+	protected double scale(double value) {
+		return value / scaleFactor;
+	}
+	
+	public CellType createCell(String type, int value) {
+		return createCell(type, null, null, String.valueOf(value));
+	}
+
+	public CellType createCell(String type, String f, int value) {
+		return createCell(type, f, null, String.valueOf(value));
+	}
+	
+	public CellType createCell(String type, String f, String unit, int value) {
+		return createCell(type, f, unit, String.valueOf(value));		
+	}
+	
+	public CellType createCell(String type, double value) {
+		return createCell(type, null, null, String.valueOf(value));
+	}
+
+	public CellType createCell(String type, String f, double value) {
+		return createCell(type, f, null, String.valueOf(value));
+	}
+	
+	public CellType createCell(String type, String f, String unit, double value) {
+		return createCell(type, f, unit, String.valueOf(value));		
+	}
+	
+	public CellType createCell(String type, String value) {
+		return createCell(type, null, null, value);
+	}
+
+	public CellType createCell(String type, String f, String value) {
+		return createCell(type, f, null, value);
+	}
+	
+	public CellType createCell(String type, String f, String unit, String value) {
+		String className = "uk.org.whitecottage.visio.jaxb.visio2003." + type + "Type";
+		CellType cell = null;
+		
+		try {
+			cell = (CellType) Class.forName(className).newInstance();
+			cell.setF(f);
+			cell.setUnit(unit);
+			cell.setValue(value);
+		} catch (Exception e) {
+			// Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return cell;
+	}
+	
 	public ShapeType createBox(double x, double y, double width, double height) {
 		ShapeType shape = createShape(x, y, width, height);
+		
+		shape.getTextOrXFormOrLine().add(createLine(2.0));
 		
 		GeomType geom = null;
 		
@@ -137,8 +179,8 @@ public class Visio {
 		MoveToType moveTo = new MoveToType();
 		
 		moveTo.setIX(BigInteger.valueOf(index));
-		moveTo.setX(createX(fx, x));
-		moveTo.setY(createY(fy, y));
+		moveTo.setX((XType) createCell("X", fx, x));
+		moveTo.setY((YType) createCell("Y", fy, y));
 		
 		return moveTo;
 	}
@@ -147,30 +189,12 @@ public class Visio {
 		LineToType lineTo = new LineToType();
 		
 		lineTo.setIX(BigInteger.valueOf(index));
-		lineTo.setX(createX(fx, x));
-		lineTo.setY(createY(fy, y));
+		lineTo.setX((XType) createCell("X", fx, x));
+		lineTo.setY((YType) createCell("Y", fy, y));
 		
 		return lineTo;
 	}
-	
-	public XType createX(String f, double xValue) {
-		XType x = new XType();
 		
-		x.setValue(String.valueOf(xValue/25.4));
-		x.setF(f);
-		
-		return x;
-	}
-	
-	public YType createY(String f, double yValue) {
-		YType y = new YType();
-		
-		y.setValue(String.valueOf(yValue/25.4));
-		y.setF(f);
-		
-		return y;
-	}
-	
 	public ShapeType createShape(double x, double y, double width, double height) {
 		ShapeType shape = new ShapeType();
 
@@ -192,52 +216,39 @@ public class Visio {
 		XFormType xform = new XFormType();
 		List<CellType> contents = xform.getPinXOrPinYOrWidth();
 		
-		x /= 25.4;
-		y /= 25.4;
-		width /= 25.4;
-		height /= 25.4;
+		contents.add(createCell("PinX", scale(x)));
+		contents.add(createCell("PinY", scale(y)));
 		
-		PinXType pinX = new PinXType();
-		PinYType pinY = new PinYType();
-		pinX.setValue(Double.toString(x));
-		pinY.setValue(Double.toString(y));
-		contents.add(pinX);
-		contents.add(pinY);
+		contents.add(createCell("Width", scale(width)));
+		contents.add(createCell("Height", scale(height)));
 		
-		WidthType xfWidth = new WidthType();
-		HeightType xfHeight = new HeightType();
-		xfWidth.setValue(Double.toString(width));
-		xfHeight.setValue(Double.toString(height));
-		contents.add(xfWidth);
-		contents.add(xfHeight);
+		contents.add(createCell("LocPinX", "Width*0.5", scale(x * 0.5)));
+		contents.add(createCell("LocPinY", "Height*0.5", scale(y * 0.5)));
 		
-		LocPinXType locPinX = new LocPinXType();
-		LocPinYType locPinY = new LocPinYType();
-		locPinX.setF("Width*0.5");
-		locPinX.setValue(Double.toString(width * 0.5));
-		locPinY.setF("Height*0.5");
-		locPinY.setValue(Double.toString(height * 0.5));
-		contents.add(locPinX);
-		contents.add(locPinY);
-		
-		AngleType angle = new AngleType();
-		angle.setValue("0");
-		FlipXType flipX = new FlipXType();
-		flipX.setValue("0");
-		FlipYType flipY = new FlipYType();
-		flipY.setValue("0");
-		ResizeModeType resizeMode = new ResizeModeType();
-		resizeMode.setValue("0");
-		contents.add(angle);
-		contents.add(flipX);
-		contents.add(flipY);
-		contents.add(resizeMode);
+		contents.add(createCell("Angle", 0.0));
+		contents.add(createCell("FlipX", 0));
+		contents.add(createCell("FlipY", 0));
+		contents.add(createCell("ResizeMode", 0));
 		
 		return new JAXBElement<XFormType>(new QName("http://schemas.microsoft.com/visio/2003/core", "XForm"), XFormType.class, xform);
 	}
 	
-	public JAXBElement<LineType> createLine() {		
+	public JAXBElement<LineType> createLine(Double rounding) {		
 		LineType line = new LineType();
+		List<CellType> contents = line.getLineWeightOrLineColorOrLinePattern();
+
+		contents.add(createCell("LineWeight", "Inh", 0.01));
+		contents.add(createCell("LineColor", "Inh", 0));
+		contents.add(createCell("LinePattern", "Inh", 1));
+		if (rounding != null) {
+			contents.add(createCell("Rounding", null, "MM", scale(rounding)));
+		}
+		contents.add(createCell("BeginArrow", "Inh", 0));
+		contents.add(createCell("BeginArrowSize", "Inh", 2));
+		contents.add(createCell("EndArrow", "Inh", 0));
+		contents.add(createCell("EndArrowSize", "Inh", 2));
+		contents.add(createCell("LineCap", "Inh", 0));
+		contents.add(createCell("LineColorTrans", "Inh", 0));
 		
 		return new JAXBElement<LineType>(new QName("http://schemas.microsoft.com/visio/2003/core", "Line"), LineType.class, line);
 	}
@@ -260,19 +271,11 @@ public class Visio {
 		GeomType geom = new GeomType();
 		List<Object> contents = geom.getNoFillOrNoLineOrNoShow();
 		
-		NoFillType noFill = new NoFillType();
-		noFill.setValue("0");
-		NoLineType noLine = new NoLineType();
-		noLine.setValue("0");
-		NoShowType noShow = new NoShowType();
-		noShow.setValue("0");
-		NoSnapType noSnap = new NoSnapType();
-		noSnap.setValue("0");
-		contents.add(noFill);
-		contents.add(noLine);
-		contents.add(noShow);
-		contents.add(noSnap);
-		
+		contents.add(createCell("NoFill", 0));
+		contents.add(createCell("NoLine", 0));
+		contents.add(createCell("NoShow", 0));
+		contents.add(createCell("NoSnap", 0));
+
 		geom.setIX(BigInteger.valueOf(0));
 
 		return new JAXBElement<GeomType>(new QName("http://schemas.microsoft.com/visio/2003/core", "Geom"), GeomType.class, geom);
