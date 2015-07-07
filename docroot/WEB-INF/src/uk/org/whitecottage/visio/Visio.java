@@ -28,6 +28,7 @@ import uk.org.whitecottage.visio.jaxb.visio2003.MoveToType;
 import uk.org.whitecottage.visio.jaxb.visio2003.PageType;
 import uk.org.whitecottage.visio.jaxb.visio2003.ShapeType;
 import uk.org.whitecottage.visio.jaxb.visio2003.ShapesType;
+import uk.org.whitecottage.visio.jaxb.visio2003.TextBlockType;
 import uk.org.whitecottage.visio.jaxb.visio2003.TextType;
 import uk.org.whitecottage.visio.jaxb.visio2003.VisioDocumentType;
 import uk.org.whitecottage.visio.jaxb.visio2003.XFormType;
@@ -148,6 +149,67 @@ public class Visio {
 		return cell;
 	}
 	
+	public void setCell(List<CellType> cells, String type, int value) {
+		setCell(cells, type, null, null, String.valueOf(value));
+	}
+
+	public void setCell(List<CellType> cells, String type, String f, int value) {
+		setCell(cells, type, f, null, String.valueOf(value));
+	}
+	
+	public void setCell(List<CellType> cells, String type, String f, String unit, int value) {
+		setCell(cells, type, f, unit, String.valueOf(value));		
+	}
+	
+	public void setCell(List<CellType> cells, String type, double value) {
+		setCell(cells, type, null, null, String.valueOf(value));
+	}
+
+	public void setCell(List<CellType> cells, String type, String f, double value) {
+		setCell(cells, type, f, null, String.valueOf(value));
+	}
+	
+	public void setCell(List<CellType> cells, String type, String f, String unit, double value) {
+		setCell(cells, type, f, unit, String.valueOf(value));		
+	}
+	
+	public void setCell(List<CellType> cells, String type, String value) {
+		setCell(cells, type, null, null, value);
+	}
+
+	public void setCell(List<CellType> cells, String type, String f, String value) {
+		setCell(cells, type, f, null, value);
+	}
+	
+	public void setCell(List<CellType> cells, String type, String f, String unit, String value) {
+		String className = "uk.org.whitecottage.visio.jaxb.visio2003." + type + "Type";
+
+		CellType cell = null;
+		
+		try {
+			Class<?> clazz = Class.forName(className);
+			for (CellType c: cells) {
+				if (clazz.isInstance(c)) {
+					cell = c;
+					break;
+				}
+			}
+			
+			if (cell == null) {
+				cell = (CellType) clazz.newInstance();
+			}
+			
+			cell.setF(f);
+			cell.setUnit(unit);
+			cell.setValue(value);
+		} catch (Exception e) {
+			// Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return;
+	}
+	
 	public ShapeType createBox(double x, double y, double width, double height) {
 		ShapeType shape = createShape(x, y, width, height);
 		
@@ -171,7 +233,7 @@ public class Visio {
 			contents.add(createLineTo(4, "Width*0", 0, "Height*1", height));
 			contents.add(createLineTo(5, "Geometry1.X1", 0, "Geometry1.Y1", 0));
 		}
-		
+			
 		return shape;
 	}
 	
@@ -267,6 +329,23 @@ public class Visio {
 		return new JAXBElement<TextType>(new QName("http://schemas.microsoft.com/visio/2003/core", "Text"), TextType.class, textElement);
 	}
 	
+	public JAXBElement<TextBlockType> createTextBlock(int vAlign) {
+		TextBlockType textBlock = new TextBlockType();
+		List<CellType> contents = textBlock.getLeftMarginOrRightMarginOrTopMargin();
+
+		contents.add(createCell("LeftMargin", "Inh", "PT", 0.05555555555555));
+		contents.add(createCell("RightMargin", "Inh", "PT", 0.05555555555555));
+		contents.add(createCell("TopMargin", "Inh", "PT", 0.05555555555555));
+		contents.add(createCell("BottomMargin", "Inh", "PT", 0.05555555555555));
+		contents.add(createCell("VerticalAlign", "Inh", vAlign));
+		contents.add(createCell("TextBkgnd", "Inh", 0));
+		contents.add(createCell("DefaultTabStop", "Inh", scale(15)));
+		contents.add(createCell("TextDirection", "Inh", 0));
+		contents.add(createCell("TextBkgndTrans", "Inh", 0));
+
+		return new JAXBElement<TextBlockType>(new QName("http://schemas.microsoft.com/visio/2003/core", "TextBlock"), TextBlockType.class, textBlock);
+	}
+	
 	public JAXBElement<GeomType> createGeom() {
 		GeomType geom = new GeomType();
 		List<Object> contents = geom.getNoFillOrNoLineOrNoShow();
@@ -283,6 +362,10 @@ public class Visio {
 	
 	public void setShapeID(ShapeType shape, int id) {
 		shape.setID(BigInteger.valueOf(id));
+	}
+	
+	public void setShapeText(ShapeType shape, String text) {
+		shape.getTextOrXFormOrLine().add(createText(text));
 	}
 	
 	public ShapesType getShapes(ShapeType shape) {
