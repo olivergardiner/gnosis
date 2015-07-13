@@ -113,10 +113,11 @@ public class FrameworkPresentation extends XmldbProcessor {
 
 	protected void renderEcosystems(XMLSlideShow presentation) {
     	XSLFSlide slide = presentation.createSlide();
-    	XSLFAutoShape shape;
+    	@SuppressWarnings("unused")
+		XSLFAutoShape shape;
     	
     	for (Activity activity: framework.getValueChain().getPrimaryActivities().getActivity()) {
-    		for (Ecosystem ecosystem: activity.getEcosystem()) {
+    		for (@SuppressWarnings("unused") Ecosystem ecosystem: activity.getEcosystem()) {
     			
     		}
     	}
