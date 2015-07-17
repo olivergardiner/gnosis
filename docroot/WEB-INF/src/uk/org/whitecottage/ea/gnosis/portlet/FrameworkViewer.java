@@ -98,7 +98,6 @@ public class FrameworkViewer extends GnosisPortlet {
     	String existURI = gnosisProperties.getProperty("exist.uri");
     	String existRepositoryRoot = gnosisProperties.getProperty("exist.repository.root");
     	String context = getPortletContext().getRealPath("");
-    	String schemaPath = context + "/WEB-INF/xsd/Visio2010XSDFiles";
 
 		String gnosisOoxmlDir = dataDir + "gnosis/ooxml/";
     	//String gnosisDataDir = System.getProperty("jboss.server.data.dir") + File.separator + "gnosis";
@@ -107,7 +106,7 @@ public class FrameworkViewer extends GnosisPortlet {
 		Visio visio;
     	File template = new File(gnosisOoxmlDir + "framework-tmpl.vdx");
     	if (template.exists()) {
-    		visio = new Visio(template, schemaPath);
+    		visio = new Visio(template);
     	
 	    	// Build the slides
 	    	EcosystemVisio arb = new EcosystemVisio(existURI, existRepositoryRoot, context);

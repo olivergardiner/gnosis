@@ -3,6 +3,7 @@ package uk.org.whitecottage.visio;
 import java.io.File;
 import java.io.OutputStream;
 import java.math.BigInteger;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.xml.XMLConstants;
@@ -40,15 +41,15 @@ public class Visio {
 	protected Unmarshaller visioUnmarshaller;
 	protected Marshaller visioMarshaller;
 	protected double scaleFactor = 25.4;
+	
+	protected List<Page> _pages;
 
 	public Visio() {
-		this(null);
-	}
-	
-	public Visio(String schemaPath) {
+		_pages = new ArrayList<Page>();
+		
 		try {
 		    JAXBContext visioContext = JAXBContext.newInstance("uk.org.whitecottage.visio.jaxb.visio2003:uk.org.whitecottage.visio.jaxb.visio2007:uk.org.whitecottage.visio.jaxb.visio2010");
-		    visioUnmarshaller = createUnmarshaller(visioContext, schemaPath);
+		    visioUnmarshaller = createUnmarshaller(visioContext);
 		    visioMarshaller = visioContext.createMarshaller();
 		} catch (JAXBException e) {
 			e.printStackTrace();
@@ -57,8 +58,8 @@ public class Visio {
 		}
 	}
 	
-	public Visio(File file, String schemaPath) {
-		this(schemaPath);
+	public Visio(File file) {
+		this();
 		
 		try {
 		    read(file);
@@ -67,7 +68,7 @@ public class Visio {
 		}
 	}
 	
-	public VisioDocumentType getRoot() {
+	protected VisioDocumentType getRoot() {
 		return (VisioDocumentType) visio.getValue();
 	}
 	
@@ -78,6 +79,10 @@ public class Visio {
 		VisioDocumentType visioDocument = visio.getValue();
 		visioDocument.setKey(null);
 		visioDocument.setStart(null);
+		
+		for (PageType page: visio.getValue().getPages().getPage()) {
+			_pages.add(new Page(page));
+		}
 	}
 
 	public void write(OutputStream output) {
@@ -394,8 +399,8 @@ public class Visio {
 		return shapes;
 	}
 	
-	public PageType getPage(int index) {
-		return visio.getValue().getPages().getPage().get(index);
+	public Page getPage(int index) {
+		return _pages.get(index);
 	}
 	
 	public ShapeType addBox(List<ShapeType> shapeList, double x, double y, double width, double height) {
@@ -416,22 +421,20 @@ public class Visio {
 		return addBox(getShapes(page).getShape(), x, y, width, height);
 	}
 	
-	protected Unmarshaller createUnmarshaller(JAXBContext context, String schemaPath) throws SAXException, JAXBException {
+	protected Unmarshaller createUnmarshaller(JAXBContext context) throws SAXException, JAXBException {
 		Unmarshaller unmarshaller = context.createUnmarshaller();
 
-		if (schemaPath != null) {
-			SchemaFactory schemaFactory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
-	
-		    Source schemas[] = {
-			    	new StreamSource(new File(schemaPath + "/visio.xsd")),
-			    	new StreamSource(new File(schemaPath + "/visio12.xsd")),
-			    	new StreamSource(new File(schemaPath + "/visio14.xsd"))
-		    };
-		    
-		    Schema schema = schemaFactory.newSchema(schemas);
-	
-			unmarshaller.setSchema(schema);
-		}
+		SchemaFactory schemaFactory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
+
+	    Source schemas[] = {
+		    	new StreamSource(this.getClass().getResourceAsStream("visio.xsd")),
+		    	new StreamSource(this.getClass().getResourceAsStream("visio12.xsd")),
+		    	new StreamSource(this.getClass().getResourceAsStream("visio14.xsd"))
+	    };
+	    
+	    Schema schema = schemaFactory.newSchema(schemas);
+
+		unmarshaller.setSchema(schema);
 		
 		return unmarshaller;
 	}	
