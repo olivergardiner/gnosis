@@ -590,9 +590,13 @@ public class LifecyclePresentation extends XmldbProcessor {
 			
 			if (include) {
 				if (createSlide) {
+					String slideTitle = "Application Tube Map";
+					if (activity != null) {
+						slideTitle += ": " + activity.getName();
+					}
 	   				y = Y0 + 3 * tl.getHeight();
 	   				slide = presentation.createSlide();
-	   		    	header(slide, tl, "Application Tube Map: " + activity.getName());
+	   		    	header(slide, tl, slideTitle);
 	   		    	createSlide = false;
 				}
 	    		List<Stage> stages = app.getStage();
