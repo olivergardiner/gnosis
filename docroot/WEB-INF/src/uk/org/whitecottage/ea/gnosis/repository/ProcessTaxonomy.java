@@ -72,11 +72,11 @@ public class ProcessTaxonomy extends XmldbProcessor {
 			JSTree tree = new JSTree();
 
 			for (Activity activity: framework.getValueChain().getPrimaryActivities().getActivity()) {
-				tree.add(renderActivity(businessProcesses, activity.getActivityId(), activity.getDescription()));
+				tree.add(renderActivity(businessProcesses, activity.getActivityId(), activity.getName()));
 			}
 			
 			for (Activity activity: framework.getValueChain().getSupportActivities().getActivity()) {
-				tree.add(renderActivity(businessProcesses, activity.getActivityId(), activity.getDescription()));
+				tree.add(renderActivity(businessProcesses, activity.getActivityId(), activity.getName()));
 			}
 			
 			if (withRecycleBin) {
