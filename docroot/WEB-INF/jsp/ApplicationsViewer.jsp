@@ -102,6 +102,7 @@ var actionURL = "<%= actionURL %>";
 				<div style="display: table-cell; width: 100%;"><div class="gnosis-title"><span>Lifecycle</span></div></div>
 				<div style="display: table-cell;"><button id="new-lifecycle">Stage</button></div>
 				<div style="display: table-cell;"><button id="new-milestone">Milestone</button></div>
+				<div style="display: table-cell;"><button id="new-migration">Migration</button></div>
 				<div style="display: table-cell;"><button id="edit-lifecycle">Edit</button></div>
 				<div style="display: table-cell; padding-top: 2px; padding-bottom: 2px; padding-left: 2px;"><button id="remove-lifecycle">Remove</button></div>
 			</div>
@@ -210,6 +211,21 @@ var actionURL = "<%= actionURL %>";
 		<div id="milestone-runrate-row" style="display: table-row;">
 			<div style="display: table-cell; vertical-align: top;" class="gnosis-label">Run rate:</div>
 			<div style="display: table-cell; vertical-align: top;"><input type="text" id="milestone-runrate"></input></div>
+		</div>
+	</div>
+</div>
+
+<div id="edit-migration-form" title="Application migration" style="display: none;">
+	<br>
+	<div style="display: table;">
+		<div id="migration-date-row" style="display: table-row;">
+			<div style="display: table-cell; vertical-align: top;" class="gnosis-label">Date:</div>
+			<div style="display: table-cell; vertical-align: top;"><input type="text" id="migration-date" class="ui-widget-content ui-corner-all"></input></div>
+		</div>
+		<br>
+		<div id="migration-target-row" style="display: table-row;">
+			<div style="display: table-cell; vertical-align: top;" class="gnosis-label">Target:</div>
+			<div style="display: table-cell; vertical-align: top;"><select name="target" id="migration-target"></select></div>
 		</div>
 	</div>
 </div>

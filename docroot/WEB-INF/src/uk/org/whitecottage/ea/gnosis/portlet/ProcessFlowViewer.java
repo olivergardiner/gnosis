@@ -243,7 +243,7 @@ public class ProcessFlowViewer extends GnosisPortlet {
     	Properties gnosisProperties = getProperties();
     	String existURI = gnosisProperties.getProperty("exist.uri");
     	String existRepositoryRoot = gnosisProperties.getProperty("exist.repository.root");
-    	String existUsername = gnosisProperties.getProperty("exist.repository.username");
+    	String existUsername = gnosisProperties.getProperty("exist.repository.user");
     	String existPassword = gnosisProperties.getProperty("exist.repository.password");
 
     	String context = getPortletContext().getRealPath("");

@@ -481,6 +481,49 @@ $('#edit-milestone-form').dialog({
     }
 });
 
+$('#edit-migration-form').dialog({
+    autoOpen: false,
+    height: 500,
+    width: 600,
+    modal: true,
+    buttons: {
+    	"Save": function() {
+            var selected = table.$('tr.selected');
+            if (selected.length !== 0) {
+        		var data = table.fnGetData(selected[0]);
+        		if (checkLifecycle(data)) {
+        			var date = $("#milestone-date").datepicker("getDate");
+        			var dateString = "";
+        	        if (date != undefined) {
+            			date.setHours(5);
+            			dateString = date.toISOString();
+        	        }
+        			repoAction("updateMigrationAction", {
+        				applicationId: data.applicationId,
+        				mode: $("#lifecycle-detail").attr("data-mode"),
+        				index: $("#lifecycle-detail").attr("data-migration-index"),
+        				to: $("#migration-target").val(),
+        				date: dateString
+        			}, function(response) {
+            			updateApplicationList(response);
+            			var year = parseInt($("#timeline").attr("data-start-year"));
+            			buildTimeline(year, response);
+        			});
+        			
+    				$(this).dialog("close");
+        		}
+            }
+        },
+    	"Cancel": function() {
+			$(this).dialog( "close" );
+        }
+    },
+    open: function() {
+    },
+    close: function() {
+    }
+});
+
 //$("#lifecycle-stage").selectmenu({
 //	width: 140
 //});
@@ -509,9 +552,18 @@ $("#new-milestone").button().click(function( event ) {
     $('#edit-milestone-form').dialog("open");
 });
 
+$("#new-migration").button().click(function( event ) {
+    event.preventDefault();
+    $("#lifecycle-detail").attr("data-mode", "new");
+    $("#lifecycle-detail").attr("data-migration-index", undefined);
+    $("#migration-date").datepicker("setDate", "");
+    $('#edit-migration-form').dialog("open");
+});
+
 $("#edit-lifecycle").button().click(function( event ) {
     event.preventDefault();
-    if ($("#lifecycle-detail").attr("data-type") == "investment") {
+    var type = $("#lifecycle-detail").attr("data-type");
+    if (type == "investment") {
 	    $("#lifecycle-detail").attr("data-mode", "edit");
 	    $("#milestone-description").val($("#lifecycle-detail").attr("data-description"));
 	    var formattedDate = "";
@@ -525,7 +577,21 @@ $("#edit-lifecycle").button().click(function( event ) {
         }
 	    $("#milestone-date").datepicker("setDate", formattedDate);
 	    $("#edit-milestone-form").dialog("open");
-    } else {
+    } else if (type == "migration") {
+	    $("#lifecycle-detail").attr("data-mode", "edit");
+	    $("#migration-target").val($("#lifecycle-detail").attr("data-to"));
+	    var formattedDate = "";
+        var date = new Date($("#lifecycle-detail").attr("data-date"));
+        if (date != undefined) {
+	        formattedDate = formatDate(date, {
+	        	shortMonths: true,
+	        	ordinals: false,
+	        	monthFirst: false
+	        });
+        }
+	    $("#migration-date").datepicker("setDate", formattedDate);
+	    $("#edit-migration-form").dialog("open");
+    } else if (type == "stage") {
 	    $("#lifecycle-detail").attr("data-mode", "edit");
 	    $("#lifecycle-stage").val($("#lifecycle-detail").attr("data-stage"));
 	    var formattedDate = "";
@@ -575,10 +641,13 @@ $("#confirm-lifecycle-remove-form").dialog({
 	    				applicationId: data.applicationId,
 	    		};
         		
-        	    if ($("#lifecycle-detail").attr("data-type") == "investment") {
-	    			update.milestone = $("#lifecycle-detail").attr("data-milestone-index")
-        	    } else {
-        	    	update.stage = $("#lifecycle-detail").attr("data-stage")
+        		var type = $("#lifecycle-detail").attr("data-type");
+        	    if (type == "investment") {
+	    			update.milestone = $("#lifecycle-detail").attr("data-milestone-index");
+        	    } else if (type == "stage") {
+        	    	update.stage = $("#lifecycle-detail").attr("data-stage");
+        	    } else if (type == "migration") {
+        	    	update.to = $("#lifecycle-detail").attr("data-to");
         	    }
         	    
     			repoAction("removeLifecycleAction", update, function(response) {
@@ -626,6 +695,12 @@ $("#milestone-date").datepicker({
     dateFormat: "d M yy"
 });
 
+$("#migration-date").datepicker({
+    changeMonth: true,
+    changeYear: true,
+    dateFormat: "d M yy"
+});
+
 $("#lifecycle-initial-state").change(function() {
 	if ($("#lifecycle-initial-state").prop("checked")) {
 		$("#lifecycle-date-row").hide();
@@ -633,6 +708,8 @@ $("#lifecycle-initial-state").change(function() {
 		$("#lifecycle-date-row").show();
  	}
 });
+
+$("#migration-target").selectBoxIt();
 
 function checkLifecycle(data) {
 	return true;
@@ -857,6 +934,18 @@ function editSelectedApplication() {
     	$("#ecosystems").select2("data", ecosystems);
     	
     	buildTimeline(new Date().getFullYear(), data);
+    	
+    	$("#migration-target").data("selectBox-selectBoxIt").remove();
+    	
+    	var json = table.api().ajax.json();
+    	
+    	for (var i = 0; i < json.data.length; i++) {
+    		var row = json.data[i];
+    		
+    		if (row.applicationId != data.applicationId) {
+    			$("#migration-target").data("selectBox-selectBoxIt").add({value: row.applicationId, text: row.name});
+    		}
+    	}
     	
         $("#application-detail").dialog("open");
     }

@@ -27,6 +27,19 @@ span.event-name {
 	
 }
 
+.selectboxit-container .selectboxit-options {
+    /* Set's the drop down options width to the same width as the drop down button */
+    width: 210px;
+
+    /* Set's the max-height property to only show a subset of the drop down items.
+       If you do not set a max-height property, SelectBoxIt will dynamically
+       position the dropdown (when opened) to make sure the drop down items are not
+       displayed outside of the current window viewport.
+    */
+    max-height: 240px;
+}
+  
+  
 .gt-timeline div.gt-lc-candidate {
 	background: url('lifecycle.png') no-repeat 0 0px;
 	width: 20px;

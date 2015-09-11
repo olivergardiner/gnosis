@@ -392,6 +392,30 @@ public class ApplicationsViewer extends GnosisPortlet {
 		response.getWriter().print(json);
    }
 
+    @ProcessResourceAction(name = "updateMigrationAction")
+    public void updateMigration(ResourceRequest request, ResourceResponse response) throws PortletException, IOException {
+    	log.info("Update timeline");
+
+    	Properties gnosisProperties = getProperties();
+    	String existURI = gnosisProperties.getProperty("exist.uri");
+    	String existRepositoryRoot = gnosisProperties.getProperty("exist.repository.root");
+    	String context = getPortletContext().getRealPath("");
+    	ApplicationsEstate applications = new ApplicationsEstate(existURI, existRepositoryRoot, context);
+    	       	
+    	String applicationId = getParameter(request, "applicationId");
+    	String mode = getParameter(request, "mode");
+    	String date = getParameter(request, "date");
+    	String index = getParameter(request, "index");
+    	String to = getParameter(request, "to");
+    	
+    	applications.updateMigration(applicationId, index, mode, date, to);
+    	
+    	String json = applications.getApplicationJSON(getParameter(request, "applicationId"));    	
+
+		response.setContentType("application/json");
+		response.getWriter().print(json);
+   }
+
     @ProcessResourceAction(name = "removeLifecycleAction")
     public void removeLifecycle(ResourceRequest request, ResourceResponse response) throws PortletException, IOException {
     	log.info("Remove lifecycle");
@@ -405,8 +429,9 @@ public class ApplicationsViewer extends GnosisPortlet {
        	String applicationId = getParameter(request, "applicationId");
        	String stage = getParameter(request, "stage");
        	String milestone = getParameter(request, "milestone");
+       	String to = getParameter(request, "to");
     	
-    	applications.removeLifecycle(applicationId, stage, milestone);
+    	applications.removeLifecycle(applicationId, stage, milestone, to);
  
     	String json = applications.getApplicationJSON(getParameter(request, "applicationId"));    	
 

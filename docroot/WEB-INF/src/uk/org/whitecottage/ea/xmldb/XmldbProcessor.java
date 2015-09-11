@@ -36,7 +36,7 @@ public abstract class XmldbProcessor {
 	protected Database database;
 	protected SchemaFactory schemaFactory;
 
-	@SuppressWarnings("unused")
+	//@SuppressWarnings("unused")
 	private static final Log log = LogFactoryUtil.getLog(XmldbProcessor.class);
 
 	public XmldbProcessor(String URI, String repositoryRoot) {
@@ -70,7 +70,7 @@ public abstract class XmldbProcessor {
 	}
 	
 	protected Collection getCollection(String collectionName) throws XMLDBException {
-		//log.info("Getting collection: " + collectionName + " from xmldb @ " + URI);
+		log.info("Getting collection: " + collectionName + " from xmldb @ " + URI + " with credentials " + username + ":" + password);
 		
 		Collection collection = DatabaseManager.getCollection(URI + repositoryRoot + collectionName, username, password);
 		collection.setProperty(OutputKeys.INDENT, "no");

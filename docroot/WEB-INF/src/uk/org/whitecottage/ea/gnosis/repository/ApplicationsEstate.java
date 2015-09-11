@@ -36,6 +36,7 @@ import uk.org.whitecottage.ea.gnosis.jaxb.applications.Capability;
 import uk.org.whitecottage.ea.gnosis.jaxb.applications.Classification;
 import uk.org.whitecottage.ea.gnosis.jaxb.applications.Ecosystem;
 import uk.org.whitecottage.ea.gnosis.jaxb.applications.Investment;
+import uk.org.whitecottage.ea.gnosis.jaxb.applications.Migration;
 import uk.org.whitecottage.ea.gnosis.jaxb.applications.Stage;
 import uk.org.whitecottage.ea.gnosis.json.JSONArray;
 import uk.org.whitecottage.ea.gnosis.json.JSONInteger;
@@ -211,6 +212,27 @@ public class ApplicationsEstate extends XmldbProcessor {
 			investments.add(investmentJSON);
 		}
 		data.put(investments);
+		
+		index = 0;
+		JSONArray migrations = new JSONArray("migrations");
+		for (Migration migration: application.getMigration()) {
+			JSONMap migrationJSON = new JSONMap();
+			
+			JSONInteger indexJSON = new JSONInteger("index", index++);
+			migrationJSON.put(indexJSON);
+			
+			JSONString decriptionJSON = new JSONString("target", migration.getTo());
+			migrationJSON.put(decriptionJSON);
+			
+			XMLGregorianCalendar date = migration.getDate();
+			if (date != null) {
+				JSONString dateJSON = new JSONString("date", date.toXMLFormat());
+				migrationJSON.put(dateJSON);
+			}
+			
+			migrations.add(migrationJSON);
+		}
+		data.put(migrations);
 		
 		return data;
 	}
@@ -733,6 +755,78 @@ public class ApplicationsEstate extends XmldbProcessor {
 		}
 	}
 
+	public void updateMigration(String applicationId, String index, String mode, String date, String to) {
+		log.info("Id: " + applicationId);
+
+		Collection repository = null;
+		XMLResource applicationsResource = null;
+		try {   
+			repository = getCollection("");
+		    applicationsResource = getResource(repository, "applications.xml");
+		    Date migrationDate = null;
+		    
+		    SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+		    if (!date.equals("")) {
+			    migrationDate = format.parse(date);
+		    }
+
+		    Applications applications = (Applications) applicationsUnmarshaller.unmarshal(applicationsResource.getContentAsDOM());
+
+		    boolean update = false;
+		    for (Application application: applications.getApplication()) {
+		   		if (application.getAppId().equals(applicationId)) {
+		   			
+		   			if (mode.equals("edit")) {
+		   				Migration migration = application.getMigration().get(Integer.parseInt(index));
+		   				migration.setTo(to);;
+						GregorianCalendar cal = new GregorianCalendar();
+						cal.setTimeZone(TimeZone.getTimeZone("Europe/London"));
+						cal.setTime(migrationDate);
+		   				migration.setDate(getXMLDate(cal));
+		   				
+		   				update = true;
+		   			}
+		   			
+		   			if (mode.equals("new") && !update) {
+		   				Migration migration = new Migration();
+		   				migration.setTo(to);;
+						GregorianCalendar cal = new GregorianCalendar();
+						cal.setTimeZone(TimeZone.getTimeZone("Europe/London"));
+						cal.setTime(migrationDate);
+		   				migration.setDate(getXMLDate(cal));
+		   				
+		   				application.getMigration().add(migration);
+
+		   				update = true;
+		   			}
+		   			
+		   			break;
+		   		}
+		   	}
+			
+			if (update) {
+		    	DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+		        dbf.setNamespaceAware(true);
+		        DocumentBuilder db = dbf.newDocumentBuilder();
+		        Document doc = db.newDocument();
+		    	applicationsMarshaller.marshal(applications, doc);
+		    	
+				storeDomResource(repository, "applications.xml", doc);
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+		    if(applicationsResource != null) {
+		        try { ((EXistResource) applicationsResource).freeResources(); } catch(XMLDBException xe) {xe.printStackTrace();}
+		    }
+		    
+		    if(repository != null) {
+		        try { repository.close(); } catch(XMLDBException xe) {xe.printStackTrace();}
+		    }
+		}
+	}
+
 	protected XMLGregorianCalendar getXMLDate(GregorianCalendar cal) {
 		XMLGregorianCalendar xgc = null;
 				
@@ -749,7 +843,7 @@ public class ApplicationsEstate extends XmldbProcessor {
 		return xgc;
 	}
 	
-	public void removeLifecycle(String applicationId, String stage, String milestone) {
+	public void removeLifecycle(String applicationId, String stage, String milestone, String to) {
 		log.info("Id: " + applicationId);
 		Collection repository = null;
 		XMLResource applicationsResource = null;
@@ -765,9 +859,12 @@ public class ApplicationsEstate extends XmldbProcessor {
 			if (applicationNode != null) {
 				if (stage != null) {
 					query = "./stage[@lifecycle='" + stage + "']";
-				} else {
+				} else if (milestone != null) {
 					int index = Integer.parseInt(milestone) + 1;
 					query = "./investment[" + index + "]";
+				} else if (to != null) {
+					int index = Integer.parseInt(to) + 1;
+					query = "./migration[" + index + "]";
 				}
 				log.info("Query: " + query);
 				Element stageNode = (Element) xpath.evaluate(query, applicationNode, XPathConstants.NODE);
