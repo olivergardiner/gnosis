@@ -5,6 +5,7 @@
 	
 	<category name="gnosis.category">
 		<portlet id="ValueChainViewer"></portlet>
+		<portlet id="CityPlanViewer"></portlet>
 		<portlet id="FrameworkViewer"></portlet>
 		<portlet id="ApplicationsViewer"></portlet>
 		<portlet id="ApplicationsManager"></portlet>

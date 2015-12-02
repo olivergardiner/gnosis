@@ -28,20 +28,20 @@ var actionURL = "<%= actionURL %>";
 	<div class="portlet-section-header"></div>
 	<br />
 	<div class="portlet-section-body">
-		<div style="display: table; width: 95%; margin-left: auto; margin-right: auto; table-layout: fixed;">
-			<div style="display: table-row;" id="operating-model" class="om-layer">
+		<div id="value-chain-primary">
+		</div>
+		<div id="value-chain-support">
+		</div>
+		<div>
+		</div>
+		<!-- <div style="display: table; width: 95%; margin-left: auto; margin-right: auto; table-layout: fixed;">
+			<div style="display: table-row;" id="business-applications-primary" class="ba-layer">
 			</div>
 		</div>
-		<div id="business-applications">
-		</div>
 		<div style="display: table; width: 95%; margin-left: auto; margin-right: auto; table-layout: fixed;">
-			<div style="display: table-row;" id="common-services" class="cs-layer">
+			<div style="display: table-row;" id="business-applications-support" class="ba-layer">
 			</div>
-		</div>
-		<div style="display: table; width: 95%; margin-left: auto; margin-right: auto; table-layout: fixed;">
-			<div style="display: table-row;" id="infrastructure" class="inf-layer">
-			</div>
-		</div>
+		</div> -->
 		<br/>
 		<div>Download: <button id="pptx-download" style="display: none">PPTX</button><button id="vdx-download" style="display: none">VDX</button></div>
 	</div>

@@ -5,42 +5,22 @@ function showFramework(response) {
 	$("#operating-model").append('<div style="padding: 5px; display: table-cell; width: ' + width.toFixed(0) + '%;"><div class="om-domain"><div class="gnosis-middle">Process Flows</div></div></div>');
 	$("#operating-model").append('<div style="padding: 5px; display: table-cell; width: ' + width.toFixed(0) + '%;"><div class="om-domain"><div class="gnosis-middle">Business Information</div></div></div>');
 
-	var primaryBusinessApplicationDomains = [];
-	for (var i=0; i < response.valueChain.primaryActivities.length; i++) {
-		var activity = response.valueChain.primaryActivities[i];
-    	for (var j=0; j < response.businessApplications.length; j++) {
-    		if (response.businessApplications[j].valueChain != undefined && response.businessApplications[j].valueChain == activity.id) {
-    			primaryBusinessApplicationDomains.push(response.businessApplications[j]);
-    		}
-    	}
-	}
-	
-	width = 100 / primaryBusinessApplicationDomains.length;
-	for (var i = 0; i < primaryBusinessApplicationDomains.length; i++) {
-    	$("#business-applications-primary").append('<div style="padding: 5px; display: table-cell; width: ' + width.toFixed(0) + '%;"><div class="ba-domain"><div class="gnosis-middle">' + primaryBusinessApplicationDomains[i].name + '</div></div></div>');
-	}
-	
-	var supportBusinessApplicationDomains = [];
-	for (var i=0; i < response.valueChain.supportActivities.length; i++) {
-		var activity = response.valueChain.supportActivities[i];
-    	for (var j=0; j < response.businessApplications.length; j++) {
-    		if (response.businessApplications[j].valueChain != undefined && response.businessApplications[j].valueChain == activity.id) {
-    			supportBusinessApplicationDomains.push(response.businessApplications[j]);
-    		}
-    	}
-	}
-	
-	for (var j=0; j < response.businessApplications.length; j++) {
-		if (response.businessApplications[j].valueChain == undefined) {
-			supportBusinessApplicationDomains.push(response.businessApplications[j]);
+	var l = response.businessApplications.length;
+	var n = 0;
+	while (l > 0) {
+		var businessAppsTable = $('<div style="display: table; width: 95%; margin-left: auto; margin-right: auto; table-layout: fixed;"></div>');
+		var businessAppsRow = $('<div style="display: table-row;" class="ba-layer"></div>');
+		businessAppsTable.append(businessAppsRow);
+		$("#business-applications").append(businessAppsTable);
+		var ll = (l > 6) ? 6 : l;
+		width = 100 / ll;
+		for (var i = 0; i < ll; i++) {
+	    	businessAppsRow.append('<div style="padding: 5px; display: table-cell; width: ' + width.toFixed(0) + '%;"><div class="ba-domain"><div class="gnosis-middle">' + response.businessApplications[n].name + '</div></div></div>');
+	    	n++;
 		}
+		l -= ll;
 	}
 	
-	width = 100 / supportBusinessApplicationDomains.length;
-	for (var i = 0; i < supportBusinessApplicationDomains.length; i++) {
-    	$("#business-applications-support").append('<div style="padding: 5px; display: table-cell; width: ' + width.toFixed(0) + '%;"><div class="ba-domain"><div class="gnosis-middle">' + supportBusinessApplicationDomains[i].name + '</div></div></div>');
-	}
-	    	
 	width = 100 / response.commonServices.length;
 	for (var i = 0; i < response.commonServices.length; i++) {
     	$("#common-services").append('<div style="padding: 5px; display: table-cell; width: ' + width.toFixed(0) + '%;"><div class="cs-domain"><div class="gnosis-middle">' + response.commonServices[i].name + '</div></div></div>');
