@@ -186,21 +186,6 @@ $("#timeline-later").on("click", function() {
 	showTimeline(parseInt($("#timeline").attr("data-start-year")) + 1);
 });
 	
-$("#capabilities").select2({
-	"width": "100%",
-	"tags": []
-})./*on("change", function(event) {
-	// According to the documentation, this should work - but the event does not get fired for add...
-	if (event.removed != undefined) {
-		repoDeleteCapability($("#app-id").val(), event.removed.id);
-	}
-	if (event.added != undefined) {
-		repoAddCapability($("#app-id").val(), event.added.id);
-	}
-}).*/on("select2-removing", function(event) {
-	repoDeleteCapability($("#app-id").val(), event.val);
-});
-
 $("#ecosystems").select2({
 	"width": "100%",
 	"tags": []
@@ -219,53 +204,6 @@ $("#ecosystems").select2({
 
 $("ul.select2-choices").click(function() {
 	
-});
-
-$('#jstree').jstree({
-	'core': {
-		'data': getFrameworkJsonData,
-		'multiple': false,
-		'check_callback': true,
-		'themes': {
-			'variant': 'small',
-			'responsive': false
-		}
-	},
-	'types': {
-		'#': {
-			'valid_children': ['root', 'trash']
-		},
-		'root': {
-			'valid_children': ['technology-domain']
-		},
-		'technology-domain': {
-			'valid_children': ['capability'],
-			'icon': iconURL + "&icon=technology-domain.ico"
-		},
-		'capability': {
-			'valid_children': [],
-			'icon': iconURL + "&icon=capability.ico"
-		},
-		'trash': {
-			'icon': iconURL + "&icon=trash.ico"
-		}
-	},
-	'plugins': [ 'types' ]
-}).dblclick(function() {
-	var tree = $.jstree.reference('#jstree');
-	var node = tree.get_selected(true);
-	
-	if (node.length > 0) {
-		if (node[0].data == undefined || node[0].type != "capability") {
-			if (tree.is_open(node[0].id)) {
-				tree.close_node(node[0].id);
-			} else {
-				tree.open_node(node[0].id);
-			}
-		} else {
-			applyAddCapability();
-		}
-	}
 });
 
 $('#value-chain-jstree').jstree({
@@ -322,21 +260,6 @@ $('#value-chain-jstree').jstree({
 	}
 });
 
-$('#capability-form').dialog({
-	title: "Add a Logical Application",
-    autoOpen: false,
-    height: 500,
-    width: 600,
-    modal: true,
-    buttons: { "Add": applyAddCapability, "Close": closeCapabilityForm }
-});
-
-$("#add-capability").button().click(function() {
-	//$("#capability-form").dialog("option", "title", "Add a capability");
-	$("#capability-form").data("type", "classify");
-	$("#capability-form").dialog("open");
-});
-
 $('#ecosystem-form').dialog({
 	title: "Add an Ecosystem",
     autoOpen: false,
@@ -364,25 +287,10 @@ function downloadURL(url) {
     iframe.src = url;
 };
 
-function closeCapabilityForm() {
-	$('#capability-form').dialog("close");
-}
-
 function closeEcosystemForm() {
 	$('#ecosystem-form').dialog("close");
 }
 
-function applyAddCapability() {
-	if ($("#capability-form").data("type") == "classify") {
-		addCapability();
-	} else {
-		addCapabilityFilter();
-		table.api().draw();
-	}
-	
-	$('#capability-form').dialog( "close" );
-}
-	
 function applyAddEcosystem() {
 	if ($("#ecosystem-form").data("type") == "classify") {
 		addEcosystem();
@@ -715,37 +623,6 @@ function checkLifecycle(data) {
 	return true;
 }
 
-function addCapability() {
-	var tree = $.jstree.reference('#jstree');
-	var node = tree.get_selected(true);
-	
-	if (node.length > 0) {
-		
-		_addCapability(node[0].data.id, node[0].text);
-	}
-}
-
-function _addCapability(capability, text) {
-	var data = $("#capabilities").select2("data");
-	
-	var found = false;
-	for (var i = 0; i < data.length; i++) {
-		if (data[i].id == capability) {
-			found = true;
-		}
-	}
-	
-	if (!found) {
-		data.push({
-    		id: capability,
-    		text: text
-    	});
-		
-		$("#capabilities").select2("data", data);
-		repoAddCapability($("#app-id").val(), capability);
-	}
-}
-
 function addEcosystem() {
 	var tree = $.jstree.reference('#value-chain-jstree');
 	var node = tree.get_selected(true);
@@ -778,51 +655,7 @@ function _addEcosystem(ecosystem, capability, text) {
 				
 		$("#ecosystems").select2("data", data);
 		repoAddEcosystem($("#app-id").val(), ecosystem, capability);
-
-		// It would be nice to also add the corresponding Logical Application automatically
-		var capabilityName = getCapabilityName(capability);
-		_addCapability(capability, capabilityName);
 	}
-}
-
-function addCapabilityFilter() {
-	var tree = $.jstree.reference('#jstree');
-	var node = tree.get_selected(true);
-	
-	if (node.length > 0) {
-		var data = $("div.filter").select2("data");
-		
-		var found = false;
-		for (var i = 0; i < data.length; i++) {
-			if (data[i].id == node[0].data.id) {
-				found = true;
-			}
-		}
-		
-		if (!found) {
-			data.push({
-	    		id: node[0].data.id,
-	    		text: node[0].text
-	    	});
-			
-			$("div.filter").select2("data", data);
-		}
-	}
-}
-
-function getFrameworkJsonData(obj, callback) {
-	$.ajax({
-        async : true,
-        type : "GET",
-        url : frameworkJsonDataURL,
-        dataType : "json",
-        success : function(response) {
-    		callback.call(this, response.tree);
-        },
-        error : function(jqXhr, status, reason) {
-        	alert("Unable to retrieve framework data\n" + status + ": " + reason);
-        }
-	});
 }
 
 function getValueChainJsonData(obj, callback) {
@@ -838,25 +671,6 @@ function getValueChainJsonData(obj, callback) {
         	alert("Unable to retrieve value chain data\n" + status + ": " + reason);
         }
 	});
-}
-
-function getCapabilityName(capabilityId) {
-	var tree = $.jstree.reference('#jstree');
-	var json = tree.get_json();
-	
-	for (var i = 0; i < json.length; i++) {
-		var layer = json[i];
-		for (var j = 0; j < layer.children.length; j++) {
-			var domain = layer.children[j];
-			for (var k = 0; k < domain.children.length; k++) {
-				if (domain.children[k].data.id == capabilityId) {
-					return domain.children[k].text;
-				}
-			}
-		}
-	}
-	
-	return undefined;
 }
 
 function getCapabilityInstanceName(ecosystemId, capabilityId) {
@@ -896,21 +710,6 @@ function editSelectedApplication() {
     	} else {
 	    	$("#app-description").html("&nbsp;");
 	    }
-    	
-    	var capabilities = [];
-    	for (var i = 0; i < data.capabilities.length; i++) {
-    		var capabilityId = data.capabilities[i];
-    		var capabilityName = getCapabilityName(capabilityId);
-    		
-    		if (capabilityName != undefined) {
-		    	capabilities.push({
-		    		id: capabilityId,
-		    		text: capabilityName
-		    	});
-    		}
-    	}
-    	
-    	$("#capabilities").select2("data", capabilities);
     	
     	var ecosystems = [];
     	if (data.ecosystems != undefined) {

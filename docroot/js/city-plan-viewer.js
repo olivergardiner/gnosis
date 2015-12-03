@@ -1,10 +1,10 @@
 function showEcosystems(response) {
 	var width ;
 	
-	var primaryTable = $('<div style="display: table; width: 95%; margin-left: auto; margin-right: auto; table-layout: fixed;"></div>');
+	var table = $('<div style="display: table; width: 95%; margin-left: auto; margin-right: auto; table-layout: fixed;"></div>');
 	var primaryRow = $('<div style="display: table-row;" class="ba-layer"></div>');
-	primaryTable.append(primaryRow);
-	$("#value-chain-primary").append(primaryTable);
+	table.append(primaryRow);
+	$("#value-chain-primary").append(table);
 
 	width = 100 / response.valueChain.primaryActivities.length;
 	for (var i = 0; i < response.valueChain.primaryActivities.length; i++) {

@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- edited with XMLSpy v2010 (http://www.altova.com) by BBC DMI (BBC) -->
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
 	<xs:include schemaLocation="common.xsd"/>
 	<xs:element name="applications">
@@ -12,7 +11,7 @@
 	<xs:element name="application">
 		<xs:complexType>
 			<xs:sequence>
-				<xs:element ref="classification" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element ref="classification" minOccurs="0" maxOccurs="unbounded"/> <!-- Deprecated -->
 				<xs:element ref="ecosystem" minOccurs="0" maxOccurs="unbounded"/>
 				<xs:element ref="stage" minOccurs="0" maxOccurs="unbounded"/>
 				<xs:element ref="migration" minOccurs="0" maxOccurs="unbounded"/>
@@ -23,6 +22,8 @@
 				<xs:element ref="source" minOccurs="0"/>
 				<xs:element ref="managingOrganisation" minOccurs="0"/>
 				<xs:element ref="procurementTower" minOccurs="0"/>
+				<xs:element ref="tag" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element ref="comment" minOccurs="0" maxOccurs="unbounded"/>
 			</xs:sequence>
 			<xs:attribute name="app-id" type="xs:token" use="required"/>
 			<xs:attribute ref="name" use="required"/>

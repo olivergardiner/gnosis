@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- edited with XMLSpy v2010 (http://www.altova.com) by BBC DMI (BBC) -->
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
 	<xs:attribute name="date" type="xs:date"/>
 	<xs:attribute name="name" type="xs:string"/>
@@ -16,4 +15,23 @@
 	<xs:element name="description" type="xs:string"/>
 	<xs:element name="source" type="xs:string"/>
 	<xs:element name="notes" type="xs:string"/>
+	<xs:element name="comment">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="xs:string">
+					<xs:attribute name="id" use="required"/>
+				</xs:extension>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="tag">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="xs:string">
+					<xs:attribute name="taxonomy-id" use="required"/>
+					<xs:attribute name="term-id" use="required"/>
+				</xs:extension>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
 </xs:schema>

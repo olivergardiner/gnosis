@@ -14,8 +14,7 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
-import javax.xml.bind.annotation.adapters.CollapsedStringAdapter;
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+import javax.xml.bind.annotation.XmlValue;
 
 
 /**
@@ -25,75 +24,75 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
  * 
  * <pre>
  * &lt;complexType>
- *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;attribute name="process" use="required" type="{http://www.w3.org/2001/XMLSchema}NMTOKEN" />
- *       &lt;attribute name="contiguous" type="{http://www.w3.org/2001/XMLSchema}boolean" />
- *     &lt;/restriction>
- *   &lt;/complexContent>
+ *   &lt;simpleContent>
+ *     &lt;extension base="&lt;http://www.w3.org/2001/XMLSchema>string">
+ *       &lt;attribute name="id" use="required" type="{http://www.w3.org/2001/XMLSchema}anySimpleType" />
+ *     &lt;/extension>
+ *   &lt;/simpleContent>
  * &lt;/complexType>
  * </pre>
  * 
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "")
-@XmlRootElement(name = "predecessor")
-public class Predecessor {
+@XmlType(name = "", propOrder = {
+    "value"
+})
+@XmlRootElement(name = "comment")
+public class Comment {
 
-    @XmlAttribute(name = "process", required = true)
-    @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
-    @XmlSchemaType(name = "NMTOKEN")
-    protected String process;
-    @XmlAttribute(name = "contiguous")
-    protected Boolean contiguous;
+    @XmlValue
+    protected String value;
+    @XmlAttribute(name = "id", required = true)
+    @XmlSchemaType(name = "anySimpleType")
+    protected String id;
 
     /**
-     * Gets the value of the process property.
+     * Gets the value of the value property.
      * 
      * @return
      *     possible object is
      *     {@link String }
      *     
      */
-    public String getProcess() {
-        return process;
+    public String getValue() {
+        return value;
     }
 
     /**
-     * Sets the value of the process property.
+     * Sets the value of the value property.
      * 
      * @param value
      *     allowed object is
      *     {@link String }
      *     
      */
-    public void setProcess(String value) {
-        this.process = value;
+    public void setValue(String value) {
+        this.value = value;
     }
 
     /**
-     * Gets the value of the contiguous property.
+     * Gets the value of the id property.
      * 
      * @return
      *     possible object is
-     *     {@link Boolean }
+     *     {@link String }
      *     
      */
-    public Boolean isContiguous() {
-        return contiguous;
+    public String getId() {
+        return id;
     }
 
     /**
-     * Sets the value of the contiguous property.
+     * Sets the value of the id property.
      * 
      * @param value
      *     allowed object is
-     *     {@link Boolean }
+     *     {@link String }
      *     
      */
-    public void setContiguous(Boolean value) {
-        this.contiguous = value;
+    public void setId(String value) {
+        this.id = value;
     }
 
 }

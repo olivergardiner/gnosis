@@ -6,7 +6,7 @@
   </facet>
   <facet id="jpt.jaxb">
     <node name="classgen">
-      <attribute name="package" value="uk.org.whitecottage.ea.gnosis.jaxb.visio2010"/>
+      <attribute name="package" value="uk.org.whitecottage.ea.gnosis.jaxb.taxonomy"/>
     </node>
   </facet>
 </root>

@@ -7,7 +7,6 @@
 <portlet:defineObjects/>
 
 <portlet:resourceURL var="applicationsListJsonDataURL" id="applicationsListJsonData"/>
-<portlet:resourceURL var="frameworkJsonDataURL" id="frameworkJsonData"/>
 <portlet:resourceURL var="valueChainJsonDataURL" id="valueChainJsonData"/>
 <portlet:resourceURL var="actionURL" id="action"/>
 <portlet:resourceURL var="pptxURL" id="pptx"/>
@@ -16,7 +15,6 @@
 
 <script type="text/javascript">
 var applicationsListJsonDataURL = "<%= applicationsListJsonDataURL %>";
-var frameworkJsonDataURL = "<%= frameworkJsonDataURL %>";
 var valueChainJsonDataURL = "<%= valueChainJsonDataURL %>";
 var iconURL = "<%= iconURL %>";
 var pptxURL = "<%= pptxURL %>";
@@ -74,7 +72,7 @@ var actionURL = "<%= actionURL %>";
 		</div>
 	</div>
 	<br>
-	<div class="ui-widget-content ui-corner-all">
+	<!-- <div class="ui-widget-content ui-corner-all">
 		<div style="display: table;">
 			<div style="display: table-row; background: #eeeeee;">
 				<div style="display: table-cell; width: 100%;"><div class="gnosis-title"><span>Logical Applications</span></div></div>
@@ -82,9 +80,8 @@ var actionURL = "<%= actionURL %>";
 			</div>
 		</div>
 		<div id="capabilities"></div>
-		<!-- <div style="background: #eeeeee;"><button id="add-capability" style="margin-right: 0px;">Add</button></div> -->
 	</div>
-	<br>
+	<br> -->
 	<div class="ui-widget-content ui-corner-all">
 		<div style="display: table;">
 			<div style="display: table-row; background: #eeeeee;">
@@ -151,10 +148,6 @@ var actionURL = "<%= actionURL %>";
 			<div style="display: table-cell; vertical-align: top;"><div id="app-description-editor"></div></div>
 		</div>
 	</div>
-</div>
-
-<div id="capability-form" title="" style="display: none;">
-	<div id="jstree"></div>
 </div>
 
 <div id="ecosystem-form" title="" style="display: none;">
