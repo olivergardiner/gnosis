@@ -1,7 +1,5 @@
 package uk.org.whitecottage.ea.gnosis.repository;
 
-import java.util.logging.Logger;
-
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
@@ -13,7 +11,14 @@ import org.xmldb.api.base.Collection;
 import org.xmldb.api.base.XMLDBException;
 import org.xmldb.api.modules.XMLResource;
 
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
+
+import uk.org.whitecottage.ea.gnosis.jaxb.taxonomy.Term;
 import uk.org.whitecottage.ea.gnosis.json.JSONMap;
+import uk.org.whitecottage.ea.gnosis.json.JSONString;
+import uk.org.whitecottage.ea.gnosis.json.jstree.JSTree;
+import uk.org.whitecottage.ea.gnosis.json.jstree.JSTreeNode;
 import uk.org.whitecottage.ea.xmldb.XmldbProcessor;
 
 public class Taxonomy extends XmldbProcessor {
@@ -21,7 +26,7 @@ public class Taxonomy extends XmldbProcessor {
 	protected Marshaller taxonomyMarshaller = null;
 
 	@SuppressWarnings("unused")
-	private static final Logger log = Logger.getLogger("uk.org.whitecottage.ea.gnosis.taxonomy");
+	private static final Log log = LogFactoryUtil.getLog(Taxonomy.class);
 
 	public Taxonomy(String URI, String repositoryRoot, String context) {
 		super(URI, repositoryRoot);
@@ -47,9 +52,27 @@ public class Taxonomy extends XmldbProcessor {
 		    taxonomyResource = getResource(repository, "taxonomies.xml");
 		    uk.org.whitecottage.ea.gnosis.jaxb.taxonomy.Taxonomies taxonomies = (uk.org.whitecottage.ea.gnosis.jaxb.taxonomy.Taxonomies) taxonomyUnmarshaller.unmarshal(taxonomyResource.getContentAsDOM());
 			
-			JSONMap taxonomyJSON = new JSONMap();
+			JSTree tree = new JSTree();
 			
-			result = taxonomyJSON.toJSON();
+			for (uk.org.whitecottage.ea.gnosis.jaxb.taxonomy.Taxonomy taxonomy: taxonomies.getTaxonomy()) {
+				JSONMap data = new JSONMap("data");
+				
+				JSONString idJSON = new JSONString("id", taxonomy.getTaxonomyId());
+				data.put(idJSON);
+						
+				JSONString descriptionJSON = new JSONString("description", taxonomy.getDescription());
+				data.put(descriptionJSON);
+
+				JSTreeNode taxonomyJSON = new JSTreeNode(taxonomy.getName(), "taxonomy", data);
+					
+				for (Term term: taxonomy.getTerm()) {
+					taxonomyJSON.getChildren().add(getTermJSON(term));
+				}
+				
+				tree.add(taxonomyJSON);
+			}
+			
+			result = tree.toJSON();
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -64,5 +87,23 @@ public class Taxonomy extends XmldbProcessor {
 		}
 		
 		return result;
+	}
+
+	protected JSTreeNode getTermJSON(Term term) {
+		JSONMap data = new JSONMap("data");
+		
+		JSONString idJSON = new JSONString("id", term.getTermId());
+		data.put(idJSON);
+				
+		JSONString descriptionJSON = new JSONString("description", term.getDescription());
+		data.put(descriptionJSON);
+
+		JSTreeNode termJSON = new JSTreeNode(term.getName(), "term", data);
+			
+		for (Term childTerm: term.getTerm()) {
+			termJSON.getChildren().add(getTermJSON(childTerm));
+		}
+		
+		return termJSON;
 	}
 }

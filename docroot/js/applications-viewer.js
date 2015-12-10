@@ -202,6 +202,22 @@ $("#ecosystems").select2({
 	repoDeleteEcosystem($("#app-id").val(), id[0], id[1]);
 });
 
+$("#tags").select2({
+	"width": "100%",
+	"tags": []
+})./*on("change", function(event) {
+	// According to the documentation, this should work - but the event does not get fired for add...
+	if (event.removed != undefined) {
+		repoDeleteCapability($("#app-id").val(), event.removed.id);
+	}
+	if (event.added != undefined) {
+		repoAddCapability($("#app-id").val(), event.added.id);
+	}
+}).*/on("select2-removing", function(event) {
+	var id = event.val.split("/");
+	repoDeleteTag($("#app-id").val(), id[0], id[1]);
+});
+
 $("ul.select2-choices").click(function() {
 	
 });
@@ -275,17 +291,62 @@ $("#add-ecosystem").button().click(function() {
 	$("#ecosystem-form").dialog("open");
 });
 
-function downloadURL(url) {
-    var hiddenIFrameID = 'hiddenDownloader',
-        iframe = document.getElementById(hiddenIFrameID);
-    if (iframe === null) {
-        iframe = document.createElement('iframe');
-        iframe.id = hiddenIFrameID;
-        iframe.style.display = 'none';
-        document.body.appendChild(iframe);
-    }
-    iframe.src = url;
-};
+$('#taxonomy-jstree').jstree({
+	'core': {
+		'data': getTaxonomyJsonData,
+		'multiple': false,
+		'check_callback': true,
+		'themes': {
+			'variant': 'small',
+			'responsive': false
+		}
+	},
+	'types': {
+		'#': {
+			'valid_children': ['taxonomy', 'trash']
+		},
+		'taxonomy': {
+			'valid_children': ['term']
+		},
+		'term': {
+			'valid_children': ['term']
+		},
+		'trash': {
+			'icon': iconURL + "&icon=trash.ico"
+		}
+	},
+	'plugins': [ 'types' ]
+}).dblclick(function() {
+	var tree = $.jstree.reference('#taxonomy-jstree');
+	var node = tree.get_selected(true);
+	
+	if (node.length > 0) {
+		if (node[0].data == undefined || node[0].type != "term") {
+			if (tree.is_open(node[0].id)) {
+				tree.close_node(node[0].id);
+			} else {
+				tree.open_node(node[0].id);
+			}
+		} else {
+			applyAddTaxonomy();
+		}
+	}
+});
+
+$('#taxonomy-form').dialog({
+	title: "Add a taxonomy term",
+    autoOpen: false,
+    height: 500,
+    width: 600,
+    modal: true,
+    buttons: { "Add": applyAddTaxonomy, "Close": closeTaxonomyForm }
+});
+
+$("#add-tag").button().click(function() {
+	//$("#capability-form").dialog("option", "title", "Add a capability");
+	$("#taxonomy-form").data("type", "classify");
+	$("#taxonomy-form").dialog("open");
+});
 
 function closeEcosystemForm() {
 	$('#ecosystem-form').dialog("close");
@@ -302,6 +363,33 @@ function applyAddEcosystem() {
 	$('#ecosystem-form').dialog( "close" );
 }
 	
+function applyAddTaxonomy() {
+	if ($("#taxonomy-form").data("type") == "classify") {
+		addTaxonomy();
+	} else {
+		//addCapabilityFilter();
+		//table.api().draw();
+	}
+	
+	$('#taxonomy-form').dialog( "close" );
+}
+	
+function closeTaxonomyForm() {
+	$('#taxonomy-form').dialog("close");
+}
+
+function downloadURL(url) {
+    var hiddenIFrameID = 'hiddenDownloader',
+        iframe = document.getElementById(hiddenIFrameID);
+    if (iframe === null) {
+        iframe = document.createElement('iframe');
+        iframe.id = hiddenIFrameID;
+        iframe.style.display = 'none';
+        document.body.appendChild(iframe);
+    }
+    iframe.src = url;
+};
+
 $('#edit-lifecycle-form').dialog({
     autoOpen: false,
     height: 500,
@@ -658,6 +746,41 @@ function _addEcosystem(ecosystem, capability, text) {
 	}
 }
 
+function addTaxonomy() {
+	var tree = $.jstree.reference('#taxonomy-jstree');
+	var node = tree.get_selected(true);
+	
+	if (node.length > 0) {
+		
+		var parentNode = tree.get_node(tree.get_parent(node[0]));
+		
+		_addTaxonomy(parentNode.data.id, node[0].data.id, node[0].text);		
+	}
+}
+
+function _addTaxonomy(taxonomy, term, text) {
+	var data = $("#tags").select2("data");
+	
+	var id = taxonomy + "/" + term;
+
+	var found = false;
+	for (var i = 0; i < data.length; i++) {
+		if (data[i].id == id) {
+			found = true;
+		}
+	}
+	
+	if (!found) {
+		data.push({
+    		id: id,
+    		text: text
+    	});
+				
+		$("#tags").select2("data", data);
+		//repoAddTag($("#app-id").val(), taxonomy, term);
+	}
+}
+
 function getValueChainJsonData(obj, callback) {
 	$.ajax({
         async : true,
@@ -669,6 +792,21 @@ function getValueChainJsonData(obj, callback) {
         },
         error : function(jqXhr, status, reason) {
         	alert("Unable to retrieve value chain data\n" + status + ": " + reason);
+        }
+	});
+}
+
+function getTaxonomyJsonData(obj, callback) {
+	$.ajax({
+        async : true,
+        type : "GET",
+        url : taxonomyJsonDataURL,
+        dataType : "json",
+        success : function(response) {
+    		callback.call(this, response);
+        },
+        error : function(jqXhr, status, reason) {
+        	alert("Unable to retrieve taxonomy data\n" + status + ": " + reason);
         }
 	});
 }

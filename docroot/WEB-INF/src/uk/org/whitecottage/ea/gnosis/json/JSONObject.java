@@ -28,6 +28,10 @@ public abstract class JSONObject {
 	}
 	
 	public String safeJSONString(String value) {
+		if (value == null) {
+			return "";
+		}
+		
 		return value.replace("\"", "\\\"");
 	}
 }

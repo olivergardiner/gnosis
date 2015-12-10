@@ -18,6 +18,7 @@ import org.apache.poi.xslf.usermodel.XMLSlideShow;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import uk.org.whitecottage.ea.gnosis.repository.ApplicationsEstate;
+import uk.org.whitecottage.ea.gnosis.repository.Taxonomy;
 import uk.org.whitecottage.ea.gnosis.repository.TechnologyDomains;
 import uk.org.whitecottage.ea.gnosis.repository.ValueChain;
 import uk.org.whitecottage.ea.gnosis.repository.applications.ApplicationsSpreadsheet;
@@ -61,6 +62,20 @@ public class ApplicationsViewer extends GnosisPortlet {
     	
     	ApplicationsEstate applications = new ApplicationsEstate(existURI, existRepositoryRoot, context);
     	String json = applications.getApplicationJSON(getParameter(request, "applicationId"));
+    	
+		response.setContentType("application/json");
+    	response.getWriter().print(json);
+    }
+
+    @ProcessResourceRequest(name = "taxonomyJsonData")
+    public void serveTaxonomyJSON(ResourceRequest request, ResourceResponse response) throws PortletException, IOException {
+    	Properties gnosisProperties = getProperties();
+    	String existURI = gnosisProperties.getProperty("exist.uri");
+    	String existRepositoryRoot = gnosisProperties.getProperty("exist.repository.root");
+    	String context = getPortletContext().getRealPath("");
+    	
+    	Taxonomy taxonomy = new Taxonomy(existURI, existRepositoryRoot, context);
+    	String json = taxonomy.getJSON();
     	
 		response.setContentType("application/json");
     	response.getWriter().print(json);
