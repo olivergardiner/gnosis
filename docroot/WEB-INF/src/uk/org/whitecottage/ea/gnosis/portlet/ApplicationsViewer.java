@@ -264,6 +264,54 @@ public class ApplicationsViewer extends GnosisPortlet {
 		response.getWriter().print(json);
     }
 
+    @ProcessResourceAction(name = "addTagAction")
+    public void addTag(ResourceRequest request, ResourceResponse response) throws PortletException, IOException {
+    	log.info("Add tag");
+
+    	Properties gnosisProperties = getProperties();
+    	String existURI = gnosisProperties.getProperty("exist.uri");
+    	String existRepositoryRoot = gnosisProperties.getProperty("exist.repository.root");
+    	String context = getPortletContext().getRealPath("");
+    	ApplicationsEstate applications = new ApplicationsEstate(existURI, existRepositoryRoot, context);
+    	
+    	logParameters(request);
+    	
+    	String applicationId = getParameter(request, "applicationId");
+       	String taxonomyId = getParameter(request, "taxonomy");
+       	String termId = getParameter(request, "term");
+    	       	
+    	applications.addTag(applicationId, taxonomyId, termId);
+    	
+    	String json = applications.getApplicationJSON(getParameter(request, "applicationId"));    	
+
+		response.setContentType("application/json");
+		response.getWriter().print(json);
+    }
+
+    @ProcessResourceAction(name = "removeTagAction")
+    public void removeTag(ResourceRequest request, ResourceResponse response) throws PortletException, IOException {
+    	log.info("Delete tag");
+
+    	Properties gnosisProperties = getProperties();
+    	String existURI = gnosisProperties.getProperty("exist.uri");
+    	String existRepositoryRoot = gnosisProperties.getProperty("exist.repository.root");
+    	String context = getPortletContext().getRealPath("");
+    	ApplicationsEstate applications = new ApplicationsEstate(existURI, existRepositoryRoot, context);
+    	
+    	logParameters(request);
+    	
+    	String applicationId = getParameter(request, "applicationId");
+       	String taxonomyId = getParameter(request, "taxonomy");
+       	String termId = getParameter(request, "term");
+    	       	
+    	applications.removeTag(applicationId, taxonomyId, termId);
+    	
+    	String json = applications.getApplicationJSON(getParameter(request, "applicationId"));    	
+
+		response.setContentType("application/json");
+		response.getWriter().print(json);
+    }
+
     @ProcessResourceAction(name = "addCapabilityAction")
     public void addCapability(ResourceRequest request, ResourceResponse response) throws PortletException, IOException {
     	log.info("Add capability");

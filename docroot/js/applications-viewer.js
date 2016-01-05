@@ -777,7 +777,7 @@ function _addTaxonomy(taxonomy, term, text) {
     	});
 				
 		$("#tags").select2("data", data);
-		//repoAddTag($("#app-id").val(), taxonomy, term);
+		repoAddTag($("#app-id").val(), taxonomy, term);
 	}
 }
 
@@ -835,10 +835,31 @@ function getCapabilityInstanceName(ecosystemId, capabilityId) {
 	return undefined;
 }
 
+function getTagName(taxonomyId, termId) {
+	var tree = $.jstree.reference('#taxonomy-jstree');
+	var json = tree.get_json();
+	
+	for (var i = 0; i < json.length; i++) {
+		var taxonomy = json[i];
+		if (taxonomy.data.id == taxonomyId) {
+			for (var j = 0; j < taxonomy.children.length; j++) {
+				var term = taxonomy.children[j];
+				if (term.data.id == termId) {
+					return term.text;
+				}
+			}
+				
+		}
+	}
+	
+	return undefined;
+}
+
 function editSelectedApplication() {
     var selected = table.$('tr.selected');
     if (selected.length !== 0) {
-		var data = table.fnGetData(selected[0]);
+		//var data = table.fnGetData(selected[0]);
+		var data = $("#apps-table").dataTable().api().row(selected[0]).data();
 		
 		$("#app-id").val(data.applicationId);
 
@@ -869,6 +890,25 @@ function editSelectedApplication() {
     	}
 
     	$("#ecosystems").select2("data", ecosystems);
+    	
+    	var tags = [];
+    	if (data.tags != undefined) {
+	    	for (var i = 0; i < data.tags.length; i++) {
+	    		var tag = data.tags[i];
+    	   		var taxonomyId = tag.taxonomyId;
+    	   		var termId = tag.termId;
+    			var termName = getTagName(taxonomyId, termId);
+    		
+	    		if (termName != undefined) {
+			    	tags.push({
+			    		id: taxonomyId + "/" + termId,
+			    		text: termName
+			    	});
+	    		}
+	     	}
+    	}
+
+    	$("#tags").select2("data", tags);
     	
     	buildTimeline(new Date().getFullYear(), data);
     	
@@ -1030,10 +1070,41 @@ function repoUpdateApplicationBasic(id, name, description) {
 	});
 }
 
+function repoAddTag(id, taxonomy, term) {
+	repoAction("addTagAction", {
+		applicationId: id,
+		taxonomy: taxonomy,
+		term: term
+	}, function (response) {
+	    var selected = table.$('tr.selected');
+	    if (selected.length !== 0) {
+	    	$("#apps-table").dataTable().api().row(selected[0]).data(response);
+	    }
+	});
+}
+
+function repoDeleteTag(id, taxonomy, term) {
+	repoAction("removeTagAction", {
+		applicationId: id,
+		taxonomy: taxonomy,
+		term: term
+	}, function (response) {
+	    var selected = table.$('tr.selected');
+	    if (selected.length !== 0) {
+	    	$("#apps-table").dataTable().api().row(selected[0]).data(response);
+	    }
+	});
+}
+
 function repoAddCapability(id, capability) {
 	repoAction("addCapabilityAction", {
 		applicationId: id,
 		capability: capability
+	}, function (response) {
+	    var selected = table.$('tr.selected');
+	    if (selected.length !== 0) {
+	    	$("#apps-table").dataTable().api().row(selected[0]).data(response);
+	    }
 	});
 }
 
@@ -1041,6 +1112,11 @@ function repoDeleteCapability(id, capability) {
 	repoAction("removeCapabilityAction", {
 		applicationId: id,
 		capability: capability
+	}, function (response) {
+	    var selected = table.$('tr.selected');
+	    if (selected.length !== 0) {
+	    	$("#apps-table").dataTable().api().row(selected[0]).data(response);
+	    }
 	});
 }
 
@@ -1049,6 +1125,11 @@ function repoAddEcosystem(id, ecosystem, capability) {
 		applicationId: id,
 		ecosystem: ecosystem,
 		capability: capability
+	}, function (response) {
+	    var selected = table.$('tr.selected');
+	    if (selected.length !== 0) {
+	    	$("#apps-table").dataTable().api().row(selected[0]).data(response);
+	    }
 	});
 }
 
@@ -1057,6 +1138,11 @@ function repoDeleteEcosystem(id, ecosystem, capability) {
 		applicationId: id,
 		ecosystem: ecosystem,
 		capability: capability
+	}, function (response) {
+	    var selected = table.$('tr.selected');
+	    if (selected.length !== 0) {
+	    	$("#apps-table").dataTable().api().row(selected[0]).data(response);
+	    }
 	});
 }
 

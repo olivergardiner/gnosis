@@ -38,6 +38,7 @@ import uk.org.whitecottage.ea.gnosis.jaxb.applications.Ecosystem;
 import uk.org.whitecottage.ea.gnosis.jaxb.applications.Investment;
 import uk.org.whitecottage.ea.gnosis.jaxb.applications.Migration;
 import uk.org.whitecottage.ea.gnosis.jaxb.applications.Stage;
+import uk.org.whitecottage.ea.gnosis.jaxb.applications.Tag;
 import uk.org.whitecottage.ea.gnosis.json.JSONArray;
 import uk.org.whitecottage.ea.gnosis.json.JSONInteger;
 import uk.org.whitecottage.ea.gnosis.json.JSONMap;
@@ -161,6 +162,20 @@ public class ApplicationsEstate extends XmldbProcessor {
 			ecosystems.add(ecosystemJSON);
 		}
 		data.put(ecosystems);
+		
+		JSONArray tags = new JSONArray("tags");
+		for (Tag tag: application.getTag()) {
+			JSONMap tagJSON = new JSONMap();
+			
+			JSONString taxonomyIdJSON = new JSONString("taxonomyId", tag.getTaxonomyId());
+			tagJSON.put(taxonomyIdJSON);
+
+			JSONString termIdJSON = new JSONString("termId", tag.getTermId());
+			tagJSON.put(termIdJSON);
+			
+			tags.add(tagJSON);
+		}
+		data.put(tags);
 				
 		JSONString nameJSON = new JSONString("name", application.getName());
 		data.put(nameJSON);
@@ -435,6 +450,101 @@ public class ApplicationsEstate extends XmldbProcessor {
 		   			for (Classification classification: application.getClassification()) {
 			   			if (classification.getCapability().equals(capability)) {
 			   				classifications.remove(classification);
+			   				update = true;
+			   				break;
+			   			}
+		   			}
+		   		}
+		   	}
+			
+			if (update) {
+		    	// Create the DOM document
+		    	DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+		        dbf.setNamespaceAware(true);
+		        DocumentBuilder db = dbf.newDocumentBuilder();
+		        Document doc = db.newDocument();
+		    	applicationsMarshaller.marshal(applications, doc);
+		    	
+				storeDomResource(repository, "applications.xml", doc);
+			}
+		    
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+		    if(applicationsResource != null) {
+		        try { ((EXistResource) applicationsResource).freeResources(); } catch(XMLDBException xe) {xe.printStackTrace();}
+		    }
+		    
+		    if(repository != null) {
+		        try { repository.close(); } catch(XMLDBException xe) {xe.printStackTrace();}
+		    }
+		}
+	}
+
+	public void addTag(String applicationId, String taxonomyId, String termId) {
+		Collection repository = null;
+		XMLResource applicationsResource = null;
+		try {   
+			repository = getCollection("");
+		    applicationsResource = getResource(repository, "applications.xml");
+		    
+			Applications applications = (Applications) applicationsUnmarshaller.unmarshal(applicationsResource.getContentAsDOM());
+
+			boolean update = false;
+			
+			for (Application application: applications.getApplication()) {
+		   		if (application.getAppId().equals(applicationId)) {
+		   			Tag tag = new Tag();
+		   			tag.setTaxonomyId(taxonomyId);
+		   			tag.setTermId(termId);
+		   			
+		   			application.getTag().add(tag);
+		   			update = true;
+		   		}
+		   	}
+			
+			if (update) {
+		    	// Create the DOM document
+		    	DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+		        dbf.setNamespaceAware(true);
+		        DocumentBuilder db = dbf.newDocumentBuilder();
+		        Document doc = db.newDocument();
+		    	applicationsMarshaller.marshal(applications, doc);
+		    	
+				storeDomResource(repository, "applications.xml", doc);
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+		    if(applicationsResource != null) {
+		        try { ((EXistResource) applicationsResource).freeResources(); } catch(XMLDBException xe) {xe.printStackTrace();}
+		    }
+		    
+		    if(repository != null) {
+		        try { repository.close(); } catch(XMLDBException xe) {xe.printStackTrace();}
+		    }
+		}
+	}
+
+	public void removeTag(String applicationId, String taxonomyId, String termId) {
+		Collection repository = null;
+		XMLResource applicationsResource = null;
+		try {   
+			repository = getCollection("");
+		    applicationsResource = getResource(repository, "applications.xml");
+		    
+			Applications applications = (Applications) applicationsUnmarshaller.unmarshal(applicationsResource.getContentAsDOM());
+
+			boolean update = false;
+			
+			for (Application application: applications.getApplication()) {
+		   		if (application.getAppId().equals(applicationId)) {
+		   			List<Tag> tags = application.getTag();
+		   			for (Tag tag: application.getTag()) {
+			   			if (tag.getTaxonomyId().equals(taxonomyId) && tag.getTermId().equals(termId)) {
+			   				tags.remove(tag);
 			   				update = true;
 			   				break;
 			   			}
