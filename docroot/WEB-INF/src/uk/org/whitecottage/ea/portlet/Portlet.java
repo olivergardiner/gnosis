@@ -7,7 +7,7 @@ import javax.portlet.PortletRequest;
 import javax.servlet.http.HttpServletRequest;
 
 import com.liferay.portal.kernel.log.Log;
-import com.liferay.portal.util.PortalUtil;
+import com.liferay.portal.kernel.util.PortalUtil;
 
 public class Portlet extends GenericPortlet {
 	protected String dataDir;
