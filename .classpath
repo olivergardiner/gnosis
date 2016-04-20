@@ -13,7 +13,7 @@
 			<attribute name="org.eclipse.jst.component.nondependency" value=""/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="con" path="org.apache.ivyde.eclipse.cpcontainer.IVYDE_CONTAINER/?project=gnosis&amp;ivyXmlPath=ivy.xml&amp;confs=*&amp;ivySettingsPath=%24%7Bliferay_sdk_dir%3Agnosis%7D%2Fivy-settings.xml&amp;loadSettingsOnDemand=false&amp;ivyUserDir=%24%7Bliferay_sdk_dir%3Agnosis%7D%2F.ivy&amp;propertyFiles=">
+	<classpathentry kind="con" path="org.apache.ivyde.eclipse.cpcontainer.IVYDE_CONTAINER/?project=gnosis-portlet&amp;ivyXmlPath=ivy.xml&amp;confs=*&amp;ivySettingsPath=%24%7Bliferay_sdk_dir%3Agnosis-portlet%7D%2Fivy-settings.xml&amp;loadSettingsOnDemand=false&amp;ivyUserDir=%24%7Bliferay_sdk_dir%3Agnosis-portlet%7D%2F.ivy&amp;propertyFiles=">
 		<attributes>
 			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
 		</attributes>
