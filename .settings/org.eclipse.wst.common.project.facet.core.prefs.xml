@@ -1,9 +1,4 @@
 <root>
-  <facet id="jpt.jaxb">
-    <node name="classgen">
-      <attribute name="package" value="uk.org.whitecottage.ea.gnosis.jaxb.taxonomy"/>
-    </node>
-  </facet>
   <facet id="liferay.portlet">
     <node name="libprov">
       <attribute name="provider-id" value="com.liferay.ide.eclipse.plugin.portlet.libraryProvider"/>
