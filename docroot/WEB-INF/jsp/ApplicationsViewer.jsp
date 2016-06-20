@@ -6,6 +6,24 @@
 
 <portlet:defineObjects/>
 
+<!-- <script src="<%=renderRequest.getContextPath()%>/js/jquery/jquery-1.11.1.min.js"></script> -->
+<script src="<%=renderRequest.getContextPath()%>/js/jquery-ui/jquery-ui.min.js"></script>
+<script src="<%=renderRequest.getContextPath()%>/js/dataTables/jquery.dataTables.js"></script>
+<script src="<%=renderRequest.getContextPath()%>/js/select2/select2.js"></script>
+<script src="<%=renderRequest.getContextPath()%>/js/selectboxit/jquery.selectBoxIt.js"></script>
+<script src="<%=renderRequest.getContextPath()%>/js/jqte/uncompressed/jquery-te-1.4.0.js"></script>
+<script src="<%=renderRequest.getContextPath()%>/js/jqtimeline/js/jquery.jqtimeline.js"></script>
+<script src="<%=renderRequest.getContextPath()%>/js/jstree/jstree.js"></script>
+<script src="<%=renderRequest.getContextPath()%>/js/uuid/uuid.js"></script>
+<link rel="stylesheet" href="<%=renderRequest.getContextPath()%>/js/jquery-ui/jquery-ui.css">
+<link rel="stylesheet" href="<%=renderRequest.getContextPath()%>/js/jqte/jquery-te-1.4.0.css">
+<link rel="stylesheet" href="<%=renderRequest.getContextPath()%>/js/jstree/themes/default/style.css">
+<link rel="stylesheet" href="<%=renderRequest.getContextPath()%>/js/dataTables/css/jquery.dataTables.css">
+<link rel="stylesheet" href="<%=renderRequest.getContextPath()%>/js/jqtimeline/css/jquery.jqtimeline.css">
+<link rel="stylesheet" href="<%=renderRequest.getContextPath()%>/js/select2/select2.css">
+<link rel="stylesheet" href="<%=renderRequest.getContextPath()%>/js/selectboxit/jquery.selectBoxIt.css">
+<link rel="stylesheet" href="<%=renderRequest.getContextPath()%>/css/common.css">
+
 <portlet:resourceURL var="applicationsListJsonDataURL" id="applicationsListJsonData"/>
 <portlet:resourceURL var="valueChainJsonDataURL" id="valueChainJsonData"/>
 <portlet:resourceURL var="taxonomyJsonDataURL" id="taxonomyJsonData"/>
