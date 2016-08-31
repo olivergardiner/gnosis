@@ -1,0 +1,21 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8" name="package-mapping" content="x:uk.org.whitecottage.gnosis.ui.applications">
+	<meta charset="UTF-8" name="package-mapping" content="xtf:com.explicatis.ext_token_field">
+</head>
+<body>
+	<vaadin-css-layout id="logical-select-form" width="60%" height="80%" style-name="logical-select-form" modal draggable resizable :center>
+		<vaadin-vertical-layout size-full >
+			<vaadin-panel size-full :expand>
+				<vaadin-tree _id="tree"/>
+			</vaadin-panel>
+			<vaadin-horizontal-layout width-full>
+				<vaadin-css-layout style-name="expander" size-full :expand/>
+				<vaadin-button style-name="primary" _id="save"> Add </vaadin-button>
+				<vaadin-button style-name="cancel" _id="cancel" click-shortcut="escape"> Cancel </vaadin-button>
+			</vaadin-horizontal-layout>
+		</vaadin-vertical-layout>
+	</vaadin-css-layout>
+</body>
+</html>

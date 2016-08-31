@@ -1,0 +1,8 @@
+For jars that are not available from Maven Central, it is assumed that your maven set up will provide the following jars locally:
+exist.jar
+xmldb.jar
+
+In an ideal world, these should be deployed to a local maven repository manager such as nexus.
+
+mvn deploy:deploy-file -DgroupId=org.exist-db -DartifactId=exist -Dversion=2.2 -DrepositoryId=nexus -Durl=http://localhost:8083/repository/maven-releases/ -Dfile=exist-2.2.jar
+mvn deploy:deploy-file -DgroupId=org.xmldb -DartifactId=xmldb -Dversion=1.0 -DrepositoryId=nexus -Durl=http://localhost:8083/repository/maven-releases/ -Dfile=xmldb-1.0.jar

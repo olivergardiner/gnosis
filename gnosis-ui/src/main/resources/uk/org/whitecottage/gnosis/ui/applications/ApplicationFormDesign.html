@@ -1,0 +1,44 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8" name="package-mapping" content="x:uk.org.whitecottage.gnosis.ui.applications">
+	<meta charset="UTF-8" name="package-mapping" content="xtf:com.explicatis.ext_token_field">
+</head>
+<body>
+	<vaadin-css-layout id="application-form" width="80%" height="80%" style-name="application-form" modal draggable resizable :center>
+		<vaadin-vertical-layout size-full >
+			<vaadin-css-Layout width-full height="40px"/>
+			<vaadin-tab-sheet style-name="framed" size-full :expand>
+				<tab caption="Basic information" size-full>
+					<vaadin-vertical-layout size-full>
+						<vaadin-text-field caption="Application name" width="800px" _id="applicationName"></vaadin-text-field>
+						<vaadin-css-Layout width-full height="40px"/>
+						<vaadin-rich-text-area caption="Application description" width="800px" height="200px" _id="applicationDescription"></vaadin-rich-text-area>
+						<vaadin-css-Layout width-full height="40px"/>
+						<!-- <vaadin-form-layout width-full> -->
+							<xtf-ext-token-field caption="Classification" width="800px" _id="classification"/>
+						<!-- </vaadin-form-layout> -->
+						<vaadin-vertical-layout style-name="expander" size-full :expand/>
+					</vaadin-vertical-layout>
+				</tab>
+				<tab caption="Classification" size-full>
+					<vaadin-vertical-layout size-full>
+						<vaadin-vertical-layout style-name="expander" size-full :expand/>
+					</vaadin-vertical-layout>
+				</tab>
+				<tab caption="Lifecycle" size-full>
+					<vaadin-vertical-layout size-full>
+						<vaadin-vertical-layout style-name="expander" size-full :expand/>
+					</vaadin-vertical-layout>
+				</tab>
+			</vaadin-tab-sheet>
+			<vaadin-horizontal-layout width-full>
+				<vaadin-css-layout style-name="expander" size-full :expand/>
+				<vaadin-button style-name="primary" _id="save"> Save </vaadin-button>
+				<vaadin-button style-name="cancel" _id="cancel" click-shortcut="escape"> Cancel </vaadin-button>
+				<vaadin-button style-name="danger" _id="delete"> Delete </vaadin-button>
+			</vaadin-horizontal-layout>
+		</vaadin-vertical-layout>
+	</vaadin-css-layout>
+</body>
+</html>

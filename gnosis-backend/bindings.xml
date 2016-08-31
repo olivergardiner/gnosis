@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bindings xmlns="http://java.sun.com/xml/ns/jaxb" xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc" version="1.0">
+  <globalBindings>
+    <serializable uid="1" />
+  </globalBindings>
+</bindings>

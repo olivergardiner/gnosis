@@ -1,0 +1,7 @@
+Manifest-Version: 1.0
+Vaadin-Widgetsets: uk.org.whitecottage.gnosis.GnosisWidgetset
+Vaadin-Package-Version: 1
+Built-By: Oliver
+Build-Jdk: 1.8.0_25
+Created-By: Maven Integration for Eclipse
+
