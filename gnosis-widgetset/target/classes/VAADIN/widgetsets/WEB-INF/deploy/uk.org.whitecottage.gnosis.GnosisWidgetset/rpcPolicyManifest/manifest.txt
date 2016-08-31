@@ -1,2 +1,0 @@
-# Module uk.org.whitecottage.gnosis.GnosisWidgetset
-# RPC service class, partial path of RPC policy file
