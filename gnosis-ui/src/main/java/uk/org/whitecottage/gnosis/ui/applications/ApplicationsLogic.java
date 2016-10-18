@@ -104,6 +104,7 @@ public class ApplicationsLogic implements Serializable {
         } else {
             setFragmentParameter(application.getId() + "");
         }
+        view.setClassifications();
         view.editApplication(application);
     }
 

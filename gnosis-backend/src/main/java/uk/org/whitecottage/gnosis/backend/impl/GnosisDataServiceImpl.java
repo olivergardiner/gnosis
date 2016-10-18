@@ -1,14 +1,21 @@
 package uk.org.whitecottage.gnosis.backend.impl;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Properties;
 import java.util.logging.Logger;
 
 import uk.org.whitecottage.gnosis.backend.GnosisDataService;
 import uk.org.whitecottage.gnosis.backend.data.ApplicationBean;
+import uk.org.whitecottage.gnosis.backend.data.LogicalApplicationBean;
 import uk.org.whitecottage.gnosis.backend.impl.xmldb.XmldbPersistenceManager;
 import uk.org.whitecottage.gnosis.jaxb.applications.Application;
+import uk.org.whitecottage.gnosis.jaxb.framework.Activity;
+import uk.org.whitecottage.gnosis.jaxb.framework.CapabilityInstance;
+import uk.org.whitecottage.gnosis.jaxb.framework.Ecosystem;
+import uk.org.whitecottage.gnosis.jaxb.framework.Framework;
+import uk.org.whitecottage.gnosis.jaxb.framework.ValueChain;
 
 /**
  * Application data model. This implementation has very simplistic locking and does not
@@ -87,4 +94,31 @@ public class GnosisDataServiceImpl extends GnosisDataService {
         }
         applications.remove(application);
 */    }
+
+	@Override
+	public Collection<LogicalApplicationBean> getAllLogicalApplications(boolean asEcosystems) {
+    	List<LogicalApplicationBean> logicalApplications = new ArrayList<LogicalApplicationBean>();
+    	Framework framework = persistenceManager.getFramework();
+    	ValueChain valueChain = framework.getValueChain();
+    	addEcosystems(logicalApplications, valueChain.getPrimaryActivities().getActivity());
+    	addEcosystems(logicalApplications, valueChain.getSupportActivities().getActivity());
+    	
+		return logicalApplications;
+	}
+	
+	protected void addEcosystems(List<LogicalApplicationBean> logicalApplications, List<Activity> activities) {
+		for (Activity activity: activities) {
+			for (Ecosystem ecosystem: activity.getEcosystem()) {
+				for (CapabilityInstance capabilityInstance: ecosystem.getCapabilityInstance()) {
+					LogicalApplicationBean logicalApplication = new LogicalApplicationBean();
+
+					logicalApplication.setApplicationId(ecosystem.getEcosystemId() + "/" + capabilityInstance.getCapabilityId());
+					logicalApplication.setApplicationName(capabilityInstance.getName());
+					logicalApplication.setApplicationDescription(capabilityInstance.getDescription());
+					
+					logicalApplications.add(logicalApplication);
+				}
+			}
+		}
+	}
 }

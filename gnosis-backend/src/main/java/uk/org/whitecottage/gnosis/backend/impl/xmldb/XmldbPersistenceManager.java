@@ -17,6 +17,7 @@ import org.xmldb.api.modules.XMLResource;
 
 import uk.org.whitecottage.gnosis.jaxb.applications.Application;
 import uk.org.whitecottage.gnosis.jaxb.applications.Applications;
+import uk.org.whitecottage.gnosis.jaxb.framework.Framework;
 import uk.org.whitecottage.xmldb.XmldbProcessor;
 
 public class XmldbPersistenceManager extends XmldbProcessor {
@@ -95,5 +96,29 @@ public class XmldbPersistenceManager extends XmldbProcessor {
 		}
 		
 		return null;
+	}
+	
+	public Framework getFramework() {
+		Framework framework = null;
+		Collection repository = null;
+		XMLResource frameworkResource = null;
+		try {
+			repository = getCollection("");
+		    frameworkResource = getResource(repository, "framework.xml");
+			framework = (Framework) frameworkUnmarshaller.unmarshal(frameworkResource.getContentAsDOM());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+		    if(frameworkResource != null) {
+		        try { ((EXistResource) frameworkResource).freeResources(); } catch(XMLDBException xe) {xe.printStackTrace();}
+		    }
+		    
+		    if(repository != null) {
+		        try { repository.close(); } catch(XMLDBException xe) {xe.printStackTrace();}
+		    }
+		}
+		
+		return framework;
 	}
 }

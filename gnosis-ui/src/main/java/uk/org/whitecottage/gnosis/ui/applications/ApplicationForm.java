@@ -1,5 +1,6 @@
 package uk.org.whitecottage.gnosis.ui.applications;
 
+import java.util.List;
 import java.util.logging.Logger;
 
 import com.explicatis.ext_token_field.ExtTokenField;
@@ -21,6 +22,7 @@ import com.vaadin.ui.Notification.Type;
 
 import uk.org.whitecottage.gnosis.backend.GnosisDataService;
 import uk.org.whitecottage.gnosis.backend.data.ApplicationBean;
+import uk.org.whitecottage.gnosis.backend.data.LogicalApplicationBean;
 
 /**
  * A form for editing a single product.
@@ -37,7 +39,6 @@ public class ApplicationForm extends ApplicationFormDesign {
     private ComboBox classificationInput;
     
 	private static final String	LABEL	= "label";
-	private static String[]	LANGUAGES	= {"PHP", "Java", "JavaScript", "Scala", "Python", "C", "Ruby", "C++"};
 
 	@SuppressWarnings("unused")
 	private final static Logger LOGGER = Logger.getLogger(ApplicationForm.class.getName());
@@ -52,10 +53,10 @@ public class ApplicationForm extends ApplicationFormDesign {
 		classificationInput.setInputPrompt("Type here to add");
 		classificationInput.addContainerProperty(LABEL, String.class, "");
 
-		for (String lang : LANGUAGES) {
+		/*for (String lang : LANGUAGES) {
 			Object addItem = classificationInput.addItem();
 			classificationInput.getItem(addItem).getItemProperty(LABEL).setValue(lang);
-		}
+		}*/
 		
 		classificationInput.addValueChangeListener(getComboBoxValueChange(classification, classificationInput));
 
@@ -169,5 +170,12 @@ public class ApplicationForm extends ApplicationFormDesign {
             canRemoveApplication = !application.getId().equals("-1");
         }
         delete.setEnabled(canRemoveApplication);
+    }
+    
+    public void setClassifications(List<LogicalApplicationBean> logicalApplications) {
+    	classificationInput.clear();
+    	for (LogicalApplicationBean logicalApplication: logicalApplications) {
+    		
+    	}
     }
 }

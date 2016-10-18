@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.Properties;
 
 import uk.org.whitecottage.gnosis.backend.data.ApplicationBean;
+import uk.org.whitecottage.gnosis.backend.data.LogicalApplicationBean;
 import uk.org.whitecottage.gnosis.backend.impl.GnosisDataServiceImpl;
 
 /**
@@ -21,6 +22,8 @@ public abstract class GnosisDataService implements Serializable {
     public abstract void deleteApplication(String applicationId);
 
     public abstract ApplicationBean getApplicationById(String applicationId);
+    
+    public abstract Collection<LogicalApplicationBean> getAllLogicalApplications(boolean asEcosystems);
 
     public synchronized void init(Properties properties) {
     	this.properties = properties;

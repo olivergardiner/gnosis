@@ -160,4 +160,7 @@ public class ApplicationsView extends CssLayout implements View {
         grid.remove(application);
     }
 
+    public void setClassifications() {
+    	//form.setClassifications();
+    }
 }
