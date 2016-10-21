@@ -10,10 +10,10 @@ import com.vaadin.data.fieldgroup.PropertyId;
 public class ClassificationBean implements Serializable {
     @NotNull
     @PropertyId("ecosystemId")
-    private String ecosystemId = "-1";
+    protected String ecosystemId = "-1";
     @NotNull
     @PropertyId("applicationId")
-    private String applicationId = "-1";
+    protected String applicationId = "-1";
 
     public ClassificationBean() {
     	init();

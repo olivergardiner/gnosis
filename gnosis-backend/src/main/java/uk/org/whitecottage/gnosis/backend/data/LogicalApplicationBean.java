@@ -9,11 +9,11 @@ import javax.validation.constraints.Size;
 public class LogicalApplicationBean implements Serializable {
 
     @NotNull
-    private String applicationId = "-1";
+    protected String applicationId = "-1";
     @NotNull
     @Size(min = 1, message = "Application name cannot be blank")
-    private String applicationName = "";
-    private String applicationDescription = "";
+    protected String applicationName = "";
+    protected String applicationDescription = "";
     
     public LogicalApplicationBean() {
     	init();

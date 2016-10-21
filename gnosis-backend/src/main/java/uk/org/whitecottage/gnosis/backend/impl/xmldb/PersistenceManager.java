@@ -20,14 +20,14 @@ import uk.org.whitecottage.gnosis.jaxb.applications.Applications;
 import uk.org.whitecottage.gnosis.jaxb.framework.Framework;
 import uk.org.whitecottage.xmldb.XmldbProcessor;
 
-public class XmldbPersistenceManager extends XmldbProcessor {
+public class PersistenceManager extends XmldbProcessor {
 
 	protected Unmarshaller applicationsUnmarshaller = null;
 	protected Marshaller applicationsMarshaller = null;
 	protected Unmarshaller frameworkUnmarshaller = null;
 	protected Marshaller frameworkMarshaller = null;
 
-	public XmldbPersistenceManager(String URI, String repositoryRoot) {
+	public PersistenceManager(String URI, String repositoryRoot) {
 		super(URI, repositoryRoot);
 
 		try {

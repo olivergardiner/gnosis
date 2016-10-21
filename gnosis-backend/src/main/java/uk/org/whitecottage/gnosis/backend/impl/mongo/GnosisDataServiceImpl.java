@@ -1,4 +1,4 @@
-package uk.org.whitecottage.gnosis.backend.impl;
+package uk.org.whitecottage.gnosis.backend.impl.mongo;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -6,33 +6,34 @@ import java.util.List;
 import java.util.Properties;
 import java.util.logging.Logger;
 
+import org.bson.Document;
+
+import com.mongodb.Block;
+import com.mongodb.MongoClient;
+import com.mongodb.client.FindIterable;
+import com.mongodb.client.MongoDatabase;
+
 import uk.org.whitecottage.gnosis.backend.GnosisDataService;
 import uk.org.whitecottage.gnosis.backend.data.ApplicationBean;
 import uk.org.whitecottage.gnosis.backend.data.LogicalApplicationBean;
-import uk.org.whitecottage.gnosis.backend.impl.xmldb.XmldbPersistenceManager;
-import uk.org.whitecottage.gnosis.jaxb.applications.Application;
+import uk.org.whitecottage.gnosis.backend.data.bson.ApplicationBeanBson;
 import uk.org.whitecottage.gnosis.jaxb.framework.Activity;
 import uk.org.whitecottage.gnosis.jaxb.framework.CapabilityInstance;
 import uk.org.whitecottage.gnosis.jaxb.framework.Ecosystem;
 import uk.org.whitecottage.gnosis.jaxb.framework.Framework;
 import uk.org.whitecottage.gnosis.jaxb.framework.ValueChain;
 
-/**
- * Application data model. This implementation has very simplistic locking and does not
- * notify users of modifications.
- */
 @SuppressWarnings("serial")
 public class GnosisDataServiceImpl extends GnosisDataService {
 
 	@SuppressWarnings("unused")
 	private final static Logger LOGGER = Logger.getLogger(GnosisDataServiceImpl.class.getName());
 	private static GnosisDataServiceImpl INSTANCE;
-
-    protected XmldbPersistenceManager persistenceManager;
+	
+	protected MongoClient mongoClient;
 
     private GnosisDataServiceImpl() {
-    	
-    	persistenceManager = new XmldbPersistenceManager("xmldb:exist://localhost:8080/exist/xmlrpc", "/db/gnosis");
+    	mongoClient = new MongoClient();
     }
 
     public synchronized static GnosisDataService getInstance() {
@@ -45,17 +46,20 @@ public class GnosisDataServiceImpl extends GnosisDataService {
     @Override
     public synchronized void init(Properties properties) {
     	super.init(properties);
-    	persistenceManager.setCredentials(properties.getProperty("exist.username"), properties.getProperty("exist.password"));
-    	persistenceManager.setURI(properties.getProperty("exist.uri"));
-    	persistenceManager.setRepositoryRoot(properties.getProperty("exist.repository.root"));
     }
 
     @Override
     public synchronized List<ApplicationBean> getAllApplications() {
     	List<ApplicationBean> applications = new ArrayList<ApplicationBean>();
-    	for (Application application: persistenceManager.getApplications()) {
-    		applications.add(new ApplicationBean(application));
-    	}
+    	MongoDatabase db = mongoClient.getDatabase("gnosis");
+    	FindIterable<Document> result = db.getCollection("applications").find();
+
+    	result.forEach(new Block<Document>() {
+    	    @Override
+    	    public void apply(final Document document) {
+    	    	applications.add(new ApplicationBeanBson(document));
+    	    }
+    	});
     	
         return applications;
     }
@@ -82,7 +86,10 @@ public class GnosisDataServiceImpl extends GnosisDataService {
     @Override
     public synchronized ApplicationBean getApplicationById(String applicationId) {
 
-        return new ApplicationBean(persistenceManager.getApplication(applicationId));
+    	MongoDatabase db = mongoClient.getDatabase("gnosis");
+    	FindIterable<Document> result = db.getCollection("applications").find(
+    			new Document("app-id", applicationId));
+        return new ApplicationBeanBson(result.first());
     }
 
     @Override
@@ -98,7 +105,8 @@ public class GnosisDataServiceImpl extends GnosisDataService {
 	@Override
 	public Collection<LogicalApplicationBean> getAllLogicalApplications(boolean asEcosystems) {
     	List<LogicalApplicationBean> logicalApplications = new ArrayList<LogicalApplicationBean>();
-    	Framework framework = persistenceManager.getFramework();
+    	//Framework framework = persistenceManager.getFramework();
+    	Framework framework = new Framework();
     	ValueChain valueChain = framework.getValueChain();
     	addEcosystems(logicalApplications, valueChain.getPrimaryActivities().getActivity());
     	addEcosystems(logicalApplications, valueChain.getSupportActivities().getActivity());

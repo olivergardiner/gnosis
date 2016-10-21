@@ -6,7 +6,8 @@ import java.util.Properties;
 
 import uk.org.whitecottage.gnosis.backend.data.ApplicationBean;
 import uk.org.whitecottage.gnosis.backend.data.LogicalApplicationBean;
-import uk.org.whitecottage.gnosis.backend.impl.GnosisDataServiceImpl;
+//import uk.org.whitecottage.gnosis.backend.impl.xmldb.GnosisDataServiceImpl;
+import uk.org.whitecottage.gnosis.backend.impl.mongo.GnosisDataServiceImpl;
 
 /**
  * Back-end service interface for retrieving and updating product data.
