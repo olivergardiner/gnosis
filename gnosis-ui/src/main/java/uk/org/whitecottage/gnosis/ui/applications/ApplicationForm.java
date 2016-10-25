@@ -1,6 +1,8 @@
 package uk.org.whitecottage.gnosis.ui.applications;
 
-import java.util.List;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Logger;
 
 import com.explicatis.ext_token_field.ExtTokenField;
@@ -25,7 +27,7 @@ import uk.org.whitecottage.gnosis.backend.data.ApplicationBean;
 import uk.org.whitecottage.gnosis.backend.data.LogicalApplicationBean;
 
 /**
- * A form for editing a single product.
+ * A form for editing an application.
  *
  * Using responsive layouts, the form can be displayed either sliding out on the
  * side of the view or filling the whole screen - see the theme for the related
@@ -37,27 +39,24 @@ public class ApplicationForm extends ApplicationFormDesign {
     private ApplicationsLogic viewLogic;
     private BeanFieldGroup<ApplicationBean> fieldGroup;	
     private ComboBox classificationInput;
+    private Map<Integer, String> classificationMap;
     
 	private static final String	LABEL	= "label";
 
 	@SuppressWarnings("unused")
 	private final static Logger LOGGER = Logger.getLogger(ApplicationForm.class.getName());
 
-    @SuppressWarnings({ "rawtypes", "unchecked" })
+    @SuppressWarnings("rawtypes")
 	public ApplicationForm(ApplicationsLogic applicationLogic) {
         super("Application detail");
         viewLogic = applicationLogic;
+        classificationMap = new HashMap<Integer, String>();
 		
 		classificationInput = new ComboBox();
 		classificationInput.setItemCaptionPropertyId(LABEL);
 		classificationInput.setInputPrompt("Type here to add");
 		classificationInput.addContainerProperty(LABEL, String.class, "");
 
-		/*for (String lang : LANGUAGES) {
-			Object addItem = classificationInput.addItem();
-			classificationInput.getItem(addItem).getItemProperty(LABEL).setValue(lang);
-		}*/
-		
 		classificationInput.addValueChangeListener(getComboBoxValueChange(classification, classificationInput));
 
 		classification.setInputField(classificationInput);
@@ -172,10 +171,15 @@ public class ApplicationForm extends ApplicationFormDesign {
         delete.setEnabled(canRemoveApplication);
     }
     
-    public void setClassifications(List<LogicalApplicationBean> logicalApplications) {
+    @SuppressWarnings("unchecked")
+	public void setClassifications(Collection<LogicalApplicationBean> logicalApplications) {
     	classificationInput.clear();
+    	classificationMap.clear();
     	for (LogicalApplicationBean logicalApplication: logicalApplications) {
-    		
+    		Integer hash = logicalApplication.getApplicationId().hashCode();
+			classificationMap.put(hash, logicalApplication.getApplicationId());
+			classificationInput.addItem(hash);
+			classificationInput.getItem(hash).getItemProperty(LABEL).setValue(logicalApplication.getApplicationName());
     	}
     }
 }

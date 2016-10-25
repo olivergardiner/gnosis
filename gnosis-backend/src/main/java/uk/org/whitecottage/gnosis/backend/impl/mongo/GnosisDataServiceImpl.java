@@ -15,13 +15,11 @@ import com.mongodb.client.MongoDatabase;
 
 import uk.org.whitecottage.gnosis.backend.GnosisDataService;
 import uk.org.whitecottage.gnosis.backend.data.ApplicationBean;
+import uk.org.whitecottage.gnosis.backend.data.ClassificationBean;
+import uk.org.whitecottage.gnosis.backend.data.ClassificationMap;
 import uk.org.whitecottage.gnosis.backend.data.LogicalApplicationBean;
 import uk.org.whitecottage.gnosis.backend.data.bson.ApplicationBeanBson;
-import uk.org.whitecottage.gnosis.jaxb.framework.Activity;
-import uk.org.whitecottage.gnosis.jaxb.framework.CapabilityInstance;
-import uk.org.whitecottage.gnosis.jaxb.framework.Ecosystem;
-import uk.org.whitecottage.gnosis.jaxb.framework.Framework;
-import uk.org.whitecottage.gnosis.jaxb.framework.ValueChain;
+import uk.org.whitecottage.gnosis.backend.data.bson.LogicalApplicationBeanBson;
 
 @SuppressWarnings("serial")
 public class GnosisDataServiceImpl extends GnosisDataService {
@@ -53,11 +51,15 @@ public class GnosisDataServiceImpl extends GnosisDataService {
     	List<ApplicationBean> applications = new ArrayList<ApplicationBean>();
     	MongoDatabase db = mongoClient.getDatabase("gnosis");
     	FindIterable<Document> result = db.getCollection("applications").find();
+    	
+    	ClassificationMap classificationMap = new ClassificationMap(getAllLogicalApplications(true));
+    	classificationMap.printMappings();
 
     	result.forEach(new Block<Document>() {
     	    @Override
     	    public void apply(final Document document) {
-    	    	applications.add(new ApplicationBeanBson(document));
+    	    	ApplicationBean application = new ApplicationBeanBson(document, classificationMap);
+    	    	applications.add(application);   	    	
     	    }
     	});
     	
@@ -66,6 +68,10 @@ public class GnosisDataServiceImpl extends GnosisDataService {
 
     @Override
     public synchronized void updateApplication(ApplicationBean application) {
+    	System.out.println("Application name: " + application.getApplicationName());
+    	for (ClassificationBean classification: application.getClassification()) {
+    		System.out.println("Classification: " + classification.getApplicationId());
+    	}
 /*        if (application.getId() < 0) {
             // New Application
             application.setId(nextApplicationId++);
@@ -86,10 +92,12 @@ public class GnosisDataServiceImpl extends GnosisDataService {
     @Override
     public synchronized ApplicationBean getApplicationById(String applicationId) {
 
+    	ClassificationMap classificationMap = new ClassificationMap(getAllLogicalApplications(true));
+
     	MongoDatabase db = mongoClient.getDatabase("gnosis");
     	FindIterable<Document> result = db.getCollection("applications").find(
     			new Document("app-id", applicationId));
-        return new ApplicationBeanBson(result.first());
+        return new ApplicationBeanBson(result.first(), classificationMap);
     }
 
     @Override
@@ -103,30 +111,43 @@ public class GnosisDataServiceImpl extends GnosisDataService {
 */    }
 
 	@Override
+	@SuppressWarnings("unchecked")
 	public Collection<LogicalApplicationBean> getAllLogicalApplications(boolean asEcosystems) {
     	List<LogicalApplicationBean> logicalApplications = new ArrayList<LogicalApplicationBean>();
-    	//Framework framework = persistenceManager.getFramework();
-    	Framework framework = new Framework();
-    	ValueChain valueChain = framework.getValueChain();
-    	addEcosystems(logicalApplications, valueChain.getPrimaryActivities().getActivity());
-    	addEcosystems(logicalApplications, valueChain.getSupportActivities().getActivity());
     	
+    	MongoDatabase db = mongoClient.getDatabase("gnosis");
+    	//FindIterable<Document> result = db.getCollection("value-chain").find().projection(fields(include("primary-activities.ecosystems.logical-apps")));
+    	FindIterable<Document> result = db.getCollection("value-chain").find();
+    	Document valueChain = result.first();
+
+    	Iterable<Document> primaryActivities = (Iterable<Document>) valueChain.get("primary-activities");
+    	for (Document primaryActivity: primaryActivities) {
+			Iterable<Document> ecosystemsList = (Iterable<Document>) primaryActivity.get("ecosystems");	    	
+	    	addEcosystems(logicalApplications, ecosystemsList);
+    	}
+  	
+    	Iterable<Document> supportActivities = (Iterable<Document>) valueChain.get("support-activities");
+    	for (Document supportActivity: supportActivities) {
+			Iterable<Document> ecosystemsList = (Iterable<Document>) supportActivity.get("ecosystems");	    	
+	    	addEcosystems(logicalApplications, ecosystemsList);
+    	}
+  	  	
 		return logicalApplications;
 	}
 	
-	protected void addEcosystems(List<LogicalApplicationBean> logicalApplications, List<Activity> activities) {
-		for (Activity activity: activities) {
-			for (Ecosystem ecosystem: activity.getEcosystem()) {
-				for (CapabilityInstance capabilityInstance: ecosystem.getCapabilityInstance()) {
-					LogicalApplicationBean logicalApplication = new LogicalApplicationBean();
+	@SuppressWarnings("unchecked")
+	protected void addEcosystems(List<LogicalApplicationBean> logicalApplications, Iterable<Document> ecosystemsList) {
 
-					logicalApplication.setApplicationId(ecosystem.getEcosystemId() + "/" + capabilityInstance.getCapabilityId());
-					logicalApplication.setApplicationName(capabilityInstance.getName());
-					logicalApplication.setApplicationDescription(capabilityInstance.getDescription());
-					
-					logicalApplications.add(logicalApplication);
+    	if (ecosystemsList != null) {
+    		for (Document ecosystem: ecosystemsList) {
+	    		
+		    	Iterable<Document> logicalApps = (Iterable<Document>) ecosystem.get("logical-apps");
+				if (logicalApps != null) {
+					for (Document logicalApp : logicalApps) {
+						logicalApplications.add(new LogicalApplicationBeanBson(logicalApp));
+					}
 				}
-			}
-		}
+	    	}
+    	}
 	}
 }

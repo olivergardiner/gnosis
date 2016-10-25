@@ -7,6 +7,7 @@ import com.vaadin.server.Page;
 import uk.org.whitecottage.gnosis.Gnosis;
 import uk.org.whitecottage.gnosis.backend.GnosisDataService;
 import uk.org.whitecottage.gnosis.backend.data.ApplicationBean;
+import uk.org.whitecottage.gnosis.backend.data.ClassificationBean;
 
 /**
  * This class provides an interface for the logical operations between the CRUD
@@ -79,6 +80,8 @@ public class ApplicationsLogic implements Serializable {
     }
 
     public void saveApplication(ApplicationBean application) {
+    	
+    	
         view.showSaveNotification(application.getApplicationName() + " ("
                 + application.getId() + ") updated");
         view.clearSelection();
@@ -104,7 +107,7 @@ public class ApplicationsLogic implements Serializable {
         } else {
             setFragmentParameter(application.getId() + "");
         }
-        view.setClassifications();
+        view.setClassifications(GnosisDataService.get().getAllLogicalApplications(true));
         view.editApplication(application);
     }
 

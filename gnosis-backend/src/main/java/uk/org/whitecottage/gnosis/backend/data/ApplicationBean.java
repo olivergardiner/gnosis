@@ -21,7 +21,7 @@ public class ApplicationBean implements Serializable {
     protected String applicationName = "";
     @PropertyId("applicationDescription")
     protected String applicationDescription = "";
-    @PropertyId("classification")
+
     protected Collection<ClassificationBean> classification;
     
     public ApplicationBean() {

@@ -45,4 +45,11 @@ public class LogicalApplicationBean implements Serializable {
     public void setApplicationDescription(String applicationDescription) {
         this.applicationDescription = applicationDescription;
     }
+    
+    public String toString() {
+    	String s = "ApplicationId: " + applicationId;
+    	s += "\nApplicationName: " + applicationName;
+    	s += "\nApplicationDescription: " + applicationDescription;
+    	return s;
+    }
 }
