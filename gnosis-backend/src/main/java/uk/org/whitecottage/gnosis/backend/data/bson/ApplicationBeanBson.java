@@ -22,23 +22,14 @@ public class ApplicationBeanBson extends ApplicationBean {
 	    	applicationDescription = application.getString("description");
 	    	id = application.getString("app-id");
 	    	
-	    	Iterable<Document> ecosystemsList = (Iterable<Document>) application.get("ecosystems");	    	
-	    	if (ecosystemsList != null) {
-	    		for (Document ecosystem: ecosystemsList) {
-		    		String ecosystemId = ecosystem.getString("ecosystem");
-		    		
-			    	Iterable<Document> classifications = (Iterable<Document>) ecosystem.get("logical-apps");
-					if (classifications != null) {
-						for (Object logicalApplication : classifications) {
-							ClassificationBean classificationBean = new ClassificationBean(ecosystemId, (String) logicalApplication);
-							classificationBean.setApplicationName(classificationMap.getLogicalApplicationName((String) logicalApplication));
-							System.out.println("id: " + classificationBean.getApplicationId());
-							System.out.println("Name: " + classificationBean.getApplicationName());
-							classification.add(classificationBean);
-						}
-					}
-		    	}
-	    	}
+	    	Iterable<Document> classifications = (Iterable<Document>) application.get("logical-apps");
+			if (classifications != null) {
+				for (Object logicalApplication : classifications) {
+					ClassificationBean classificationBean = new ClassificationBean((String) logicalApplication);
+					classificationBean.setApplicationName(classificationMap.getLogicalApplicationName((String) logicalApplication));
+					classification.add(classificationBean);
+				}
+			}
     	}
     } 
 }

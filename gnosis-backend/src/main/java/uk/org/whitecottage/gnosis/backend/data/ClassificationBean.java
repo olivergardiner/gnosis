@@ -26,6 +26,11 @@ public class ClassificationBean implements Serializable, Tokenizable {
     	this.applicationId = applicationId;
     }
     
+    public ClassificationBean(String applicationId) {
+    	init();
+    	this.applicationId = applicationId;
+    }
+    
     protected void init() {
     }
 

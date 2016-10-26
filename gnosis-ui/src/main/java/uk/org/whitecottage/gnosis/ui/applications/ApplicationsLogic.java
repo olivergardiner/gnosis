@@ -7,7 +7,7 @@ import com.vaadin.server.Page;
 import uk.org.whitecottage.gnosis.Gnosis;
 import uk.org.whitecottage.gnosis.backend.GnosisDataService;
 import uk.org.whitecottage.gnosis.backend.data.ApplicationBean;
-import uk.org.whitecottage.gnosis.backend.data.ClassificationBean;
+import uk.org.whitecottage.gnosis.backend.data.ClassificationMap;
 
 /**
  * This class provides an interface for the logical operations between the CRUD
@@ -121,5 +121,16 @@ public class ApplicationsLogic implements Serializable {
         if (Gnosis.get().getAccessControl().isUserInRole("admin")) {
             view.editApplication(application);
         }
+    }
+    
+    public ClassificationBean createClassfication(int id, String name) {
+    	ClassificationMap map = new ClassificationMap(GnosisDataService.get().getAllLogicalApplications(true));
+
+    	ClassificationBean classification = new ClassificationBean();
+    	classification.setApplicationId(map.getLogicalApplicationId(id));
+    	classification.setApplicationName(name);
+
+    	return classification;
+    	
     }
 }
