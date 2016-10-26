@@ -7,6 +7,7 @@ import java.util.logging.Logger;
 
 import com.explicatis.ext_token_field.ExtTokenField;
 import com.explicatis.ext_token_field.SimpleTokenizable;
+import com.explicatis.ext_token_field.Tokenizable;
 import com.vaadin.data.Item;
 import com.vaadin.data.Property.ValueChangeEvent;
 import com.vaadin.data.Property.ValueChangeListener;
@@ -139,7 +140,8 @@ public class ApplicationForm extends ApplicationFormDesign {
 				Item item = comboBox.getItem(id);
 				String string = (String) item.getItemProperty(LABEL).getValue();
 				int idInt = (int) id;
-				SimpleTokenizable t = new SimpleTokenizable(Integer.toUnsignedLong(idInt), string);
+				//SimpleTokenizable t = new SimpleTokenizable(Integer.toUnsignedLong(idInt), string);
+				Tokenizable t = viewLogic.createClassfication(idInt, string);
 				extTokenField.addTokenizable(t);
 
 				// if you would use a real container, you would filter the selected tokens out
