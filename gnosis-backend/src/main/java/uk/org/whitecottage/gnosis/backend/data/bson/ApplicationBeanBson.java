@@ -1,5 +1,8 @@
 package uk.org.whitecottage.gnosis.backend.data.bson;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.bson.Document;
 
 import uk.org.whitecottage.gnosis.backend.data.ApplicationBean;
@@ -31,5 +34,21 @@ public class ApplicationBeanBson extends ApplicationBean {
 				}
 			}
     	}
-    } 
+    }
+    
+    public static Document toBson(ApplicationBean application) {
+    	Document applicationDocument = new Document();
+
+    	applicationDocument.append("app-id", application.getId());
+    	applicationDocument.append("name", application.getApplicationName());
+    	applicationDocument.append("description", application.getApplicationDescription());
+    	
+    	List<String> logicalApps = new ArrayList<String>();
+    	for (ClassificationBean classificationBean: application.getClassification()) {
+    		logicalApps.add(classificationBean.getApplicationId());
+    	}
+    	applicationDocument.append("logical-apps", logicalApps);
+
+    	return applicationDocument;
+    }
 }

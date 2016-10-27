@@ -68,13 +68,11 @@ public class ClassificationBean implements Serializable, Tokenizable {
 
 	@Override
 	public String getStringValue() {
-		// TODO Auto-generated method stub
 		return applicationName;
 	}
 
 	@Override
 	public long getIdentifier() {
-		// TODO Auto-generated method stub
 		return applicationId.hashCode();
 	}
 }

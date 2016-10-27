@@ -26,11 +26,4 @@ public class ClassificationMap {
 	public String getLogicalApplicationName(String id) {
 		return appMap.get(id);
 	}
-	
-	public void printMappings() {
-		for (String id: appMap.keySet()) {
-			System.out.println("Id: " + id);
-			System.out.println("Name: " + appMap.get(id));
-		}
-	}
 }

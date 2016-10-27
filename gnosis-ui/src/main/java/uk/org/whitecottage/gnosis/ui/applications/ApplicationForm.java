@@ -6,7 +6,6 @@ import java.util.Map;
 import java.util.logging.Logger;
 
 import com.explicatis.ext_token_field.ExtTokenField;
-import com.explicatis.ext_token_field.SimpleTokenizable;
 import com.explicatis.ext_token_field.Tokenizable;
 import com.vaadin.data.Item;
 import com.vaadin.data.Property.ValueChangeEvent;
@@ -23,7 +22,6 @@ import com.vaadin.ui.Field;
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.Notification.Type;
 
-import uk.org.whitecottage.gnosis.backend.GnosisDataService;
 import uk.org.whitecottage.gnosis.backend.data.ApplicationBean;
 import uk.org.whitecottage.gnosis.backend.data.LogicalApplicationBean;
 
@@ -88,8 +86,6 @@ public class ApplicationForm extends ApplicationFormDesign {
             @Override
             public void postCommit(CommitEvent commitEvent)
                     throws CommitException {
-                GnosisDataService.get().updateApplication(
-                        fieldGroup.getItemDataSource().getBean());
             }
         });
 
@@ -103,11 +99,6 @@ public class ApplicationForm extends ApplicationFormDesign {
                     ApplicationBean application = fieldGroup.getItemDataSource().getBean();
                     viewLogic.saveApplication(application);
                 } catch (CommitException e) {
-                	System.out.println(e.getCause());
-                	for (Field field: e.getInvalidFields().keySet()) {
-                		System.out.println("Field: " + field.getId());
-                		System.out.println(e.getInvalidFields().get(field));
-                	}
                     Notification n = new Notification(
                             "Please re-check the fields", Type.ERROR_MESSAGE);
                     n.setDelayMsec(500);

@@ -82,6 +82,7 @@ public class ApplicationsLogic implements Serializable {
 
     public void saveApplication(ApplicationBean application) {
     	
+        GnosisDataService.get().updateApplication(application);
     	
         view.showSaveNotification(application.getApplicationName() + " ("
                 + application.getId() + ") updated");

@@ -28,6 +28,11 @@
         	<version>3.12</version>
         </dependency>
 		<dependency>
+		   <groupId>org.vaadin.addons</groupId>
+		   <artifactId>extended-token-field</artifactId>
+		   <version>0.2.0</version>
+		</dependency>
+		<dependency>
 			<groupId>org.exist-db</groupId>
 			<artifactId>exist</artifactId>
 			<version>2.2</version>
@@ -108,6 +113,4 @@
 
     <build>
     </build>
-    
-
 </project>

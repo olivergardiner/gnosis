@@ -22,7 +22,6 @@ import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.themes.ValoTheme;
 
 import uk.org.whitecottage.gnosis.backend.data.ApplicationBean;
-import uk.org.whitecottage.gnosis.backend.data.ClassificationBean;
 import uk.org.whitecottage.gnosis.backend.data.LogicalApplicationBean;
 import uk.org.whitecottage.gnosis.widgetset.ResetButtonForTextField;
 
@@ -141,10 +140,6 @@ public class ApplicationsView extends CssLayout implements View {
         if (application != null) {
             //form.setEnabled(true);
         	getUI().addWindow(form);
-        	System.out.println("Application name: " + application.getApplicationName());
-        	for (ClassificationBean classification: application.getClassification()) {
-        		System.out.println("Classification: " + classification.getApplicationId());
-        	}
         } else {
             //form.setEnabled(false);
        		form.close();

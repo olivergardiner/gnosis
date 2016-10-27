@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Properties;
+import java.util.UUID;
 import java.util.logging.Logger;
 
 import org.bson.Document;
@@ -15,7 +16,6 @@ import com.mongodb.client.MongoDatabase;
 
 import uk.org.whitecottage.gnosis.backend.GnosisDataService;
 import uk.org.whitecottage.gnosis.backend.data.ApplicationBean;
-import uk.org.whitecottage.gnosis.backend.data.ClassificationBean;
 import uk.org.whitecottage.gnosis.backend.data.ClassificationMap;
 import uk.org.whitecottage.gnosis.backend.data.LogicalApplicationBean;
 import uk.org.whitecottage.gnosis.backend.data.bson.ApplicationBeanBson;
@@ -53,7 +53,6 @@ public class GnosisDataServiceImpl extends GnosisDataService {
     	FindIterable<Document> result = db.getCollection("applications").find();
     	
     	ClassificationMap classificationMap = new ClassificationMap(getAllLogicalApplications(true));
-    	classificationMap.printMappings();
 
     	result.forEach(new Block<Document>() {
     	    @Override
@@ -68,25 +67,22 @@ public class GnosisDataServiceImpl extends GnosisDataService {
 
     @Override
     public synchronized void updateApplication(ApplicationBean application) {
-    	System.out.println("Application name: " + application.getApplicationName());
-    	for (ClassificationBean classification: application.getClassification()) {
-    		System.out.println("Classification: " + classification.getApplicationId());
+    	MongoDatabase db = mongoClient.getDatabase("gnosis");
+    	
+    	boolean update = true;
+    	String appId = application.getId();
+    	if (appId == null || appId.equals("-1")) {
+    		application.setId(UUID.randomUUID().toString());
+    		update = false;
     	}
-/*        if (application.getId() < 0) {
-            // New Application
-            application.setId(nextApplicationId++);
-            applications.add(application);
-            return;
-        }
-        for (int i = 0; i < applications.size(); i++) {
-            if (applications.get(i).getId() == application.getId()) {
-                applications.set(i, application);
-                return;
-            }
-        }
-        throw new IllegalArgumentException("No product with id " + application.getId()
-                + " found");
-*/
+    	
+    	Document document = ApplicationBeanBson.toBson(application);
+    	
+    	if (update) {   	
+    		db.getCollection("applications").replaceOne(new Document("app-id", application.getId()), document);
+    	} else {
+    		db.getCollection("applications").insertOne(document);
+    	}
     }
 
     @Override
@@ -102,6 +98,8 @@ public class GnosisDataServiceImpl extends GnosisDataService {
 
     @Override
     public synchronized void deleteApplication(String applicationId) {
+    	MongoDatabase db = mongoClient.getDatabase("gnosis");
+    	db.getCollection("applications").deleteOne(new Document("app-id", applicationId));
 /*        ApplicationBean application = getApplicationById(applicationId);
         if (application == null) {
             throw new IllegalArgumentException("Product with id " + applicationId
