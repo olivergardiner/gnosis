@@ -32,7 +32,7 @@
 		   <artifactId>extended-token-field</artifactId>
 		   <version>0.2.0</version>
 		</dependency>
-		<dependency>
+		<!-- <dependency>
 			<groupId>org.exist-db</groupId>
 			<artifactId>exist</artifactId>
 			<version>2.2</version>
@@ -41,7 +41,7 @@
 			<groupId>org.xmldb</groupId>
 			<artifactId>xmldb</artifactId>
 			<version>1.0</version>
-		</dependency>
+		</dependency> -->
 		<!-- <dependency>
 			<groupId>org.basex</groupId>
 			<artifactId>basex</artifactId>
