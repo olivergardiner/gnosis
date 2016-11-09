@@ -38,7 +38,6 @@ import uk.org.whitecottage.gnosis.ui.authentication.LoginScreen.LoginListener;
 @Viewport("user-scalable=no,initial-scale=1.0")
 @Theme("gnosistheme")
 @Widgetset("uk.org.whitecottage.gnosis.GnosisWidgetset")
-//@Widgetset("com.explicatis.ext_token_field.WidgetSet")
 public class Gnosis extends UI {
 
 	private final static Logger LOGGER = Logger.getLogger(Gnosis.class.getName());
