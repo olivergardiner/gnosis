@@ -5,9 +5,28 @@
 	content="x:uk.org.whitecottage.gnosis.ui.framework">
 </head>
 <body>
-	<vaadin-vertical-layout size-full>
-		<vaadin-label>EA Framework</vaadin-label>
-		<x-framework-tree _id="frameworkTree" width-auto height-full />
+	<vaadin-vertical-layout>
+		<vaadin-label>Logical Application Framework</vaadin-label>
+		<vaadin-css-Layout width-full height="40px"/>
+		<vaadin-horizontal-layout size-full>
+			<vaadin-vertical-layout width="50%">
+				<x-framework-tree _id="frameworkTree" height-full />
+				<vaadin-css-Layout width-full height="40px"/>
+				<vaadin-vertical-layout style-name="expander" height-full :expand/>
+			</vaadin-vertical-layout>
+			<vaadin-panel caption="Details">
+				<vaadin-vertical-layout width-full>
+					<!-- <vaadin-text-field caption="Name" width="90%" _id="nodeName"/>
+					<vaadin-css-Layout width-full height="40px"/>
+					<vaadin-rich-text-area caption="Description" width="90%" height="400px" _id="nodeDescription"/>
+					<vaadin-css-Layout width-full height="40px"/> -->
+					<vaadin-label caption="Name" width="90%" _id="nodeName"/>
+					<vaadin-css-Layout width-full height="40px"/>
+					<vaadin-label caption="Description" width="90%" height="400px" _id="nodeDescription"/>
+					<vaadin-css-Layout width-full height="40px"/>
+				</vaadin-vertical-layout>
+			</vaadin-panel>
+		</vaadin-horizontal-layout>
 	</vaadin-vertical-layout>
 </body>
 </html>
