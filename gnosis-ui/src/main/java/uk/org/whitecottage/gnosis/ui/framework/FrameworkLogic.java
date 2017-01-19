@@ -2,6 +2,8 @@ package uk.org.whitecottage.gnosis.ui.framework;
 
 import java.io.Serializable;
 
+import uk.org.whitecottage.gnosis.backend.GnosisDataService;
+
 @SuppressWarnings("serial")
 public class FrameworkLogic implements Serializable {
 
@@ -12,11 +14,11 @@ public class FrameworkLogic implements Serializable {
     }
 
     public void init() {
-        //view.showFramework(FrameworkDataService.get().getFramework());
-        view.showFramework();
+        view.showFramework(GnosisDataService.get().getFramework());
+        //view.showFramework();
     }
 
     public void enter(String eventParameters) {
-    	
+    	System.out.println(eventParameters);
     }
 }

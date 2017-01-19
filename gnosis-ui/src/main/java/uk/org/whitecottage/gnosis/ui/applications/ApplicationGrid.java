@@ -12,7 +12,7 @@ import com.vaadin.ui.renderers.HtmlRenderer;
 import uk.org.whitecottage.gnosis.backend.data.ApplicationBean;
 
 /**
- * Grid of products, handling the visual presentation and filtering of a set of
+ * Grid of applications, handling the visual presentation and filtering of a set of
  * items. This version uses an in-memory data source that is suitable for small
  * data sets.
  */
