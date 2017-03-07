@@ -14,16 +14,16 @@ import com.mongodb.MongoClient;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoDatabase;
 import com.vaadin.data.Item;
-import com.vaadin.data.Property;
-import com.vaadin.data.util.ObjectProperty;
 
 import uk.org.whitecottage.gnosis.backend.GnosisDataService;
 import uk.org.whitecottage.gnosis.backend.data.ApplicationBean;
 import uk.org.whitecottage.gnosis.backend.data.ClassificationMap;
 import uk.org.whitecottage.gnosis.backend.data.FrameworkContainer;
 import uk.org.whitecottage.gnosis.backend.data.LogicalApplicationBean;
+import uk.org.whitecottage.gnosis.backend.data.ProcessTaxonomyContainer;
 import uk.org.whitecottage.gnosis.backend.data.bson.ApplicationBeanBson;
 import uk.org.whitecottage.gnosis.backend.data.bson.LogicalApplicationBeanBson;
+import uk.org.whitecottage.gnosis.backend.data.bson.ProcessTaxonomyContainerBson;
 
 @SuppressWarnings("serial")
 public class GnosisDataServiceImpl extends GnosisDataService {
@@ -218,5 +218,16 @@ public class GnosisDataServiceImpl extends GnosisDataService {
 	    		framework.setParent(logicalAppId, ecosystemId);
 			}
 		}
+	}
+
+	@Override
+	public ProcessTaxonomyContainer getProcessTaxonomy() {
+    	MongoDatabase db = mongoClient.getDatabase("gnosis");
+    	
+    	FindIterable<Document> result = db.getCollection("processes").find();
+    	
+    	ProcessTaxonomyContainer processTaxonomy = new ProcessTaxonomyContainerBson(result);
+    	
+    	return processTaxonomy;
 	}
 }
