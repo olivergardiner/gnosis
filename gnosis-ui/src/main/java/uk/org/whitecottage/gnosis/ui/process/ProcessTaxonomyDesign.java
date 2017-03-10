@@ -13,8 +13,8 @@ public class ProcessTaxonomyDesign extends VerticalLayout {
 	//protected TextField nodeName;
 	//protected RichTextArea nodeDescription;
 	
-	protected Label nodeName;
-	protected Label nodeDescription;
+	//protected Label nodeName;
+	//protected Label nodeDescription;
 	
 	public ProcessTaxonomyDesign() {
 		Design.read(this);

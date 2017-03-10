@@ -44,7 +44,7 @@ public class ApplicationsView extends CssLayout implements View {
 
     public ApplicationsView() {
         setSizeFull();
-        addStyleName("crud-view");
+        //addStyleName("crud-view");
         HorizontalLayout topLayout = createTopBar();
 
         grid = new ApplicationGrid();
@@ -65,7 +65,7 @@ public class ApplicationsView extends CssLayout implements View {
         barAndGridLayout.setSpacing(true);
         barAndGridLayout.setSizeFull();
         barAndGridLayout.setExpandRatio(grid, 1);
-        barAndGridLayout.setStyleName("crud-main-layout");
+        //barAndGridLayout.setStyleName("crud-main-layout");
 
         addComponent(barAndGridLayout);
         //addComponent(form);
@@ -75,7 +75,7 @@ public class ApplicationsView extends CssLayout implements View {
 
     public HorizontalLayout createTopBar() {
         TextField filter = new TextField();
-        filter.setStyleName("filter-textfield");
+        //filter.setStyleName("filter-textfield");
         filter.setInputPrompt("Filter");
         ResetButtonForTextField.extend(filter);
         filter.setImmediate(true);
@@ -103,7 +103,7 @@ public class ApplicationsView extends CssLayout implements View {
         topLayout.addComponent(newApplication);
         topLayout.setComponentAlignment(filter, Alignment.MIDDLE_LEFT);
         topLayout.setExpandRatio(filter, 1);
-        topLayout.setStyleName("top-bar");
+        //topLayout.setStyleName("top-bar");
         return topLayout;
     }
 

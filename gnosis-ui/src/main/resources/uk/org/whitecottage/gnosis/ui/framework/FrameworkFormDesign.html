@@ -1,0 +1,28 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8" name="package-mapping" content="x:uk.org.whitecottage.gnosis.ui.framework">
+</head>
+<body>
+	<vaadin-css-layout id="framework-form" width="80%" height="80%" style-name="framework-form" modal draggable resizable :center>
+		<vaadin-vertical-layout size-full >
+			<vaadin-css-Layout width-full height="40px"/>
+			<vaadin-css-layout size-full :expand>
+				<vaadin-vertical-layout size-full>
+					<vaadin-text-field caption="Name" width="800px" _id="frameworkName"></vaadin-text-field>
+					<vaadin-css-Layout width-full height="40px"/>
+					<vaadin-rich-text-area caption="Description" width="800px" height="200px" _id="frameworkDescription"></vaadin-rich-text-area>
+					<vaadin-css-Layout width-full height="40px"/>
+					<vaadin-vertical-layout style-name="expander" size-full :expand/>
+				</vaadin-vertical-layout>
+			</vaadin-css-layout>
+			<vaadin-horizontal-layout width-full>
+				<vaadin-css-layout style-name="expander" size-full :expand/>
+				<vaadin-button style-name="primary" _id="save"> Save </vaadin-button>
+				<vaadin-button style-name="cancel" _id="cancel" click-shortcut="escape"> Cancel </vaadin-button>
+				<vaadin-button style-name="danger" _id="delete"> Delete </vaadin-button>
+			</vaadin-horizontal-layout>
+		</vaadin-vertical-layout>
+	</vaadin-css-layout>
+</body>
+</html>

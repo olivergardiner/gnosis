@@ -1,11 +1,18 @@
 package uk.org.whitecottage.gnosis.ui.framework;
 
 import com.vaadin.data.Item;
+import com.vaadin.event.Action;
+import com.vaadin.event.Action.Handler;
 import com.vaadin.event.ItemClickEvent;
 import com.vaadin.event.ItemClickEvent.ItemClickListener;
+import com.vaadin.event.dd.DragAndDropEvent;
+import com.vaadin.event.dd.DropHandler;
+import com.vaadin.event.dd.acceptcriteria.AcceptAll;
+import com.vaadin.event.dd.acceptcriteria.AcceptCriterion;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
-import com.vaadin.shared.ui.label.ContentMode;
+import com.vaadin.ui.Notification;
+import com.vaadin.ui.Tree.TreeDragMode;
 
 import uk.org.whitecottage.gnosis.backend.data.FrameworkContainer;
 
@@ -15,15 +22,18 @@ public class FrameworkView extends FrameworkDesign implements View {
     public static final String VIEW_NAME = "Framework";
 
 	private FrameworkLogic viewLogic = new FrameworkLogic(this);
+	private FrameworkForm form;
+	
+	private final Action insertAction = new Action("An action");
+	private final Action dummyAction = new Action("Does nothing");
 	
 	public FrameworkView() {
 		super();
 		
 		frameworkTree.setImmediate(true);
-		nodeName.setImmediate(true);
-		nodeDescription.setImmediate(true);
-    	nodeDescription.setContentMode(ContentMode.HTML);
-		
+
+    	form = new FrameworkForm(viewLogic);
+
 		viewLogic.init();
 	}
 
@@ -35,17 +45,11 @@ public class FrameworkView extends FrameworkDesign implements View {
     public void showFramework(FrameworkContainer frameworkContainer) {
     	
     	frameworkTree.setContainerDataSource(frameworkContainer);
-		/*frameworkTree.setColumnWidth("Name", 250);
-		frameworkTree.setColumnWidth("Description", 800);
-		frameworkTree.setColumnWidth("appId", 00);
-		frameworkTree.setVisibleColumns("Name", "Description");*/
     	frameworkTree.setItemCaptionPropertyId("Name");
     	
 		for (Object itemId: frameworkTree.getContainerDataSource()
                 .getItemIds()) {
-			//frameworkTree.setCollapsed(itemId, true);
 			frameworkTree.collapseItem(itemId);
-			//frameworkTree.setItemIcon(itemId, FontAwesome.ANDROID);
 
 			if (!frameworkTree.hasChildren(itemId))
 				frameworkTree.setChildrenAllowed(itemId, false);
@@ -55,18 +59,55 @@ public class FrameworkView extends FrameworkDesign implements View {
 
 			@Override
 			public void itemClick(ItemClickEvent event) {
-				editNode(event);
+				if (event.isDoubleClick()) {
+					editFrameworkNode(event.getItemId());
+				}
+			}
+		});
+		
+		frameworkTree.addActionHandler(new Handler() {
+
+			@Override
+			public Action[] getActions(Object target, Object sender) {
+			    return new Action[] { insertAction, dummyAction };
+			}
+
+			@Override
+			public void handleAction(Action action, Object sender, Object target) {
+				if (action == insertAction) {
+					Notification.show("Insert");
+				}
+			}			
+		});
+		
+		frameworkTree.setDragMode(TreeDragMode.NODE);
+		
+		frameworkTree.setDropHandler(new DropHandler() {
+
+			@Override
+			public void drop(DragAndDropEvent event) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public AcceptCriterion getAcceptCriterion() {
+				// TODO Auto-generated method stub
+				return AcceptAll.get();
 			}
 		});
     }
     
-    protected void editNode(ItemClickEvent event) {
-    	editFrameworkNode(event.getItemId());
-    }
-    
     protected void editFrameworkNode(Object itemId) {
-    	Item item = frameworkTree.getItem(itemId);
-     	nodeName.setValue((String) item.getItemProperty("Name").getValue());
-    	nodeDescription.setValue((String) item.getItemProperty("Description").getValue());
+    	Item item = null;
+    	
+    	if (itemId != null) {
+    		item = frameworkTree.getItem(itemId);
+        	getUI().addWindow(form);
+        } else {
+       		form.close();
+        }
+    	
+    	form.editFrameworkNode(item);
     }
 }
