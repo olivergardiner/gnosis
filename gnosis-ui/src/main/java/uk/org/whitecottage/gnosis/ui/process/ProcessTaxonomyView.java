@@ -1,18 +1,22 @@
 package uk.org.whitecottage.gnosis.ui.process;
 
 import com.vaadin.data.Item;
+import com.vaadin.data.util.HierarchicalContainer;
 import com.vaadin.event.Action;
 import com.vaadin.event.Action.Handler;
 import com.vaadin.event.ItemClickEvent;
 import com.vaadin.event.ItemClickEvent.ItemClickListener;
+import com.vaadin.event.Transferable;
 import com.vaadin.event.dd.DragAndDropEvent;
 import com.vaadin.event.dd.DropHandler;
 import com.vaadin.event.dd.acceptcriteria.AcceptAll;
 import com.vaadin.event.dd.acceptcriteria.AcceptCriterion;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
+import com.vaadin.shared.ui.dd.VerticalDropLocation;
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.Tree.TreeDragMode;
+import com.vaadin.ui.Tree.TreeTargetDetails;
 
 import uk.org.whitecottage.gnosis.backend.data.ProcessTaxonomyContainer;
 
@@ -88,6 +92,36 @@ public class ProcessTaxonomyView extends ProcessTaxonomyDesign implements View {
 			public void drop(DragAndDropEvent event) {
 				// TODO Auto-generated method stub
 				
+				// Wrapper for the object that is dragged
+				Transferable t = event.getTransferable();
+				
+				// Make sure the drag source is the same tree
+				if (t.getSourceComponent() != processTree) {
+					return;
+				}
+				
+				TreeTargetDetails target = (TreeTargetDetails) event.getTargetDetails();
+				
+				// Get ids of the dragged item and the target item
+				Object sourceItemId = t.getData("itemId");
+				Object targetItemId = target.getItemIdOver();
+				
+				// On which side of the target the item was dropped
+				VerticalDropLocation location = target.getDropLocation();
+				
+				HierarchicalContainer container = (HierarchicalContainer) processTree.getContainerDataSource();
+				
+				if (location == VerticalDropLocation.MIDDLE) {
+					// Drop right on an item -> make it a child
+					//processTree.setParent(sourceItemId, targetItemId);
+					((ProcessTaxonomyContainer) container).dropMiddle(sourceItemId, targetItemId);
+				} else if (location == VerticalDropLocation.TOP) {
+					// Drop at the top of a subtree -> make it previous
+					((ProcessTaxonomyContainer) container).dropTop(sourceItemId, targetItemId);
+				} else if (location == VerticalDropLocation.BOTTOM) {
+					// Drop below another item -> make it next
+					((ProcessTaxonomyContainer) container).dropBottom(sourceItemId, targetItemId);
+				}
 			}
 
 			@Override

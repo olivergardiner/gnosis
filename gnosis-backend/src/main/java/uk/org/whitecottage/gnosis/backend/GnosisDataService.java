@@ -39,4 +39,6 @@ public abstract class GnosisDataService implements Serializable {
         return GnosisDataServiceImpl.getInstance();
     }
 
+	public abstract void updateProcessTaxonomy(ProcessTaxonomyContainer processTaxonomy);
+
 }

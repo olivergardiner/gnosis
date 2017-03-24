@@ -221,7 +221,7 @@ public class GnosisDataServiceImpl extends GnosisDataService {
 	}
 
 	@Override
-	public ProcessTaxonomyContainer getProcessTaxonomy() {
+	public synchronized ProcessTaxonomyContainer getProcessTaxonomy() {
     	MongoDatabase db = mongoClient.getDatabase("gnosis");
     	
     	FindIterable<Document> result = db.getCollection("processes").find();
@@ -229,5 +229,12 @@ public class GnosisDataServiceImpl extends GnosisDataService {
     	ProcessTaxonomyContainer processTaxonomy = new ProcessTaxonomyContainerBson(result);
     	
     	return processTaxonomy;
+	}
+	
+	@Override
+	public synchronized void updateProcessTaxonomy(ProcessTaxonomyContainer processTaxonomy) {
+    	MongoDatabase db = mongoClient.getDatabase("gnosis");
+    	
+    	db.getCollection("processes");
 	}
 }
