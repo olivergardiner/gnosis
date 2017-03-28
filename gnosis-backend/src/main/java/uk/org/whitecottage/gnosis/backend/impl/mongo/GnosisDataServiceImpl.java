@@ -1,6 +1,7 @@
 package uk.org.whitecottage.gnosis.backend.impl.mongo;
 
 import java.util.ArrayList;
+
 import java.util.Collection;
 import java.util.List;
 import java.util.Properties;
@@ -12,7 +13,9 @@ import org.bson.Document;
 import com.mongodb.Block;
 import com.mongodb.MongoClient;
 import com.mongodb.client.FindIterable;
+import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
+import static com.mongodb.client.model.Filters.*;
 import com.vaadin.data.Item;
 
 import uk.org.whitecottage.gnosis.backend.GnosisDataService;
@@ -235,6 +238,9 @@ public class GnosisDataServiceImpl extends GnosisDataService {
 	public synchronized void updateProcessTaxonomy(ProcessTaxonomyContainer processTaxonomy) {
     	MongoDatabase db = mongoClient.getDatabase("gnosis");
     	
-    	db.getCollection("processes");
+    	MongoCollection<Document> processes = db.getCollection("processes");
+    	processes.deleteMany(where("true"));
+    	
+    	processes.insertMany(((ProcessTaxonomyContainerBson) processTaxonomy).toBson());
 	}
 }

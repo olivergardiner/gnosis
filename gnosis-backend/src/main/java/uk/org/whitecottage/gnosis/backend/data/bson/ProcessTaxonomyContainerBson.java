@@ -1,5 +1,8 @@
 package uk.org.whitecottage.gnosis.backend.data.bson;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.bson.Document;
 
 import com.mongodb.Block;
@@ -43,5 +46,11 @@ public class ProcessTaxonomyContainerBson extends ProcessTaxonomyContainer {
     		
     		addActivities((Iterable<Document>) document.get("activities"), activityId);
 	    }
+	}
+	
+	public List<Document> toBson() {
+		List<Document> processes = new ArrayList<Document>();
+		
+		return processes;
 	}
 }
