@@ -1,6 +1,7 @@
 package uk.org.whitecottage.gnosis.backend.data.bson;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import org.bson.Document;
@@ -51,6 +52,30 @@ public class ProcessTaxonomyContainerBson extends ProcessTaxonomyContainer {
 	public List<Document> toBson() {
 		List<Document> processes = new ArrayList<Document>();
 		
+		Collection<?> ids = rootItemIds();
+		for (Object id: ids) {
+			Document topLevelProcess = toBson(id);
+			processes.add(topLevelProcess);
+		}
+		
 		return processes;
+	}
+	
+	protected Document toBson(Object id) {
+		Item node = getItem(id);
+		Document process = new Document();
+		
+		process.append("activityId", id);
+		process.append("name", node.getItemProperty("Name").getValue());
+		process.append("description", node.getItemProperty("Description").getValue());
+		
+		List<Document> children = new ArrayList<Document>();
+		for (Object childId: getChildren(id)) {
+			children.add(toBson(childId));
+		}
+		
+		process.append("activities", children);
+		
+		return process;
 	}
 }
