@@ -115,12 +115,15 @@ public class ProcessTaxonomyView extends ProcessTaxonomyDesign implements View {
 					// Drop right on an item -> make it a child
 					//processTree.setParent(sourceItemId, targetItemId);
 					((ProcessTaxonomyContainer) container).dropMiddle(sourceItemId, targetItemId);
+					viewLogic.updateProcessTaxonomy((ProcessTaxonomyContainer) container);
 				} else if (location == VerticalDropLocation.TOP) {
 					// Drop at the top of a subtree -> make it previous
 					((ProcessTaxonomyContainer) container).dropTop(sourceItemId, targetItemId);
+					viewLogic.updateProcessTaxonomy((ProcessTaxonomyContainer) container);
 				} else if (location == VerticalDropLocation.BOTTOM) {
 					// Drop below another item -> make it next
 					((ProcessTaxonomyContainer) container).dropBottom(sourceItemId, targetItemId);
+					viewLogic.updateProcessTaxonomy((ProcessTaxonomyContainer) container);
 				}
 			}
 

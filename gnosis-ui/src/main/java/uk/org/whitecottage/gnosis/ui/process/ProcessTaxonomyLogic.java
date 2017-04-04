@@ -6,6 +6,7 @@ import com.vaadin.server.Page;
 
 import uk.org.whitecottage.gnosis.Gnosis;
 import uk.org.whitecottage.gnosis.backend.GnosisDataService;
+import uk.org.whitecottage.gnosis.backend.data.ProcessTaxonomyContainer;
 import uk.org.whitecottage.gnosis.ui.applications.ApplicationsView;
 
 @SuppressWarnings("serial")
@@ -44,5 +45,9 @@ public class ProcessTaxonomyLogic implements Serializable {
         Page page = Gnosis.get().getPage();
         page.setUriFragment("!" + ApplicationsView.VIEW_NAME + "/"
                 + fragmentParameter, false);
+    }
+    
+    public void updateProcessTaxonomy(ProcessTaxonomyContainer processTaxonomy) {
+    	GnosisDataService.get().updateProcessTaxonomy(processTaxonomy);
     }
 }

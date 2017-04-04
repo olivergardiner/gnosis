@@ -70,8 +70,12 @@ public class ProcessTaxonomyContainerBson extends ProcessTaxonomyContainer {
 		process.append("description", node.getItemProperty("Description").getValue());
 		
 		List<Document> children = new ArrayList<Document>();
-		for (Object childId: getChildren(id)) {
-			children.add(toBson(childId));
+		
+		Collection<?> childIds = getChildren(id);
+		if (childIds != null) {
+			for (Object childId: childIds) {
+				children.add(toBson(childId));
+			}
 		}
 		
 		process.append("activities", children);
