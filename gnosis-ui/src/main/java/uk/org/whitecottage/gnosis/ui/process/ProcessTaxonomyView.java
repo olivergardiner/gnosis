@@ -1,7 +1,6 @@
 package uk.org.whitecottage.gnosis.ui.process;
 
 import com.vaadin.data.Item;
-import com.vaadin.data.util.HierarchicalContainer;
 import com.vaadin.event.Action;
 import com.vaadin.event.Action.Handler;
 import com.vaadin.event.ItemClickEvent;
@@ -19,7 +18,6 @@ import com.vaadin.ui.Tree.TreeDragMode;
 import com.vaadin.ui.Tree.TreeTargetDetails;
 
 import uk.org.whitecottage.gnosis.backend.data.ProcessTaxonomyContainer;
-import uk.org.whitecottage.gnosis.backend.data.TaxonomyContainer;
 
 @SuppressWarnings("serial")
 public class ProcessTaxonomyView extends ProcessTaxonomyDesign implements View {
@@ -47,7 +45,7 @@ public class ProcessTaxonomyView extends ProcessTaxonomyDesign implements View {
     	viewLogic.enter(event.getParameters());
 	}
 
-    public void showProcessTaxonomy(TaxonomyContainer processTaxonomyContainer) {
+    public void showProcessTaxonomy(ProcessTaxonomyContainer processTaxonomyContainer) {
     	
     	processTree.setContainerDataSource(processTaxonomyContainer);
     	processTree.setItemCaptionPropertyId("Name");
@@ -91,8 +89,6 @@ public class ProcessTaxonomyView extends ProcessTaxonomyDesign implements View {
 
 			@Override
 			public void drop(DragAndDropEvent event) {
-				// TODO Auto-generated method stub
-				
 				// Wrapper for the object that is dragged
 				Transferable t = event.getTransferable();
 				
@@ -110,27 +106,26 @@ public class ProcessTaxonomyView extends ProcessTaxonomyDesign implements View {
 				// On which side of the target the item was dropped
 				VerticalDropLocation location = target.getDropLocation();
 				
-				HierarchicalContainer container = (HierarchicalContainer) processTree.getContainerDataSource();
+				ProcessTaxonomyContainer container = (ProcessTaxonomyContainer) processTree.getContainerDataSource();
 				
 				if (location == VerticalDropLocation.MIDDLE) {
 					// Drop right on an item -> make it a child
 					//processTree.setParent(sourceItemId, targetItemId);
-					((TaxonomyContainer) container).dropMiddle(sourceItemId, targetItemId);
-					viewLogic.updateProcessTaxonomy((TaxonomyContainer) container);
+					container.dropMiddle(sourceItemId, targetItemId);
+					viewLogic.updateProcessTaxonomy(container);
 				} else if (location == VerticalDropLocation.TOP) {
 					// Drop at the top of a subtree -> make it previous
-					((TaxonomyContainer) container).dropTop(sourceItemId, targetItemId);
-					viewLogic.updateProcessTaxonomy((TaxonomyContainer) container);
+					container.dropTop(sourceItemId, targetItemId);
+					viewLogic.updateProcessTaxonomy(container);
 				} else if (location == VerticalDropLocation.BOTTOM) {
 					// Drop below another item -> make it next
-					((TaxonomyContainer) container).dropBottom(sourceItemId, targetItemId);
-					viewLogic.updateProcessTaxonomy((TaxonomyContainer) container);
+					container.dropBottom(sourceItemId, targetItemId);
+					viewLogic.updateProcessTaxonomy(container);
 				}
 			}
 
 			@Override
 			public AcceptCriterion getAcceptCriterion() {
-				// TODO Auto-generated method stub
 				return AcceptAll.get();
 			}
 		});

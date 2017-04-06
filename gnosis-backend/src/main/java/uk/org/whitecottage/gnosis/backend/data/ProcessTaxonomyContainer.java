@@ -1,33 +1,37 @@
 package uk.org.whitecottage.gnosis.backend.data;
 
-import com.vaadin.data.util.HierarchicalContainer;
+import org.bson.Document;
 
-public abstract class ProcessTaxonomyContainer extends HierarchicalContainer {
+import com.mongodb.client.FindIterable;
+import com.vaadin.data.Item;
+
+public class ProcessTaxonomyContainer extends TaxonomyContainer {
 
 	private static final long serialVersionUID = 1L;
 
 	public ProcessTaxonomyContainer() {
-    	addContainerProperty("Name", String.class, null);
-    	addContainerProperty("Description", String.class, null);
-    	addContainerProperty("processId", String.class, null);
-	}
-	
-	public void dropTop(Object sourceItemId, Object targetItemId) {
-		Object parentId = getParent(targetItemId);
-		
-		setParent(sourceItemId, parentId);
-		moveAfterSibling(sourceItemId, targetItemId);
-		moveAfterSibling(targetItemId, sourceItemId);
-	}
-	
-	public void dropMiddle(Object sourceItemId, Object targetItemId) {
-		setParent(sourceItemId, targetItemId);
+		super();
 	}
 
-	public void dropBottom(Object sourceItemId, Object targetItemId) {
-		Object parentId = getParent(targetItemId);
+	public ProcessTaxonomyContainer(FindIterable<Document> taxonomy) {
+		super(taxonomy);
+	}
+
+	@Override
+	protected void buildNode(Item item, Document document) {
+		// Builds the container node from the Bson Document
+		// Node id, name and description are handled by the super class
+		// This method specialises the properties by adding statements like:
+		// item.getItemProperty("PropertyName").setValue(document.get("bsonDocumentPropertyName"));
+
+	}
+
+	@Override
+	protected void toBson(Item item, Document document) {
+		// converts the container node back into a Bson Document
+		// Node id, name and description are handled by the super class
+		// This method specialises the properties by adding statements like:
+		// document.append("bsonDocumentPropertyName", item.getItemProperty("PropertyName").getValue());
 		
-		setParent(sourceItemId, parentId);
-		moveAfterSibling(sourceItemId, targetItemId);
 	}
 }

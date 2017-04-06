@@ -5,6 +5,8 @@ import java.io.Serializable;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import org.bson.Document;
+
 @SuppressWarnings("serial")
 public class LogicalApplicationBean implements Serializable {
 
@@ -19,6 +21,16 @@ public class LogicalApplicationBean implements Serializable {
     	init();
     }
     
+	public LogicalApplicationBean(Document logicalApp) {
+		init();
+		
+		if (logicalApp != null) {
+	    	applicationName = logicalApp.getString("name");
+	    	applicationDescription = logicalApp.getString("description");
+	    	applicationId = logicalApp.getString("instance-id");
+		}
+	}
+
 	protected void init() {
     }
 

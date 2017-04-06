@@ -7,8 +7,6 @@ import com.vaadin.server.Page;
 import uk.org.whitecottage.gnosis.Gnosis;
 import uk.org.whitecottage.gnosis.backend.GnosisDataService;
 import uk.org.whitecottage.gnosis.backend.data.ProcessTaxonomyContainer;
-import uk.org.whitecottage.gnosis.backend.data.TaxonomyContainer;
-import uk.org.whitecottage.gnosis.ui.applications.ApplicationsView;
 
 @SuppressWarnings("serial")
 public class ProcessTaxonomyLogic implements Serializable {
@@ -35,20 +33,20 @@ public class ProcessTaxonomyLogic implements Serializable {
     /**
      * Update the fragment without causing navigator to change view
      */
-    private void setFragmentParameter(String applicationId) {
+    private void setFragmentParameter(String activityId) {
         String fragmentParameter;
-        if (applicationId == null || applicationId.isEmpty()) {
+        if (activityId == null || activityId.isEmpty()) {
             fragmentParameter = "";
         } else {
-            fragmentParameter = applicationId;
+            fragmentParameter = activityId;
         }
 
         Page page = Gnosis.get().getPage();
-        page.setUriFragment("!" + ApplicationsView.VIEW_NAME + "/"
+        page.setUriFragment("!" + ProcessTaxonomyView.VIEW_NAME + "/"
                 + fragmentParameter, false);
     }
     
-    public void updateProcessTaxonomy(TaxonomyContainer processTaxonomy) {
+    public void updateProcessTaxonomy(ProcessTaxonomyContainer processTaxonomy) {
     	GnosisDataService.get().updateProcessTaxonomy(processTaxonomy);
     }
 }

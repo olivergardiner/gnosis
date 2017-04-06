@@ -5,10 +5,11 @@ import java.util.Collection;
 import java.util.Properties;
 
 import uk.org.whitecottage.gnosis.backend.data.ApplicationBean;
+import uk.org.whitecottage.gnosis.backend.data.ApplicationTaxonomyContainer;
 import uk.org.whitecottage.gnosis.backend.data.FrameworkContainer;
 import uk.org.whitecottage.gnosis.backend.data.LogicalApplicationBean;
-import uk.org.whitecottage.gnosis.backend.data.TaxonomyContainer;
-import uk.org.whitecottage.gnosis.backend.impl.mongo.GnosisDataServiceImpl;
+import uk.org.whitecottage.gnosis.backend.data.ProcessTaxonomyContainer;
+import uk.org.whitecottage.gnosis.backend.impl.GnosisDataServiceImpl;
 
 /**
  * Back-end service interface for retrieving and updating product data.
@@ -28,17 +29,20 @@ public abstract class GnosisDataService implements Serializable {
     public abstract Collection<LogicalApplicationBean> getAllLogicalApplications(boolean asEcosystems);
 
     public abstract FrameworkContainer getFramework();
+    
+    public abstract ApplicationTaxonomyContainer getApplicationTaxonomy();
 
-    public abstract TaxonomyContainer getProcessTaxonomy();
+    public abstract void updateApplicationTaxonomy(ApplicationTaxonomyContainer applicationTaxonomy);
 
-    public synchronized void init(Properties properties) {
+    public abstract ProcessTaxonomyContainer getProcessTaxonomy();
+
+	public abstract void updateProcessTaxonomy(ProcessTaxonomyContainer processTaxonomy);
+
+	public synchronized void init(Properties properties) {
     	this.properties = properties;
     }
 
     public static GnosisDataService get() {
         return GnosisDataServiceImpl.getInstance();
     }
-
-	public abstract void updateProcessTaxonomy(TaxonomyContainer processTaxonomy);
-
 }

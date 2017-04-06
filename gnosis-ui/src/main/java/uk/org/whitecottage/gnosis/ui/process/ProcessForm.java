@@ -22,7 +22,7 @@ public class ProcessForm extends ProcessFormDesign {
 	private final static Logger LOGGER = Logger.getLogger(ProcessForm.class.getName());
 
     public ProcessForm(ProcessTaxonomyLogic processTaxonomyLogic) {
-        super("Application detail");
+        super("Process detail");
         viewLogic = processTaxonomyLogic;
         
 		activityName.setImmediate(true);

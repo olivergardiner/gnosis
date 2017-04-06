@@ -3,9 +3,12 @@ package uk.org.whitecottage.gnosis.backend.data;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+
+import org.bson.Document;
 
 import com.vaadin.data.fieldgroup.PropertyId;
 
@@ -26,6 +29,26 @@ public class ApplicationBean implements Serializable {
     
     public ApplicationBean() {
     	init();
+    }
+    
+    @SuppressWarnings("unchecked")
+	public ApplicationBean(Document application, ClassificationMap classificationMap) {
+    	init();
+    	    	
+    	if (application != null) {
+	    	applicationName = application.getString("name");
+	    	applicationDescription = application.getString("description");
+	    	id = application.getString("app-id");
+	    	
+	    	Iterable<Document> classifications = (Iterable<Document>) application.get("logical-apps");
+			if (classifications != null) {
+				for (Object logicalApplication : classifications) {
+					ClassificationBean classificationBean = new ClassificationBean((String) logicalApplication);
+					classificationBean.setApplicationName(classificationMap.getLogicalApplicationName((String) logicalApplication));
+					classification.add(classificationBean);
+				}
+			}
+    	}
     }
     
     protected void init() {
@@ -63,4 +86,20 @@ public class ApplicationBean implements Serializable {
 	public void setClassification(Collection<ClassificationBean> classification) {
 		this.classification = classification;
 	}
+
+    public static Document toBson(ApplicationBean application) {
+    	Document applicationDocument = new Document();
+
+    	applicationDocument.append("app-id", application.getId());
+    	applicationDocument.append("name", application.getApplicationName());
+    	applicationDocument.append("description", application.getApplicationDescription());
+    	
+    	List<String> logicalApps = new ArrayList<String>();
+    	for (ClassificationBean classificationBean: application.getClassification()) {
+    		logicalApps.add(classificationBean.getApplicationId());
+    	}
+    	applicationDocument.append("logical-apps", logicalApps);
+
+    	return applicationDocument;
+    }
 }
