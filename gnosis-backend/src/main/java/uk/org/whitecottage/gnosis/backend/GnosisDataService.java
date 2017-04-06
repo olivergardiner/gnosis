@@ -7,7 +7,7 @@ import java.util.Properties;
 import uk.org.whitecottage.gnosis.backend.data.ApplicationBean;
 import uk.org.whitecottage.gnosis.backend.data.FrameworkContainer;
 import uk.org.whitecottage.gnosis.backend.data.LogicalApplicationBean;
-import uk.org.whitecottage.gnosis.backend.data.ProcessTaxonomyContainer;
+import uk.org.whitecottage.gnosis.backend.data.TaxonomyContainer;
 import uk.org.whitecottage.gnosis.backend.impl.mongo.GnosisDataServiceImpl;
 
 /**
@@ -29,7 +29,7 @@ public abstract class GnosisDataService implements Serializable {
 
     public abstract FrameworkContainer getFramework();
 
-    public abstract ProcessTaxonomyContainer getProcessTaxonomy();
+    public abstract TaxonomyContainer getProcessTaxonomy();
 
     public synchronized void init(Properties properties) {
     	this.properties = properties;
@@ -39,6 +39,6 @@ public abstract class GnosisDataService implements Serializable {
         return GnosisDataServiceImpl.getInstance();
     }
 
-	public abstract void updateProcessTaxonomy(ProcessTaxonomyContainer processTaxonomy);
+	public abstract void updateProcessTaxonomy(TaxonomyContainer processTaxonomy);
 
 }

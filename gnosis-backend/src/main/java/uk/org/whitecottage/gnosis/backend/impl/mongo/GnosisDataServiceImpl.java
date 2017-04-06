@@ -24,6 +24,7 @@ import uk.org.whitecottage.gnosis.backend.data.ClassificationMap;
 import uk.org.whitecottage.gnosis.backend.data.FrameworkContainer;
 import uk.org.whitecottage.gnosis.backend.data.LogicalApplicationBean;
 import uk.org.whitecottage.gnosis.backend.data.ProcessTaxonomyContainer;
+import uk.org.whitecottage.gnosis.backend.data.TaxonomyContainer;
 import uk.org.whitecottage.gnosis.backend.data.bson.ApplicationBeanBson;
 import uk.org.whitecottage.gnosis.backend.data.bson.LogicalApplicationBeanBson;
 import uk.org.whitecottage.gnosis.backend.data.bson.ProcessTaxonomyContainerBson;
@@ -224,18 +225,18 @@ public class GnosisDataServiceImpl extends GnosisDataService {
 	}
 
 	@Override
-	public synchronized ProcessTaxonomyContainer getProcessTaxonomy() {
+	public synchronized TaxonomyContainer getProcessTaxonomy() {
     	MongoDatabase db = mongoClient.getDatabase("gnosis");
     	
     	FindIterable<Document> result = db.getCollection("processes").find();
     	
-    	ProcessTaxonomyContainer processTaxonomy = new ProcessTaxonomyContainerBson(result);
+    	TaxonomyContainer processTaxonomy = new ProcessTaxonomyContainerBson(result);
     	
     	return processTaxonomy;
 	}
 	
 	@Override
-	public synchronized void updateProcessTaxonomy(ProcessTaxonomyContainer processTaxonomy) {
+	public synchronized void updateProcessTaxonomy(TaxonomyContainer processTaxonomy) {
     	MongoDatabase db = mongoClient.getDatabase("gnosis");
     	
     	MongoCollection<Document> processes = db.getCollection("processes");

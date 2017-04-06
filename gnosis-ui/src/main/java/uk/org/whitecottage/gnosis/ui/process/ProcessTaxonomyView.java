@@ -19,6 +19,7 @@ import com.vaadin.ui.Tree.TreeDragMode;
 import com.vaadin.ui.Tree.TreeTargetDetails;
 
 import uk.org.whitecottage.gnosis.backend.data.ProcessTaxonomyContainer;
+import uk.org.whitecottage.gnosis.backend.data.TaxonomyContainer;
 
 @SuppressWarnings("serial")
 public class ProcessTaxonomyView extends ProcessTaxonomyDesign implements View {
@@ -46,7 +47,7 @@ public class ProcessTaxonomyView extends ProcessTaxonomyDesign implements View {
     	viewLogic.enter(event.getParameters());
 	}
 
-    public void showProcessTaxonomy(ProcessTaxonomyContainer processTaxonomyContainer) {
+    public void showProcessTaxonomy(TaxonomyContainer processTaxonomyContainer) {
     	
     	processTree.setContainerDataSource(processTaxonomyContainer);
     	processTree.setItemCaptionPropertyId("Name");
@@ -114,16 +115,16 @@ public class ProcessTaxonomyView extends ProcessTaxonomyDesign implements View {
 				if (location == VerticalDropLocation.MIDDLE) {
 					// Drop right on an item -> make it a child
 					//processTree.setParent(sourceItemId, targetItemId);
-					((ProcessTaxonomyContainer) container).dropMiddle(sourceItemId, targetItemId);
-					viewLogic.updateProcessTaxonomy((ProcessTaxonomyContainer) container);
+					((TaxonomyContainer) container).dropMiddle(sourceItemId, targetItemId);
+					viewLogic.updateProcessTaxonomy((TaxonomyContainer) container);
 				} else if (location == VerticalDropLocation.TOP) {
 					// Drop at the top of a subtree -> make it previous
-					((ProcessTaxonomyContainer) container).dropTop(sourceItemId, targetItemId);
-					viewLogic.updateProcessTaxonomy((ProcessTaxonomyContainer) container);
+					((TaxonomyContainer) container).dropTop(sourceItemId, targetItemId);
+					viewLogic.updateProcessTaxonomy((TaxonomyContainer) container);
 				} else if (location == VerticalDropLocation.BOTTOM) {
 					// Drop below another item -> make it next
-					((ProcessTaxonomyContainer) container).dropBottom(sourceItemId, targetItemId);
-					viewLogic.updateProcessTaxonomy((ProcessTaxonomyContainer) container);
+					((TaxonomyContainer) container).dropBottom(sourceItemId, targetItemId);
+					viewLogic.updateProcessTaxonomy((TaxonomyContainer) container);
 				}
 			}
 
