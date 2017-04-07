@@ -4,7 +4,8 @@ import uk.org.whitecottage.gnosis.Gnosis;
 import uk.org.whitecottage.gnosis.ui.about.AboutView;
 import uk.org.whitecottage.gnosis.ui.applications.ApplicationsView;
 import uk.org.whitecottage.gnosis.ui.framework.FrameworkView;
-import uk.org.whitecottage.gnosis.ui.process.ProcessTaxonomyView;
+import uk.org.whitecottage.gnosis.ui.taxonomy.application.ApplicationTaxonomyView;
+import uk.org.whitecottage.gnosis.ui.taxonomy.process.ProcessTaxonomyView;
 
 import com.vaadin.navigator.Navigator;
 import com.vaadin.navigator.ViewChangeListener;
@@ -36,6 +37,8 @@ public class MainScreen extends HorizontalLayout {
                 FrameworkView.VIEW_NAME, FontAwesome.EDIT);
         menu.addView(new ProcessTaxonomyView(), ProcessTaxonomyView.VIEW_NAME,
         		ProcessTaxonomyView.VIEW_NAME, FontAwesome.EDIT);
+        menu.addView(new ApplicationTaxonomyView(), ApplicationTaxonomyView.VIEW_NAME,
+        		ApplicationTaxonomyView.VIEW_NAME, FontAwesome.EDIT);
         menu.addView(new ApplicationsView(), ApplicationsView.VIEW_NAME,
                 ApplicationsView.VIEW_NAME, FontAwesome.EDIT);
         menu.addView(new AboutView(), AboutView.VIEW_NAME, AboutView.VIEW_NAME,
