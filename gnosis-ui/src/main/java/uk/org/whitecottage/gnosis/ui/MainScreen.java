@@ -1,17 +1,18 @@
 package uk.org.whitecottage.gnosis.ui;
 
-import uk.org.whitecottage.gnosis.Gnosis;
-import uk.org.whitecottage.gnosis.ui.about.AboutView;
-import uk.org.whitecottage.gnosis.ui.applications.ApplicationsView;
-import uk.org.whitecottage.gnosis.ui.framework.FrameworkView;
-import uk.org.whitecottage.gnosis.ui.taxonomy.application.ApplicationTaxonomyView;
-import uk.org.whitecottage.gnosis.ui.taxonomy.process.ProcessTaxonomyView;
+import java.util.logging.Logger;
 
 import com.vaadin.navigator.Navigator;
 import com.vaadin.navigator.ViewChangeListener;
 import com.vaadin.server.FontAwesome;
 import com.vaadin.ui.CssLayout;
 import com.vaadin.ui.HorizontalLayout;
+
+import uk.org.whitecottage.gnosis.Gnosis;
+import uk.org.whitecottage.gnosis.ui.about.AboutView;
+import uk.org.whitecottage.gnosis.ui.applications.ApplicationsView;
+import uk.org.whitecottage.gnosis.ui.taxonomy.application.ApplicationTaxonomyView;
+import uk.org.whitecottage.gnosis.ui.taxonomy.process.ProcessTaxonomyView;
 
 /**
  * Content of the UI when the user is logged in.
@@ -22,7 +23,10 @@ import com.vaadin.ui.HorizontalLayout;
 public class MainScreen extends HorizontalLayout {
     private Menu menu;
 
-    public MainScreen(Gnosis ui) {
+	@SuppressWarnings("unused")
+	private final static Logger LOGGER = Logger.getLogger(MainScreen.class.getName());
+
+	public MainScreen(Gnosis ui) {
 
         setStyleName("main-screen");
 
@@ -31,16 +35,15 @@ public class MainScreen extends HorizontalLayout {
         viewContainer.setSizeFull();
 
         final Navigator navigator = new Navigator(ui, viewContainer);
+        //LOGGER.info(navigator.getState());
         navigator.setErrorView(ErrorView.class);
         menu = new Menu(navigator);
-        menu.addView(new FrameworkView(), FrameworkView.VIEW_NAME,
-                FrameworkView.VIEW_NAME, FontAwesome.EDIT);
-        menu.addView(new ProcessTaxonomyView(), ProcessTaxonomyView.VIEW_NAME,
-        		ProcessTaxonomyView.VIEW_NAME, FontAwesome.EDIT);
         menu.addView(new ApplicationTaxonomyView(), ApplicationTaxonomyView.VIEW_NAME,
         		ApplicationTaxonomyView.VIEW_NAME, FontAwesome.EDIT);
         menu.addView(new ApplicationsView(), ApplicationsView.VIEW_NAME,
                 ApplicationsView.VIEW_NAME, FontAwesome.EDIT);
+        menu.addView(new ProcessTaxonomyView(), ProcessTaxonomyView.VIEW_NAME,
+        		ProcessTaxonomyView.VIEW_NAME, FontAwesome.EDIT);
         menu.addView(new AboutView(), AboutView.VIEW_NAME, AboutView.VIEW_NAME,
                 FontAwesome.INFO_CIRCLE);
 

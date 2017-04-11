@@ -2,6 +2,7 @@ package uk.org.whitecottage.gnosis.ui;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Logger;
 
 import com.vaadin.navigator.Navigator;
 import com.vaadin.navigator.View;
@@ -37,6 +38,9 @@ public class Menu extends CssLayout {
 
     private CssLayout menuItemsLayout;
     private CssLayout menuPart;
+
+	@SuppressWarnings("unused")
+	private final static Logger LOGGER = Logger.getLogger(Menu.class.getName());
 
     public Menu(Navigator navigator) {
         this.navigator = navigator;

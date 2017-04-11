@@ -25,6 +25,7 @@ import uk.org.whitecottage.gnosis.ui.authentication.AccessControl;
 import uk.org.whitecottage.gnosis.ui.authentication.BasicAccessControl;
 import uk.org.whitecottage.gnosis.ui.authentication.LoginScreen;
 import uk.org.whitecottage.gnosis.ui.authentication.LoginScreen.LoginListener;
+import uk.org.whitecottage.gnosis.ui.taxonomy.application.ApplicationTaxonomyView;
 
 /**
  * Main UI class of the application that shows either the login screen or the
@@ -78,7 +79,9 @@ public class Gnosis extends UI {
     protected void showMainView() {
         addStyleName(ValoTheme.UI_WITH_MENU);
         setContent(new MainScreen(Gnosis.this));
-        getNavigator().navigateTo(getNavigator().getState());
+        //LOGGER.info(getNavigator().getState());
+        //getNavigator().navigateTo(getNavigator().getState());
+        getNavigator().navigateTo(ApplicationTaxonomyView.VIEW_NAME);
     }
 
     public static Gnosis get() {
