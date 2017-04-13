@@ -1,26 +1,33 @@
 package uk.org.whitecottage.gnosis.backend.data;
 
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
+
+import com.vaadin.data.Item;
 
 public class ClassificationMap {
 	protected Map<Long, String> keyMap;
 	protected Map<String, String> appMap;
 
-	public ClassificationMap(Collection<LogicalApplicationBean> logicalApplications) {
-		keyMap = new HashMap<Long, String>();
-		appMap = new HashMap<String, String>();
+	public ClassificationMap(ApplicationTaxonomyContainer applicationTaxonomy) {
+		keyMap = new HashMap<>();
+		appMap = new HashMap<>();
 		
-		for (LogicalApplicationBean logicalApplication: logicalApplications) {
-			String applicationId = logicalApplication.getApplicationId();
-			keyMap.put(new Long(applicationId.hashCode()), applicationId);
-			appMap.put(applicationId, logicalApplication.getApplicationName());
+		for (Object id: applicationTaxonomy.getItemIds()) {
+			if (!applicationTaxonomy.hasChildren(id)) {
+				Item item = applicationTaxonomy.getItem(id);
+				
+				String applicationName = (String) item.getItemProperty("Name").getValue();
+				String applicationId = (String) id;
+				
+				keyMap.put(Long.valueOf(applicationId.hashCode()), applicationId);
+				appMap.put(applicationId, applicationName);
+			}
 		}
 	}
 	
 	public String getLogicalApplicationId(int hashCode) {
-		return keyMap.get(new Long(hashCode));
+		return keyMap.get(Long.valueOf(hashCode));
 	}
 	
 	public String getLogicalApplicationName(String id) {

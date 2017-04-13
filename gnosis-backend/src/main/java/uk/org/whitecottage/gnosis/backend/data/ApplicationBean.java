@@ -25,7 +25,7 @@ public class ApplicationBean implements Serializable {
     @PropertyId("applicationDescription")
     protected String applicationDescription = "";
 
-    protected Collection<ClassificationBean> classification;
+    private Collection<ClassificationBean> classification;
     
     public ApplicationBean() {
     	init();
@@ -52,7 +52,7 @@ public class ApplicationBean implements Serializable {
     }
     
     protected void init() {
-    	classification = new ArrayList<ClassificationBean>();
+    	classification = new ArrayList<>();
     }
 
     public String getId() {
@@ -94,7 +94,7 @@ public class ApplicationBean implements Serializable {
     	applicationDocument.append("name", application.getApplicationName());
     	applicationDocument.append("description", application.getApplicationDescription());
     	
-    	List<String> logicalApps = new ArrayList<String>();
+    	List<String> logicalApps = new ArrayList<>();
     	for (ClassificationBean classificationBean: application.getClassification()) {
     		logicalApps.add(classificationBean.getApplicationId());
     	}

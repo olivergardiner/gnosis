@@ -22,7 +22,7 @@ import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.themes.ValoTheme;
 
 import uk.org.whitecottage.gnosis.backend.data.ApplicationBean;
-import uk.org.whitecottage.gnosis.backend.data.LogicalApplicationBean;
+import uk.org.whitecottage.gnosis.backend.data.ApplicationTaxonomyContainer;
 import uk.org.whitecottage.gnosis.widgetset.ResetButtonForTextField;
 
 /**
@@ -161,7 +161,7 @@ public class ApplicationsView extends CssLayout implements View {
         grid.remove(application);
     }
 
-    public void setClassifications(Collection<LogicalApplicationBean> logicalApplications) {
-    	form.setClassifications(logicalApplications);
+    public void setClassifications(ApplicationTaxonomyContainer applicationTaxonomy) {
+    	form.setClassifications(applicationTaxonomy);
     }
 }

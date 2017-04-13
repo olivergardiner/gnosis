@@ -1,6 +1,5 @@
 package uk.org.whitecottage.gnosis.ui.applications;
 
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Logger;
@@ -23,7 +22,7 @@ import com.vaadin.ui.Notification;
 import com.vaadin.ui.Notification.Type;
 
 import uk.org.whitecottage.gnosis.backend.data.ApplicationBean;
-import uk.org.whitecottage.gnosis.backend.data.LogicalApplicationBean;
+import uk.org.whitecottage.gnosis.backend.data.ApplicationTaxonomyContainer;
 
 /**
  * A form for editing an application.
@@ -43,7 +42,7 @@ public class ApplicationForm extends ApplicationFormDesign {
 	private static final String	LABEL	= "label";
 
 	@SuppressWarnings("unused")
-	private final static Logger LOGGER = Logger.getLogger(ApplicationForm.class.getName());
+	private static final Logger LOGGER = Logger.getLogger(ApplicationForm.class.getName());
 
     @SuppressWarnings("rawtypes")
 	public ApplicationForm(ApplicationsLogic applicationLogic) {
@@ -170,14 +169,17 @@ public class ApplicationForm extends ApplicationFormDesign {
     }
     
     @SuppressWarnings("unchecked")
-	public void setClassifications(Collection<LogicalApplicationBean> logicalApplications) {
+	public void setClassifications(ApplicationTaxonomyContainer applicationTaxonomy) {
     	classificationInput.clear();
     	classificationMap.clear();
-    	for (LogicalApplicationBean logicalApplication: logicalApplications) {
-    		Integer hash = logicalApplication.getApplicationId().hashCode();
-			classificationMap.put(hash, logicalApplication.getApplicationId());
-			classificationInput.addItem(hash);
-			classificationInput.getItem(hash).getItemProperty(LABEL).setValue(logicalApplication.getApplicationName());
-    	}
+    	for (Object id: applicationTaxonomy.getItemIds()) {
+    		if (!applicationTaxonomy.hasChildren(id)) {
+    			Item item = applicationTaxonomy.getItem(id);
+	    		Integer hash = ((String) id).hashCode();
+				classificationMap.put(hash, (String) id);
+				classificationInput.addItem(hash);
+				classificationInput.getItem(hash).getItemProperty(LABEL).setValue(item.getItemProperty("Name").getValue());
+    		}
+		}
     }
 }

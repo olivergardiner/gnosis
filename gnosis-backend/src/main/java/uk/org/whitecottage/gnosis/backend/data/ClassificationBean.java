@@ -7,8 +7,6 @@ import com.vaadin.data.fieldgroup.PropertyId;
 
 @SuppressWarnings("serial")
 public class ClassificationBean implements Serializable, Tokenizable {
-    @PropertyId("ecosystemId")
-    protected String ecosystemId = "-1";
     @PropertyId("applicationId")
     protected String applicationId = "-1";
     @PropertyId("applicationName")
@@ -20,27 +18,14 @@ public class ClassificationBean implements Serializable, Tokenizable {
     	init();
     }
 
-    public ClassificationBean(String ecosystemId, String applicationId) {
-    	init();
-    	this.ecosystemId = ecosystemId;
-    	this.applicationId = applicationId;
-    }
-    
     public ClassificationBean(String applicationId) {
     	init();
     	this.applicationId = applicationId;
     }
     
     protected void init() {
+    	// Standard placeholder for any bean initialisation - not required in this case
     }
-
-	public String getEcosystemId() {
-		return ecosystemId;
-	}
-
-	public void setEcosystemId(String ecosystemId) {
-		this.ecosystemId = ecosystemId;
-	}
 
 	public String getApplicationId() {
 		return applicationId;

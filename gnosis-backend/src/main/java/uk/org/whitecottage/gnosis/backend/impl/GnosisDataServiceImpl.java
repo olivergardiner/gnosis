@@ -3,7 +3,6 @@ package uk.org.whitecottage.gnosis.backend.impl;
 import static com.mongodb.client.model.Filters.where;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.Properties;
 import java.util.UUID;
@@ -11,39 +10,40 @@ import java.util.logging.Logger;
 
 import org.bson.Document;
 
-import com.mongodb.Block;
 import com.mongodb.MongoClient;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
-import com.vaadin.data.Item;
 
 import uk.org.whitecottage.gnosis.backend.GnosisDataService;
 import uk.org.whitecottage.gnosis.backend.data.ApplicationBean;
 import uk.org.whitecottage.gnosis.backend.data.ApplicationTaxonomyContainer;
 import uk.org.whitecottage.gnosis.backend.data.ClassificationMap;
-import uk.org.whitecottage.gnosis.backend.data.FrameworkContainer;
-import uk.org.whitecottage.gnosis.backend.data.LogicalApplicationBean;
 import uk.org.whitecottage.gnosis.backend.data.ProcessTaxonomyContainer;
 
 @SuppressWarnings("serial")
 public class GnosisDataServiceImpl extends GnosisDataService {
 
 	@SuppressWarnings("unused")
-	private final static Logger LOGGER = Logger.getLogger(GnosisDataServiceImpl.class.getName());
-	private static GnosisDataServiceImpl INSTANCE;
+	private static final Logger LOGGER = Logger.getLogger(GnosisDataServiceImpl.class.getName());
+	private static GnosisDataServiceImpl instance;
 	
-	protected MongoClient mongoClient;
+	protected transient MongoClient mongoClient;
 
+	private static final String DB = "gnosis";
+	private static final String APPLICATIONS = "applications";
+	private static final String APPLICATION_TAXONOMY = "application-taxonomy";
+	private static final String PROCESS_TAXONOMY = "process-taxonomy";
+	
     private GnosisDataServiceImpl() {
     	mongoClient = new MongoClient();
     }
 
-    public synchronized static GnosisDataService getInstance() {
-        if (INSTANCE == null) {
-            INSTANCE = new GnosisDataServiceImpl();
+    public static synchronized GnosisDataService getInstance() {
+        if (instance == null) {
+            instance = new GnosisDataServiceImpl();
         }
-        return INSTANCE;
+        return instance;
     }
     
     @Override
@@ -53,30 +53,27 @@ public class GnosisDataServiceImpl extends GnosisDataService {
 
     @Override
     public synchronized List<ApplicationBean> getAllApplications() {
-    	List<ApplicationBean> applications = new ArrayList<ApplicationBean>();
-    	MongoDatabase db = mongoClient.getDatabase("gnosis");
-    	FindIterable<Document> result = db.getCollection("applications").find();
+    	List<ApplicationBean> applications = new ArrayList<>();
+    	MongoDatabase db = mongoClient.getDatabase(DB);
+    	FindIterable<Document> result = db.getCollection(APPLICATIONS).find();
     	
-    	ClassificationMap classificationMap = new ClassificationMap(getAllLogicalApplications(true));
+    	ClassificationMap classificationMap = new ClassificationMap(getApplicationTaxonomy());
 
-    	result.forEach(new Block<Document>() {
-    	    @Override
-    	    public void apply(final Document document) {
+    	result.forEach((final Document document) -> {
     	    	ApplicationBean application = new ApplicationBean(document, classificationMap);
     	    	applications.add(application);   	    	
-    	    }
-    	});
+    	    });
     	
         return applications;
     }
 
     @Override
     public synchronized void updateApplication(ApplicationBean application) {
-    	MongoDatabase db = mongoClient.getDatabase("gnosis");
+    	MongoDatabase db = mongoClient.getDatabase(DB);
     	
     	boolean update = true;
     	String appId = application.getId();
-    	if (appId == null || appId.equals("-1")) {
+    	if ("-1".equals(appId)) {
     		application.setId(UUID.randomUUID().toString());
     		update = false;
     	}
@@ -84,180 +81,63 @@ public class GnosisDataServiceImpl extends GnosisDataService {
     	Document document = ApplicationBean.toBson(application);
     	
     	if (update) {   	
-    		db.getCollection("applications").replaceOne(new Document("app-id", application.getId()), document);
+    		db.getCollection(APPLICATIONS).replaceOne(new Document("app-id", application.getId()), document);
     	} else {
-    		db.getCollection("applications").insertOne(document);
+    		db.getCollection(APPLICATIONS).insertOne(document);
     	}
     }
 
     @Override
     public synchronized ApplicationBean getApplicationById(String applicationId) {
 
-    	ClassificationMap classificationMap = new ClassificationMap(getAllLogicalApplications(true));
+    	ClassificationMap classificationMap = new ClassificationMap(getApplicationTaxonomy());
 
-    	MongoDatabase db = mongoClient.getDatabase("gnosis");
-    	FindIterable<Document> result = db.getCollection("applications").find(
+    	MongoDatabase db = mongoClient.getDatabase(DB);
+    	FindIterable<Document> result = db.getCollection(APPLICATIONS).find(
     			new Document("app-id", applicationId));
+    	
         return new ApplicationBean(result.first(), classificationMap);
     }
 
     @Override
     public synchronized void deleteApplication(String applicationId) {
-    	MongoDatabase db = mongoClient.getDatabase("gnosis");
-    	db.getCollection("applications").deleteOne(new Document("app-id", applicationId));
-/*        ApplicationBean application = getApplicationById(applicationId);
-        if (application == null) {
-            throw new IllegalArgumentException("Product with id " + applicationId
-                    + " not found");
-        }
-        applications.remove(application);
-*/    }
-
-	@Override
-	@SuppressWarnings("unchecked")
-	public Collection<LogicalApplicationBean> getAllLogicalApplications(boolean asEcosystems) {
-    	List<LogicalApplicationBean> logicalApplications = new ArrayList<LogicalApplicationBean>();
-    	
-    	MongoDatabase db = mongoClient.getDatabase("gnosis");
-    	//FindIterable<Document> result = db.getCollection("value-chain").find().projection(fields(include("primary-activities.ecosystems.logical-apps")));
-    	FindIterable<Document> result = db.getCollection("value-chain").find();
-    	Document valueChain = result.first();
-
-    	Iterable<Document> primaryActivities = (Iterable<Document>) valueChain.get("primary-activities");
-    	for (Document primaryActivity: primaryActivities) {
-			Iterable<Document> ecosystemsList = (Iterable<Document>) primaryActivity.get("ecosystems");	    	
-	    	addEcosystems(logicalApplications, ecosystemsList);
-    	}
-  	
-    	Iterable<Document> supportActivities = (Iterable<Document>) valueChain.get("support-activities");
-    	for (Document supportActivity: supportActivities) {
-			Iterable<Document> ecosystemsList = (Iterable<Document>) supportActivity.get("ecosystems");	    	
-	    	addEcosystems(logicalApplications, ecosystemsList);
-    	}
-  	  	
-		return logicalApplications;
-	}
-	
-	@SuppressWarnings("unchecked")
-	protected void addEcosystems(List<LogicalApplicationBean> logicalApplications, Iterable<Document> ecosystemsList) {
-
-    	if (ecosystemsList != null) {
-    		for (Document ecosystem: ecosystemsList) {
-	    		
-		    	Iterable<Document> logicalApps = (Iterable<Document>) ecosystem.get("logical-apps");
-				if (logicalApps != null) {
-					for (Document logicalApp : logicalApps) {
-						logicalApplications.add(new LogicalApplicationBean(logicalApp));
-					}
-				}
-	    	}
-    	}
-	}
-
-	@SuppressWarnings("unchecked")
-	@Override
-	public FrameworkContainer getFramework() {
-    	MongoDatabase db = mongoClient.getDatabase("gnosis");
-    	
-    	FrameworkContainer framework = new FrameworkContainer();
-    	
-		framework.addContainerProperty("Name", String.class, null);
-		framework.addContainerProperty("Description", String.class, null);
-		/*framework.addContainerProperty("id", String.class, null);*/
-		framework.addContainerProperty("appId", String.class, null);
-		
-		Item primary = framework.addItem("primary");
-		primary.getItemProperty("Name").setValue("Primary activities");
-
-		Item support = framework.addItem("support");
-		support.getItemProperty("Name").setValue("Support activities");
-
-    	FindIterable<Document> result = db.getCollection("value-chain").find();
-    	Document valueChain = result.first();
-
-    	Iterable<Document> primaryActivities = (Iterable<Document>) valueChain.get("primary-activities");
-    	for (Document primaryActivity: primaryActivities) {
-    		Object activityId = primaryActivity.get("activity-id");
-    		Item activity = framework.addItem(activityId);
-    		activity.getItemProperty("Name").setValue(primaryActivity.get("name"));
-    		activity.getItemProperty("Description").setValue(primaryActivity.get("description"));
-    		framework.setParent(activityId, "primary");
-			Iterable<Document> ecosystemsList = (Iterable<Document>) primaryActivity.get("ecosystems");	    	
-	    	addEcosystems(framework, ecosystemsList, activityId);
-    	}
-
-    	Iterable<Document> supportActivities = (Iterable<Document>) valueChain.get("support-activities");
-    	for (Document supportActivity: supportActivities) {
-    		Object activityId = supportActivity.get("activity-id");
-    		Item activity = framework.addItem(activityId);
-    		activity.getItemProperty("Name").setValue(supportActivity.get("name"));
-    		activity.getItemProperty("Description").setValue(supportActivity.get("description"));
-    		framework.setParent(activityId, "support");
-			Iterable<Document> ecosystemsList = (Iterable<Document>) supportActivity.get("ecosystems");	    	
-	    	addEcosystems(framework, ecosystemsList, activityId);
-    	}
-
-		return framework;
-	}
-	
-	@SuppressWarnings("unchecked")
-	protected void addEcosystems(FrameworkContainer framework, Iterable<Document> ecosystemsList, Object parent) {
-		for (Document ecosystemDocument: ecosystemsList) {
-    		Object ecosystemId = ecosystemDocument.get("ecosystem-id");
-    		Item ecosystem = framework.addItem(ecosystemId);
-    		ecosystem.getItemProperty("Name").setValue(ecosystemDocument.get("name"));
-    		ecosystem.getItemProperty("Description").setValue(ecosystemDocument.get("description"));
-    		framework.setParent(ecosystemId, parent);
-
-    		Iterable<Document> logicalAppsList = (Iterable<Document>) ecosystemDocument.get("logical-apps");
-			for (Document logicalAppDocument: logicalAppsList) {
-	    		Object logicalAppId = logicalAppDocument.get("instance-id");
-	    		Item logicalApp = framework.addItem(logicalAppId);
-	    		logicalApp.getItemProperty("Name").setValue(logicalAppDocument.get("name"));
-	    		logicalApp.getItemProperty("Description").setValue(logicalAppDocument.get("description"));
-	    		logicalApp.getItemProperty("appId").setValue(logicalAppDocument.get("logical-app"));
-	    		framework.setParent(logicalAppId, ecosystemId);
-			}
-		}
-	}
+    	MongoDatabase db = mongoClient.getDatabase(DB);
+    	db.getCollection(APPLICATIONS).deleteOne(new Document("app-id", applicationId));
+    }
 
 	@Override
 	public synchronized ProcessTaxonomyContainer getProcessTaxonomy() {
-    	MongoDatabase db = mongoClient.getDatabase("gnosis");
+    	MongoDatabase db = mongoClient.getDatabase(DB);
     	
-    	FindIterable<Document> result = db.getCollection("process-taxonomy").find();
+    	FindIterable<Document> result = db.getCollection(PROCESS_TAXONOMY).find();
     	
-    	ProcessTaxonomyContainer processTaxonomy = new ProcessTaxonomyContainer(result);
-    	
-    	return processTaxonomy;
+    	return new ProcessTaxonomyContainer(result);
 	}
 	
 	@Override
 	public synchronized void updateProcessTaxonomy(ProcessTaxonomyContainer processTaxonomy) {
-    	MongoDatabase db = mongoClient.getDatabase("gnosis");
+    	MongoDatabase db = mongoClient.getDatabase(DB);
     	
-    	MongoCollection<Document> processes = db.getCollection("process-taxonomy");
+    	MongoCollection<Document> processes = db.getCollection(PROCESS_TAXONOMY);
     	processes.deleteMany(where("true"));
     	
     	processes.insertMany(processTaxonomy.toBson());
 	}
 
 	@Override
-	public ApplicationTaxonomyContainer getApplicationTaxonomy() {
-    	MongoDatabase db = mongoClient.getDatabase("gnosis");
+	public synchronized ApplicationTaxonomyContainer getApplicationTaxonomy() {
+    	MongoDatabase db = mongoClient.getDatabase(DB);
     	
-    	FindIterable<Document> result = db.getCollection("application-taxonomy").find();
+    	FindIterable<Document> result = db.getCollection(APPLICATION_TAXONOMY).find();
     	
-    	ApplicationTaxonomyContainer applicationTaxonomy = new ApplicationTaxonomyContainer(result);
-    	
-    	return applicationTaxonomy;
+    	return new ApplicationTaxonomyContainer(result);
 	}
 
 	@Override
-	public void updateApplicationTaxonomy(ApplicationTaxonomyContainer applicationTaxonomy) {
-    	MongoDatabase db = mongoClient.getDatabase("gnosis");
+	public synchronized void updateApplicationTaxonomy(ApplicationTaxonomyContainer applicationTaxonomy) {
+    	MongoDatabase db = mongoClient.getDatabase(DB);
     	
-    	MongoCollection<Document> processes = db.getCollection("application-taxonomy");
+    	MongoCollection<Document> processes = db.getCollection(APPLICATION_TAXONOMY);
     	processes.deleteMany(where("true"));
     	
     	processes.insertMany(applicationTaxonomy.toBson());

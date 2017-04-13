@@ -109,7 +109,7 @@ public class ApplicationsLogic implements Serializable {
         } else {
             setFragmentParameter(application.getId() + "");
         }
-        view.setClassifications(GnosisDataService.get().getAllLogicalApplications(true));
+        view.setClassifications(GnosisDataService.get().getApplicationTaxonomy());
         view.editApplication(application);
     }
 
@@ -126,7 +126,7 @@ public class ApplicationsLogic implements Serializable {
     }
     
     public ClassificationBean createClassfication(int id, String name) {
-    	ClassificationMap map = new ClassificationMap(GnosisDataService.get().getAllLogicalApplications(true));
+    	ClassificationMap map = new ClassificationMap(GnosisDataService.get().getApplicationTaxonomy());
 
     	ClassificationBean classification = new ClassificationBean();
     	classification.setApplicationId(map.getLogicalApplicationId(id));

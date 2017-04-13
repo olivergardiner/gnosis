@@ -6,38 +6,37 @@ import java.util.List;
 
 import org.bson.Document;
 
-import com.mongodb.Block;
 import com.mongodb.client.FindIterable;
 import com.vaadin.data.Item;
 import com.vaadin.data.util.HierarchicalContainer;
 
 public abstract class TaxonomyContainer extends HierarchicalContainer {
 
+	private static final String NAME = "Name";
+	private static final String NODE_ID = "nodeId";
+	private static final String DESCRIPTION = "Description";
 	private static final long serialVersionUID = 1L;
 
 	public TaxonomyContainer() {
-    	addContainerProperty("Name", String.class, null);
-    	addContainerProperty("Description", String.class, null);
-    	addContainerProperty("nodeId", String.class, null);
+    	addContainerProperty(NAME, String.class, null);
+    	addContainerProperty(DESCRIPTION, String.class, null);
+    	addContainerProperty(NODE_ID, String.class, null);
 	}
 	
+	@SuppressWarnings("unchecked")
 	public TaxonomyContainer(FindIterable<Document> taxonomy) {
 		this();
 
-		taxonomy.forEach(new Block<Document>() {
-    	    @SuppressWarnings("unchecked")
-			@Override
-    	    public void apply(final Document document) {
-	    		Object nodeId = document.get("nodeId");
-	    		Item taxonomyNode = addItem(nodeId);
-	    		taxonomyNode.getItemProperty("Name").setValue(document.get("name"));
-	    		taxonomyNode.getItemProperty("Description").setValue(document.get("description"));
-	    		
-	    		buildNode(taxonomyNode, document);
+		taxonomy.forEach((final Document document) -> {
+    		Object nodeId = document.get(NODE_ID);
+    		Item taxonomyNode = addItem(nodeId);
+    		taxonomyNode.getItemProperty(NAME).setValue(document.get("name"));
+    		taxonomyNode.getItemProperty(DESCRIPTION).setValue(document.get("description"));
+    		
+    		buildNode(taxonomyNode, document);
 
-	    		addchildren((Iterable<Document>) document.get("children"), nodeId);
-    	    }
-    	});
+    		addchildren((Iterable<Document>) document.get("children"), nodeId);
+     	});
 	}
 	
 	protected abstract void buildNode(Item item, Document document);
@@ -64,10 +63,10 @@ public abstract class TaxonomyContainer extends HierarchicalContainer {
 	@SuppressWarnings("unchecked")
 	protected void addchildren(Iterable<Document> taxonomyNodes, Object parentId) {
 		for (Document document: taxonomyNodes) {
-    		Object nodeId = document.get("nodeId");
+    		Object nodeId = document.get(NODE_ID);
     		Item taxonomyNode = addItem(nodeId);
-    		taxonomyNode.getItemProperty("Name").setValue(document.get("name"));
-    		taxonomyNode.getItemProperty("Description").setValue(document.get("description"));
+    		taxonomyNode.getItemProperty(NAME).setValue(document.get("name"));
+    		taxonomyNode.getItemProperty(DESCRIPTION).setValue(document.get("description"));
 
     		if (parentId != null) {
     			setParent(nodeId, parentId);
@@ -80,7 +79,7 @@ public abstract class TaxonomyContainer extends HierarchicalContainer {
 	}
 	
 	public List<Document> toBson() {
-		List<Document> nodes = new ArrayList<Document>();
+		List<Document> nodes = new ArrayList<>();
 		
 		Collection<?> ids = rootItemIds();
 		for (Object id: ids) {
@@ -95,13 +94,13 @@ public abstract class TaxonomyContainer extends HierarchicalContainer {
 		Item nodeItem = getItem(id);
 		Document node = new Document();
 		
-		node.append("nodeId", id);
-		node.append("name", nodeItem.getItemProperty("Name").getValue());
-		node.append("description", nodeItem.getItemProperty("Description").getValue());
+		node.append(NODE_ID, id);
+		node.append("name", nodeItem.getItemProperty(NAME).getValue());
+		node.append("description", nodeItem.getItemProperty(DESCRIPTION).getValue());
 		
 		toBson(nodeItem, node);
 		
-		List<Document> children = new ArrayList<Document>();
+		List<Document> children = new ArrayList<>();
 		
 		Collection<?> childIds = getChildren(id);
 		if (childIds != null) {

@@ -24,7 +24,7 @@ public class MainScreen extends HorizontalLayout {
     private Menu menu;
 
 	@SuppressWarnings("unused")
-	private final static Logger LOGGER = Logger.getLogger(MainScreen.class.getName());
+	private static final Logger LOGGER = Logger.getLogger(MainScreen.class.getName());
 
 	public MainScreen(Gnosis ui) {
 
@@ -35,7 +35,7 @@ public class MainScreen extends HorizontalLayout {
         viewContainer.setSizeFull();
 
         final Navigator navigator = new Navigator(ui, viewContainer);
-        //LOGGER.info(navigator.getState());
+
         navigator.setErrorView(ErrorView.class);
         menu = new Menu(navigator);
         menu.addView(new ApplicationTaxonomyView(), ApplicationTaxonomyView.VIEW_NAME,

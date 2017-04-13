@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Properties;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.servlet.annotation.WebServlet;
@@ -24,7 +25,6 @@ import uk.org.whitecottage.gnosis.ui.MainScreen;
 import uk.org.whitecottage.gnosis.ui.authentication.AccessControl;
 import uk.org.whitecottage.gnosis.ui.authentication.BasicAccessControl;
 import uk.org.whitecottage.gnosis.ui.authentication.LoginScreen;
-import uk.org.whitecottage.gnosis.ui.authentication.LoginScreen.LoginListener;
 import uk.org.whitecottage.gnosis.ui.taxonomy.application.ApplicationTaxonomyView;
 
 /**
@@ -41,7 +41,7 @@ import uk.org.whitecottage.gnosis.ui.taxonomy.application.ApplicationTaxonomyVie
 @Widgetset("uk.org.whitecottage.gnosis.GnosisWidgetset")
 public class Gnosis extends UI {
 
-	private final static Logger LOGGER = Logger.getLogger(Gnosis.class.getName());
+	private static final Logger LOGGER = Logger.getLogger(Gnosis.class.getName());
     private AccessControl accessControl = new BasicAccessControl();
 
     @Override
@@ -54,9 +54,9 @@ public class Gnosis extends UI {
 			properties.load(input);
 			input.close();
 		} catch (FileNotFoundException e) {
-			LOGGER.warning("Gnosis properties file not found");
+			LOGGER.log(Level.WARNING, e.getMessage(), e);
 		} catch (IOException e) {
-			LOGGER.severe(e.getMessage());
+			LOGGER.log(Level.SEVERE, e.getMessage(), e);
 		}
 
     	GnosisDataService.get().init(properties);
@@ -65,12 +65,7 @@ public class Gnosis extends UI {
         setLocale(vaadinRequest.getLocale());
         getPage().setTitle("Gnosis");
         if (!accessControl.isUserSignedIn()) {
-            setContent(new LoginScreen(accessControl, new LoginListener() {
-                @Override
-                public void loginSuccessful() {
-                    showMainView();
-                }
-            }));
+            setContent(new LoginScreen(accessControl, this::showMainView));
         } else {
             showMainView();
         }

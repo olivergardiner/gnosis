@@ -1,5 +1,5 @@
 projectKey=uk.org.whitecottage:gnosis
 serverUrl=http://localhost:9000
 dashboardUrl=http://localhost:9000/dashboard/index/uk.org.whitecottage:gnosis
-ceTaskId=AVtcqdKZb2jQZF2vqeC5
-ceTaskUrl=http://localhost:9000/api/ce/task?id=AVtcqdKZb2jQZF2vqeC5
+ceTaskId=AVthcIQsoG9J7yss6k58
+ceTaskUrl=http://localhost:9000/api/ce/task?id=AVthcIQsoG9J7yss6k58
