@@ -29,12 +29,7 @@ public class LogicalAppForm extends LogicalAppFormDesign {
 		logicalAppDescription.setImmediate(true);
     	//nodeDescription.setContentMode(ContentMode.HTML);
 
-        cancel.addClickListener(new ClickListener() {
-            @Override
-            public void buttonClick(ClickEvent event) {
-                viewLogic.cancelApplicationForm();
-            }
-        });
+        cancel.addClickListener((ClickEvent event) -> viewLogic.cancelApplicationForm());
     }
     
     public void editTaxonomyNode(Item item) {

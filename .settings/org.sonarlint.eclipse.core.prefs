@@ -1,5 +1,5 @@
 autoEnabled=true
 eclipse.preferences.version=1
 extraProperties=
-moduleKey=gnosis
+moduleKey=uk.org.whitecottage.gnosis\:gnosis-data
 serverId=localhost
