@@ -7,6 +7,7 @@ import com.vaadin.server.Page;
 import uk.org.whitecottage.gnosis.Gnosis;
 import uk.org.whitecottage.gnosis.backend.GnosisDataService;
 import uk.org.whitecottage.gnosis.backend.data.ProcessTaxonomyContainer;
+import uk.org.whitecottage.gnosis.backend.data.TaxonomyContainer;
 
 @SuppressWarnings("serial")
 public class ProcessTaxonomyLogic implements Serializable {
@@ -18,11 +19,11 @@ public class ProcessTaxonomyLogic implements Serializable {
     }
 
     public void init() {
-        view.showProcessTaxonomy(GnosisDataService.get().getProcessTaxonomy());
+        view.showTaxonomy(GnosisDataService.get().getProcessTaxonomy());
     }
 
     public void enter(String eventParameters) {
-    	System.out.println(eventParameters);
+    	//System.out.println(eventParameters);
     }
 
     public void cancelProcessForm() {
@@ -46,7 +47,7 @@ public class ProcessTaxonomyLogic implements Serializable {
                 + fragmentParameter, false);
     }
     
-    public void updateProcessTaxonomy(ProcessTaxonomyContainer processTaxonomy) {
-    	GnosisDataService.get().updateProcessTaxonomy(processTaxonomy);
+    public void updateProcessTaxonomy(TaxonomyContainer processTaxonomy) {
+    	GnosisDataService.get().updateProcessTaxonomy((ProcessTaxonomyContainer) processTaxonomy);
     }
 }

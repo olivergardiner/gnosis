@@ -1,13 +1,13 @@
 <!doctype html>
 <html>
 <head>
-	<meta charset="UTF-8" name="package-mapping" content="x:uk.org.whitecottage.gnosis.ui.taxonomy.application">
+	<meta charset="UTF-8" name="package-mapping" content="x:uk.org.whitecottage.gnosis.ui.taxonomy">
 </head>
 <body>
 	<vaadin-vertical-layout size-full margin spacing>
 		<vaadin-panel caption="Application Taxonomy" height-full :expand>
 			<vaadin-vertical-layout>
-				<x-application-taxonomy-tree _id="applicationTree" />
+				<vaadin-tree _id="applicationTaxonomyTree" />
 				<vaadin-css-Layout width-full height="40px"/>
 				<vaadin-vertical-layout style-name="expander" height-full :expand/>
 			</vaadin-vertical-layout>

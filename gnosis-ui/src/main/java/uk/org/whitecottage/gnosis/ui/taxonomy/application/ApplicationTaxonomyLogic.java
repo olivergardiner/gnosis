@@ -18,11 +18,11 @@ public class ApplicationTaxonomyLogic implements Serializable {
     }
 
     public void init() {
-        view.showApplicationTaxonomy(GnosisDataService.get().getApplicationTaxonomy());
+        view.showTaxonomy(GnosisDataService.get().getApplicationTaxonomy());
     }
 
     public void enter(String eventParameters) {
-    	System.out.println(eventParameters);
+    	//System.out.println(eventParameters);
     }
 
     public void cancelApplicationForm() {

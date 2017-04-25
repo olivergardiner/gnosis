@@ -8,50 +8,48 @@ import com.vaadin.event.dd.DragAndDropEvent;
 import com.vaadin.event.dd.DropHandler;
 import com.vaadin.event.dd.acceptcriteria.AcceptAll;
 import com.vaadin.event.dd.acceptcriteria.AcceptCriterion;
-import com.vaadin.navigator.View;
 import com.vaadin.shared.ui.dd.VerticalDropLocation;
 import com.vaadin.ui.Notification;
+import com.vaadin.ui.Tree;
 import com.vaadin.ui.Tree.TreeDragMode;
 import com.vaadin.ui.Tree.TreeTargetDetails;
+import com.vaadin.ui.VerticalLayout;
 
 import uk.org.whitecottage.gnosis.backend.data.ApplicationTaxonomyContainer;
 import uk.org.whitecottage.gnosis.backend.data.TaxonomyContainer;
-import uk.org.whitecottage.gnosis.ui.taxonomy.application.ApplicationTaxonomyDesign;
 
 @SuppressWarnings("serial")
-public abstract class TaxonomyView extends ApplicationTaxonomyDesign implements View {
+public abstract class TaxonomyView extends VerticalLayout {
 
-    public static final String VIEW_NAME = "Taxonomy";
+	protected Tree _taxonomyTree;
 
 	private final Action insertAction = new Action("An action");
 	private final Action dummyAction = new Action("Does nothing");
 	
 	public TaxonomyView() {
 		super();
-		
-		applicationTree.setImmediate(true);
 	}
 
-    public void showApplicationTaxonomy(ApplicationTaxonomyContainer applicationTaxonomyContainer) {
+    public void showTaxonomy(TaxonomyContainer taxonomyContainer) {
     	
-    	applicationTree.setContainerDataSource(applicationTaxonomyContainer);
-    	applicationTree.setItemCaptionPropertyId("Name");
+    	_taxonomyTree.setContainerDataSource(taxonomyContainer);
+    	_taxonomyTree.setItemCaptionPropertyId("Name");
     	
-		for (Object itemId: applicationTree.getContainerDataSource()
+		for (Object itemId: _taxonomyTree.getContainerDataSource()
                 .getItemIds()) {
-			applicationTree.collapseItem(itemId);
+			_taxonomyTree.collapseItem(itemId);
 
-			if (!applicationTree.hasChildren(itemId))
-				applicationTree.setChildrenAllowed(itemId, false);
+			if (!_taxonomyTree.hasChildren(itemId))
+				_taxonomyTree.setChildrenAllowed(itemId, false);
 		}
 		
-		applicationTree.addItemClickListener((ItemClickEvent event) -> {
+		_taxonomyTree.addItemClickListener((ItemClickEvent event) -> {
 			if (event.isDoubleClick()) {
 				editTaxonomyNode(event.getItemId());
 			}
 		});
 		
-		applicationTree.addActionHandler(new Handler() {
+		_taxonomyTree.addActionHandler(new Handler() {
 
 			@Override
 			public Action[] getActions(Object target, Object sender) {
@@ -66,9 +64,9 @@ public abstract class TaxonomyView extends ApplicationTaxonomyDesign implements 
 			}			
 		});
 		
-		applicationTree.setDragMode(TreeDragMode.NODE);
+		_taxonomyTree.setDragMode(TreeDragMode.NODE);
 		
-		applicationTree.setDropHandler(new DropHandler() {
+		_taxonomyTree.setDropHandler(new DropHandler() {
 
 			@Override
 			public void drop(DragAndDropEvent event) {
@@ -76,7 +74,7 @@ public abstract class TaxonomyView extends ApplicationTaxonomyDesign implements 
 				Transferable t = event.getTransferable();
 				
 				// Make sure the drag source is the same tree
-				if (t.getSourceComponent() != applicationTree) {
+				if (t.getSourceComponent() != _taxonomyTree) {
 					return;
 				}
 				
@@ -89,7 +87,7 @@ public abstract class TaxonomyView extends ApplicationTaxonomyDesign implements 
 				// On which side of the target the item was dropped
 				VerticalDropLocation location = target.getDropLocation();
 				
-				ApplicationTaxonomyContainer container = (ApplicationTaxonomyContainer) applicationTree.getContainerDataSource();
+				ApplicationTaxonomyContainer container = (ApplicationTaxonomyContainer) _taxonomyTree.getContainerDataSource();
 				
 				if (location == VerticalDropLocation.MIDDLE) {
 					// Drop right on an item -> make it a child

@@ -59,10 +59,10 @@ public class GnosisDataServiceImpl extends GnosisDataService {
     	
     	ClassificationMap classificationMap = new ClassificationMap(getApplicationTaxonomy());
 
-    	result.forEach((final Document document) -> {
-    	    	ApplicationBean application = new ApplicationBean(document, classificationMap);
-    	    	applications.add(application);   	    	
-    	    });
+		result.forEach((final Document document) -> {
+			ApplicationBean application = new ApplicationBean(document, classificationMap);
+			applications.add(application);
+		});
     	
         return applications;
     }
