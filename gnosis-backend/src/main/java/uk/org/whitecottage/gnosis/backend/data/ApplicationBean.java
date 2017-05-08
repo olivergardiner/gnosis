@@ -40,10 +40,10 @@ public class ApplicationBean implements Serializable {
 	    	applicationDescription = application.getString("description");
 	    	id = application.getString("app-id");
 	    	
-	    	Iterable<Document> classifications = (Iterable<Document>) application.get("logical-apps");
+	    	Iterable<String> classifications = (Iterable<String>) application.get("logical-apps");
 			if (classifications != null) {
-				for (Object logicalApplication : classifications) {
-					ClassificationBean classificationBean = new ClassificationBean((String) logicalApplication);
+				for (String logicalApplication : classifications) {
+					ClassificationBean classificationBean = new ClassificationBean(logicalApplication);
 					classificationBean.setApplicationName(classificationMap.getLogicalApplicationName((String) logicalApplication));
 					classification.add(classificationBean);
 				}
