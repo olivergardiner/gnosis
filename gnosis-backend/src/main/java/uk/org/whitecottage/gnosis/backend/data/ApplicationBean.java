@@ -10,19 +10,19 @@ import javax.validation.constraints.Size;
 
 import org.bson.Document;
 
-import com.vaadin.data.fieldgroup.PropertyId;
+//import com.vaadin.data.fieldgroup.PropertyId;
 
 @SuppressWarnings("serial")
 public class ApplicationBean implements Serializable {
 
     @NotNull
-    @PropertyId("id")
+    //@PropertyId("id")
     protected String id = "-1";
     @NotNull
     @Size(min = 1, message = "Application name cannot be blank")
-    @PropertyId("applicationName")
+    //@PropertyId("applicationName")
     protected String applicationName = "";
-    @PropertyId("applicationDescription")
+    //@PropertyId("applicationDescription")
     protected String applicationDescription = "";
 
     private Collection<ClassificationBean> classification;

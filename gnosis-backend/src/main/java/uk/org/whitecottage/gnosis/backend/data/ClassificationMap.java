@@ -3,7 +3,7 @@ package uk.org.whitecottage.gnosis.backend.data;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.vaadin.data.Item;
+import com.vaadin.v7.data.Item;
 
 public class ClassificationMap {
 	protected Map<Long, String> keyMap;

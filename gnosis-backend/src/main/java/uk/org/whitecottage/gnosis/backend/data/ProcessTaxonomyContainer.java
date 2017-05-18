@@ -3,7 +3,7 @@ package uk.org.whitecottage.gnosis.backend.data;
 import org.bson.Document;
 
 import com.mongodb.client.FindIterable;
-import com.vaadin.data.Item;
+import com.vaadin.v7.data.Item;
 
 public class ProcessTaxonomyContainer extends TaxonomyContainer {
 

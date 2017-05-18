@@ -7,8 +7,8 @@ import java.util.List;
 import org.bson.Document;
 
 import com.mongodb.client.FindIterable;
-import com.vaadin.data.Item;
-import com.vaadin.data.util.HierarchicalContainer;
+import com.vaadin.v7.data.Item;
+import com.vaadin.v7.data.util.HierarchicalContainer;
 
 public abstract class TaxonomyContainer extends HierarchicalContainer {
 

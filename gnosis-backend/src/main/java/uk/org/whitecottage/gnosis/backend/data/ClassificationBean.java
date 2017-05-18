@@ -3,15 +3,15 @@ package uk.org.whitecottage.gnosis.backend.data;
 import java.io.Serializable;
 
 import com.explicatis.ext_token_field.Tokenizable;
-import com.vaadin.data.fieldgroup.PropertyId;
+//import com.vaadin.data.fieldgroup.PropertyId;
 
 @SuppressWarnings("serial")
 public class ClassificationBean implements Serializable, Tokenizable {
-    @PropertyId("applicationId")
+    //@PropertyId("applicationId")
     protected String applicationId = "-1";
-    @PropertyId("applicationName")
+    //@PropertyId("applicationName")
     protected String applicationName = "-1";
-    @PropertyId("applicationDescription")
+    //@PropertyId("applicationDescription")
     protected String applicationDescription = "-1";
 
     public ClassificationBean() {

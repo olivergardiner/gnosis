@@ -29,11 +29,11 @@
 		    <artifactId>gwt-dev</artifactId>
 		    <version>2.7.0</version>
 		</dependency>
-		<!-- <dependency>
+		<dependency>
 			<groupId>org.vaadin.addons</groupId>
 			<artifactId>extended-token-field</artifactId>
-			<version>0.2.0</version>
-		</dependency> -->
+			<version>0.3.0</version>
+		</dependency>
     </dependencies>
 
     <build>
@@ -49,7 +49,7 @@
                     <!-- Change to PRETTY (or possibly DETAILED) to get
                     unobfuscated client side stack traces. A better approach
                     for debugging is to use Super Dev Mode -->
-                    <style>OBF</style> 
+                    <style>DETAILED</style> 
                     <strict>true</strict>
                 </configuration>
                 <executions>

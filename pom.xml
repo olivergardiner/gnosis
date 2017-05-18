@@ -9,7 +9,7 @@
 	<name>gnosis-parent</name>
 
 	<properties>
-		<vaadin.version>7.7.8</vaadin.version>
+		<vaadin.version>8.0.6</vaadin.version>
 		<vaadin.plugin.version>${vaadin.version}</vaadin.plugin.version>
 		<jetty.plugin.version>9.4.3.v20170317</jetty.plugin.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

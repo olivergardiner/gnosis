@@ -6,18 +6,18 @@ import java.util.logging.Logger;
 
 import com.explicatis.ext_token_field.ExtTokenField;
 import com.explicatis.ext_token_field.Tokenizable;
-import com.vaadin.data.Item;
-import com.vaadin.data.Property.ValueChangeEvent;
-import com.vaadin.data.Property.ValueChangeListener;
-import com.vaadin.data.fieldgroup.BeanFieldGroup;
-import com.vaadin.data.fieldgroup.FieldGroup.CommitEvent;
-import com.vaadin.data.fieldgroup.FieldGroup.CommitException;
-import com.vaadin.data.fieldgroup.FieldGroup.CommitHandler;
-import com.vaadin.data.util.BeanItem;
+import com.vaadin.v7.data.Item;
+import com.vaadin.v7.data.Property.ValueChangeEvent;
+import com.vaadin.v7.data.Property.ValueChangeListener;
+import com.vaadin.v7.data.fieldgroup.BeanFieldGroup;
+import com.vaadin.v7.data.fieldgroup.FieldGroup.CommitEvent;
+import com.vaadin.v7.data.fieldgroup.FieldGroup.CommitException;
+import com.vaadin.v7.data.fieldgroup.FieldGroup.CommitHandler;
+import com.vaadin.v7.data.util.BeanItem;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.ComboBox;
-import com.vaadin.ui.Field;
+import com.vaadin.v7.ui.Field;
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.Notification.Type;
 
@@ -36,7 +36,7 @@ public class ApplicationForm extends ApplicationFormDesign {
 
     private ApplicationsLogic viewLogic;
     private BeanFieldGroup<ApplicationBean> fieldGroup;	
-    private ComboBox classificationInput;
+    private ComboBox<ClassificationBean> classificationInput;
     private Map<Integer, String> classificationMap;
     
 	private static final String	LABEL	= "label";
@@ -51,7 +51,7 @@ public class ApplicationForm extends ApplicationFormDesign {
         classificationMap = new HashMap<Integer, String>();
 		
 		classificationInput = new ComboBox();
-		classificationInput.setItemCaptionPropertyId(LABEL);
+		classificationInput.setCaption(LABEL);
 		classificationInput.setInputPrompt("Type here to add");
 		classificationInput.addContainerProperty(LABEL, String.class, "");
 
