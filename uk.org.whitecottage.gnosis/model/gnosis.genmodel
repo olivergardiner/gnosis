@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel"
+    modelDirectory="/uk.org.whitecottage.gnosis/src-gen" creationIcons="false"
+    editDirectory="/uk.org.whitecottage.gnosis.edit/src-gen" editorDirectory="/uk.org.whitecottage.gnosis.editor/src-gen"
+    modelPluginID="uk.org.whitecottage.gnosis" modelName="Gnosis" rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container"
+    codeFormatting="true" importerID="org.eclipse.emf.importer.ecore" complianceLevel="8.0"
+    copyrightFields="false" operationReflection="true" importOrganizing="true">
+  <foreignModel>gnosis.ecore</foreignModel>
+  <testsDirectory xsi:nil="true"/>
+  <genPackages prefix="Gnosis" basePackage="uk.org.whitecottage" disposableProviderFactory="true"
+      ecorePackage="gnosis.ecore#/">
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="gnosis.ecore#//Protocol">
+      <genEnumLiterals ecoreEnumLiteral="gnosis.ecore#//Protocol/TOPIC"/>
+      <genEnumLiterals ecoreEnumLiteral="gnosis.ecore#//Protocol/QUEUE"/>
+      <genEnumLiterals ecoreEnumLiteral="gnosis.ecore#//Protocol/SOAP"/>
+      <genEnumLiterals ecoreEnumLiteral="gnosis.ecore#//Protocol/FILE"/>
+      <genEnumLiterals ecoreEnumLiteral="gnosis.ecore#//Protocol/REST"/>
+      <genEnumLiterals ecoreEnumLiteral="gnosis.ecore#//Protocol/POST"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="gnosis.ecore#//Format">
+      <genEnumLiterals ecoreEnumLiteral="gnosis.ecore#//Format/JSON"/>
+      <genEnumLiterals ecoreEnumLiteral="gnosis.ecore#//Format/XML"/>
+      <genEnumLiterals ecoreEnumLiteral="gnosis.ecore#//Format/CSV"/>
+      <genEnumLiterals ecoreEnumLiteral="gnosis.ecore#//Format/TSV"/>
+      <genEnumLiterals ecoreEnumLiteral="gnosis.ecore#//Format/TEXT"/>
+      <genEnumLiterals ecoreEnumLiteral="gnosis.ecore#//Format/BINARY"/>
+    </genEnums>
+    <genClasses ecoreClass="gnosis.ecore#//Model">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gnosis.ecore#//Model/logicalapplicationarchitecture"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gnosis.ecore#//Model/applicationarchitecture"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gnosis.ecore#//Model/integrationarchitecture"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gnosis.ecore#//Model/processarchitecture"/>
+    </genClasses>
+    <genClasses ecoreClass="gnosis.ecore#//LogicalApplicationArchitecture">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gnosis.ecore#//LogicalApplicationArchitecture/applicationdomain"/>
+    </genClasses>
+    <genClasses ecoreClass="gnosis.ecore#//ApplicationDomain">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gnosis.ecore#//ApplicationDomain/logicalapplication"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gnosis.ecore#//ApplicationDomain/applicationdomain"/>
+    </genClasses>
+    <genClasses ecoreClass="gnosis.ecore#//LogicalApplication">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference gnosis.ecore#//LogicalApplication/realisedBy"/>
+    </genClasses>
+    <genClasses ecoreClass="gnosis.ecore#//Element">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gnosis.ecore#//Element/comment"/>
+    </genClasses>
+    <genClasses ecoreClass="gnosis.ecore#//Comment">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gnosis.ecore#//Comment/text"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="gnosis.ecore#//NamedElement">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gnosis.ecore#//NamedElement/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gnosis.ecore#//NamedElement/description"/>
+    </genClasses>
+    <genClasses ecoreClass="gnosis.ecore#//ApplicationArchitecture">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gnosis.ecore#//ApplicationArchitecture/application"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gnosis.ecore#//ApplicationArchitecture/technology"/>
+    </genClasses>
+    <genClasses ecoreClass="gnosis.ecore#//Application">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference gnosis.ecore#//Application/realises"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference gnosis.ecore#//Application/technology"/>
+    </genClasses>
+    <genClasses ecoreClass="gnosis.ecore#//AbstractApplication"/>
+    <genClasses ecoreClass="gnosis.ecore#//Integration">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference gnosis.ecore#//Integration/source"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference gnosis.ecore#//Integration/target"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gnosis.ecore#//Integration/protocol"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gnosis.ecore#//Integration/format"/>
+    </genClasses>
+    <genClasses ecoreClass="gnosis.ecore#//IntegrationArchitecture">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gnosis.ecore#//IntegrationArchitecture/integration"/>
+    </genClasses>
+    <genClasses ecoreClass="gnosis.ecore#//ProcessArchitecture">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gnosis.ecore#//ProcessArchitecture/processtaxonomy"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gnosis.ecore#//ProcessArchitecture/processflows"/>
+    </genClasses>
+    <genClasses ecoreClass="gnosis.ecore#//ProcessTaxonomy">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gnosis.ecore#//ProcessTaxonomy/activity"/>
+    </genClasses>
+    <genClasses ecoreClass="gnosis.ecore#//ProcessFlows">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gnosis.ecore#//ProcessFlows/process"/>
+    </genClasses>
+    <genClasses ecoreClass="gnosis.ecore#//Activity">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gnosis.ecore#//Activity/activity"/>
+    </genClasses>
+    <genClasses ecoreClass="gnosis.ecore#//Process"/>
+    <genClasses ecoreClass="gnosis.ecore#//Technology">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference gnosis.ecore#//Technology/application"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gnosis.ecore#//Technology/technologycomponent"/>
+    </genClasses>
+    <genClasses ecoreClass="gnosis.ecore#//TechnologyComponent"/>
+  </genPackages>
+</genmodel:GenModel>

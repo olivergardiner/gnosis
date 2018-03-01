@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="gnosis" nsURI="http://www.whitecottage.org.uk/gnosis" nsPrefix="gnosis">
+  <eClassifiers xsi:type="ecore:EClass" name="Model" eSuperTypes="#//Element">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="logicalapplicationarchitecture"
+        eType="#//LogicalApplicationArchitecture" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="applicationarchitecture"
+        eType="#//ApplicationArchitecture" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="integrationarchitecture"
+        eType="#//IntegrationArchitecture" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="processarchitecture" eType="#//ProcessArchitecture"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="LogicalApplicationArchitecture" eSuperTypes="#//Element">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="applicationdomain" upperBound="-1"
+        eType="#//ApplicationDomain" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ApplicationDomain" eSuperTypes="#//AbstractApplication">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="logicalapplication" upperBound="-1"
+        eType="#//LogicalApplication" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="applicationdomain" upperBound="-1"
+        eType="#//ApplicationDomain" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="LogicalApplication" eSuperTypes="#//AbstractApplication">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="realisedBy" upperBound="-1"
+        eType="#//Application" eOpposite="#//Application/realises"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Element" abstract="true">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="comment" upperBound="-1"
+        eType="#//Comment" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Comment">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="text" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="NamedElement" abstract="true" eSuperTypes="#//Element">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="description" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ApplicationArchitecture" eSuperTypes="#//Element">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="application" upperBound="-1"
+        eType="#//Application" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="technology" upperBound="-1"
+        eType="#//Technology" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Application" eSuperTypes="#//AbstractApplication">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="realises" upperBound="-1"
+        eType="#//LogicalApplication" eOpposite="#//LogicalApplication/realisedBy"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="technology" eType="#//Technology"
+        eOpposite="#//Technology/application"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="AbstractApplication" abstract="true"
+      eSuperTypes="#//NamedElement"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Integration" eSuperTypes="#//NamedElement">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="source" eType="#//AbstractApplication"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="target" eType="#//AbstractApplication"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="protocol" eType="#//Protocol"
+        defaultValueLiteral="Topic"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="format" eType="#//Format"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="IntegrationArchitecture" eSuperTypes="#//Element">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="integration" upperBound="-1"
+        eType="#//Integration" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ProcessArchitecture" eSuperTypes="#//Element">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="processtaxonomy" eType="#//ProcessTaxonomy"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="processflows" eType="#//ProcessFlows"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ProcessTaxonomy" eSuperTypes="#//Element">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="activity" upperBound="-1"
+        eType="#//Activity" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ProcessFlows">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="process" upperBound="-1"
+        eType="#//Process" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Activity" eSuperTypes="#//NamedElement">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="activity" upperBound="-1"
+        eType="#//Activity" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Process" eSuperTypes="#//NamedElement"/>
+  <eClassifiers xsi:type="ecore:EEnum" name="Protocol">
+    <eLiterals name="TOPIC" literal="Topic"/>
+    <eLiterals name="QUEUE" value="1" literal="Queue"/>
+    <eLiterals name="SOAP" value="4"/>
+    <eLiterals name="FILE" value="5" literal="File"/>
+    <eLiterals name="REST" value="4" literal="Rest"/>
+    <eLiterals name="POST" value="5" literal="XML Post"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="Format">
+    <eLiterals name="JSON"/>
+    <eLiterals name="XML" value="1"/>
+    <eLiterals name="CSV" value="2"/>
+    <eLiterals name="TSV" value="3"/>
+    <eLiterals name="TEXT" value="4"/>
+    <eLiterals name="BINARY" value="5"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Technology" eSuperTypes="#//NamedElement">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="application" eType="#//Application"
+        eOpposite="#//Application/technology"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="technologycomponent" upperBound="-1"
+        eType="#//TechnologyComponent" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="TechnologyComponent" eSuperTypes="#//NamedElement"/>
+</ecore:EPackage>

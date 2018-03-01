@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<description:Group xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:description="http://www.eclipse.org/sirius/description/1.1.0" xmlns:description_1="http://www.eclipse.org/sirius/diagram/description/1.1.0" xmlns:description_2="http://www.eclipse.org/sirius/table/description/1.1.0" xmlns:description_3="http://www.eclipse.org/sirius/tree/description/1.0.0" xmlns:style="http://www.eclipse.org/sirius/diagram/description/style/1.1.0" xmlns:tool="http://www.eclipse.org/sirius/diagram/description/tool/1.1.0" xmlns:tool_1="http://www.eclipse.org/sirius/description/tool/1.1.0" name="gnosis" version="12.0.0.2017041100">
+  <ownedViewpoints name="gnosis" label="Gnosis" modelFileExtension="gnosis">
+    <ownedRepresentations xsi:type="description_1:DiagramDescription" dropDescriptions="//@ownedViewpoints[name='gnosis']/@ownedRepresentations[name='cityPlan']/@defaultLayer/@toolSections.0/@ownedTools[name='applicationDomainDrop'] //@ownedViewpoints[name='gnosis']/@ownedRepresentations[name='cityPlan']/@defaultLayer/@toolSections.0/@ownedTools[name='logicalApplicationDrop']" name="cityPlan" label="City Plan" domainClass="gnosis::LogicalApplicationArchitecture" enablePopupBars="true">
+      <metamodel href="http://www.whitecottage.org.uk/gnosis#/"/>
+      <defaultLayer name="Default">
+        <containerMappings name="applicationDomain" label="Application Domain" semanticCandidatesExpression="aql:self.eContents()" createElements="false" domainClass="gnosis::ApplicationDomain" dropDescriptions="//@ownedViewpoints[name='gnosis']/@ownedRepresentations[name='cityPlan']/@defaultLayer/@toolSections.0/@ownedTools[name='applicationDomainDrop'] //@ownedViewpoints[name='gnosis']/@ownedRepresentations[name='cityPlan']/@defaultLayer/@toolSections.0/@ownedTools[name='logicalApplicationDrop']" reusedContainerMappings="//@ownedViewpoints[name='gnosis']/@ownedRepresentations[name='cityPlan']/@defaultLayer/@containerMappings[name='applicationDomain']">
+          <subNodeMappings name="logicalApplication" label="Logical Application" semanticCandidatesExpression="aql:self.logicalapplication" createElements="false" domainClass="gnosis::LogicalApplication">
+            <style xsi:type="style:SquareDescription" sizeComputationExpression="4" labelPosition="node" resizeKind="NSEW" width="20" height="4">
+              <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+              <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+              <color xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='light_blue']"/>
+            </style>
+          </subNodeMappings>
+          <style xsi:type="style:FlatContainerStyleDescription" borderSizeComputationExpression="1" widthComputationExpression="10" heightComputationExpression="5" backgroundStyle="GradientTopToBottom">
+            <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            <backgroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='white']"/>
+            <foregroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='light_gray']"/>
+          </style>
+        </containerMappings>
+        <toolSections>
+          <ownedTools xsi:type="tool:ContainerCreationDescription" name="createApplicationDomain" label="Application Domain" containerMappings="//@ownedViewpoints[name='gnosis']/@ownedRepresentations[name='cityPlan']/@defaultLayer/@containerMappings[name='applicationDomain']">
+            <variable name="container"/>
+            <viewVariable name="containerView"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="var:container">
+                <subModelOperations xsi:type="tool_1:CreateInstance" typeName="gnosis::ApplicationDomain" referenceName="applicationdomain">
+                  <subModelOperations xsi:type="tool_1:SetValue" featureName="name" valueExpression="aql:'domain'+container.applicationdomain->size()"/>
+                </subModelOperations>
+              </firstModelOperations>
+            </initialOperation>
+          </ownedTools>
+          <ownedTools xsi:type="tool:ContainerDropDescription" name="applicationDomainDrop" precondition="aql:element.oclIsKindOf(gnosis::ApplicationDomain)" forceRefresh="true" mappings="//@ownedViewpoints[name='gnosis']/@ownedRepresentations[name='cityPlan']/@defaultLayer/@containerMappings[name='applicationDomain']" dragSource="BOTH">
+            <oldContainer name="oldSemanticContainer"/>
+            <newContainer name="newSemanticContainer"/>
+            <element name="element"/>
+            <newViewContainer name="newContainerView"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="var:element">
+                <subModelOperations xsi:type="tool_1:MoveElement" newContainerExpression="var:newSemanticContainer" featureName="applicationdomain"/>
+              </firstModelOperations>
+            </initialOperation>
+          </ownedTools>
+          <ownedTools xsi:type="tool:ContainerDropDescription" name="logicalApplicationDrop" precondition="aql:element.oclIsKindOf(gnosis::LogicalApplication)" forceRefresh="true" mappings="//@ownedViewpoints[name='gnosis']/@ownedRepresentations[name='cityPlan']/@defaultLayer/@containerMappings[name='applicationDomain']/@subNodeMappings[name='logicalApplication']" dragSource="BOTH">
+            <oldContainer name="oldSemanticContainer"/>
+            <newContainer name="newSemanticContainer"/>
+            <element name="element"/>
+            <newViewContainer name="newContainerView"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="var:element">
+                <subModelOperations xsi:type="tool_1:MoveElement" newContainerExpression="var:newSemanticContainer" featureName="logicalapplication"/>
+              </firstModelOperations>
+            </initialOperation>
+          </ownedTools>
+        </toolSections>
+      </defaultLayer>
+    </ownedRepresentations>
+    <ownedRepresentations xsi:type="description_1:DiagramDescription" dropDescriptions="//@ownedViewpoints[name='gnosis']/@ownedRepresentations[name='integrationDiagram']/@defaultLayer/@toolSections.0/@ownedTools[name='logicalApplicationDrop'] //@ownedViewpoints[name='gnosis']/@ownedRepresentations[name='integrationDiagram']/@defaultLayer/@toolSections.0/@ownedTools[name='applicationDrop'] //@ownedViewpoints[name='gnosis']/@ownedRepresentations[name='integrationDiagram']/@defaultLayer/@toolSections.0/@ownedTools[name='integrationDrop']" name="integrationDiagram" label="Integration Diagram" domainClass="gnosis::IntegrationArchitecture" enablePopupBars="true">
+      <metamodel href="http://www.whitecottage.org.uk/gnosis#/"/>
+      <defaultLayer name="Default">
+        <nodeMappings name="application" label="Application" semanticCandidatesExpression="aql:self.eContainer().applicationarchitecture.application" createElements="false" domainClass="gnosis::Application">
+          <style xsi:type="style:SquareDescription" labelPosition="node" resizeKind="NSEW">
+            <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            <color xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='light_green']"/>
+          </style>
+        </nodeMappings>
+        <nodeMappings name="logicalApplication" label="Logical Application" semanticCandidatesExpression="aql:self.eContainer().logicalapplicationarchitecture.eAllContents()->filter(gnosis::LogicalApplication)" createElements="false" domainClass="gnosis::LogicalApplication">
+          <style xsi:type="style:SquareDescription" labelPosition="node" resizeKind="NSEW">
+            <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            <color xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='light_blue']"/>
+          </style>
+        </nodeMappings>
+        <edgeMappings name="integration" label="Integration" sourceMapping="//@ownedViewpoints[name='gnosis']/@ownedRepresentations[name='integrationDiagram']/@defaultLayer/@nodeMappings[name='application'] //@ownedViewpoints[name='gnosis']/@ownedRepresentations[name='integrationDiagram']/@defaultLayer/@nodeMappings[name='logicalApplication']" targetMapping="//@ownedViewpoints[name='gnosis']/@ownedRepresentations[name='integrationDiagram']/@defaultLayer/@nodeMappings[name='application'] //@ownedViewpoints[name='gnosis']/@ownedRepresentations[name='integrationDiagram']/@defaultLayer/@nodeMappings[name='logicalApplication']" targetFinderExpression="feature:target" sourceFinderExpression="feature:source" domainClass="gnosis::Integration" useDomainElement="true">
+          <style sizeComputationExpression="2">
+            <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='gray']"/>
+            <centerLabelStyleDescription>
+              <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            </centerLabelStyleDescription>
+          </style>
+        </edgeMappings>
+        <toolSections>
+          <ownedTools xsi:type="tool:ContainerDropDescription" name="logicalApplicationDrop" precondition="aql:element.oclIsKindOf(gnosis::LogicalApplication)" mappings="//@ownedViewpoints[name='gnosis']/@ownedRepresentations[name='integrationDiagram']/@defaultLayer/@nodeMappings[name='logicalApplication']" dragSource="BOTH">
+            <oldContainer name="oldSemanticContainer"/>
+            <newContainer name="newSemanticContainer"/>
+            <element name="element"/>
+            <newViewContainer name="newContainerView"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="var:element">
+                <subModelOperations xsi:type="tool_1:MoveElement" newContainerExpression="var:newContainerView" featureName="eContents"/>
+              </firstModelOperations>
+            </initialOperation>
+          </ownedTools>
+          <ownedTools xsi:type="tool:ContainerDropDescription" name="applicationDrop" label="applicationDrop" precondition="aql:element.oclIsKindOf(gnosis::Application)" mappings="//@ownedViewpoints[name='gnosis']/@ownedRepresentations[name='integrationDiagram']/@defaultLayer/@nodeMappings[name='application']" dragSource="BOTH">
+            <oldContainer name="oldSemanticContainer"/>
+            <newContainer name="newSemanticContainer"/>
+            <element name="element"/>
+            <newViewContainer name="newContainerView"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="var:element">
+                <subModelOperations xsi:type="tool_1:MoveElement" newContainerExpression="var:newContainerView" featureName="eContents"/>
+              </firstModelOperations>
+            </initialOperation>
+          </ownedTools>
+          <ownedTools xsi:type="tool:ContainerDropDescription" name="integrationDrop" precondition="aql:element.oclIsKindOf(gnosis::Integration)" mappings="//@ownedViewpoints[name='gnosis']/@ownedRepresentations[name='integrationDiagram']/@defaultLayer/@edgeMappings[name='integration']" dragSource="BOTH" moveEdges="true">
+            <oldContainer name="oldSemanticContainer"/>
+            <newContainer name="newSemanticContainer"/>
+            <element name="element"/>
+            <newViewContainer name="newContainerView"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="var:element">
+                <subModelOperations xsi:type="tool:CreateEdgeView" mapping="//@ownedViewpoints[name='gnosis']/@ownedRepresentations[name='integrationDiagram']/@defaultLayer/@edgeMappings[name='integration']" containerViewExpression="var:newContainerView" sourceExpression="feature:source" targetExpression="feature:target"/>
+              </firstModelOperations>
+            </initialOperation>
+          </ownedTools>
+          <ownedTools xsi:type="tool:EdgeCreationDescription" name="integration" label="Integration" edgeMappings="//@ownedViewpoints[name='gnosis']/@ownedRepresentations[name='integrationDiagram']/@defaultLayer/@edgeMappings[name='integration']">
+            <sourceVariable name="source"/>
+            <targetVariable name="target"/>
+            <sourceViewVariable name="sourceView"/>
+            <targetViewVariable name="targetView"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:source.ancestors()->last().integrationarchitecture">
+                <subModelOperations xsi:type="tool_1:CreateInstance" typeName="gnosis::Integration" referenceName="integration">
+                  <subModelOperations xsi:type="tool_1:SetValue" featureName="source" valueExpression="var:source"/>
+                  <subModelOperations xsi:type="tool_1:SetValue" featureName="target" valueExpression="var:target"/>
+                  <subModelOperations xsi:type="tool_1:SetValue" featureName="name" valueExpression="aql:source.name + ' to ' + target.name"/>
+                </subModelOperations>
+                <subModelOperations xsi:type="tool:CreateEdgeView" mapping="//@ownedViewpoints[name='gnosis']/@ownedRepresentations[name='integrationDiagram']/@defaultLayer/@edgeMappings[name='integration']" containerViewExpression="var:targetView" sourceExpression="feature:source" targetExpression="feature:target"/>
+              </firstModelOperations>
+            </initialOperation>
+          </ownedTools>
+        </toolSections>
+      </defaultLayer>
+    </ownedRepresentations>
+    <ownedRepresentations xsi:type="description_2:EditionTableDescription" name="applicationTable" label="Application List" initialisation="true" domainClass="gnosis::ApplicationArchitecture">
+      <metamodel href="http://www.whitecottage.org.uk/gnosis#/"/>
+      <ownedLineMappings name="applicationEntry" label="Application" domainClass="gnosis::Application" semanticCandidatesExpression="aql:self.application"/>
+      <ownedColumnMappings name="description" label="Description" headerLabelExpression="Description" initialWidth="20" featureName="description"/>
+    </ownedRepresentations>
+    <ownedRepresentations xsi:type="description_3:TreeDescription" name="processTaxonomy" label="Process Taxonomy" initialisation="true" domainClass="gnosis::ProcessTaxonomy">
+      <metamodel href="http://www.whitecottage.org.uk/gnosis#/"/>
+      <subItemMappings name="activity" label="Activity" domainClass="gnosis::Activity" semanticCandidatesExpression="feature:activity" reusedTreeItemMappings="//@ownedViewpoints[name='gnosis']/@ownedRepresentations[name='processTaxonomy']/@subItemMappings[name='activity']">
+        <defaultStyle labelSize="9">
+          <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+          <backgroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='white']"/>
+        </defaultStyle>
+      </subItemMappings>
+    </ownedRepresentations>
+    <ownedJavaExtensions qualifiedClassName="uk.org.whitecottage.gnosis.design.Services"/>
+  </ownedViewpoints>
+</description:Group>

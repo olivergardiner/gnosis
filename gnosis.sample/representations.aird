@@ -1,0 +1,852 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:description="http://www.eclipse.org/sirius/description/1.1.0" xmlns:description_1="http://www.eclipse.org/sirius/diagram/description/1.1.0" xmlns:description_2="http://www.eclipse.org/sirius/table/description/1.1.0" xmlns:description_3="http://www.eclipse.org/sirius/tree/description/1.0.0" xmlns:diagram="http://www.eclipse.org/sirius/diagram/1.1.0" xmlns:gnosis="http://www.whitecottage.org.uk/gnosis" xmlns:notation="http://www.eclipse.org/gmf/runtime/1.0.2/notation" xmlns:style="http://www.eclipse.org/sirius/diagram/description/style/1.1.0" xmlns:table="http://www.eclipse.org/sirius/table/1.1.0" xmlns:tree="http://www.eclipse.org/sirius/tree/1.0.0" xmlns:viewpoint="http://www.eclipse.org/sirius/1.1.0" xsi:schemaLocation="http://www.eclipse.org/sirius/description/1.1.0 http://www.eclipse.org/sirius/1.1.0#//description http://www.eclipse.org/sirius/diagram/description/1.1.0 http://www.eclipse.org/sirius/diagram/1.1.0#//description http://www.eclipse.org/sirius/table/description/1.1.0 http://www.eclipse.org/sirius/table/1.1.0#//description http://www.eclipse.org/sirius/tree/description/1.0.0 http://www.eclipse.org/sirius/tree/1.0.0#//description http://www.eclipse.org/sirius/diagram/description/style/1.1.0 http://www.eclipse.org/sirius/diagram/1.1.0#//description/style">
+  <viewpoint:DAnalysis xmi:id="_KqtV8A26Eeihdsy3-DAZ-Q" selectedViews="_3njUIBGVEeiqEIxu7-JSDQ" version="12.1.0.201708031200">
+    <semanticResources>sample.gnosis</semanticResources>
+    <ownedViews xmi:type="viewpoint:DView" xmi:id="_3njUIBGVEeiqEIxu7-JSDQ">
+      <viewpoint xmi:type="description:Viewpoint" href="platform:/resource/uk.org.whitecottage.gnosis.design/description/gnosis.odesign#//@ownedViewpoints[name='gnosis']"/>
+      <ownedRepresentationDescriptors xmi:type="viewpoint:DRepresentationDescriptor" xmi:id="_S30egBVTEeiEPe-Q3UuA8Q" name="City Plan" repPath="#_S3OBkBVTEeiEPe-Q3UuA8Q">
+        <description xmi:type="description_1:DiagramDescription" href="platform:/resource/uk.org.whitecottage.gnosis.design/description/gnosis.odesign#//@ownedViewpoints[name='gnosis']/@ownedRepresentations[name='cityPlan']"/>
+        <target xmi:type="gnosis:LogicalApplicationArchitecture" href="sample.gnosis#//@logicalapplicationarchitecture"/>
+      </ownedRepresentationDescriptors>
+      <ownedRepresentationDescriptors xmi:type="viewpoint:DRepresentationDescriptor" xmi:id="_P6k5KRY2EeiR5YRvEkhpDw" name="Applications" repPath="#_P6VokBY2EeiR5YRvEkhpDw">
+        <description xmi:type="description_2:EditionTableDescription" href="platform:/resource/uk.org.whitecottage.gnosis.design/description/gnosis.odesign#//@ownedViewpoints[name='gnosis']/@ownedRepresentations[name='applicationTable']"/>
+        <target xmi:type="gnosis:ApplicationArchitecture" href="sample.gnosis#//@applicationarchitecture"/>
+      </ownedRepresentationDescriptors>
+      <ownedRepresentationDescriptors xmi:type="viewpoint:DRepresentationDescriptor" xmi:id="_EpS_4BY7Eei03Nu6k1Wxdw" name="new Integration Diagram" repPath="#_EpBTEBY7Eei03Nu6k1Wxdw">
+        <description xmi:type="description_1:DiagramDescription" href="platform:/resource/uk.org.whitecottage.gnosis.design/description/gnosis.odesign#//@ownedViewpoints[name='gnosis']/@ownedRepresentations[name='integrationDiagram']"/>
+        <target xmi:type="gnosis:IntegrationArchitecture" href="sample.gnosis#//@integrationarchitecture"/>
+      </ownedRepresentationDescriptors>
+      <ownedRepresentationDescriptors xmi:type="viewpoint:DRepresentationDescriptor" xmi:id="_qdENMBvEEei46t2rN6-8mA" name="Process Taxonomy" repPath="#_qctA0BvEEei46t2rN6-8mA">
+        <description xmi:type="description_3:TreeDescription" href="platform:/resource/uk.org.whitecottage.gnosis.design/description/gnosis.odesign#//@ownedViewpoints[name='gnosis']/@ownedRepresentations[name='processTaxonomy']"/>
+        <target xmi:type="gnosis:ProcessTaxonomy" href="sample.gnosis#//@processarchitecture/@processtaxonomy"/>
+      </ownedRepresentationDescriptors>
+    </ownedViews>
+  </viewpoint:DAnalysis>
+  <diagram:DSemanticDiagram xmi:id="_S3wNEBVTEeiEPe-Q3UuA8Q" name="City Plan" uid="_S3OBkBVTEeiEPe-Q3UuA8Q">
+    <ownedAnnotationEntries xmi:type="description:AnnotationEntry" xmi:id="_S3w0IBVTEeiEPe-Q3UuA8Q" source="DANNOTATION_CUSTOMIZATION_KEY">
+      <data xmi:type="diagram:ComputedStyleDescriptionRegistry" xmi:id="_S3w0IRVTEeiEPe-Q3UuA8Q"/>
+    </ownedAnnotationEntries>
+    <ownedAnnotationEntries xmi:type="description:AnnotationEntry" xmi:id="_S4ZtUBVTEeiEPe-Q3UuA8Q" source="GMF_DIAGRAMS">
+      <data xmi:type="notation:Diagram" xmi:id="_S4ZtURVTEeiEPe-Q3UuA8Q" type="Sirius" element="_S3wNEBVTEeiEPe-Q3UuA8Q" measurementUnit="Pixel">
+        <children xmi:type="notation:Node" xmi:id="_sK2B8BVTEeiEPe-Q3UuA8Q" type="2002" element="_sJTJ0BVTEeiEPe-Q3UuA8Q">
+          <children xmi:type="notation:Node" xmi:id="_sK5FQBVTEeiEPe-Q3UuA8Q" type="5006"/>
+          <children xmi:type="notation:Node" xmi:id="_sK7hgBVTEeiEPe-Q3UuA8Q" type="7001">
+            <children xmi:type="notation:Node" xmi:id="_sK-k0BVTEeiEPe-Q3UuA8Q" type="3008" element="_sJvOsBVTEeiEPe-Q3UuA8Q">
+              <children xmi:type="notation:Node" xmi:id="_sK_L4BVTEeiEPe-Q3UuA8Q" type="5005"/>
+              <children xmi:type="notation:Node" xmi:id="_sK_y8BVTEeiEPe-Q3UuA8Q" type="7002">
+                <children xmi:type="notation:Node" xmi:id="_sLC2QBVTEeiEPe-Q3UuA8Q" type="3007" element="_sJ2jcBVTEeiEPe-Q3UuA8Q">
+                  <children xmi:type="notation:Node" xmi:id="_sLDdUBVTEeiEPe-Q3UuA8Q" type="5003">
+                    <layoutConstraint xmi:type="notation:Location" xmi:id="_sLDdURVTEeiEPe-Q3UuA8Q" y="5"/>
+                  </children>
+                  <children xmi:type="notation:Node" xmi:id="_sLErcBVTEeiEPe-Q3UuA8Q" type="3003" element="_sJ3KgBVTEeiEPe-Q3UuA8Q">
+                    <styles xmi:type="notation:ShapeStyle" xmi:id="_sLErcRVTEeiEPe-Q3UuA8Q" fontName="Segoe UI"/>
+                    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_sLErchVTEeiEPe-Q3UuA8Q"/>
+                  </children>
+                  <styles xmi:type="notation:ShapeStyle" xmi:id="_sLC2QRVTEeiEPe-Q3UuA8Q" fontName="Segoe UI" fontHeight="8"/>
+                  <layoutConstraint xmi:type="notation:Bounds" xmi:id="_sLC2QhVTEeiEPe-Q3UuA8Q" x="259" y="30" width="200" height="40"/>
+                </children>
+                <children xmi:type="notation:Node" xmi:id="_i9uUoBVfEeiwicgVcjvuoQ" type="3007" element="_ii-5YBVfEeiwicgVcjvuoQ">
+                  <children xmi:type="notation:Node" xmi:id="_i9uUoxVfEeiwicgVcjvuoQ" type="5003">
+                    <layoutConstraint xmi:type="notation:Location" xmi:id="_i9uUpBVfEeiwicgVcjvuoQ" y="5"/>
+                  </children>
+                  <children xmi:type="notation:Node" xmi:id="_i9u7sBVfEeiwicgVcjvuoQ" type="3003" element="_ii-5YRVfEeiwicgVcjvuoQ">
+                    <styles xmi:type="notation:ShapeStyle" xmi:id="_i9u7sRVfEeiwicgVcjvuoQ" fontName="Segoe UI"/>
+                    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_i9u7shVfEeiwicgVcjvuoQ"/>
+                  </children>
+                  <styles xmi:type="notation:ShapeStyle" xmi:id="_i9uUoRVfEeiwicgVcjvuoQ" fontName="Segoe UI" fontHeight="8"/>
+                  <layoutConstraint xmi:type="notation:Bounds" xmi:id="_i9uUohVfEeiwicgVcjvuoQ" x="25" y="30" width="200" height="40"/>
+                </children>
+                <styles xmi:type="notation:SortingStyle" xmi:id="_sK_y8RVTEeiEPe-Q3UuA8Q"/>
+                <styles xmi:type="notation:FilteringStyle" xmi:id="_sK_y8hVTEeiEPe-Q3UuA8Q"/>
+              </children>
+              <styles xmi:type="notation:ShapeStyle" xmi:id="_sK-k0RVTEeiEPe-Q3UuA8Q" fontName="Segoe UI" fontHeight="8"/>
+              <layoutConstraint xmi:type="notation:Bounds" xmi:id="_sK-k0hVTEeiEPe-Q3UuA8Q" x="31" y="30" width="483" height="273"/>
+            </children>
+            <styles xmi:type="notation:SortingStyle" xmi:id="_sK7hgRVTEeiEPe-Q3UuA8Q"/>
+            <styles xmi:type="notation:FilteringStyle" xmi:id="_sK7hghVTEeiEPe-Q3UuA8Q"/>
+          </children>
+          <styles xmi:type="notation:ShapeStyle" xmi:id="_sK2B8RVTEeiEPe-Q3UuA8Q" fontName="Segoe UI" fontHeight="8"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_sK2B8hVTEeiEPe-Q3UuA8Q" x="6" y="60" width="543" height="345"/>
+        </children>
+        <children xmi:type="notation:Node" xmi:id="_sK8voBVTEeiEPe-Q3UuA8Q" type="2002" element="_sJuAkBVTEeiEPe-Q3UuA8Q">
+          <children xmi:type="notation:Node" xmi:id="_sK9WsBVTEeiEPe-Q3UuA8Q" type="5006"/>
+          <children xmi:type="notation:Node" xmi:id="_sK9WsRVTEeiEPe-Q3UuA8Q" type="7001">
+            <children xmi:type="notation:Node" xmi:id="_sLFSgBVTEeiEPe-Q3UuA8Q" type="3008" element="_sJ3xkBVTEeiEPe-Q3UuA8Q">
+              <children xmi:type="notation:Node" xmi:id="_sLF5kBVTEeiEPe-Q3UuA8Q" type="5005"/>
+              <children xmi:type="notation:Node" xmi:id="_sLF5kRVTEeiEPe-Q3UuA8Q" type="7002">
+                <children xmi:type="notation:Node" xmi:id="_sLGgohVTEeiEPe-Q3UuA8Q" type="3007" element="_sJ6N0BVTEeiEPe-Q3UuA8Q">
+                  <children xmi:type="notation:Node" xmi:id="_sLHHsBVTEeiEPe-Q3UuA8Q" type="5003">
+                    <layoutConstraint xmi:type="notation:Location" xmi:id="_sLHHsRVTEeiEPe-Q3UuA8Q" y="5"/>
+                  </children>
+                  <children xmi:type="notation:Node" xmi:id="_sLIV0BVTEeiEPe-Q3UuA8Q" type="3003" element="_sJ6N0RVTEeiEPe-Q3UuA8Q">
+                    <styles xmi:type="notation:ShapeStyle" xmi:id="_sLIV0RVTEeiEPe-Q3UuA8Q" fontName="Segoe UI"/>
+                    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_sLIV0hVTEeiEPe-Q3UuA8Q"/>
+                  </children>
+                  <styles xmi:type="notation:ShapeStyle" xmi:id="_sLGgoxVTEeiEPe-Q3UuA8Q" fontName="Segoe UI" fontHeight="8"/>
+                  <layoutConstraint xmi:type="notation:Bounds" xmi:id="_sLGgpBVTEeiEPe-Q3UuA8Q" x="253" y="30" width="200" height="40"/>
+                </children>
+                <children xmi:type="notation:Node" xmi:id="_uDsUsBYpEeiR5YRvEkhpDw" type="3007" element="_waCOUBWXEeiwicgVcjvuoQ">
+                  <children xmi:type="notation:Node" xmi:id="_uDzCYBYpEeiR5YRvEkhpDw" type="5003">
+                    <layoutConstraint xmi:type="notation:Location" xmi:id="_uDzCYRYpEeiR5YRvEkhpDw" y="5"/>
+                  </children>
+                  <children xmi:type="notation:Node" xmi:id="_uD03kBYpEeiR5YRvEkhpDw" type="3003" element="_waCOURWXEeiwicgVcjvuoQ">
+                    <styles xmi:type="notation:ShapeStyle" xmi:id="_uD03kRYpEeiR5YRvEkhpDw" fontName="Segoe UI"/>
+                    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_uD03khYpEeiR5YRvEkhpDw"/>
+                  </children>
+                  <styles xmi:type="notation:ShapeStyle" xmi:id="_uDsUsRYpEeiR5YRvEkhpDw" fontName="Segoe UI" fontHeight="8"/>
+                  <layoutConstraint xmi:type="notation:Bounds" xmi:id="_uDsUshYpEeiR5YRvEkhpDw" x="25" y="30" width="200" height="40"/>
+                </children>
+                <styles xmi:type="notation:SortingStyle" xmi:id="_sLF5khVTEeiEPe-Q3UuA8Q"/>
+                <styles xmi:type="notation:FilteringStyle" xmi:id="_sLF5kxVTEeiEPe-Q3UuA8Q"/>
+              </children>
+              <styles xmi:type="notation:ShapeStyle" xmi:id="_sLFSgRVTEeiEPe-Q3UuA8Q" fontName="Segoe UI" fontHeight="8"/>
+              <layoutConstraint xmi:type="notation:Bounds" xmi:id="_sLFSghVTEeiEPe-Q3UuA8Q" x="49" y="42" height="291"/>
+            </children>
+            <styles xmi:type="notation:SortingStyle" xmi:id="_sK9WshVTEeiEPe-Q3UuA8Q"/>
+            <styles xmi:type="notation:FilteringStyle" xmi:id="_sK9WsxVTEeiEPe-Q3UuA8Q"/>
+          </children>
+          <styles xmi:type="notation:ShapeStyle" xmi:id="_sK8voRVTEeiEPe-Q3UuA8Q" fontName="Segoe UI" fontHeight="8"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_sK8vohVTEeiEPe-Q3UuA8Q" x="582" y="36" width="597" height="393"/>
+        </children>
+        <styles xmi:type="notation:DiagramStyle" xmi:id="_S4ZtUhVTEeiEPe-Q3UuA8Q"/>
+      </data>
+    </ownedAnnotationEntries>
+    <ownedDiagramElements xmi:type="diagram:DNodeContainer" xmi:id="_sJTJ0BVTEeiEPe-Q3UuA8Q" name="Customer Engagement and Interaction" width="10" height="5">
+      <target xmi:type="gnosis:ApplicationDomain" href="sample.gnosis#//@logicalapplicationarchitecture/@applicationdomain.0"/>
+      <semanticElements xmi:type="gnosis:ApplicationDomain" href="sample.gnosis#//@logicalapplicationarchitecture/@applicationdomain.0"/>
+      <arrangeConstraints>KEEP_LOCATION</arrangeConstraints>
+      <arrangeConstraints>KEEP_SIZE</arrangeConstraints>
+      <arrangeConstraints>KEEP_RATIO</arrangeConstraints>
+      <ownedStyle xmi:type="diagram:FlatContainerStyle" xmi:id="_sJrkUBVTEeiEPe-Q3UuA8Q" borderSize="1" borderSizeComputationExpression="1" backgroundStyle="GradientTopToBottom">
+        <description xmi:type="style:FlatContainerStyleDescription" href="platform:/resource/uk.org.whitecottage.gnosis.design/description/gnosis.odesign#//@ownedViewpoints[name='gnosis']/@ownedRepresentations[name='cityPlan']/@defaultLayer/@containerMappings[name='applicationDomain']/@style"/>
+      </ownedStyle>
+      <actualMapping xmi:type="description_1:ContainerMapping" href="platform:/resource/uk.org.whitecottage.gnosis.design/description/gnosis.odesign#//@ownedViewpoints[name='gnosis']/@ownedRepresentations[name='cityPlan']/@defaultLayer/@containerMappings[name='applicationDomain']"/>
+      <ownedDiagramElements xmi:type="diagram:DNodeContainer" xmi:id="_sJvOsBVTEeiEPe-Q3UuA8Q" name="Customer Relationship Management" width="10" height="5">
+        <target xmi:type="gnosis:ApplicationDomain" href="sample.gnosis#//@logicalapplicationarchitecture/@applicationdomain.0/@applicationdomain.0"/>
+        <semanticElements xmi:type="gnosis:ApplicationDomain" href="sample.gnosis#//@logicalapplicationarchitecture/@applicationdomain.0/@applicationdomain.0"/>
+        <ownedStyle xmi:type="diagram:FlatContainerStyle" xmi:id="_sJv1wBVTEeiEPe-Q3UuA8Q" borderSize="1" borderSizeComputationExpression="1" backgroundStyle="GradientTopToBottom">
+          <description xmi:type="style:FlatContainerStyleDescription" href="platform:/resource/uk.org.whitecottage.gnosis.design/description/gnosis.odesign#//@ownedViewpoints[name='gnosis']/@ownedRepresentations[name='cityPlan']/@defaultLayer/@containerMappings[name='applicationDomain']/@style"/>
+        </ownedStyle>
+        <actualMapping xmi:type="description_1:ContainerMapping" href="platform:/resource/uk.org.whitecottage.gnosis.design/description/gnosis.odesign#//@ownedViewpoints[name='gnosis']/@ownedRepresentations[name='cityPlan']/@defaultLayer/@containerMappings[name='applicationDomain']"/>
+        <ownedDiagramElements xmi:type="diagram:DNode" xmi:id="_sJ2jcBVTEeiEPe-Q3UuA8Q" name="Customer Interaction Routing" width="20" height="4" resizeKind="NSEW">
+          <target xmi:type="gnosis:LogicalApplication" href="sample.gnosis#//@logicalapplicationarchitecture/@applicationdomain.0/@applicationdomain.0/@logicalapplication.0"/>
+          <semanticElements xmi:type="gnosis:LogicalApplication" href="sample.gnosis#//@logicalapplicationarchitecture/@applicationdomain.0/@applicationdomain.0/@logicalapplication.0"/>
+          <ownedStyle xmi:type="diagram:Square" xmi:id="_sJ3KgBVTEeiEPe-Q3UuA8Q" labelPosition="node" width="20" height="4" color="194,239,255">
+            <description xmi:type="style:SquareDescription" href="platform:/resource/uk.org.whitecottage.gnosis.design/description/gnosis.odesign#//@ownedViewpoints[name='gnosis']/@ownedRepresentations[name='cityPlan']/@defaultLayer/@containerMappings[name='applicationDomain']/@subNodeMappings[name='logicalApplication']/@style"/>
+          </ownedStyle>
+          <actualMapping xmi:type="description_1:NodeMapping" href="platform:/resource/uk.org.whitecottage.gnosis.design/description/gnosis.odesign#//@ownedViewpoints[name='gnosis']/@ownedRepresentations[name='cityPlan']/@defaultLayer/@containerMappings[name='applicationDomain']/@subNodeMappings[name='logicalApplication']"/>
+        </ownedDiagramElements>
+        <ownedDiagramElements xmi:type="diagram:DNode" xmi:id="_ii-5YBVfEeiwicgVcjvuoQ" name="Customer Case Management" width="20" height="4" resizeKind="NSEW">
+          <target xmi:type="gnosis:LogicalApplication" href="sample.gnosis#//@logicalapplicationarchitecture/@applicationdomain.0/@applicationdomain.0/@logicalapplication.1"/>
+          <semanticElements xmi:type="gnosis:LogicalApplication" href="sample.gnosis#//@logicalapplicationarchitecture/@applicationdomain.0/@applicationdomain.0/@logicalapplication.1"/>
+          <ownedStyle xmi:type="diagram:Square" xmi:id="_ii-5YRVfEeiwicgVcjvuoQ" labelPosition="node" width="20" height="4" color="194,239,255">
+            <description xmi:type="style:SquareDescription" href="platform:/resource/uk.org.whitecottage.gnosis.design/description/gnosis.odesign#//@ownedViewpoints[name='gnosis']/@ownedRepresentations[name='cityPlan']/@defaultLayer/@containerMappings[name='applicationDomain']/@subNodeMappings[name='logicalApplication']/@style"/>
+          </ownedStyle>
+          <actualMapping xmi:type="description_1:NodeMapping" href="platform:/resource/uk.org.whitecottage.gnosis.design/description/gnosis.odesign#//@ownedViewpoints[name='gnosis']/@ownedRepresentations[name='cityPlan']/@defaultLayer/@containerMappings[name='applicationDomain']/@subNodeMappings[name='logicalApplication']"/>
+        </ownedDiagramElements>
+      </ownedDiagramElements>
+    </ownedDiagramElements>
+    <ownedDiagramElements xmi:type="diagram:DNodeContainer" xmi:id="_sJuAkBVTEeiEPe-Q3UuA8Q" name="Line of Business" width="10" height="5">
+      <target xmi:type="gnosis:ApplicationDomain" href="sample.gnosis#//@logicalapplicationarchitecture/@applicationdomain.1"/>
+      <semanticElements xmi:type="gnosis:ApplicationDomain" href="sample.gnosis#//@logicalapplicationarchitecture/@applicationdomain.1"/>
+      <ownedStyle xmi:type="diagram:FlatContainerStyle" xmi:id="_sJuAkRVTEeiEPe-Q3UuA8Q" borderSize="1" borderSizeComputationExpression="1" backgroundStyle="GradientTopToBottom">
+        <description xmi:type="style:FlatContainerStyleDescription" href="platform:/resource/uk.org.whitecottage.gnosis.design/description/gnosis.odesign#//@ownedViewpoints[name='gnosis']/@ownedRepresentations[name='cityPlan']/@defaultLayer/@containerMappings[name='applicationDomain']/@style"/>
+      </ownedStyle>
+      <actualMapping xmi:type="description_1:ContainerMapping" href="platform:/resource/uk.org.whitecottage.gnosis.design/description/gnosis.odesign#//@ownedViewpoints[name='gnosis']/@ownedRepresentations[name='cityPlan']/@defaultLayer/@containerMappings[name='applicationDomain']"/>
+      <ownedDiagramElements xmi:type="diagram:DNodeContainer" xmi:id="_sJ3xkBVTEeiEPe-Q3UuA8Q" name="Customer Information Management" width="10" height="5">
+        <target xmi:type="gnosis:ApplicationDomain" href="sample.gnosis#//@logicalapplicationarchitecture/@applicationdomain.1/@applicationdomain.0"/>
+        <semanticElements xmi:type="gnosis:ApplicationDomain" href="sample.gnosis#//@logicalapplicationarchitecture/@applicationdomain.1/@applicationdomain.0"/>
+        <arrangeConstraints>KEEP_LOCATION</arrangeConstraints>
+        <arrangeConstraints>KEEP_SIZE</arrangeConstraints>
+        <arrangeConstraints>KEEP_RATIO</arrangeConstraints>
+        <ownedStyle xmi:type="diagram:FlatContainerStyle" xmi:id="_sJ4YoBVTEeiEPe-Q3UuA8Q" borderSize="1" borderSizeComputationExpression="1" backgroundStyle="GradientTopToBottom">
+          <description xmi:type="style:FlatContainerStyleDescription" href="platform:/resource/uk.org.whitecottage.gnosis.design/description/gnosis.odesign#//@ownedViewpoints[name='gnosis']/@ownedRepresentations[name='cityPlan']/@defaultLayer/@containerMappings[name='applicationDomain']/@style"/>
+        </ownedStyle>
+        <actualMapping xmi:type="description_1:ContainerMapping" href="platform:/resource/uk.org.whitecottage.gnosis.design/description/gnosis.odesign#//@ownedViewpoints[name='gnosis']/@ownedRepresentations[name='cityPlan']/@defaultLayer/@containerMappings[name='applicationDomain']"/>
+        <ownedDiagramElements xmi:type="diagram:DNode" xmi:id="_sJ6N0BVTEeiEPe-Q3UuA8Q" name="Customer Lifecycle Management" width="20" height="4" resizeKind="NSEW">
+          <target xmi:type="gnosis:LogicalApplication" href="sample.gnosis#//@logicalapplicationarchitecture/@applicationdomain.1/@applicationdomain.0/@logicalapplication.0"/>
+          <semanticElements xmi:type="gnosis:LogicalApplication" href="sample.gnosis#//@logicalapplicationarchitecture/@applicationdomain.1/@applicationdomain.0/@logicalapplication.0"/>
+          <ownedStyle xmi:type="diagram:Square" xmi:id="_sJ6N0RVTEeiEPe-Q3UuA8Q" labelPosition="node" width="20" height="4" color="194,239,255">
+            <description xmi:type="style:SquareDescription" href="platform:/resource/uk.org.whitecottage.gnosis.design/description/gnosis.odesign#//@ownedViewpoints[name='gnosis']/@ownedRepresentations[name='cityPlan']/@defaultLayer/@containerMappings[name='applicationDomain']/@subNodeMappings[name='logicalApplication']/@style"/>
+          </ownedStyle>
+          <actualMapping xmi:type="description_1:NodeMapping" href="platform:/resource/uk.org.whitecottage.gnosis.design/description/gnosis.odesign#//@ownedViewpoints[name='gnosis']/@ownedRepresentations[name='cityPlan']/@defaultLayer/@containerMappings[name='applicationDomain']/@subNodeMappings[name='logicalApplication']"/>
+        </ownedDiagramElements>
+        <ownedDiagramElements xmi:type="diagram:DNode" xmi:id="_waCOUBWXEeiwicgVcjvuoQ" name="Customer MDM" width="20" height="4" resizeKind="NSEW">
+          <target xmi:type="gnosis:LogicalApplication" href="sample.gnosis#//@logicalapplicationarchitecture/@applicationdomain.1/@applicationdomain.0/@logicalapplication.1"/>
+          <semanticElements xmi:type="gnosis:LogicalApplication" href="sample.gnosis#//@logicalapplicationarchitecture/@applicationdomain.1/@applicationdomain.0/@logicalapplication.1"/>
+          <arrangeConstraints>KEEP_LOCATION</arrangeConstraints>
+          <arrangeConstraints>KEEP_SIZE</arrangeConstraints>
+          <arrangeConstraints>KEEP_RATIO</arrangeConstraints>
+          <ownedStyle xmi:type="diagram:Square" xmi:id="_waCOURWXEeiwicgVcjvuoQ" labelPosition="node" width="20" height="4" color="194,239,255">
+            <description xmi:type="style:SquareDescription" href="platform:/resource/uk.org.whitecottage.gnosis.design/description/gnosis.odesign#//@ownedViewpoints[name='gnosis']/@ownedRepresentations[name='cityPlan']/@defaultLayer/@containerMappings[name='applicationDomain']/@subNodeMappings[name='logicalApplication']/@style"/>
+          </ownedStyle>
+          <actualMapping xmi:type="description_1:NodeMapping" href="platform:/resource/uk.org.whitecottage.gnosis.design/description/gnosis.odesign#//@ownedViewpoints[name='gnosis']/@ownedRepresentations[name='cityPlan']/@defaultLayer/@containerMappings[name='applicationDomain']/@subNodeMappings[name='logicalApplication']"/>
+        </ownedDiagramElements>
+      </ownedDiagramElements>
+    </ownedDiagramElements>
+    <description xmi:type="description_1:DiagramDescription" href="platform:/resource/uk.org.whitecottage.gnosis.design/description/gnosis.odesign#//@ownedViewpoints[name='gnosis']/@ownedRepresentations[name='cityPlan']"/>
+    <filterVariableHistory xmi:type="diagram:FilterVariableHistory" xmi:id="_S3w0IxVTEeiEPe-Q3UuA8Q"/>
+    <activatedLayers xmi:type="description_1:Layer" href="platform:/resource/uk.org.whitecottage.gnosis.design/description/gnosis.odesign#//@ownedViewpoints[name='gnosis']/@ownedRepresentations[name='cityPlan']/@defaultLayer"/>
+    <target xmi:type="gnosis:LogicalApplicationArchitecture" href="sample.gnosis#//@logicalapplicationarchitecture"/>
+  </diagram:DSemanticDiagram>
+  <table:DTable xmi:id="_P6jrABY2EeiR5YRvEkhpDw" name="Applications" uid="_P6VokBY2EeiR5YRvEkhpDw" headerColumnWidth="215">
+    <target xmi:type="gnosis:ApplicationArchitecture" href="sample.gnosis#//@applicationarchitecture"/>
+    <lines xmi:type="table:DLine" xmi:id="_4cbScB0hEei1gITCSpEX2A" label="Application Application 1">
+      <target xmi:type="gnosis:Application" href="sample.gnosis#//@applicationarchitecture/@application.0"/>
+      <semanticElements xmi:type="gnosis:Application" href="sample.gnosis#//@applicationarchitecture/@application.0"/>
+      <originMapping xmi:type="description_2:LineMapping" href="platform:/resource/uk.org.whitecottage.gnosis.design/description/gnosis.odesign#//@ownedViewpoints[name='gnosis']/@ownedRepresentations[name='applicationTable']/@ownedLineMappings[name='applicationEntry']"/>
+      <cells xmi:type="table:DCell" xmi:id="_4cdHoB0hEei1gITCSpEX2A" label="" column="_P6k5KBY2EeiR5YRvEkhpDw">
+        <target xmi:type="gnosis:Application" href="sample.gnosis#//@applicationarchitecture/@application.0"/>
+        <semanticElements xmi:type="gnosis:Application" href="sample.gnosis#//@applicationarchitecture/@application.0"/>
+      </cells>
+    </lines>
+    <lines xmi:type="table:DLine" xmi:id="_4ccgkB0hEei1gITCSpEX2A" label="Application Application 2">
+      <target xmi:type="gnosis:Application" href="sample.gnosis#//@applicationarchitecture/@application.1"/>
+      <semanticElements xmi:type="gnosis:Application" href="sample.gnosis#//@applicationarchitecture/@application.1"/>
+      <originMapping xmi:type="description_2:LineMapping" href="platform:/resource/uk.org.whitecottage.gnosis.design/description/gnosis.odesign#//@ownedViewpoints[name='gnosis']/@ownedRepresentations[name='applicationTable']/@ownedLineMappings[name='applicationEntry']"/>
+      <cells xmi:type="table:DCell" xmi:id="_4cdHoR0hEei1gITCSpEX2A" label="" column="_P6k5KBY2EeiR5YRvEkhpDw">
+        <target xmi:type="gnosis:Application" href="sample.gnosis#//@applicationarchitecture/@application.1"/>
+        <semanticElements xmi:type="gnosis:Application" href="sample.gnosis#//@applicationarchitecture/@application.1"/>
+      </cells>
+    </lines>
+    <columns xmi:type="table:DFeatureColumn" xmi:id="_P6k5KBY2EeiR5YRvEkhpDw" label="Description" cells="_4cdHoB0hEei1gITCSpEX2A _4cdHoR0hEei1gITCSpEX2A" width="379" featureName="description">
+      <originMapping xmi:type="description_2:FeatureColumnMapping" href="platform:/resource/uk.org.whitecottage.gnosis.design/description/gnosis.odesign#//@ownedViewpoints[name='gnosis']/@ownedRepresentations[name='applicationTable']/@ownedColumnMappings[name='description']"/>
+    </columns>
+    <description xmi:type="description_2:EditionTableDescription" href="platform:/resource/uk.org.whitecottage.gnosis.design/description/gnosis.odesign#//@ownedViewpoints[name='gnosis']/@ownedRepresentations[name='applicationTable']"/>
+  </table:DTable>
+  <diagram:DSemanticDiagram xmi:id="_EpP8kBY7Eei03Nu6k1Wxdw" name="new Integration Diagram" uid="_EpBTEBY7Eei03Nu6k1Wxdw" synchronized="false">
+    <ownedAnnotationEntries xmi:type="description:AnnotationEntry" xmi:id="_EpP8kRY7Eei03Nu6k1Wxdw" source="DANNOTATION_CUSTOMIZATION_KEY">
+      <data xmi:type="diagram:ComputedStyleDescriptionRegistry" xmi:id="_EpP8khY7Eei03Nu6k1Wxdw"/>
+    </ownedAnnotationEntries>
+    <ownedAnnotationEntries xmi:type="description:AnnotationEntry" xmi:id="_EpbiwBY7Eei03Nu6k1Wxdw" source="GMF_DIAGRAMS">
+      <data xmi:type="notation:Diagram" xmi:id="_EpbiwRY7Eei03Nu6k1Wxdw" type="Sirius" element="_EpP8kBY7Eei03Nu6k1Wxdw" measurementUnit="Pixel">
+        <children xmi:type="notation:Node" xmi:id="_PA4pUBY8Eei03Nu6k1Wxdw" type="2001" element="_PAr1ABY8Eei03Nu6k1Wxdw">
+          <children xmi:type="notation:Node" xmi:id="_PA7soBY8Eei03Nu6k1Wxdw" type="5002">
+            <layoutConstraint xmi:type="notation:Location" xmi:id="_PA7soRY8Eei03Nu6k1Wxdw" y="5"/>
+          </children>
+          <children xmi:type="notation:Node" xmi:id="_PA9h0BY8Eei03Nu6k1Wxdw" type="3003" element="_PAr1ARY8Eei03Nu6k1Wxdw">
+            <styles xmi:type="notation:ShapeStyle" xmi:id="_PA9h0RY8Eei03Nu6k1Wxdw" fontName="Segoe UI"/>
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_PA9h0hY8Eei03Nu6k1Wxdw"/>
+          </children>
+          <styles xmi:type="notation:ShapeStyle" xmi:id="_PA4pURY8Eei03Nu6k1Wxdw" fontName="Segoe UI" fontHeight="8"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_PA4pUhY8Eei03Nu6k1Wxdw" x="192" y="240" width="156" height="61"/>
+        </children>
+        <children xmi:type="notation:Node" xmi:id="_e2G1kBY8Eei03Nu6k1Wxdw" type="2001" element="_e2DLMBY8Eei03Nu6k1Wxdw">
+          <children xmi:type="notation:Node" xmi:id="_e2G1kxY8Eei03Nu6k1Wxdw" type="5002">
+            <layoutConstraint xmi:type="notation:Location" xmi:id="_e2G1lBY8Eei03Nu6k1Wxdw" y="5"/>
+          </children>
+          <children xmi:type="notation:Node" xmi:id="_e2HcoBY8Eei03Nu6k1Wxdw" type="3003" element="_e2DLMRY8Eei03Nu6k1Wxdw">
+            <styles xmi:type="notation:ShapeStyle" xmi:id="_e2HcoRY8Eei03Nu6k1Wxdw" fontName="Segoe UI"/>
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_e2HcohY8Eei03Nu6k1Wxdw"/>
+          </children>
+          <styles xmi:type="notation:ShapeStyle" xmi:id="_e2G1kRY8Eei03Nu6k1Wxdw" fontName="Segoe UI" fontHeight="8"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_e2G1khY8Eei03Nu6k1Wxdw" x="354" y="84" width="156" height="61"/>
+        </children>
+        <children xmi:type="notation:Node" xmi:id="_QQcDUBZVEei03Nu6k1Wxdw" type="2001" element="_QQZAABZVEei03Nu6k1Wxdw">
+          <children xmi:type="notation:Node" xmi:id="_QQcqYBZVEei03Nu6k1Wxdw" type="5002">
+            <layoutConstraint xmi:type="notation:Location" xmi:id="_QQcqYRZVEei03Nu6k1Wxdw" y="5"/>
+          </children>
+          <children xmi:type="notation:Node" xmi:id="_QQcqYhZVEei03Nu6k1Wxdw" type="3003" element="_QQZAARZVEei03Nu6k1Wxdw">
+            <styles xmi:type="notation:ShapeStyle" xmi:id="_QQcqYxZVEei03Nu6k1Wxdw" fontName="Segoe UI"/>
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_QQcqZBZVEei03Nu6k1Wxdw"/>
+          </children>
+          <styles xmi:type="notation:ShapeStyle" xmi:id="_QQcDURZVEei03Nu6k1Wxdw" fontName="Segoe UI" fontHeight="8"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_QQcDUhZVEei03Nu6k1Wxdw" x="576" y="252" width="229" height="61"/>
+        </children>
+        <children xmi:type="notation:Node" xmi:id="_kROEABeoEei2QqmAoX1KQg" type="2001" element="_kRBPsBeoEei2QqmAoX1KQg">
+          <children xmi:type="notation:Node" xmi:id="_kRUxsBeoEei2QqmAoX1KQg" type="5002">
+            <layoutConstraint xmi:type="notation:Location" xmi:id="_kRUxsReoEei2QqmAoX1KQg" y="5"/>
+          </children>
+          <children xmi:type="notation:Node" xmi:id="_kRWm4BeoEei2QqmAoX1KQg" type="3003" element="_kRBPsReoEei2QqmAoX1KQg">
+            <styles xmi:type="notation:ShapeStyle" xmi:id="_kRWm4ReoEei2QqmAoX1KQg" fontName="Segoe UI"/>
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_kRWm4heoEei2QqmAoX1KQg"/>
+          </children>
+          <styles xmi:type="notation:ShapeStyle" xmi:id="_kROEAReoEei2QqmAoX1KQg" fontName="Segoe UI" fontHeight="8"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_kROEAheoEei2QqmAoX1KQg" x="828" y="126" width="211" height="61"/>
+        </children>
+        <styles xmi:type="notation:DiagramStyle" xmi:id="_EpbiwhY7Eei03Nu6k1Wxdw"/>
+        <edges xmi:type="notation:Edge" xmi:id="_5AjdABesEei2QqmAoX1KQg" type="4001" element="_5AcIQBesEei2QqmAoX1KQg" source="_e2G1kBY8Eei03Nu6k1Wxdw" target="_PA4pUBY8Eei03Nu6k1Wxdw">
+          <children xmi:type="notation:Node" xmi:id="_5AkEEBesEei2QqmAoX1KQg" type="6001">
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_5AkEEResEei2QqmAoX1KQg" y="-10"/>
+          </children>
+          <children xmi:type="notation:Node" xmi:id="_5AkEEhesEei2QqmAoX1KQg" type="6002">
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_5AkEExesEei2QqmAoX1KQg" y="10"/>
+          </children>
+          <children xmi:type="notation:Node" xmi:id="_5AkEFBesEei2QqmAoX1KQg" type="6003">
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_5AkEFResEei2QqmAoX1KQg" y="10"/>
+          </children>
+          <styles xmi:type="notation:ConnectorStyle" xmi:id="_5AjdAResEei2QqmAoX1KQg"/>
+          <styles xmi:type="notation:FontStyle" xmi:id="_5AjdAhesEei2QqmAoX1KQg" fontName="Segoe UI" fontHeight="8"/>
+          <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_5AjdAxesEei2QqmAoX1KQg" points="[0, 0, 102, -95]$[-102, 95, 0, 0]"/>
+          <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_5AkrIBesEei2QqmAoX1KQg" id="(0.46153846153846156,1.0)"/>
+          <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_5AkrIResEei2QqmAoX1KQg" id="(0.8461538461538461,0.0)"/>
+        </edges>
+        <edges xmi:type="notation:Edge" xmi:id="_DupQABewEeiIbdiJtdJERw" type="4001" element="_DuRckBewEeiIbdiJtdJERw" source="_PA4pUBY8Eei03Nu6k1Wxdw" target="_QQcDUBZVEei03Nu6k1Wxdw">
+          <children xmi:type="notation:Node" xmi:id="_Du8yABewEeiIbdiJtdJERw" type="6001">
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_Du8yARewEeiIbdiJtdJERw" y="-10"/>
+          </children>
+          <children xmi:type="notation:Node" xmi:id="_Du9ZEBewEeiIbdiJtdJERw" type="6002">
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_Du9ZERewEeiIbdiJtdJERw" y="10"/>
+          </children>
+          <children xmi:type="notation:Node" xmi:id="_Du_OQBewEeiIbdiJtdJERw" type="6003">
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_Du_OQRewEeiIbdiJtdJERw" y="10"/>
+          </children>
+          <styles xmi:type="notation:ConnectorStyle" xmi:id="_DupQARewEeiIbdiJtdJERw"/>
+          <styles xmi:type="notation:FontStyle" xmi:id="_DupQAhewEeiIbdiJtdJERw" fontName="Segoe UI" fontHeight="8"/>
+          <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_DupQAxewEeiIbdiJtdJERw" points="[0, 0, -228, 0]$[228, 0, 0, 0]"/>
+          <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_DvCRkBewEeiIbdiJtdJERw" id="(1.0,0.6885245901639344)"/>
+          <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_DvCRkRewEeiIbdiJtdJERw" id="(0.0,0.4918032786885246)"/>
+        </edges>
+        <edges xmi:type="notation:Edge" xmi:id="_3l23oBgPEeia5eTjXxsC-g" type="4001" element="_3ld2EBgPEeia5eTjXxsC-g" source="_kROEABeoEei2QqmAoX1KQg" target="_QQcDUBZVEei03Nu6k1Wxdw">
+          <children xmi:type="notation:Node" xmi:id="_3l7wIBgPEeia5eTjXxsC-g" type="6001">
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_3l7wIRgPEeia5eTjXxsC-g" y="-10"/>
+          </children>
+          <children xmi:type="notation:Node" xmi:id="_3l8XMBgPEeia5eTjXxsC-g" type="6002">
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_3l8XMRgPEeia5eTjXxsC-g" y="10"/>
+          </children>
+          <children xmi:type="notation:Node" xmi:id="_3l8-QBgPEeia5eTjXxsC-g" type="6003">
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_3l8-QRgPEeia5eTjXxsC-g" y="10"/>
+          </children>
+          <styles xmi:type="notation:ConnectorStyle" xmi:id="_3l23oRgPEeia5eTjXxsC-g"/>
+          <styles xmi:type="notation:FontStyle" xmi:id="_3l23ohgPEeia5eTjXxsC-g" fontName="Segoe UI" fontHeight="8"/>
+          <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_3l23oxgPEeia5eTjXxsC-g" points="[0, 0, 186, -65]$[-186, 65, 0, 0]"/>
+          <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_3l-zcBgPEeia5eTjXxsC-g" id="(0.2843601895734597,1.0)"/>
+          <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_3l-zcRgPEeia5eTjXxsC-g" id="(0.5502183406113537,0.0)"/>
+        </edges>
+        <edges xmi:type="notation:Edge" xmi:id="_4y4EYBgPEeia5eTjXxsC-g" type="4001" element="_4yr3IBgPEeia5eTjXxsC-g" source="_e2G1kBY8Eei03Nu6k1Wxdw" target="_kROEABeoEei2QqmAoX1KQg">
+          <children xmi:type="notation:Node" xmi:id="_4y4rcBgPEeia5eTjXxsC-g" type="6001">
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_4y4rcRgPEeia5eTjXxsC-g" y="-10"/>
+          </children>
+          <children xmi:type="notation:Node" xmi:id="_4y4rchgPEeia5eTjXxsC-g" type="6002">
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_4y4rcxgPEeia5eTjXxsC-g" y="10"/>
+          </children>
+          <children xmi:type="notation:Node" xmi:id="_4y4rdBgPEeia5eTjXxsC-g" type="6003">
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_4y4rdRgPEeia5eTjXxsC-g" y="10"/>
+          </children>
+          <styles xmi:type="notation:ConnectorStyle" xmi:id="_4y4EYRgPEeia5eTjXxsC-g"/>
+          <styles xmi:type="notation:FontStyle" xmi:id="_4y4EYhgPEeia5eTjXxsC-g" fontName="Segoe UI" fontHeight="8"/>
+          <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_4y4EYxgPEeia5eTjXxsC-g" points="[0, 0, -318, -24]$[318, 24, 0, 0]"/>
+          <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_4y5SgBgPEeia5eTjXxsC-g" id="(1.0,0.7868852459016393)"/>
+          <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_4y5SgRgPEeia5eTjXxsC-g" id="(0.0,0.4918032786885246)"/>
+        </edges>
+      </data>
+    </ownedAnnotationEntries>
+    <ownedDiagramElements xmi:type="diagram:DNode" xmi:id="_PAr1ABY8Eei03Nu6k1Wxdw" name="Customer MDM" outgoingEdges="_DuRckBewEeiIbdiJtdJERw" incomingEdges="_5AcIQBesEei2QqmAoX1KQg" width="3" height="3" resizeKind="NSEW">
+      <target xmi:type="gnosis:LogicalApplication" href="sample.gnosis#//@logicalapplicationarchitecture/@applicationdomain.1/@applicationdomain.0/@logicalapplication.1"/>
+      <semanticElements xmi:type="gnosis:LogicalApplication" href="sample.gnosis#//@logicalapplicationarchitecture/@applicationdomain.1/@applicationdomain.0/@logicalapplication.1"/>
+      <ownedStyle xmi:type="diagram:Square" xmi:id="_PAr1ARY8Eei03Nu6k1Wxdw" labelPosition="node" color="194,239,255">
+        <description xmi:type="style:SquareDescription" href="platform:/resource/uk.org.whitecottage.gnosis.design/description/gnosis.odesign#//@ownedViewpoints[name='gnosis']/@ownedRepresentations[name='integrationDiagram']/@defaultLayer/@nodeMappings[name='logicalApplication']/@style"/>
+      </ownedStyle>
+      <actualMapping xmi:type="description_1:NodeMapping" href="platform:/resource/uk.org.whitecottage.gnosis.design/description/gnosis.odesign#//@ownedViewpoints[name='gnosis']/@ownedRepresentations[name='integrationDiagram']/@defaultLayer/@nodeMappings[name='logicalApplication']"/>
+    </ownedDiagramElements>
+    <ownedDiagramElements xmi:type="diagram:DNode" xmi:id="_e2DLMBY8Eei03Nu6k1Wxdw" name="Customer Case Management" outgoingEdges="_5AcIQBesEei2QqmAoX1KQg _4yr3IBgPEeia5eTjXxsC-g" width="3" height="3" resizeKind="NSEW">
+      <target xmi:type="gnosis:LogicalApplication" href="sample.gnosis#//@logicalapplicationarchitecture/@applicationdomain.0/@applicationdomain.0/@logicalapplication.1"/>
+      <semanticElements xmi:type="gnosis:LogicalApplication" href="sample.gnosis#//@logicalapplicationarchitecture/@applicationdomain.0/@applicationdomain.0/@logicalapplication.1"/>
+      <arrangeConstraints>KEEP_LOCATION</arrangeConstraints>
+      <arrangeConstraints>KEEP_SIZE</arrangeConstraints>
+      <arrangeConstraints>KEEP_RATIO</arrangeConstraints>
+      <ownedStyle xmi:type="diagram:Square" xmi:id="_e2DLMRY8Eei03Nu6k1Wxdw" labelPosition="node" color="194,239,255">
+        <description xmi:type="style:SquareDescription" href="platform:/resource/uk.org.whitecottage.gnosis.design/description/gnosis.odesign#//@ownedViewpoints[name='gnosis']/@ownedRepresentations[name='integrationDiagram']/@defaultLayer/@nodeMappings[name='logicalApplication']/@style"/>
+      </ownedStyle>
+      <actualMapping xmi:type="description_1:NodeMapping" href="platform:/resource/uk.org.whitecottage.gnosis.design/description/gnosis.odesign#//@ownedViewpoints[name='gnosis']/@ownedRepresentations[name='integrationDiagram']/@defaultLayer/@nodeMappings[name='logicalApplication']"/>
+    </ownedDiagramElements>
+    <ownedDiagramElements xmi:type="diagram:DNode" xmi:id="_QQZAABZVEei03Nu6k1Wxdw" name="Application 1" incomingEdges="_DuRckBewEeiIbdiJtdJERw _3ld2EBgPEeia5eTjXxsC-g" width="3" height="3" resizeKind="NSEW">
+      <target xmi:type="gnosis:Application" href="sample.gnosis#//@applicationarchitecture/@application.0"/>
+      <semanticElements xmi:type="gnosis:Application" href="sample.gnosis#//@applicationarchitecture/@application.0"/>
+      <ownedStyle xmi:type="diagram:Square" xmi:id="_QQZAARZVEei03Nu6k1Wxdw" labelPosition="node" color="204,242,166">
+        <description xmi:type="style:SquareDescription" href="platform:/resource/uk.org.whitecottage.gnosis.design/description/gnosis.odesign#//@ownedViewpoints[name='gnosis']/@ownedRepresentations[name='integrationDiagram']/@defaultLayer/@nodeMappings[name='application']/@style"/>
+      </ownedStyle>
+      <actualMapping xmi:type="description_1:NodeMapping" href="platform:/resource/uk.org.whitecottage.gnosis.design/description/gnosis.odesign#//@ownedViewpoints[name='gnosis']/@ownedRepresentations[name='integrationDiagram']/@defaultLayer/@nodeMappings[name='application']"/>
+    </ownedDiagramElements>
+    <ownedDiagramElements xmi:type="diagram:DNode" xmi:id="_kRBPsBeoEei2QqmAoX1KQg" name="Application 2" outgoingEdges="_3ld2EBgPEeia5eTjXxsC-g" incomingEdges="_4yr3IBgPEeia5eTjXxsC-g" width="3" height="3" resizeKind="NSEW">
+      <target xmi:type="gnosis:Application" href="sample.gnosis#//@applicationarchitecture/@application.1"/>
+      <semanticElements xmi:type="gnosis:Application" href="sample.gnosis#//@applicationarchitecture/@application.1"/>
+      <ownedStyle xmi:type="diagram:Square" xmi:id="_kRBPsReoEei2QqmAoX1KQg" labelPosition="node" color="204,242,166">
+        <description xmi:type="style:SquareDescription" href="platform:/resource/uk.org.whitecottage.gnosis.design/description/gnosis.odesign#//@ownedViewpoints[name='gnosis']/@ownedRepresentations[name='integrationDiagram']/@defaultLayer/@nodeMappings[name='application']/@style"/>
+      </ownedStyle>
+      <actualMapping xmi:type="description_1:NodeMapping" href="platform:/resource/uk.org.whitecottage.gnosis.design/description/gnosis.odesign#//@ownedViewpoints[name='gnosis']/@ownedRepresentations[name='integrationDiagram']/@defaultLayer/@nodeMappings[name='application']"/>
+    </ownedDiagramElements>
+    <ownedDiagramElements xmi:type="diagram:DEdge" xmi:id="_5AcIQBesEei2QqmAoX1KQg" sourceNode="_e2DLMBY8Eei03Nu6k1Wxdw" targetNode="_PAr1ABY8Eei03Nu6k1Wxdw">
+      <target xmi:type="gnosis:Integration" href="sample.gnosis#//@integrationarchitecture/@integration.0"/>
+      <semanticElements xmi:type="gnosis:Integration" href="sample.gnosis#//@integrationarchitecture/@integration.0"/>
+      <ownedStyle xmi:type="diagram:EdgeStyle" xmi:id="_5AcvUBesEei2QqmAoX1KQg" size="2">
+        <description xmi:type="style:EdgeStyleDescription" href="platform:/resource/uk.org.whitecottage.gnosis.design/description/gnosis.odesign#//@ownedViewpoints[name='gnosis']/@ownedRepresentations[name='integrationDiagram']/@defaultLayer/@edgeMappings[name='integration']/@style"/>
+        <centerLabelStyle xmi:type="diagram:CenterLabelStyle" xmi:id="_5AcvUResEei2QqmAoX1KQg"/>
+      </ownedStyle>
+      <actualMapping xmi:type="description_1:EdgeMapping" href="platform:/resource/uk.org.whitecottage.gnosis.design/description/gnosis.odesign#//@ownedViewpoints[name='gnosis']/@ownedRepresentations[name='integrationDiagram']/@defaultLayer/@edgeMappings[name='integration']"/>
+    </ownedDiagramElements>
+    <ownedDiagramElements xmi:type="diagram:DEdge" xmi:id="_DuRckBewEeiIbdiJtdJERw" sourceNode="_PAr1ABY8Eei03Nu6k1Wxdw" targetNode="_QQZAABZVEei03Nu6k1Wxdw">
+      <target xmi:type="gnosis:Integration" href="sample.gnosis#//@integrationarchitecture/@integration.1"/>
+      <semanticElements xmi:type="gnosis:Integration" href="sample.gnosis#//@integrationarchitecture/@integration.1"/>
+      <ownedStyle xmi:type="diagram:EdgeStyle" xmi:id="_DuSqsBewEeiIbdiJtdJERw" size="2">
+        <description xmi:type="style:EdgeStyleDescription" href="platform:/resource/uk.org.whitecottage.gnosis.design/description/gnosis.odesign#//@ownedViewpoints[name='gnosis']/@ownedRepresentations[name='integrationDiagram']/@defaultLayer/@edgeMappings[name='integration']/@style"/>
+        <centerLabelStyle xmi:type="diagram:CenterLabelStyle" xmi:id="_DuSqsRewEeiIbdiJtdJERw"/>
+      </ownedStyle>
+      <actualMapping xmi:type="description_1:EdgeMapping" href="platform:/resource/uk.org.whitecottage.gnosis.design/description/gnosis.odesign#//@ownedViewpoints[name='gnosis']/@ownedRepresentations[name='integrationDiagram']/@defaultLayer/@edgeMappings[name='integration']"/>
+    </ownedDiagramElements>
+    <ownedDiagramElements xmi:type="diagram:DEdge" xmi:id="_3ld2EBgPEeia5eTjXxsC-g" sourceNode="_kRBPsBeoEei2QqmAoX1KQg" targetNode="_QQZAABZVEei03Nu6k1Wxdw">
+      <target xmi:type="gnosis:Integration" href="sample.gnosis#//@integrationarchitecture/@integration.2"/>
+      <semanticElements xmi:type="gnosis:Integration" href="sample.gnosis#//@integrationarchitecture/@integration.2"/>
+      <ownedStyle xmi:type="diagram:EdgeStyle" xmi:id="_3ledIBgPEeia5eTjXxsC-g" size="2">
+        <description xmi:type="style:EdgeStyleDescription" href="platform:/resource/uk.org.whitecottage.gnosis.design/description/gnosis.odesign#//@ownedViewpoints[name='gnosis']/@ownedRepresentations[name='integrationDiagram']/@defaultLayer/@edgeMappings[name='integration']/@style"/>
+        <centerLabelStyle xmi:type="diagram:CenterLabelStyle" xmi:id="_3ledIRgPEeia5eTjXxsC-g"/>
+      </ownedStyle>
+      <actualMapping xmi:type="description_1:EdgeMapping" href="platform:/resource/uk.org.whitecottage.gnosis.design/description/gnosis.odesign#//@ownedViewpoints[name='gnosis']/@ownedRepresentations[name='integrationDiagram']/@defaultLayer/@edgeMappings[name='integration']"/>
+    </ownedDiagramElements>
+    <ownedDiagramElements xmi:type="diagram:DEdge" xmi:id="_4yr3IBgPEeia5eTjXxsC-g" sourceNode="_e2DLMBY8Eei03Nu6k1Wxdw" targetNode="_kRBPsBeoEei2QqmAoX1KQg">
+      <target xmi:type="gnosis:Integration" href="sample.gnosis#//@integrationarchitecture/@integration.3"/>
+      <semanticElements xmi:type="gnosis:Integration" href="sample.gnosis#//@integrationarchitecture/@integration.3"/>
+      <ownedStyle xmi:type="diagram:EdgeStyle" xmi:id="_4yr3IRgPEeia5eTjXxsC-g" size="2">
+        <description xmi:type="style:EdgeStyleDescription" href="platform:/resource/uk.org.whitecottage.gnosis.design/description/gnosis.odesign#//@ownedViewpoints[name='gnosis']/@ownedRepresentations[name='integrationDiagram']/@defaultLayer/@edgeMappings[name='integration']/@style"/>
+        <centerLabelStyle xmi:type="diagram:CenterLabelStyle" xmi:id="_4yseMBgPEeia5eTjXxsC-g"/>
+      </ownedStyle>
+      <actualMapping xmi:type="description_1:EdgeMapping" href="platform:/resource/uk.org.whitecottage.gnosis.design/description/gnosis.odesign#//@ownedViewpoints[name='gnosis']/@ownedRepresentations[name='integrationDiagram']/@defaultLayer/@edgeMappings[name='integration']"/>
+    </ownedDiagramElements>
+    <description xmi:type="description_1:DiagramDescription" href="platform:/resource/uk.org.whitecottage.gnosis.design/description/gnosis.odesign#//@ownedViewpoints[name='gnosis']/@ownedRepresentations[name='integrationDiagram']"/>
+    <filterVariableHistory xmi:type="diagram:FilterVariableHistory" xmi:id="_EpP8lBY7Eei03Nu6k1Wxdw"/>
+    <activatedLayers xmi:type="description_1:Layer" href="platform:/resource/uk.org.whitecottage.gnosis.design/description/gnosis.odesign#//@ownedViewpoints[name='gnosis']/@ownedRepresentations[name='integrationDiagram']/@defaultLayer"/>
+    <target xmi:type="gnosis:IntegrationArchitecture" href="sample.gnosis#//@integrationarchitecture"/>
+  </diagram:DSemanticDiagram>
+  <tree:DTree xmi:id="_qdBw8BvEEei46t2rN6-8mA" name="Process Taxonomy" uid="_qctA0BvEEei46t2rN6-8mA">
+    <target xmi:type="gnosis:ProcessTaxonomy" href="sample.gnosis#//@processarchitecture/@processtaxonomy"/>
+    <ownedTreeItems xmi:type="tree:DTreeItem" xmi:id="_z4VNwBvEEei46t2rN6-8mA" name="Develop Vision and Strategy">
+      <target xmi:type="gnosis:Activity" href="sample.gnosis#//@processarchitecture/@processtaxonomy/@activity.0"/>
+      <ownedTreeItems xmi:type="tree:DTreeItem" xmi:id="_6X0ZsBvEEei46t2rN6-8mA" name="Define the business concept and long-term vision" expanded="true">
+        <target xmi:type="gnosis:Activity" href="sample.gnosis#//@processarchitecture/@processtaxonomy/@activity.0/@activity.0"/>
+        <ownedTreeItems xmi:type="tree:DTreeItem" xmi:id="_64PmMBvEEei46t2rN6-8mA" name="Assess the external environment" expanded="true">
+          <target xmi:type="gnosis:Activity" href="sample.gnosis#//@processarchitecture/@processtaxonomy/@activity.0/@activity.0/@activity.0"/>
+          <ownedTreeItems xmi:type="tree:DTreeItem" xmi:id="_7COBkBvEEei46t2rN6-8mA" name="Analyze and evaluate competition">
+            <target xmi:type="gnosis:Activity" href="sample.gnosis#//@processarchitecture/@processtaxonomy/@activity.0/@activity.0/@activity.0/@activity.0"/>
+            <semanticElements xmi:type="gnosis:Activity" href="sample.gnosis#//@processarchitecture/@processtaxonomy/@activity.0/@activity.0/@activity.0/@activity.0"/>
+            <ownedStyle xmi:type="tree:TreeItemStyle" xmi:id="_7COBkRvEEei46t2rN6-8mA"/>
+            <actualMapping xmi:type="description_3:TreeItemMapping" href="platform:/resource/uk.org.whitecottage.gnosis.design/description/gnosis.odesign#//@ownedViewpoints[name='gnosis']/@ownedRepresentations[name='processTaxonomy']/@subItemMappings[name='activity']"/>
+          </ownedTreeItems>
+          <ownedTreeItems xmi:type="tree:DTreeItem" xmi:id="_7w66oBvEEei46t2rN6-8mA" name="Identify economic trends">
+            <target xmi:type="gnosis:Activity" href="sample.gnosis#//@processarchitecture/@processtaxonomy/@activity.0/@activity.0/@activity.0/@activity.1"/>
+            <semanticElements xmi:type="gnosis:Activity" href="sample.gnosis#//@processarchitecture/@processtaxonomy/@activity.0/@activity.0/@activity.0/@activity.1"/>
+            <ownedStyle xmi:type="tree:TreeItemStyle" xmi:id="_7w66oRvEEei46t2rN6-8mA"/>
+            <actualMapping xmi:type="description_3:TreeItemMapping" href="platform:/resource/uk.org.whitecottage.gnosis.design/description/gnosis.odesign#//@ownedViewpoints[name='gnosis']/@ownedRepresentations[name='processTaxonomy']/@subItemMappings[name='activity']"/>
+          </ownedTreeItems>
+          <ownedTreeItems xmi:type="tree:DTreeItem" xmi:id="_7w7hsBvEEei46t2rN6-8mA" name="Identify political and regulatory issues">
+            <target xmi:type="gnosis:Activity" href="sample.gnosis#//@processarchitecture/@processtaxonomy/@activity.0/@activity.0/@activity.0/@activity.2"/>
+            <semanticElements xmi:type="gnosis:Activity" href="sample.gnosis#//@processarchitecture/@processtaxonomy/@activity.0/@activity.0/@activity.0/@activity.2"/>
+            <ownedStyle xmi:type="tree:TreeItemStyle" xmi:id="_7w7hsRvEEei46t2rN6-8mA"/>
+            <actualMapping xmi:type="description_3:TreeItemMapping" href="platform:/resource/uk.org.whitecottage.gnosis.design/description/gnosis.odesign#//@ownedViewpoints[name='gnosis']/@ownedRepresentations[name='processTaxonomy']/@subItemMappings[name='activity']"/>
+          </ownedTreeItems>
+          <ownedTreeItems xmi:type="tree:DTreeItem" xmi:id="_7w_zIBvEEei46t2rN6-8mA" name="Assess new technology innovations">
+            <target xmi:type="gnosis:Activity" href="sample.gnosis#//@processarchitecture/@processtaxonomy/@activity.0/@activity.0/@activity.0/@activity.3"/>
+            <semanticElements xmi:type="gnosis:Activity" href="sample.gnosis#//@processarchitecture/@processtaxonomy/@activity.0/@activity.0/@activity.0/@activity.3"/>
+            <ownedStyle xmi:type="tree:TreeItemStyle" xmi:id="_7w_zIRvEEei46t2rN6-8mA"/>
+            <actualMapping xmi:type="description_3:TreeItemMapping" href="platform:/resource/uk.org.whitecottage.gnosis.design/description/gnosis.odesign#//@ownedViewpoints[name='gnosis']/@ownedRepresentations[name='processTaxonomy']/@subItemMappings[name='activity']"/>
+          </ownedTreeItems>
+          <ownedTreeItems xmi:type="tree:DTreeItem" xmi:id="_7w_zIhvEEei46t2rN6-8mA" name="Analyze demographics">
+            <target xmi:type="gnosis:Activity" href="sample.gnosis#//@processarchitecture/@processtaxonomy/@activity.0/@activity.0/@activity.0/@activity.4"/>
+            <semanticElements xmi:type="gnosis:Activity" href="sample.gnosis#//@processarchitecture/@processtaxonomy/@activity.0/@activity.0/@activity.0/@activity.4"/>
+            <ownedStyle xmi:type="tree:TreeItemStyle" xmi:id="_7w_zIxvEEei46t2rN6-8mA"/>
+            <actualMapping xmi:type="description_3:TreeItemMapping" href="platform:/resource/uk.org.whitecottage.gnosis.design/description/gnosis.odesign#//@ownedViewpoints[name='gnosis']/@ownedRepresentations[name='processTaxonomy']/@subItemMappings[name='activity']"/>
+          </ownedTreeItems>
+          <ownedTreeItems xmi:type="tree:DTreeItem" xmi:id="_7xAaMBvEEei46t2rN6-8mA" name="Identify social and cultural changes">
+            <target xmi:type="gnosis:Activity" href="sample.gnosis#//@processarchitecture/@processtaxonomy/@activity.0/@activity.0/@activity.0/@activity.5"/>
+            <semanticElements xmi:type="gnosis:Activity" href="sample.gnosis#//@processarchitecture/@processtaxonomy/@activity.0/@activity.0/@activity.0/@activity.5"/>
+            <ownedStyle xmi:type="tree:TreeItemStyle" xmi:id="_7xAaMRvEEei46t2rN6-8mA"/>
+            <actualMapping xmi:type="description_3:TreeItemMapping" href="platform:/resource/uk.org.whitecottage.gnosis.design/description/gnosis.odesign#//@ownedViewpoints[name='gnosis']/@ownedRepresentations[name='processTaxonomy']/@subItemMappings[name='activity']"/>
+          </ownedTreeItems>
+          <ownedTreeItems xmi:type="tree:DTreeItem" xmi:id="_7xBBQBvEEei46t2rN6-8mA" name="Identify ecological concerns">
+            <target xmi:type="gnosis:Activity" href="sample.gnosis#//@processarchitecture/@processtaxonomy/@activity.0/@activity.0/@activity.0/@activity.6"/>
+            <semanticElements xmi:type="gnosis:Activity" href="sample.gnosis#//@processarchitecture/@processtaxonomy/@activity.0/@activity.0/@activity.0/@activity.6"/>
+            <ownedStyle xmi:type="tree:TreeItemStyle" xmi:id="_7xBBQRvEEei46t2rN6-8mA"/>
+            <actualMapping xmi:type="description_3:TreeItemMapping" href="platform:/resource/uk.org.whitecottage.gnosis.design/description/gnosis.odesign#//@ownedViewpoints[name='gnosis']/@ownedRepresentations[name='processTaxonomy']/@subItemMappings[name='activity']"/>
+          </ownedTreeItems>
+          <semanticElements xmi:type="gnosis:Activity" href="sample.gnosis#//@processarchitecture/@processtaxonomy/@activity.0/@activity.0/@activity.0"/>
+          <ownedStyle xmi:type="tree:TreeItemStyle" xmi:id="_64PmMRvEEei46t2rN6-8mA"/>
+          <actualMapping xmi:type="description_3:TreeItemMapping" href="platform:/resource/uk.org.whitecottage.gnosis.design/description/gnosis.odesign#//@ownedViewpoints[name='gnosis']/@ownedRepresentations[name='processTaxonomy']/@subItemMappings[name='activity']"/>
+        </ownedTreeItems>
+        <ownedTreeItems xmi:type="tree:DTreeItem" xmi:id="_7CMzcBvEEei46t2rN6-8mA" name="Survey market and determine customer needs and wants">
+          <target xmi:type="gnosis:Activity" href="sample.gnosis#//@processarchitecture/@processtaxonomy/@activity.0/@activity.0/@activity.1"/>
+          <ownedTreeItems xmi:type="tree:DTreeItem" xmi:id="_7COBkhvEEei46t2rN6-8mA">
+            <target xmi:type="gnosis:Activity" href="sample.gnosis#//@processarchitecture/@processtaxonomy/@activity.0/@activity.0/@activity.1/@activity.0"/>
+            <semanticElements xmi:type="gnosis:Activity" href="sample.gnosis#//@processarchitecture/@processtaxonomy/@activity.0/@activity.0/@activity.1/@activity.0"/>
+            <ownedStyle xmi:type="tree:TreeItemStyle" xmi:id="_7COBkxvEEei46t2rN6-8mA" labelColor="209,209,209" backgroundColor="209,209,209"/>
+            <actualMapping xmi:type="description_3:TreeItemMapping" href="platform:/resource/uk.org.whitecottage.gnosis.design/description/gnosis.odesign#//@ownedViewpoints[name='gnosis']/@ownedRepresentations[name='processTaxonomy']/@subItemMappings[name='activity']"/>
+          </ownedTreeItems>
+          <semanticElements xmi:type="gnosis:Activity" href="sample.gnosis#//@processarchitecture/@processtaxonomy/@activity.0/@activity.0/@activity.1"/>
+          <ownedStyle xmi:type="tree:TreeItemStyle" xmi:id="_7CMzcRvEEei46t2rN6-8mA"/>
+          <actualMapping xmi:type="description_3:TreeItemMapping" href="platform:/resource/uk.org.whitecottage.gnosis.design/description/gnosis.odesign#//@ownedViewpoints[name='gnosis']/@ownedRepresentations[name='processTaxonomy']/@subItemMappings[name='activity']"/>
+        </ownedTreeItems>
+        <ownedTreeItems xmi:type="tree:DTreeItem" xmi:id="_7CNagBvEEei46t2rN6-8mA" name="Perform internal analysis">
+          <target xmi:type="gnosis:Activity" href="sample.gnosis#//@processarchitecture/@processtaxonomy/@activity.0/@activity.0/@activity.2"/>
+          <ownedTreeItems xmi:type="tree:DTreeItem" xmi:id="_7COBlBvEEei46t2rN6-8mA">
+            <target xmi:type="gnosis:Activity" href="sample.gnosis#//@processarchitecture/@processtaxonomy/@activity.0/@activity.0/@activity.2/@activity.0"/>
+            <semanticElements xmi:type="gnosis:Activity" href="sample.gnosis#//@processarchitecture/@processtaxonomy/@activity.0/@activity.0/@activity.2/@activity.0"/>
+            <ownedStyle xmi:type="tree:TreeItemStyle" xmi:id="_7COBlRvEEei46t2rN6-8mA" labelColor="209,209,209" backgroundColor="209,209,209"/>
+            <actualMapping xmi:type="description_3:TreeItemMapping" href="platform:/resource/uk.org.whitecottage.gnosis.design/description/gnosis.odesign#//@ownedViewpoints[name='gnosis']/@ownedRepresentations[name='processTaxonomy']/@subItemMappings[name='activity']"/>
+          </ownedTreeItems>
+          <semanticElements xmi:type="gnosis:Activity" href="sample.gnosis#//@processarchitecture/@processtaxonomy/@activity.0/@activity.0/@activity.2"/>
+          <ownedStyle xmi:type="tree:TreeItemStyle" xmi:id="_7CNagRvEEei46t2rN6-8mA"/>
+          <actualMapping xmi:type="description_3:TreeItemMapping" href="platform:/resource/uk.org.whitecottage.gnosis.design/description/gnosis.odesign#//@ownedViewpoints[name='gnosis']/@ownedRepresentations[name='processTaxonomy']/@subItemMappings[name='activity']"/>
+        </ownedTreeItems>
+        <ownedTreeItems xmi:type="tree:DTreeItem" xmi:id="_7CNaghvEEei46t2rN6-8mA" name="Establish strategic vision">
+          <target xmi:type="gnosis:Activity" href="sample.gnosis#//@processarchitecture/@processtaxonomy/@activity.0/@activity.0/@activity.3"/>
+          <ownedTreeItems xmi:type="tree:DTreeItem" xmi:id="_7COooBvEEei46t2rN6-8mA">
+            <target xmi:type="gnosis:Activity" href="sample.gnosis#//@processarchitecture/@processtaxonomy/@activity.0/@activity.0/@activity.3/@activity.0"/>
+            <semanticElements xmi:type="gnosis:Activity" href="sample.gnosis#//@processarchitecture/@processtaxonomy/@activity.0/@activity.0/@activity.3/@activity.0"/>
+            <ownedStyle xmi:type="tree:TreeItemStyle" xmi:id="_7COooRvEEei46t2rN6-8mA" labelColor="209,209,209" backgroundColor="209,209,209"/>
+            <actualMapping xmi:type="description_3:TreeItemMapping" href="platform:/resource/uk.org.whitecottage.gnosis.design/description/gnosis.odesign#//@ownedViewpoints[name='gnosis']/@ownedRepresentations[name='processTaxonomy']/@subItemMappings[name='activity']"/>
+          </ownedTreeItems>
+          <semanticElements xmi:type="gnosis:Activity" href="sample.gnosis#//@processarchitecture/@processtaxonomy/@activity.0/@activity.0/@activity.3"/>
+          <ownedStyle xmi:type="tree:TreeItemStyle" xmi:id="_7CNagxvEEei46t2rN6-8mA"/>
+          <actualMapping xmi:type="description_3:TreeItemMapping" href="platform:/resource/uk.org.whitecottage.gnosis.design/description/gnosis.odesign#//@ownedViewpoints[name='gnosis']/@ownedRepresentations[name='processTaxonomy']/@subItemMappings[name='activity']"/>
+        </ownedTreeItems>
+        <ownedTreeItems xmi:type="tree:DTreeItem" xmi:id="_7CNahBvEEei46t2rN6-8mA" name="Conduct organization restructuring opportunities">
+          <target xmi:type="gnosis:Activity" href="sample.gnosis#//@processarchitecture/@processtaxonomy/@activity.0/@activity.0/@activity.4"/>
+          <ownedTreeItems xmi:type="tree:DTreeItem" xmi:id="_7COoohvEEei46t2rN6-8mA">
+            <target xmi:type="gnosis:Activity" href="sample.gnosis#//@processarchitecture/@processtaxonomy/@activity.0/@activity.0/@activity.4/@activity.0"/>
+            <semanticElements xmi:type="gnosis:Activity" href="sample.gnosis#//@processarchitecture/@processtaxonomy/@activity.0/@activity.0/@activity.4/@activity.0"/>
+            <ownedStyle xmi:type="tree:TreeItemStyle" xmi:id="_7COooxvEEei46t2rN6-8mA" labelColor="209,209,209" backgroundColor="209,209,209"/>
+            <actualMapping xmi:type="description_3:TreeItemMapping" href="platform:/resource/uk.org.whitecottage.gnosis.design/description/gnosis.odesign#//@ownedViewpoints[name='gnosis']/@ownedRepresentations[name='processTaxonomy']/@subItemMappings[name='activity']"/>
+          </ownedTreeItems>
+          <semanticElements xmi:type="gnosis:Activity" href="sample.gnosis#//@processarchitecture/@processtaxonomy/@activity.0/@activity.0/@activity.4"/>
+          <ownedStyle xmi:type="tree:TreeItemStyle" xmi:id="_7CNahRvEEei46t2rN6-8mA"/>
+          <actualMapping xmi:type="description_3:TreeItemMapping" href="platform:/resource/uk.org.whitecottage.gnosis.design/description/gnosis.odesign#//@ownedViewpoints[name='gnosis']/@ownedRepresentations[name='processTaxonomy']/@subItemMappings[name='activity']"/>
+        </ownedTreeItems>
+        <semanticElements xmi:type="gnosis:Activity" href="sample.gnosis#//@processarchitecture/@processtaxonomy/@activity.0/@activity.0"/>
+        <ownedStyle xmi:type="tree:TreeItemStyle" xmi:id="_6X0ZsRvEEei46t2rN6-8mA"/>
+        <actualMapping xmi:type="description_3:TreeItemMapping" href="platform:/resource/uk.org.whitecottage.gnosis.design/description/gnosis.odesign#//@ownedViewpoints[name='gnosis']/@ownedRepresentations[name='processTaxonomy']/@subItemMappings[name='activity']"/>
+      </ownedTreeItems>
+      <ownedTreeItems xmi:type="tree:DTreeItem" xmi:id="_64OYEBvEEei46t2rN6-8mA" name="Develop business strategy">
+        <target xmi:type="gnosis:Activity" href="sample.gnosis#//@processarchitecture/@processtaxonomy/@activity.0/@activity.1"/>
+        <ownedTreeItems xmi:type="tree:DTreeItem" xmi:id="_64QNQBvEEei46t2rN6-8mA">
+          <target xmi:type="gnosis:Activity" href="sample.gnosis#//@processarchitecture/@processtaxonomy/@activity.0/@activity.1/@activity.0"/>
+          <semanticElements xmi:type="gnosis:Activity" href="sample.gnosis#//@processarchitecture/@processtaxonomy/@activity.0/@activity.1/@activity.0"/>
+          <ownedStyle xmi:type="tree:TreeItemStyle" xmi:id="_64QNQRvEEei46t2rN6-8mA" labelColor="209,209,209" backgroundColor="209,209,209"/>
+          <actualMapping xmi:type="description_3:TreeItemMapping" href="platform:/resource/uk.org.whitecottage.gnosis.design/description/gnosis.odesign#//@ownedViewpoints[name='gnosis']/@ownedRepresentations[name='processTaxonomy']/@subItemMappings[name='activity']"/>
+        </ownedTreeItems>
+        <semanticElements xmi:type="gnosis:Activity" href="sample.gnosis#//@processarchitecture/@processtaxonomy/@activity.0/@activity.1"/>
+        <ownedStyle xmi:type="tree:TreeItemStyle" xmi:id="_64OYERvEEei46t2rN6-8mA"/>
+        <actualMapping xmi:type="description_3:TreeItemMapping" href="platform:/resource/uk.org.whitecottage.gnosis.design/description/gnosis.odesign#//@ownedViewpoints[name='gnosis']/@ownedRepresentations[name='processTaxonomy']/@subItemMappings[name='activity']"/>
+      </ownedTreeItems>
+      <ownedTreeItems xmi:type="tree:DTreeItem" xmi:id="_64O_IBvEEei46t2rN6-8mA" name="Manage strategic initiatives">
+        <target xmi:type="gnosis:Activity" href="sample.gnosis#//@processarchitecture/@processtaxonomy/@activity.0/@activity.2"/>
+        <ownedTreeItems xmi:type="tree:DTreeItem" xmi:id="_64RbYBvEEei46t2rN6-8mA">
+          <target xmi:type="gnosis:Activity" href="sample.gnosis#//@processarchitecture/@processtaxonomy/@activity.0/@activity.2/@activity.0"/>
+          <semanticElements xmi:type="gnosis:Activity" href="sample.gnosis#//@processarchitecture/@processtaxonomy/@activity.0/@activity.2/@activity.0"/>
+          <ownedStyle xmi:type="tree:TreeItemStyle" xmi:id="_64RbYRvEEei46t2rN6-8mA" labelColor="209,209,209" backgroundColor="209,209,209"/>
+          <actualMapping xmi:type="description_3:TreeItemMapping" href="platform:/resource/uk.org.whitecottage.gnosis.design/description/gnosis.odesign#//@ownedViewpoints[name='gnosis']/@ownedRepresentations[name='processTaxonomy']/@subItemMappings[name='activity']"/>
+        </ownedTreeItems>
+        <semanticElements xmi:type="gnosis:Activity" href="sample.gnosis#//@processarchitecture/@processtaxonomy/@activity.0/@activity.2"/>
+        <ownedStyle xmi:type="tree:TreeItemStyle" xmi:id="_64O_IRvEEei46t2rN6-8mA"/>
+        <actualMapping xmi:type="description_3:TreeItemMapping" href="platform:/resource/uk.org.whitecottage.gnosis.design/description/gnosis.odesign#//@ownedViewpoints[name='gnosis']/@ownedRepresentations[name='processTaxonomy']/@subItemMappings[name='activity']"/>
+      </ownedTreeItems>
+      <semanticElements xmi:type="gnosis:Activity" href="sample.gnosis#//@processarchitecture/@processtaxonomy/@activity.0"/>
+      <ownedStyle xmi:type="tree:TreeItemStyle" xmi:id="_z4VNwRvEEei46t2rN6-8mA" labelSize="9"/>
+      <actualMapping xmi:type="description_3:TreeItemMapping" href="platform:/resource/uk.org.whitecottage.gnosis.design/description/gnosis.odesign#//@ownedViewpoints[name='gnosis']/@ownedRepresentations[name='processTaxonomy']/@subItemMappings[name='activity']"/>
+    </ownedTreeItems>
+    <ownedTreeItems xmi:type="tree:DTreeItem" xmi:id="_z4YREBvEEei46t2rN6-8mA" name="Develop and Manage Customer Experience">
+      <target xmi:type="gnosis:Activity" href="sample.gnosis#//@processarchitecture/@processtaxonomy/@activity.1"/>
+      <ownedTreeItems xmi:type="tree:DTreeItem" xmi:id="_6X3dABvEEei46t2rN6-8mA">
+        <target xmi:type="gnosis:Activity" href="sample.gnosis#//@processarchitecture/@processtaxonomy/@activity.1/@activity.0"/>
+        <semanticElements xmi:type="gnosis:Activity" href="sample.gnosis#//@processarchitecture/@processtaxonomy/@activity.1/@activity.0"/>
+        <ownedStyle xmi:type="tree:TreeItemStyle" xmi:id="_6X3dARvEEei46t2rN6-8mA" labelColor="209,209,209" backgroundColor="209,209,209"/>
+        <actualMapping xmi:type="description_3:TreeItemMapping" href="platform:/resource/uk.org.whitecottage.gnosis.design/description/gnosis.odesign#//@ownedViewpoints[name='gnosis']/@ownedRepresentations[name='processTaxonomy']/@subItemMappings[name='activity']"/>
+      </ownedTreeItems>
+      <semanticElements xmi:type="gnosis:Activity" href="sample.gnosis#//@processarchitecture/@processtaxonomy/@activity.1"/>
+      <ownedStyle xmi:type="tree:TreeItemStyle" xmi:id="_z4YRERvEEei46t2rN6-8mA" labelSize="9"/>
+      <actualMapping xmi:type="description_3:TreeItemMapping" href="platform:/resource/uk.org.whitecottage.gnosis.design/description/gnosis.odesign#//@ownedViewpoints[name='gnosis']/@ownedRepresentations[name='processTaxonomy']/@subItemMappings[name='activity']"/>
+    </ownedTreeItems>
+    <ownedTreeItems xmi:type="tree:DTreeItem" xmi:id="_z4YREhvEEei46t2rN6-8mA" name="Market Products and Services">
+      <target xmi:type="gnosis:Activity" href="sample.gnosis#//@processarchitecture/@processtaxonomy/@activity.2"/>
+      <ownedTreeItems xmi:type="tree:DTreeItem" xmi:id="_6X3dAhvEEei46t2rN6-8mA">
+        <target xmi:type="gnosis:Activity" href="sample.gnosis#//@processarchitecture/@processtaxonomy/@activity.2/@activity.0"/>
+        <semanticElements xmi:type="gnosis:Activity" href="sample.gnosis#//@processarchitecture/@processtaxonomy/@activity.2/@activity.0"/>
+        <ownedStyle xmi:type="tree:TreeItemStyle" xmi:id="_6X4EEBvEEei46t2rN6-8mA" labelColor="209,209,209" backgroundColor="209,209,209"/>
+        <actualMapping xmi:type="description_3:TreeItemMapping" href="platform:/resource/uk.org.whitecottage.gnosis.design/description/gnosis.odesign#//@ownedViewpoints[name='gnosis']/@ownedRepresentations[name='processTaxonomy']/@subItemMappings[name='activity']"/>
+      </ownedTreeItems>
+      <semanticElements xmi:type="gnosis:Activity" href="sample.gnosis#//@processarchitecture/@processtaxonomy/@activity.2"/>
+      <ownedStyle xmi:type="tree:TreeItemStyle" xmi:id="_z4YRExvEEei46t2rN6-8mA" labelSize="9"/>
+      <actualMapping xmi:type="description_3:TreeItemMapping" href="platform:/resource/uk.org.whitecottage.gnosis.design/description/gnosis.odesign#//@ownedViewpoints[name='gnosis']/@ownedRepresentations[name='processTaxonomy']/@subItemMappings[name='activity']"/>
+    </ownedTreeItems>
+    <ownedTreeItems xmi:type="tree:DTreeItem" xmi:id="_z4YRFBvEEei46t2rN6-8mA" name="Merchandise Products and Services">
+      <target xmi:type="gnosis:Activity" href="sample.gnosis#//@processarchitecture/@processtaxonomy/@activity.3"/>
+      <ownedTreeItems xmi:type="tree:DTreeItem" xmi:id="_6X4EERvEEei46t2rN6-8mA" name="Develop product plan">
+        <target xmi:type="gnosis:Activity" href="sample.gnosis#//@processarchitecture/@processtaxonomy/@activity.3/@activity.0"/>
+        <ownedTreeItems xmi:type="tree:DTreeItem" xmi:id="_CbANAhvFEei46t2rN6-8mA">
+          <target xmi:type="gnosis:Activity" href="sample.gnosis#//@processarchitecture/@processtaxonomy/@activity.3/@activity.0/@activity.0"/>
+          <semanticElements xmi:type="gnosis:Activity" href="sample.gnosis#//@processarchitecture/@processtaxonomy/@activity.3/@activity.0/@activity.0"/>
+          <ownedStyle xmi:type="tree:TreeItemStyle" xmi:id="_CbANAxvFEei46t2rN6-8mA" labelColor="209,209,209" backgroundColor="209,209,209"/>
+          <actualMapping xmi:type="description_3:TreeItemMapping" href="platform:/resource/uk.org.whitecottage.gnosis.design/description/gnosis.odesign#//@ownedViewpoints[name='gnosis']/@ownedRepresentations[name='processTaxonomy']/@subItemMappings[name='activity']"/>
+        </ownedTreeItems>
+        <semanticElements xmi:type="gnosis:Activity" href="sample.gnosis#//@processarchitecture/@processtaxonomy/@activity.3/@activity.0"/>
+        <ownedStyle xmi:type="tree:TreeItemStyle" xmi:id="_6X4EEhvEEei46t2rN6-8mA"/>
+        <actualMapping xmi:type="description_3:TreeItemMapping" href="platform:/resource/uk.org.whitecottage.gnosis.design/description/gnosis.odesign#//@ownedViewpoints[name='gnosis']/@ownedRepresentations[name='processTaxonomy']/@subItemMappings[name='activity']"/>
+      </ownedTreeItems>
+      <ownedTreeItems xmi:type="tree:DTreeItem" xmi:id="_Ca_l8BvFEei46t2rN6-8mA" name="Manage product development lifecycle">
+        <target xmi:type="gnosis:Activity" href="sample.gnosis#//@processarchitecture/@processtaxonomy/@activity.3/@activity.1"/>
+        <ownedTreeItems xmi:type="tree:DTreeItem" xmi:id="_CbA0EBvFEei46t2rN6-8mA">
+          <target xmi:type="gnosis:Activity" href="sample.gnosis#//@processarchitecture/@processtaxonomy/@activity.3/@activity.1/@activity.0"/>
+          <semanticElements xmi:type="gnosis:Activity" href="sample.gnosis#//@processarchitecture/@processtaxonomy/@activity.3/@activity.1/@activity.0"/>
+          <ownedStyle xmi:type="tree:TreeItemStyle" xmi:id="_CbA0ERvFEei46t2rN6-8mA" labelColor="209,209,209" backgroundColor="209,209,209"/>
+          <actualMapping xmi:type="description_3:TreeItemMapping" href="platform:/resource/uk.org.whitecottage.gnosis.design/description/gnosis.odesign#//@ownedViewpoints[name='gnosis']/@ownedRepresentations[name='processTaxonomy']/@subItemMappings[name='activity']"/>
+        </ownedTreeItems>
+        <semanticElements xmi:type="gnosis:Activity" href="sample.gnosis#//@processarchitecture/@processtaxonomy/@activity.3/@activity.1"/>
+        <ownedStyle xmi:type="tree:TreeItemStyle" xmi:id="_Ca_l8RvFEei46t2rN6-8mA"/>
+        <actualMapping xmi:type="description_3:TreeItemMapping" href="platform:/resource/uk.org.whitecottage.gnosis.design/description/gnosis.odesign#//@ownedViewpoints[name='gnosis']/@ownedRepresentations[name='processTaxonomy']/@subItemMappings[name='activity']"/>
+      </ownedTreeItems>
+      <ownedTreeItems xmi:type="tree:DTreeItem" xmi:id="_CbANABvFEei46t2rN6-8mA" name="Source products">
+        <target xmi:type="gnosis:Activity" href="sample.gnosis#//@processarchitecture/@processtaxonomy/@activity.3/@activity.2"/>
+        <ownedTreeItems xmi:type="tree:DTreeItem" xmi:id="_CbBbIBvFEei46t2rN6-8mA">
+          <target xmi:type="gnosis:Activity" href="sample.gnosis#//@processarchitecture/@processtaxonomy/@activity.3/@activity.2/@activity.0"/>
+          <semanticElements xmi:type="gnosis:Activity" href="sample.gnosis#//@processarchitecture/@processtaxonomy/@activity.3/@activity.2/@activity.0"/>
+          <ownedStyle xmi:type="tree:TreeItemStyle" xmi:id="_CbBbIRvFEei46t2rN6-8mA" labelColor="209,209,209" backgroundColor="209,209,209"/>
+          <actualMapping xmi:type="description_3:TreeItemMapping" href="platform:/resource/uk.org.whitecottage.gnosis.design/description/gnosis.odesign#//@ownedViewpoints[name='gnosis']/@ownedRepresentations[name='processTaxonomy']/@subItemMappings[name='activity']"/>
+        </ownedTreeItems>
+        <semanticElements xmi:type="gnosis:Activity" href="sample.gnosis#//@processarchitecture/@processtaxonomy/@activity.3/@activity.2"/>
+        <ownedStyle xmi:type="tree:TreeItemStyle" xmi:id="_CbANARvFEei46t2rN6-8mA"/>
+        <actualMapping xmi:type="description_3:TreeItemMapping" href="platform:/resource/uk.org.whitecottage.gnosis.design/description/gnosis.odesign#//@ownedViewpoints[name='gnosis']/@ownedRepresentations[name='processTaxonomy']/@subItemMappings[name='activity']"/>
+      </ownedTreeItems>
+      <semanticElements xmi:type="gnosis:Activity" href="sample.gnosis#//@processarchitecture/@processtaxonomy/@activity.3"/>
+      <ownedStyle xmi:type="tree:TreeItemStyle" xmi:id="_z4YRFRvEEei46t2rN6-8mA" labelSize="9"/>
+      <actualMapping xmi:type="description_3:TreeItemMapping" href="platform:/resource/uk.org.whitecottage.gnosis.design/description/gnosis.odesign#//@ownedViewpoints[name='gnosis']/@ownedRepresentations[name='processTaxonomy']/@subItemMappings[name='activity']"/>
+    </ownedTreeItems>
+    <ownedTreeItems xmi:type="tree:DTreeItem" xmi:id="_z4YRFhvEEei46t2rN6-8mA" name="Deliver Products">
+      <target xmi:type="gnosis:Activity" href="sample.gnosis#//@processarchitecture/@processtaxonomy/@activity.4"/>
+      <ownedTreeItems xmi:type="tree:DTreeItem" xmi:id="_6X5SMBvEEei46t2rN6-8mA" name="Operate warehouse" expanded="true">
+        <target xmi:type="gnosis:Activity" href="sample.gnosis#//@processarchitecture/@processtaxonomy/@activity.4/@activity.0"/>
+        <ownedTreeItems xmi:type="tree:DTreeItem" xmi:id="_DC4FVhvFEei46t2rN6-8mA" name="Plan warehouse layout and operations" expanded="true">
+          <target xmi:type="gnosis:Activity" href="sample.gnosis#//@processarchitecture/@processtaxonomy/@activity.4/@activity.0/@activity.0"/>
+          <ownedTreeItems xmi:type="tree:DTreeItem" xmi:id="_DLLsyhvFEei46t2rN6-8mA" name="Establish distribution planning constraints" expanded="true">
+            <target xmi:type="gnosis:Activity" href="sample.gnosis#//@processarchitecture/@processtaxonomy/@activity.4/@activity.0/@activity.0/@activity.0"/>
+            <ownedTreeItems xmi:type="tree:DTreeItem" xmi:id="_DTtWoBvFEei46t2rN6-8mA" name="Establish distribution center layout constraints">
+              <target xmi:type="gnosis:Activity" href="sample.gnosis#//@processarchitecture/@processtaxonomy/@activity.4/@activity.0/@activity.0/@activity.0/@activity.0"/>
+              <semanticElements xmi:type="gnosis:Activity" href="sample.gnosis#//@processarchitecture/@processtaxonomy/@activity.4/@activity.0/@activity.0/@activity.0/@activity.0"/>
+              <ownedStyle xmi:type="tree:TreeItemStyle" xmi:id="_DTtWoRvFEei46t2rN6-8mA"/>
+              <actualMapping xmi:type="description_3:TreeItemMapping" href="platform:/resource/uk.org.whitecottage.gnosis.design/description/gnosis.odesign#//@ownedViewpoints[name='gnosis']/@ownedRepresentations[name='processTaxonomy']/@subItemMappings[name='activity']"/>
+            </ownedTreeItems>
+            <ownedTreeItems xmi:type="tree:DTreeItem" xmi:id="_DbOT4BvFEei46t2rN6-8mA" name="Establish inventory management constraints">
+              <target xmi:type="gnosis:Activity" href="sample.gnosis#//@processarchitecture/@processtaxonomy/@activity.4/@activity.0/@activity.0/@activity.0/@activity.1"/>
+              <semanticElements xmi:type="gnosis:Activity" href="sample.gnosis#//@processarchitecture/@processtaxonomy/@activity.4/@activity.0/@activity.0/@activity.0/@activity.1"/>
+              <ownedStyle xmi:type="tree:TreeItemStyle" xmi:id="_DbOT4RvFEei46t2rN6-8mA"/>
+              <actualMapping xmi:type="description_3:TreeItemMapping" href="platform:/resource/uk.org.whitecottage.gnosis.design/description/gnosis.odesign#//@ownedViewpoints[name='gnosis']/@ownedRepresentations[name='processTaxonomy']/@subItemMappings[name='activity']"/>
+            </ownedTreeItems>
+            <ownedTreeItems xmi:type="tree:DTreeItem" xmi:id="_DbOT4hvFEei46t2rN6-8mA" name="Establish transportation management constraints">
+              <target xmi:type="gnosis:Activity" href="sample.gnosis#//@processarchitecture/@processtaxonomy/@activity.4/@activity.0/@activity.0/@activity.0/@activity.2"/>
+              <semanticElements xmi:type="gnosis:Activity" href="sample.gnosis#//@processarchitecture/@processtaxonomy/@activity.4/@activity.0/@activity.0/@activity.0/@activity.2"/>
+              <ownedStyle xmi:type="tree:TreeItemStyle" xmi:id="_DbOT4xvFEei46t2rN6-8mA"/>
+              <actualMapping xmi:type="description_3:TreeItemMapping" href="platform:/resource/uk.org.whitecottage.gnosis.design/description/gnosis.odesign#//@ownedViewpoints[name='gnosis']/@ownedRepresentations[name='processTaxonomy']/@subItemMappings[name='activity']"/>
+            </ownedTreeItems>
+            <semanticElements xmi:type="gnosis:Activity" href="sample.gnosis#//@processarchitecture/@processtaxonomy/@activity.4/@activity.0/@activity.0/@activity.0"/>
+            <ownedStyle xmi:type="tree:TreeItemStyle" xmi:id="_DLLsyxvFEei46t2rN6-8mA"/>
+            <actualMapping xmi:type="description_3:TreeItemMapping" href="platform:/resource/uk.org.whitecottage.gnosis.design/description/gnosis.odesign#//@ownedViewpoints[name='gnosis']/@ownedRepresentations[name='processTaxonomy']/@subItemMappings[name='activity']"/>
+          </ownedTreeItems>
+          <ownedTreeItems xmi:type="tree:DTreeItem" xmi:id="_DTsvkBvFEei46t2rN6-8mA" name="Determine product inventory requirements at destination">
+            <target xmi:type="gnosis:Activity" href="sample.gnosis#//@processarchitecture/@processtaxonomy/@activity.4/@activity.0/@activity.0/@activity.1"/>
+            <semanticElements xmi:type="gnosis:Activity" href="sample.gnosis#//@processarchitecture/@processtaxonomy/@activity.4/@activity.0/@activity.0/@activity.1"/>
+            <ownedStyle xmi:type="tree:TreeItemStyle" xmi:id="_DTsvkRvFEei46t2rN6-8mA"/>
+            <actualMapping xmi:type="description_3:TreeItemMapping" href="platform:/resource/uk.org.whitecottage.gnosis.design/description/gnosis.odesign#//@ownedViewpoints[name='gnosis']/@ownedRepresentations[name='processTaxonomy']/@subItemMappings[name='activity']"/>
+          </ownedTreeItems>
+          <ownedTreeItems xmi:type="tree:DTreeItem" xmi:id="_DTsvkhvFEei46t2rN6-8mA" name="Plan inbound material receipts">
+            <target xmi:type="gnosis:Activity" href="sample.gnosis#//@processarchitecture/@processtaxonomy/@activity.4/@activity.0/@activity.0/@activity.2"/>
+            <semanticElements xmi:type="gnosis:Activity" href="sample.gnosis#//@processarchitecture/@processtaxonomy/@activity.4/@activity.0/@activity.0/@activity.2"/>
+            <ownedStyle xmi:type="tree:TreeItemStyle" xmi:id="_DTsvkxvFEei46t2rN6-8mA"/>
+            <actualMapping xmi:type="description_3:TreeItemMapping" href="platform:/resource/uk.org.whitecottage.gnosis.design/description/gnosis.odesign#//@ownedViewpoints[name='gnosis']/@ownedRepresentations[name='processTaxonomy']/@subItemMappings[name='activity']"/>
+          </ownedTreeItems>
+          <ownedTreeItems xmi:type="tree:DTreeItem" xmi:id="_DTsvlBvFEei46t2rN6-8mA" name="Plan outbound product flow">
+            <target xmi:type="gnosis:Activity" href="sample.gnosis#//@processarchitecture/@processtaxonomy/@activity.4/@activity.0/@activity.0/@activity.3"/>
+            <semanticElements xmi:type="gnosis:Activity" href="sample.gnosis#//@processarchitecture/@processtaxonomy/@activity.4/@activity.0/@activity.0/@activity.3"/>
+            <ownedStyle xmi:type="tree:TreeItemStyle" xmi:id="_DTsvlRvFEei46t2rN6-8mA"/>
+            <actualMapping xmi:type="description_3:TreeItemMapping" href="platform:/resource/uk.org.whitecottage.gnosis.design/description/gnosis.odesign#//@ownedViewpoints[name='gnosis']/@ownedRepresentations[name='processTaxonomy']/@subItemMappings[name='activity']"/>
+          </ownedTreeItems>
+          <semanticElements xmi:type="gnosis:Activity" href="sample.gnosis#//@processarchitecture/@processtaxonomy/@activity.4/@activity.0/@activity.0"/>
+          <ownedStyle xmi:type="tree:TreeItemStyle" xmi:id="_DC4FVxvFEei46t2rN6-8mA"/>
+          <actualMapping xmi:type="description_3:TreeItemMapping" href="platform:/resource/uk.org.whitecottage.gnosis.design/description/gnosis.odesign#//@ownedViewpoints[name='gnosis']/@ownedRepresentations[name='processTaxonomy']/@subItemMappings[name='activity']"/>
+        </ownedTreeItems>
+        <ownedTreeItems xmi:type="tree:DTreeItem" xmi:id="_DLLFsBvFEei46t2rN6-8mA" name="Manage inventory">
+          <target xmi:type="gnosis:Activity" href="sample.gnosis#//@processarchitecture/@processtaxonomy/@activity.4/@activity.0/@activity.1"/>
+          <ownedTreeItems xmi:type="tree:DTreeItem" xmi:id="_DLMT0BvFEei46t2rN6-8mA">
+            <target xmi:type="gnosis:Activity" href="sample.gnosis#//@processarchitecture/@processtaxonomy/@activity.4/@activity.0/@activity.1/@activity.0"/>
+            <semanticElements xmi:type="gnosis:Activity" href="sample.gnosis#//@processarchitecture/@processtaxonomy/@activity.4/@activity.0/@activity.1/@activity.0"/>
+            <ownedStyle xmi:type="tree:TreeItemStyle" xmi:id="_DLMT0RvFEei46t2rN6-8mA" labelColor="209,209,209" backgroundColor="209,209,209"/>
+            <actualMapping xmi:type="description_3:TreeItemMapping" href="platform:/resource/uk.org.whitecottage.gnosis.design/description/gnosis.odesign#//@ownedViewpoints[name='gnosis']/@ownedRepresentations[name='processTaxonomy']/@subItemMappings[name='activity']"/>
+          </ownedTreeItems>
+          <semanticElements xmi:type="gnosis:Activity" href="sample.gnosis#//@processarchitecture/@processtaxonomy/@activity.4/@activity.0/@activity.1"/>
+          <ownedStyle xmi:type="tree:TreeItemStyle" xmi:id="_DLLFsRvFEei46t2rN6-8mA"/>
+          <actualMapping xmi:type="description_3:TreeItemMapping" href="platform:/resource/uk.org.whitecottage.gnosis.design/description/gnosis.odesign#//@ownedViewpoints[name='gnosis']/@ownedRepresentations[name='processTaxonomy']/@subItemMappings[name='activity']"/>
+        </ownedTreeItems>
+        <ownedTreeItems xmi:type="tree:DTreeItem" xmi:id="_DLLswBvFEei46t2rN6-8mA" name="Manage loading docks and yard">
+          <target xmi:type="gnosis:Activity" href="sample.gnosis#//@processarchitecture/@processtaxonomy/@activity.4/@activity.0/@activity.2"/>
+          <ownedTreeItems xmi:type="tree:DTreeItem" xmi:id="_DLMT0hvFEei46t2rN6-8mA">
+            <target xmi:type="gnosis:Activity" href="sample.gnosis#//@processarchitecture/@processtaxonomy/@activity.4/@activity.0/@activity.2/@activity.0"/>
+            <semanticElements xmi:type="gnosis:Activity" href="sample.gnosis#//@processarchitecture/@processtaxonomy/@activity.4/@activity.0/@activity.2/@activity.0"/>
+            <ownedStyle xmi:type="tree:TreeItemStyle" xmi:id="_DLMT0xvFEei46t2rN6-8mA" labelColor="209,209,209" backgroundColor="209,209,209"/>
+            <actualMapping xmi:type="description_3:TreeItemMapping" href="platform:/resource/uk.org.whitecottage.gnosis.design/description/gnosis.odesign#//@ownedViewpoints[name='gnosis']/@ownedRepresentations[name='processTaxonomy']/@subItemMappings[name='activity']"/>
+          </ownedTreeItems>
+          <semanticElements xmi:type="gnosis:Activity" href="sample.gnosis#//@processarchitecture/@processtaxonomy/@activity.4/@activity.0/@activity.2"/>
+          <ownedStyle xmi:type="tree:TreeItemStyle" xmi:id="_DLLswRvFEei46t2rN6-8mA"/>
+          <actualMapping xmi:type="description_3:TreeItemMapping" href="platform:/resource/uk.org.whitecottage.gnosis.design/description/gnosis.odesign#//@ownedViewpoints[name='gnosis']/@ownedRepresentations[name='processTaxonomy']/@subItemMappings[name='activity']"/>
+        </ownedTreeItems>
+        <ownedTreeItems xmi:type="tree:DTreeItem" xmi:id="_DLLswhvFEei46t2rN6-8mA" name="Pick, pack, and ship">
+          <target xmi:type="gnosis:Activity" href="sample.gnosis#//@processarchitecture/@processtaxonomy/@activity.4/@activity.0/@activity.3"/>
+          <ownedTreeItems xmi:type="tree:DTreeItem" xmi:id="_DLMT1BvFEei46t2rN6-8mA">
+            <target xmi:type="gnosis:Activity" href="sample.gnosis#//@processarchitecture/@processtaxonomy/@activity.4/@activity.0/@activity.3/@activity.0"/>
+            <semanticElements xmi:type="gnosis:Activity" href="sample.gnosis#//@processarchitecture/@processtaxonomy/@activity.4/@activity.0/@activity.3/@activity.0"/>
+            <ownedStyle xmi:type="tree:TreeItemStyle" xmi:id="_DLMT1RvFEei46t2rN6-8mA" labelColor="209,209,209" backgroundColor="209,209,209"/>
+            <actualMapping xmi:type="description_3:TreeItemMapping" href="platform:/resource/uk.org.whitecottage.gnosis.design/description/gnosis.odesign#//@ownedViewpoints[name='gnosis']/@ownedRepresentations[name='processTaxonomy']/@subItemMappings[name='activity']"/>
+          </ownedTreeItems>
+          <semanticElements xmi:type="gnosis:Activity" href="sample.gnosis#//@processarchitecture/@processtaxonomy/@activity.4/@activity.0/@activity.3"/>
+          <ownedStyle xmi:type="tree:TreeItemStyle" xmi:id="_DLLswxvFEei46t2rN6-8mA"/>
+          <actualMapping xmi:type="description_3:TreeItemMapping" href="platform:/resource/uk.org.whitecottage.gnosis.design/description/gnosis.odesign#//@ownedViewpoints[name='gnosis']/@ownedRepresentations[name='processTaxonomy']/@subItemMappings[name='activity']"/>
+        </ownedTreeItems>
+        <ownedTreeItems xmi:type="tree:DTreeItem" xmi:id="_DLLsxBvFEei46t2rN6-8mA" name="Plan and manage workforce">
+          <target xmi:type="gnosis:Activity" href="sample.gnosis#//@processarchitecture/@processtaxonomy/@activity.4/@activity.0/@activity.4"/>
+          <ownedTreeItems xmi:type="tree:DTreeItem" xmi:id="_DLMT1hvFEei46t2rN6-8mA">
+            <target xmi:type="gnosis:Activity" href="sample.gnosis#//@processarchitecture/@processtaxonomy/@activity.4/@activity.0/@activity.4/@activity.0"/>
+            <semanticElements xmi:type="gnosis:Activity" href="sample.gnosis#//@processarchitecture/@processtaxonomy/@activity.4/@activity.0/@activity.4/@activity.0"/>
+            <ownedStyle xmi:type="tree:TreeItemStyle" xmi:id="_DLMT1xvFEei46t2rN6-8mA" labelColor="209,209,209" backgroundColor="209,209,209"/>
+            <actualMapping xmi:type="description_3:TreeItemMapping" href="platform:/resource/uk.org.whitecottage.gnosis.design/description/gnosis.odesign#//@ownedViewpoints[name='gnosis']/@ownedRepresentations[name='processTaxonomy']/@subItemMappings[name='activity']"/>
+          </ownedTreeItems>
+          <semanticElements xmi:type="gnosis:Activity" href="sample.gnosis#//@processarchitecture/@processtaxonomy/@activity.4/@activity.0/@activity.4"/>
+          <ownedStyle xmi:type="tree:TreeItemStyle" xmi:id="_DLLsxRvFEei46t2rN6-8mA"/>
+          <actualMapping xmi:type="description_3:TreeItemMapping" href="platform:/resource/uk.org.whitecottage.gnosis.design/description/gnosis.odesign#//@ownedViewpoints[name='gnosis']/@ownedRepresentations[name='processTaxonomy']/@subItemMappings[name='activity']"/>
+        </ownedTreeItems>
+        <ownedTreeItems xmi:type="tree:DTreeItem" xmi:id="_DLLsxhvFEei46t2rN6-8mA" name="Manage returns">
+          <target xmi:type="gnosis:Activity" href="sample.gnosis#//@processarchitecture/@processtaxonomy/@activity.4/@activity.0/@activity.5"/>
+          <ownedTreeItems xmi:type="tree:DTreeItem" xmi:id="_DLM64BvFEei46t2rN6-8mA">
+            <target xmi:type="gnosis:Activity" href="sample.gnosis#//@processarchitecture/@processtaxonomy/@activity.4/@activity.0/@activity.5/@activity.0"/>
+            <semanticElements xmi:type="gnosis:Activity" href="sample.gnosis#//@processarchitecture/@processtaxonomy/@activity.4/@activity.0/@activity.5/@activity.0"/>
+            <ownedStyle xmi:type="tree:TreeItemStyle" xmi:id="_DLM64RvFEei46t2rN6-8mA" labelColor="209,209,209" backgroundColor="209,209,209"/>
+            <actualMapping xmi:type="description_3:TreeItemMapping" href="platform:/resource/uk.org.whitecottage.gnosis.design/description/gnosis.odesign#//@ownedViewpoints[name='gnosis']/@ownedRepresentations[name='processTaxonomy']/@subItemMappings[name='activity']"/>
+          </ownedTreeItems>
+          <semanticElements xmi:type="gnosis:Activity" href="sample.gnosis#//@processarchitecture/@processtaxonomy/@activity.4/@activity.0/@activity.5"/>
+          <ownedStyle xmi:type="tree:TreeItemStyle" xmi:id="_DLLsxxvFEei46t2rN6-8mA"/>
+          <actualMapping xmi:type="description_3:TreeItemMapping" href="platform:/resource/uk.org.whitecottage.gnosis.design/description/gnosis.odesign#//@ownedViewpoints[name='gnosis']/@ownedRepresentations[name='processTaxonomy']/@subItemMappings[name='activity']"/>
+        </ownedTreeItems>
+        <ownedTreeItems xmi:type="tree:DTreeItem" xmi:id="_DLLsyBvFEei46t2rN6-8mA" name="Transfer product cross-dock">
+          <target xmi:type="gnosis:Activity" href="sample.gnosis#//@processarchitecture/@processtaxonomy/@activity.4/@activity.0/@activity.6"/>
+          <semanticElements xmi:type="gnosis:Activity" href="sample.gnosis#//@processarchitecture/@processtaxonomy/@activity.4/@activity.0/@activity.6"/>
+          <ownedStyle xmi:type="tree:TreeItemStyle" xmi:id="_DLLsyRvFEei46t2rN6-8mA"/>
+          <actualMapping xmi:type="description_3:TreeItemMapping" href="platform:/resource/uk.org.whitecottage.gnosis.design/description/gnosis.odesign#//@ownedViewpoints[name='gnosis']/@ownedRepresentations[name='processTaxonomy']/@subItemMappings[name='activity']"/>
+        </ownedTreeItems>
+        <semanticElements xmi:type="gnosis:Activity" href="sample.gnosis#//@processarchitecture/@processtaxonomy/@activity.4/@activity.0"/>
+        <ownedStyle xmi:type="tree:TreeItemStyle" xmi:id="_6X5SMRvEEei46t2rN6-8mA"/>
+        <actualMapping xmi:type="description_3:TreeItemMapping" href="platform:/resource/uk.org.whitecottage.gnosis.design/description/gnosis.odesign#//@ownedViewpoints[name='gnosis']/@ownedRepresentations[name='processTaxonomy']/@subItemMappings[name='activity']"/>
+      </ownedTreeItems>
+      <ownedTreeItems xmi:type="tree:DTreeItem" xmi:id="_DC4FUBvFEei46t2rN6-8mA" name="Manage transportation and logistics">
+        <target xmi:type="gnosis:Activity" href="sample.gnosis#//@processarchitecture/@processtaxonomy/@activity.4/@activity.1"/>
+        <ownedTreeItems xmi:type="tree:DTreeItem" xmi:id="_DC4sYBvFEei46t2rN6-8mA">
+          <target xmi:type="gnosis:Activity" href="sample.gnosis#//@processarchitecture/@processtaxonomy/@activity.4/@activity.1/@activity.0"/>
+          <semanticElements xmi:type="gnosis:Activity" href="sample.gnosis#//@processarchitecture/@processtaxonomy/@activity.4/@activity.1/@activity.0"/>
+          <ownedStyle xmi:type="tree:TreeItemStyle" xmi:id="_DC4sYRvFEei46t2rN6-8mA" labelColor="209,209,209" backgroundColor="209,209,209"/>
+          <actualMapping xmi:type="description_3:TreeItemMapping" href="platform:/resource/uk.org.whitecottage.gnosis.design/description/gnosis.odesign#//@ownedViewpoints[name='gnosis']/@ownedRepresentations[name='processTaxonomy']/@subItemMappings[name='activity']"/>
+        </ownedTreeItems>
+        <semanticElements xmi:type="gnosis:Activity" href="sample.gnosis#//@processarchitecture/@processtaxonomy/@activity.4/@activity.1"/>
+        <ownedStyle xmi:type="tree:TreeItemStyle" xmi:id="_DC4FURvFEei46t2rN6-8mA"/>
+        <actualMapping xmi:type="description_3:TreeItemMapping" href="platform:/resource/uk.org.whitecottage.gnosis.design/description/gnosis.odesign#//@ownedViewpoints[name='gnosis']/@ownedRepresentations[name='processTaxonomy']/@subItemMappings[name='activity']"/>
+      </ownedTreeItems>
+      <ownedTreeItems xmi:type="tree:DTreeItem" xmi:id="_DC4FUhvFEei46t2rN6-8mA" name="Manage enterprise inventory">
+        <target xmi:type="gnosis:Activity" href="sample.gnosis#//@processarchitecture/@processtaxonomy/@activity.4/@activity.2"/>
+        <ownedTreeItems xmi:type="tree:DTreeItem" xmi:id="_DC4sYhvFEei46t2rN6-8mA">
+          <target xmi:type="gnosis:Activity" href="sample.gnosis#//@processarchitecture/@processtaxonomy/@activity.4/@activity.2/@activity.0"/>
+          <semanticElements xmi:type="gnosis:Activity" href="sample.gnosis#//@processarchitecture/@processtaxonomy/@activity.4/@activity.2/@activity.0"/>
+          <ownedStyle xmi:type="tree:TreeItemStyle" xmi:id="_DC4sYxvFEei46t2rN6-8mA" labelColor="209,209,209" backgroundColor="209,209,209"/>
+          <actualMapping xmi:type="description_3:TreeItemMapping" href="platform:/resource/uk.org.whitecottage.gnosis.design/description/gnosis.odesign#//@ownedViewpoints[name='gnosis']/@ownedRepresentations[name='processTaxonomy']/@subItemMappings[name='activity']"/>
+        </ownedTreeItems>
+        <semanticElements xmi:type="gnosis:Activity" href="sample.gnosis#//@processarchitecture/@processtaxonomy/@activity.4/@activity.2"/>
+        <ownedStyle xmi:type="tree:TreeItemStyle" xmi:id="_DC4FUxvFEei46t2rN6-8mA"/>
+        <actualMapping xmi:type="description_3:TreeItemMapping" href="platform:/resource/uk.org.whitecottage.gnosis.design/description/gnosis.odesign#//@ownedViewpoints[name='gnosis']/@ownedRepresentations[name='processTaxonomy']/@subItemMappings[name='activity']"/>
+      </ownedTreeItems>
+      <ownedTreeItems xmi:type="tree:DTreeItem" xmi:id="_DC4FVBvFEei46t2rN6-8mA" name="Manage direct-to-store-delivery">
+        <target xmi:type="gnosis:Activity" href="sample.gnosis#//@processarchitecture/@processtaxonomy/@activity.4/@activity.3"/>
+        <semanticElements xmi:type="gnosis:Activity" href="sample.gnosis#//@processarchitecture/@processtaxonomy/@activity.4/@activity.3"/>
+        <ownedStyle xmi:type="tree:TreeItemStyle" xmi:id="_DC4FVRvFEei46t2rN6-8mA"/>
+        <actualMapping xmi:type="description_3:TreeItemMapping" href="platform:/resource/uk.org.whitecottage.gnosis.design/description/gnosis.odesign#//@ownedViewpoints[name='gnosis']/@ownedRepresentations[name='processTaxonomy']/@subItemMappings[name='activity']"/>
+      </ownedTreeItems>
+      <semanticElements xmi:type="gnosis:Activity" href="sample.gnosis#//@processarchitecture/@processtaxonomy/@activity.4"/>
+      <ownedStyle xmi:type="tree:TreeItemStyle" xmi:id="_z4YRFxvEEei46t2rN6-8mA" labelSize="9"/>
+      <actualMapping xmi:type="description_3:TreeItemMapping" href="platform:/resource/uk.org.whitecottage.gnosis.design/description/gnosis.odesign#//@ownedViewpoints[name='gnosis']/@ownedRepresentations[name='processTaxonomy']/@subItemMappings[name='activity']"/>
+    </ownedTreeItems>
+    <ownedTreeItems xmi:type="tree:DTreeItem" xmi:id="_z4Y4IBvEEei46t2rN6-8mA" name="Develop and Manage Human Capital">
+      <target xmi:type="gnosis:Activity" href="sample.gnosis#//@processarchitecture/@processtaxonomy/@activity.5"/>
+      <ownedTreeItems xmi:type="tree:DTreeItem" xmi:id="_6X55QBvEEei46t2rN6-8mA">
+        <target xmi:type="gnosis:Activity" href="sample.gnosis#//@processarchitecture/@processtaxonomy/@activity.5/@activity.0"/>
+        <semanticElements xmi:type="gnosis:Activity" href="sample.gnosis#//@processarchitecture/@processtaxonomy/@activity.5/@activity.0"/>
+        <ownedStyle xmi:type="tree:TreeItemStyle" xmi:id="_6X55QRvEEei46t2rN6-8mA" labelColor="209,209,209" backgroundColor="209,209,209"/>
+        <actualMapping xmi:type="description_3:TreeItemMapping" href="platform:/resource/uk.org.whitecottage.gnosis.design/description/gnosis.odesign#//@ownedViewpoints[name='gnosis']/@ownedRepresentations[name='processTaxonomy']/@subItemMappings[name='activity']"/>
+      </ownedTreeItems>
+      <semanticElements xmi:type="gnosis:Activity" href="sample.gnosis#//@processarchitecture/@processtaxonomy/@activity.5"/>
+      <ownedStyle xmi:type="tree:TreeItemStyle" xmi:id="_z4Y4IRvEEei46t2rN6-8mA" labelSize="9"/>
+      <actualMapping xmi:type="description_3:TreeItemMapping" href="platform:/resource/uk.org.whitecottage.gnosis.design/description/gnosis.odesign#//@ownedViewpoints[name='gnosis']/@ownedRepresentations[name='processTaxonomy']/@subItemMappings[name='activity']"/>
+    </ownedTreeItems>
+    <ownedTreeItems xmi:type="tree:DTreeItem" xmi:id="_z4Y4IhvEEei46t2rN6-8mA" name="Manage Information Technology">
+      <target xmi:type="gnosis:Activity" href="sample.gnosis#//@processarchitecture/@processtaxonomy/@activity.6"/>
+      <ownedTreeItems xmi:type="tree:DTreeItem" xmi:id="_6X55QhvEEei46t2rN6-8mA">
+        <target xmi:type="gnosis:Activity" href="sample.gnosis#//@processarchitecture/@processtaxonomy/@activity.6/@activity.0"/>
+        <semanticElements xmi:type="gnosis:Activity" href="sample.gnosis#//@processarchitecture/@processtaxonomy/@activity.6/@activity.0"/>
+        <ownedStyle xmi:type="tree:TreeItemStyle" xmi:id="_6X55QxvEEei46t2rN6-8mA" labelColor="209,209,209" backgroundColor="209,209,209"/>
+        <actualMapping xmi:type="description_3:TreeItemMapping" href="platform:/resource/uk.org.whitecottage.gnosis.design/description/gnosis.odesign#//@ownedViewpoints[name='gnosis']/@ownedRepresentations[name='processTaxonomy']/@subItemMappings[name='activity']"/>
+      </ownedTreeItems>
+      <semanticElements xmi:type="gnosis:Activity" href="sample.gnosis#//@processarchitecture/@processtaxonomy/@activity.6"/>
+      <ownedStyle xmi:type="tree:TreeItemStyle" xmi:id="_z4Y4IxvEEei46t2rN6-8mA" labelSize="9"/>
+      <actualMapping xmi:type="description_3:TreeItemMapping" href="platform:/resource/uk.org.whitecottage.gnosis.design/description/gnosis.odesign#//@ownedViewpoints[name='gnosis']/@ownedRepresentations[name='processTaxonomy']/@subItemMappings[name='activity']"/>
+    </ownedTreeItems>
+    <ownedTreeItems xmi:type="tree:DTreeItem" xmi:id="_z4Y4JBvEEei46t2rN6-8mA" name="Manage Financial Resources">
+      <target xmi:type="gnosis:Activity" href="sample.gnosis#//@processarchitecture/@processtaxonomy/@activity.7"/>
+      <ownedTreeItems xmi:type="tree:DTreeItem" xmi:id="_6X55RBvEEei46t2rN6-8mA">
+        <target xmi:type="gnosis:Activity" href="sample.gnosis#//@processarchitecture/@processtaxonomy/@activity.7/@activity.0"/>
+        <semanticElements xmi:type="gnosis:Activity" href="sample.gnosis#//@processarchitecture/@processtaxonomy/@activity.7/@activity.0"/>
+        <ownedStyle xmi:type="tree:TreeItemStyle" xmi:id="_6X55RRvEEei46t2rN6-8mA" labelColor="209,209,209" backgroundColor="209,209,209"/>
+        <actualMapping xmi:type="description_3:TreeItemMapping" href="platform:/resource/uk.org.whitecottage.gnosis.design/description/gnosis.odesign#//@ownedViewpoints[name='gnosis']/@ownedRepresentations[name='processTaxonomy']/@subItemMappings[name='activity']"/>
+      </ownedTreeItems>
+      <semanticElements xmi:type="gnosis:Activity" href="sample.gnosis#//@processarchitecture/@processtaxonomy/@activity.7"/>
+      <ownedStyle xmi:type="tree:TreeItemStyle" xmi:id="_z4Y4JRvEEei46t2rN6-8mA" labelSize="9"/>
+      <actualMapping xmi:type="description_3:TreeItemMapping" href="platform:/resource/uk.org.whitecottage.gnosis.design/description/gnosis.odesign#//@ownedViewpoints[name='gnosis']/@ownedRepresentations[name='processTaxonomy']/@subItemMappings[name='activity']"/>
+    </ownedTreeItems>
+    <ownedTreeItems xmi:type="tree:DTreeItem" xmi:id="_z4aGQBvEEei46t2rN6-8mA" name="Acquire, Construct, and Manage Assets">
+      <target xmi:type="gnosis:Activity" href="sample.gnosis#//@processarchitecture/@processtaxonomy/@activity.8"/>
+      <ownedTreeItems xmi:type="tree:DTreeItem" xmi:id="_6X6gUBvEEei46t2rN6-8mA">
+        <target xmi:type="gnosis:Activity" href="sample.gnosis#//@processarchitecture/@processtaxonomy/@activity.8/@activity.0"/>
+        <semanticElements xmi:type="gnosis:Activity" href="sample.gnosis#//@processarchitecture/@processtaxonomy/@activity.8/@activity.0"/>
+        <ownedStyle xmi:type="tree:TreeItemStyle" xmi:id="_6X6gURvEEei46t2rN6-8mA" labelColor="209,209,209" backgroundColor="209,209,209"/>
+        <actualMapping xmi:type="description_3:TreeItemMapping" href="platform:/resource/uk.org.whitecottage.gnosis.design/description/gnosis.odesign#//@ownedViewpoints[name='gnosis']/@ownedRepresentations[name='processTaxonomy']/@subItemMappings[name='activity']"/>
+      </ownedTreeItems>
+      <semanticElements xmi:type="gnosis:Activity" href="sample.gnosis#//@processarchitecture/@processtaxonomy/@activity.8"/>
+      <ownedStyle xmi:type="tree:TreeItemStyle" xmi:id="_z4aGQRvEEei46t2rN6-8mA" labelSize="9"/>
+      <actualMapping xmi:type="description_3:TreeItemMapping" href="platform:/resource/uk.org.whitecottage.gnosis.design/description/gnosis.odesign#//@ownedViewpoints[name='gnosis']/@ownedRepresentations[name='processTaxonomy']/@subItemMappings[name='activity']"/>
+    </ownedTreeItems>
+    <ownedTreeItems xmi:type="tree:DTreeItem" xmi:id="_z4aGQhvEEei46t2rN6-8mA" name="Manage Enterprise Risk, Compliance, Remediation and Resiliency">
+      <target xmi:type="gnosis:Activity" href="sample.gnosis#//@processarchitecture/@processtaxonomy/@activity.9"/>
+      <ownedTreeItems xmi:type="tree:DTreeItem" xmi:id="_6X6gUhvEEei46t2rN6-8mA">
+        <target xmi:type="gnosis:Activity" href="sample.gnosis#//@processarchitecture/@processtaxonomy/@activity.9/@activity.0"/>
+        <semanticElements xmi:type="gnosis:Activity" href="sample.gnosis#//@processarchitecture/@processtaxonomy/@activity.9/@activity.0"/>
+        <ownedStyle xmi:type="tree:TreeItemStyle" xmi:id="_6X6gUxvEEei46t2rN6-8mA" labelColor="209,209,209" backgroundColor="209,209,209"/>
+        <actualMapping xmi:type="description_3:TreeItemMapping" href="platform:/resource/uk.org.whitecottage.gnosis.design/description/gnosis.odesign#//@ownedViewpoints[name='gnosis']/@ownedRepresentations[name='processTaxonomy']/@subItemMappings[name='activity']"/>
+      </ownedTreeItems>
+      <semanticElements xmi:type="gnosis:Activity" href="sample.gnosis#//@processarchitecture/@processtaxonomy/@activity.9"/>
+      <ownedStyle xmi:type="tree:TreeItemStyle" xmi:id="_z4aGQxvEEei46t2rN6-8mA" labelSize="9"/>
+      <actualMapping xmi:type="description_3:TreeItemMapping" href="platform:/resource/uk.org.whitecottage.gnosis.design/description/gnosis.odesign#//@ownedViewpoints[name='gnosis']/@ownedRepresentations[name='processTaxonomy']/@subItemMappings[name='activity']"/>
+    </ownedTreeItems>
+    <ownedTreeItems xmi:type="tree:DTreeItem" xmi:id="_z4aGRBvEEei46t2rN6-8mA" name="Manage External Relationships">
+      <target xmi:type="gnosis:Activity" href="sample.gnosis#//@processarchitecture/@processtaxonomy/@activity.10"/>
+      <ownedTreeItems xmi:type="tree:DTreeItem" xmi:id="_6X7ucBvEEei46t2rN6-8mA">
+        <target xmi:type="gnosis:Activity" href="sample.gnosis#//@processarchitecture/@processtaxonomy/@activity.10/@activity.0"/>
+        <semanticElements xmi:type="gnosis:Activity" href="sample.gnosis#//@processarchitecture/@processtaxonomy/@activity.10/@activity.0"/>
+        <ownedStyle xmi:type="tree:TreeItemStyle" xmi:id="_6X7ucRvEEei46t2rN6-8mA" labelColor="209,209,209" backgroundColor="209,209,209"/>
+        <actualMapping xmi:type="description_3:TreeItemMapping" href="platform:/resource/uk.org.whitecottage.gnosis.design/description/gnosis.odesign#//@ownedViewpoints[name='gnosis']/@ownedRepresentations[name='processTaxonomy']/@subItemMappings[name='activity']"/>
+      </ownedTreeItems>
+      <semanticElements xmi:type="gnosis:Activity" href="sample.gnosis#//@processarchitecture/@processtaxonomy/@activity.10"/>
+      <ownedStyle xmi:type="tree:TreeItemStyle" xmi:id="_z4aGRRvEEei46t2rN6-8mA" labelSize="9"/>
+      <actualMapping xmi:type="description_3:TreeItemMapping" href="platform:/resource/uk.org.whitecottage.gnosis.design/description/gnosis.odesign#//@ownedViewpoints[name='gnosis']/@ownedRepresentations[name='processTaxonomy']/@subItemMappings[name='activity']"/>
+    </ownedTreeItems>
+    <ownedTreeItems xmi:type="tree:DTreeItem" xmi:id="_z4atUBvEEei46t2rN6-8mA" name="Develop and Manage Business Capabilities">
+      <target xmi:type="gnosis:Activity" href="sample.gnosis#//@processarchitecture/@processtaxonomy/@activity.11"/>
+      <ownedTreeItems xmi:type="tree:DTreeItem" xmi:id="_6X7uchvEEei46t2rN6-8mA">
+        <target xmi:type="gnosis:Activity" href="sample.gnosis#//@processarchitecture/@processtaxonomy/@activity.11/@activity.0"/>
+        <semanticElements xmi:type="gnosis:Activity" href="sample.gnosis#//@processarchitecture/@processtaxonomy/@activity.11/@activity.0"/>
+        <ownedStyle xmi:type="tree:TreeItemStyle" xmi:id="_6X7ucxvEEei46t2rN6-8mA" labelColor="209,209,209" backgroundColor="209,209,209"/>
+        <actualMapping xmi:type="description_3:TreeItemMapping" href="platform:/resource/uk.org.whitecottage.gnosis.design/description/gnosis.odesign#//@ownedViewpoints[name='gnosis']/@ownedRepresentations[name='processTaxonomy']/@subItemMappings[name='activity']"/>
+      </ownedTreeItems>
+      <semanticElements xmi:type="gnosis:Activity" href="sample.gnosis#//@processarchitecture/@processtaxonomy/@activity.11"/>
+      <ownedStyle xmi:type="tree:TreeItemStyle" xmi:id="_z4atURvEEei46t2rN6-8mA" labelSize="9"/>
+      <actualMapping xmi:type="description_3:TreeItemMapping" href="platform:/resource/uk.org.whitecottage.gnosis.design/description/gnosis.odesign#//@ownedViewpoints[name='gnosis']/@ownedRepresentations[name='processTaxonomy']/@subItemMappings[name='activity']"/>
+    </ownedTreeItems>
+    <description xmi:type="description_3:TreeDescription" href="platform:/resource/uk.org.whitecottage.gnosis.design/description/gnosis.odesign#//@ownedViewpoints[name='gnosis']/@ownedRepresentations[name='processTaxonomy']"/>
+  </tree:DTree>
+</xmi:XMI>

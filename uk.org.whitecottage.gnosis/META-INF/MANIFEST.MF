@@ -1,0 +1,15 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: %pluginName
+Bundle-SymbolicName: uk.org.whitecottage.gnosis;singleton:=true
+Bundle-Version: 0.1.0.qualifier
+Bundle-ClassPath: .
+Bundle-Vendor: %providerName
+Bundle-Localization: plugin
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Export-Package: uk.org.whitecottage.gnosis,
+ uk.org.whitecottage.gnosis.impl,
+ uk.org.whitecottage.gnosis.util
+Require-Bundle: org.eclipse.emf.ecore;visibility:=reexport,
+ org.eclipse.core.runtime
+Bundle-ActivationPolicy: lazy

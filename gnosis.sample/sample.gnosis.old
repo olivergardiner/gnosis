@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gnosis:Model xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:gnosis="http://www.whitecottage.org.uk/gnosis">
+  <logicalapplicationarchitecture>
+    <applicationdomain name="Customer Engagement and Interaction">
+      <applicationdomain name="Customer Relationship Management">
+        <logicalapplication name="Customer Interaction Routing"/>
+        <logicalapplication name="Customer Case Management"/>
+      </applicationdomain>
+    </applicationdomain>
+    <applicationdomain name="Line of Business">
+      <applicationdomain name="Customer Information Management">
+        <logicalapplication name="Customer Lifecycle Management"/>
+        <logicalapplication name="Customer MDM" realisedBy="//@applicationarchitecture/@application.0"/>
+      </applicationdomain>
+    </applicationdomain>
+  </logicalapplicationarchitecture>
+  <applicationarchitecture>
+    <application name="Application 1" realises="//@logicalapplicationarchitecture/@applicationdomain.1/@applicationdomain.0/@logicalapplication.1"/>
+    <application name="Application 2"/>
+  </applicationarchitecture>
+  <integrationarchitecture>
+    <integration name="Customer Case Management to Customer MDM" source="//@logicalapplicationarchitecture/@applicationdomain.0/@applicationdomain.0/@logicalapplication.1" target="//@logicalapplicationarchitecture/@applicationdomain.1/@applicationdomain.0/@logicalapplication.1"/>
+    <integration name="Customer MDM to Application 1" source="//@logicalapplicationarchitecture/@applicationdomain.1/@applicationdomain.0/@logicalapplication.1" target="//@applicationarchitecture/@application.0" protocol="Rest"/>
+    <integration name="Application 2 to Application 1" source="//@applicationarchitecture/@application.1" target="//@applicationarchitecture/@application.0"/>
+    <integration name="Customer Case Management to Application 2" source="//@logicalapplicationarchitecture/@applicationdomain.0/@applicationdomain.0/@logicalapplication.1" target="//@applicationarchitecture/@application.1"/>
+  </integrationarchitecture>
+  <processarchitecture>
+    <processtaxonomy>
+      <activity>
+        <activity/>
+      </activity>
+    </processtaxonomy>
+    <processflows>
+      <process/>
+    </processflows>
+  </processarchitecture>
+</gnosis:Model>
