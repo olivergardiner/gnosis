@@ -1,0 +1,1 @@
+This folder should contain libs that can't be resolved from Maven - specifically Eclipse EMF and UML2 runtimes
