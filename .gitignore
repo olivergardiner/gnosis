@@ -1,7 +1,9 @@
 tools/lib/*.jar
 tools/*.gnosis
+gnosis.xlsx
 uk.org.whitecottage.gnosis/bin/**/*.class
 uk.org.whitecottage.gnosis/src-gen/**/*.java
 uk.org.whitecottage.gnosis.design/bin/**/*.class
 uk.org.whitecottage.gnosis.edit/
 uk.org.whitecottage.gnosis.editor/
+sample.gnosis
