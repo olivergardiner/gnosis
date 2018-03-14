@@ -9,6 +9,9 @@ Bundle-Localization: plugin
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Export-Package: uk.org.whitecottage.gnosis,
  uk.org.whitecottage.gnosis.impl,
+ uk.org.whitecottage.gnosis.taxonomies,
+ uk.org.whitecottage.gnosis.taxonomies.impl,
+ uk.org.whitecottage.gnosis.taxonomies.util,
  uk.org.whitecottage.gnosis.util
 Require-Bundle: org.eclipse.emf.ecore;visibility:=reexport,
  org.eclipse.core.runtime

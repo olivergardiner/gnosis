@@ -10,27 +10,12 @@
   <testsDirectory xsi:nil="true"/>
   <genPackages prefix="Gnosis" basePackage="uk.org.whitecottage" disposableProviderFactory="true"
       ecorePackage="gnosis.ecore#/">
-    <genEnums typeSafeEnumCompatible="false" ecoreEnum="gnosis.ecore#//Protocol">
-      <genEnumLiterals ecoreEnumLiteral="gnosis.ecore#//Protocol/TOPIC"/>
-      <genEnumLiterals ecoreEnumLiteral="gnosis.ecore#//Protocol/QUEUE"/>
-      <genEnumLiterals ecoreEnumLiteral="gnosis.ecore#//Protocol/SOAP"/>
-      <genEnumLiterals ecoreEnumLiteral="gnosis.ecore#//Protocol/FILE"/>
-      <genEnumLiterals ecoreEnumLiteral="gnosis.ecore#//Protocol/REST"/>
-      <genEnumLiterals ecoreEnumLiteral="gnosis.ecore#//Protocol/POST"/>
-    </genEnums>
-    <genEnums typeSafeEnumCompatible="false" ecoreEnum="gnosis.ecore#//Format">
-      <genEnumLiterals ecoreEnumLiteral="gnosis.ecore#//Format/JSON"/>
-      <genEnumLiterals ecoreEnumLiteral="gnosis.ecore#//Format/XML"/>
-      <genEnumLiterals ecoreEnumLiteral="gnosis.ecore#//Format/CSV"/>
-      <genEnumLiterals ecoreEnumLiteral="gnosis.ecore#//Format/TSV"/>
-      <genEnumLiterals ecoreEnumLiteral="gnosis.ecore#//Format/TEXT"/>
-      <genEnumLiterals ecoreEnumLiteral="gnosis.ecore#//Format/BINARY"/>
-    </genEnums>
     <genClasses ecoreClass="gnosis.ecore#//Model">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gnosis.ecore#//Model/logicalapplicationarchitecture"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gnosis.ecore#//Model/applicationarchitecture"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gnosis.ecore#//Model/integrationarchitecture"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gnosis.ecore#//Model/processarchitecture"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gnosis.ecore#//Model/taxonomies"/>
     </genClasses>
     <genClasses ecoreClass="gnosis.ecore#//LogicalApplicationArchitecture">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gnosis.ecore#//LogicalApplicationArchitecture/applicationdomain"/>
@@ -64,8 +49,8 @@
     <genClasses ecoreClass="gnosis.ecore#//Integration">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference gnosis.ecore#//Integration/source"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference gnosis.ecore#//Integration/target"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gnosis.ecore#//Integration/protocol"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gnosis.ecore#//Integration/format"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference gnosis.ecore#//Integration/format"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference gnosis.ecore#//Integration/protocol"/>
     </genClasses>
     <genClasses ecoreClass="gnosis.ecore#//IntegrationArchitecture">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gnosis.ecore#//IntegrationArchitecture/integration"/>
@@ -89,5 +74,32 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gnosis.ecore#//Technology/technologycomponent"/>
     </genClasses>
     <genClasses ecoreClass="gnosis.ecore#//TechnologyComponent"/>
+    <nestedGenPackages prefix="Taxonomies" disposableProviderFactory="true" ecorePackage="gnosis.ecore#//taxonomies">
+      <genClasses ecoreClass="gnosis.ecore#//taxonomies/Taxonomies">
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gnosis.ecore#//taxonomies/Taxonomies/lifecycle"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gnosis.ecore#//taxonomies/Taxonomies/criticality"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gnosis.ecore#//taxonomies/Taxonomies/sensitivity"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gnosis.ecore#//taxonomies/Taxonomies/integration"/>
+      </genClasses>
+      <genClasses ecoreClass="gnosis.ecore#//taxonomies/IntegrationTaxonomies">
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gnosis.ecore#//taxonomies/IntegrationTaxonomies/protocol"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gnosis.ecore#//taxonomies/IntegrationTaxonomies/format"/>
+      </genClasses>
+      <genClasses ecoreClass="gnosis.ecore#//taxonomies/Lifecycle">
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gnosis.ecore#//taxonomies/Lifecycle/lifecyclestate"/>
+      </genClasses>
+      <genClasses ecoreClass="gnosis.ecore#//taxonomies/Protocols">
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gnosis.ecore#//taxonomies/Protocols/protocol"/>
+      </genClasses>
+      <genClasses ecoreClass="gnosis.ecore#//taxonomies/Formats">
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gnosis.ecore#//taxonomies/Formats/format"/>
+      </genClasses>
+      <genClasses ecoreClass="gnosis.ecore#//taxonomies/Criticality"/>
+      <genClasses ecoreClass="gnosis.ecore#//taxonomies/Sensitivity"/>
+      <genClasses ecoreClass="gnosis.ecore#//taxonomies/LifecycleState"/>
+      <genClasses ecoreClass="gnosis.ecore#//taxonomies/Protocol"/>
+      <genClasses ecoreClass="gnosis.ecore#//taxonomies/Format"/>
+      <genClasses image="false" ecoreClass="gnosis.ecore#//taxonomies/TaxonomyTerm"/>
+    </nestedGenPackages>
   </genPackages>
 </genmodel:GenModel>

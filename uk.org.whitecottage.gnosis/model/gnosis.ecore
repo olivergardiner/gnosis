@@ -10,6 +10,8 @@
         eType="#//IntegrationArchitecture" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="processarchitecture" eType="#//ProcessArchitecture"
         containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="taxonomies" lowerBound="1"
+        eType="#//taxonomies/Taxonomies" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="LogicalApplicationArchitecture" eSuperTypes="#//Element">
     <eStructuralFeatures xsi:type="ecore:EReference" name="applicationdomain" upperBound="-1"
@@ -53,9 +55,8 @@
   <eClassifiers xsi:type="ecore:EClass" name="Integration" eSuperTypes="#//NamedElement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="source" eType="#//AbstractApplication"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="target" eType="#//AbstractApplication"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="protocol" eType="#//Protocol"
-        defaultValueLiteral="Topic"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="format" eType="#//Format"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="format" eType="#//taxonomies/Format"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="protocol" eType="#//taxonomies/Protocol"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="IntegrationArchitecture" eSuperTypes="#//Element">
     <eStructuralFeatures xsi:type="ecore:EReference" name="integration" upperBound="-1"
@@ -80,22 +81,6 @@
         eType="#//Activity" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Process" eSuperTypes="#//NamedElement"/>
-  <eClassifiers xsi:type="ecore:EEnum" name="Protocol">
-    <eLiterals name="TOPIC" literal="Topic"/>
-    <eLiterals name="QUEUE" value="1" literal="Queue"/>
-    <eLiterals name="SOAP" value="4"/>
-    <eLiterals name="FILE" value="5" literal="File"/>
-    <eLiterals name="REST" value="4" literal="Rest"/>
-    <eLiterals name="POST" value="5" literal="XML Post"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EEnum" name="Format">
-    <eLiterals name="JSON"/>
-    <eLiterals name="XML" value="1"/>
-    <eLiterals name="CSV" value="2"/>
-    <eLiterals name="TSV" value="3"/>
-    <eLiterals name="TEXT" value="4"/>
-    <eLiterals name="BINARY" value="5"/>
-  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Technology" eSuperTypes="#//NamedElement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="application" eType="#//Application"
         eOpposite="#//Application/technology"/>
@@ -103,4 +88,40 @@
         eType="#//TechnologyComponent" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="TechnologyComponent" eSuperTypes="#//NamedElement"/>
+  <eSubpackages name="taxonomies" nsPrefix="">
+    <eClassifiers xsi:type="ecore:EClass" name="Taxonomies">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="lifecycle" lowerBound="1"
+          eType="#//taxonomies/Lifecycle" containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="criticality" lowerBound="1"
+          eType="#//taxonomies/Criticality" containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="sensitivity" lowerBound="1"
+          eType="#//taxonomies/Sensitivity" containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="integration" lowerBound="1"
+          eType="#//taxonomies/IntegrationTaxonomies" containment="true"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="IntegrationTaxonomies">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="protocol" lowerBound="1"
+          eType="#//taxonomies/Protocols" containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="format" lowerBound="1"
+          eType="#//taxonomies/Formats" containment="true"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="Lifecycle">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="lifecyclestate" upperBound="-1"
+          eType="#//taxonomies/LifecycleState" containment="true"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="Protocols">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="protocol" upperBound="-1"
+          eType="#//taxonomies/Protocol" containment="true"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="Formats">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="format" upperBound="-1"
+          eType="#//taxonomies/Format" containment="true"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="Criticality"/>
+    <eClassifiers xsi:type="ecore:EClass" name="Sensitivity"/>
+    <eClassifiers xsi:type="ecore:EClass" name="LifecycleState" eSuperTypes="#//taxonomies/TaxonomyTerm"/>
+    <eClassifiers xsi:type="ecore:EClass" name="Protocol" eSuperTypes="#//taxonomies/TaxonomyTerm"/>
+    <eClassifiers xsi:type="ecore:EClass" name="Format" eSuperTypes="#//taxonomies/TaxonomyTerm"/>
+    <eClassifiers xsi:type="ecore:EClass" name="TaxonomyTerm" abstract="true" eSuperTypes="#//NamedElement"/>
+  </eSubpackages>
 </ecore:EPackage>

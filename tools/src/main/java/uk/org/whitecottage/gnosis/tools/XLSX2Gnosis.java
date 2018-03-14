@@ -49,7 +49,10 @@ public class XLSX2Gnosis {
 		}
 		Model model = (Model) resource.getContents().get(0);
 		
+		model.getIntegrationarchitecture().getIntegration().clear();
+		
 		gnosis.buildTaxonomy(model);
+		gnosis.buildApplications(model);
 		
 		try {
 			resource.save(Collections.emptyMap());
