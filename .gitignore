@@ -4,6 +4,7 @@ uk.org.whitecottage.gnosis.design/bin/**/*.class
 uk.org.whitecottage.gnosis.edit/
 uk.org.whitecottage.gnosis.editor/
 tools/lib/*.jar
+tools/target/**/*.class
 tools/gnosis.xlsx
 tools/sample.gnosis
 gnosis.sample/sample.gnosis
