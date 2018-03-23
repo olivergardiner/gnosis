@@ -14,12 +14,4 @@
             genModel="model/gnosis.genmodel"/>
    </extension>
 
-   <extension point="org.eclipse.emf.ecore.generated_package">
-      <!-- @generated gnosis -->
-      <package
-            uri="null"
-            class="uk.org.whitecottage.gnosis.taxonomies.TaxonomiesPackage"
-            genModel="model/gnosis.genmodel"/>
-   </extension>
-
 </plugin>

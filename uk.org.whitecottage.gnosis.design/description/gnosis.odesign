@@ -136,7 +136,7 @@
     </ownedRepresentations>
     <ownedRepresentations xsi:type="description_2:EditionTableDescription" name="applicationTable" label="Application List" initialisation="true" domainClass="gnosis::ApplicationArchitecture">
       <metamodel href="http://www.whitecottage.org.uk/gnosis#/"/>
-      <ownedLineMappings name="applicationEntry" label="Application" domainClass="gnosis::Application" semanticCandidatesExpression="aql:self.application"/>
+      <ownedLineMappings name="applicationEntry" label="Application" domainClass="gnosis::Application" semanticCandidatesExpression="aql:self.application" headerLabelExpression="feature:name"/>
       <ownedColumnMappings name="description" label="Description" headerLabelExpression="Description" initialWidth="20" featureName="description"/>
     </ownedRepresentations>
     <ownedRepresentations xsi:type="description_3:TreeDescription" name="processTaxonomy" label="Process Taxonomy" initialisation="true" domainClass="gnosis::ProcessTaxonomy">

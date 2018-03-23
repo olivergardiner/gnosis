@@ -10,8 +10,6 @@
         eType="#//IntegrationArchitecture" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="processarchitecture" eType="#//ProcessArchitecture"
         containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="taxonomies" lowerBound="1"
-        eType="#//taxonomies/Taxonomies" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="LogicalApplicationArchitecture" eSuperTypes="#//Element">
     <eStructuralFeatures xsi:type="ecore:EReference" name="applicationdomain" upperBound="-1"
@@ -27,10 +25,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="realisedBy" upperBound="-1"
         eType="#//Application" eOpposite="#//Application/realises"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Element" abstract="true">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="comment" upperBound="-1"
-        eType="#//Comment" containment="true"/>
-  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Element" abstract="true"/>
   <eClassifiers xsi:type="ecore:EClass" name="Comment">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="text" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
@@ -51,12 +46,16 @@
         eOpposite="#//Technology/application"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="AbstractApplication" abstract="true"
-      eSuperTypes="#//NamedElement"/>
+      eSuperTypes="#//NamedElement">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="criticality" eType="#//Criticality"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="sensitivity" eType="#//Sensitivity"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="lifecycle" eType="#//Lifecycle"/>
+  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Integration" eSuperTypes="#//NamedElement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="source" eType="#//AbstractApplication"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="target" eType="#//AbstractApplication"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="format" eType="#//taxonomies/Format"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="protocol" eType="#//taxonomies/Protocol"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="format" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="protocol" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="IntegrationArchitecture" eSuperTypes="#//Element">
     <eStructuralFeatures xsi:type="ecore:EReference" name="integration" upperBound="-1"
@@ -88,40 +87,24 @@
         eType="#//TechnologyComponent" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="TechnologyComponent" eSuperTypes="#//NamedElement"/>
-  <eSubpackages name="taxonomies" nsPrefix="">
-    <eClassifiers xsi:type="ecore:EClass" name="Taxonomies">
-      <eStructuralFeatures xsi:type="ecore:EReference" name="lifecycle" lowerBound="1"
-          eType="#//taxonomies/Lifecycle" containment="true"/>
-      <eStructuralFeatures xsi:type="ecore:EReference" name="criticality" lowerBound="1"
-          eType="#//taxonomies/Criticality" containment="true"/>
-      <eStructuralFeatures xsi:type="ecore:EReference" name="sensitivity" lowerBound="1"
-          eType="#//taxonomies/Sensitivity" containment="true"/>
-      <eStructuralFeatures xsi:type="ecore:EReference" name="integration" lowerBound="1"
-          eType="#//taxonomies/IntegrationTaxonomies" containment="true"/>
-    </eClassifiers>
-    <eClassifiers xsi:type="ecore:EClass" name="IntegrationTaxonomies">
-      <eStructuralFeatures xsi:type="ecore:EReference" name="protocol" lowerBound="1"
-          eType="#//taxonomies/Protocols" containment="true"/>
-      <eStructuralFeatures xsi:type="ecore:EReference" name="format" lowerBound="1"
-          eType="#//taxonomies/Formats" containment="true"/>
-    </eClassifiers>
-    <eClassifiers xsi:type="ecore:EClass" name="Lifecycle">
-      <eStructuralFeatures xsi:type="ecore:EReference" name="lifecyclestate" upperBound="-1"
-          eType="#//taxonomies/LifecycleState" containment="true"/>
-    </eClassifiers>
-    <eClassifiers xsi:type="ecore:EClass" name="Protocols">
-      <eStructuralFeatures xsi:type="ecore:EReference" name="protocol" upperBound="-1"
-          eType="#//taxonomies/Protocol" containment="true"/>
-    </eClassifiers>
-    <eClassifiers xsi:type="ecore:EClass" name="Formats">
-      <eStructuralFeatures xsi:type="ecore:EReference" name="format" upperBound="-1"
-          eType="#//taxonomies/Format" containment="true"/>
-    </eClassifiers>
-    <eClassifiers xsi:type="ecore:EClass" name="Criticality"/>
-    <eClassifiers xsi:type="ecore:EClass" name="Sensitivity"/>
-    <eClassifiers xsi:type="ecore:EClass" name="LifecycleState" eSuperTypes="#//taxonomies/TaxonomyTerm"/>
-    <eClassifiers xsi:type="ecore:EClass" name="Protocol" eSuperTypes="#//taxonomies/TaxonomyTerm"/>
-    <eClassifiers xsi:type="ecore:EClass" name="Format" eSuperTypes="#//taxonomies/TaxonomyTerm"/>
-    <eClassifiers xsi:type="ecore:EClass" name="TaxonomyTerm" abstract="true" eSuperTypes="#//NamedElement"/>
-  </eSubpackages>
+  <eClassifiers xsi:type="ecore:EEnum" name="Lifecycle">
+    <eLiterals name="Candidate"/>
+    <eLiterals name="Emerging" value="1"/>
+    <eLiterals name="Mainstream" value="2"/>
+    <eLiterals name="Heritage" value="3"/>
+    <eLiterals name="Sunset" value="4"/>
+    <eLiterals name="Retire" value="5"/>
+    <eLiterals name="Decommissioned" value="6"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="Sensitivity">
+    <eLiterals name="Public"/>
+    <eLiterals name="Sensitive" value="1"/>
+    <eLiterals name="Restricted" value="2"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="Criticality">
+    <eLiterals name="Supportive"/>
+    <eLiterals name="Important" value="1"/>
+    <eLiterals name="Essential" value="2"/>
+    <eLiterals name="Critical" value="3"/>
+  </eClassifiers>
 </ecore:EPackage>
