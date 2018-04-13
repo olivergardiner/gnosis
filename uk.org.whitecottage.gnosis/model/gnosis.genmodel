@@ -44,7 +44,8 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gnosis.ecore#//ApplicationDomain/applicationdomain"/>
     </genClasses>
     <genClasses ecoreClass="gnosis.ecore#//LogicalApplication">
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference gnosis.ecore#//LogicalApplication/realisedBy"/>
+      <genFeatures notify="false" createChild="false" propertyCategory="Realisation"
+          propertySortChoices="true" ecoreFeature="ecore:EReference gnosis.ecore#//LogicalApplication/realisedBy"/>
     </genClasses>
     <genClasses ecoreClass="gnosis.ecore#//Element"/>
     <genClasses ecoreClass="gnosis.ecore#//Comment">
@@ -52,7 +53,7 @@
     </genClasses>
     <genClasses image="false" ecoreClass="gnosis.ecore#//NamedElement">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gnosis.ecore#//NamedElement/name"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gnosis.ecore#//NamedElement/description"/>
+      <genFeatures createChild="false" propertyMultiLine="true" ecoreFeature="ecore:EAttribute gnosis.ecore#//NamedElement/description"/>
     </genClasses>
     <genClasses ecoreClass="gnosis.ecore#//ApplicationArchitecture">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gnosis.ecore#//ApplicationArchitecture/application"/>
@@ -63,9 +64,11 @@
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference gnosis.ecore#//Application/technology"/>
     </genClasses>
     <genClasses ecoreClass="gnosis.ecore#//AbstractApplication">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gnosis.ecore#//AbstractApplication/criticality"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gnosis.ecore#//AbstractApplication/sensitivity"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gnosis.ecore#//AbstractApplication/lifecycle"/>
+      <genFeatures createChild="false" propertyCategory="Tags" propertyDescription=""
+          ecoreFeature="ecore:EAttribute gnosis.ecore#//AbstractApplication/criticality"/>
+      <genFeatures createChild="false" propertyCategory="Tags" ecoreFeature="ecore:EAttribute gnosis.ecore#//AbstractApplication/sensitivity"/>
+      <genFeatures createChild="false" propertyCategory="Tags" propertyDescription="The Lilfecycle status (from Emerging to Retired)"
+          ecoreFeature="ecore:EAttribute gnosis.ecore#//AbstractApplication/lifecycle"/>
     </genClasses>
     <genClasses ecoreClass="gnosis.ecore#//Integration">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference gnosis.ecore#//Integration/source"/>
